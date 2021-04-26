@@ -1,15 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	정원석
-</h1>
-<h2>나는 현수다</h2>
-<h3>김예은 완료 ~_~</h3>
-<P>  The time on the server is ${serverTime}. </P>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<style>
+		</style>
+	</head>
+	<body>
+		<h3>4조</h3>
+		<table>
+			<tr>
+				<td><a href="./admin">관리자</a><br/></td>
+				<td><a href="./calendar">달력</a><br/></td>
+				<td><a href="./game">게임</a><br/></td>
+				<td><a href="./#">공란</a><br/></td>
+			</tr>
+		</table>		
+	</body>
+	<script>
+	</script>
 </html>
