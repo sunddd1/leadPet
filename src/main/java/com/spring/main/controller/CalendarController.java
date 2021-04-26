@@ -40,8 +40,6 @@ public class CalendarController {
 		return service.scheduler(start,last);
 	}
 	
-
-
 	@RequestMapping(value = "/calendarList", method = RequestMethod.GET)
 	public String calendarList(@RequestParam String date) {
 		logger.info("캘린더 목록 요청 : {}",date);
