@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- DTO 경로를 축약 시켜주는  설정(클래스 별로 하나씩 등록해주는 방식) -->
+<!-- 예 : dto  패키지 안에 50개의 dto가 있을 경우 50개를 아래와 같이 등록해야함. -->
+
+<!-- alias ="" 사용할 이름 , type="" 클래스 경로 -->
+<!-- 
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="board" type="com.spring.main.beans.BoardBean"/>
+	</typeAliases>
+</configuration>
+ -->
+
+<!-- 그래서 패키지 단위로 묶음  -->
+ 
+ <configuration>
+	<typeAliases>
+		<package name="com.spring.main.dto"/>
+	</typeAliases>
+</configuration>
