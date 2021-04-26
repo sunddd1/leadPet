@@ -13,30 +13,56 @@
             border: 2px solid;
             border-collapse: collapse;
         }
-
         td {
-            width: 50px;
-            height: 50px;
+        	font-size: 8pt;
+        	text-overflow: ellipsis;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	width: 60px;
+        	height: 60px;
+        	max-height: 60px;
+        	max-width: 60px;
+        	align-self: flex-start;
+        }
+        
+        #list{
+        	background-color: red;
+        	width: 100px;
+        	height: 300px;
+        	float: right;
+        	font-size: 8pt;
+        }
+        .schedule{
+        	font-size: 6pt;
         }
     </style>
 </head>
 
-<body>
+<body>	
+	<div id="list">
+	</div>
     <p id="today"></p>
     <button onclick="preMon()">이전</button>
     <button onclick="nextMon()">다음</button>
     <table>
     </table>
+    
+
+    
 </body>
 <script>
+	
     var d = new Date();
+    var nM = new Date();
     $(document).ready(function () {
         cal();
     });
+    
+
 
     function cal() {
-        var nM = new Date();
-        $('table').html('');      
+        $('table').html('');    
+        $('#list').html('');
         var str = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
         var year = d.getFullYear();
         var month = d.getMonth() + 1;
@@ -63,9 +89,10 @@
                 str += "<td></td>";
             } else {
                 if (date == dda && nM.getMonth() + 1 == month && nM.getFullYear() == year) {
-                    str += "<td onclick='fa(" + dda + ")'><span style='color: red;'>" + (dda++) + "</span></td>";
+                	
+                    str += "<td id='"+dda+"' onclick='fa(" + dda + ")'><span style='color: red;'>" + (dda++) + "</span></td>";
                 } else {
-                    str += "<td onclick='fa(" + dda + ")'>" + (dda++) + "</td>";
+                    str += "<td id='"+dda+"' onclick='fa(" + dda + ")'>" + (dda++) + "</td>";
                 }
             }
         }
@@ -75,9 +102,9 @@
             for (let j = 0; j < 7; j++) {
                 if (dda <= maxday) {
                     if (date == dda && nM.getMonth() + 1 == month && nM.getFullYear() == year) {
-                        str += "<td onclick='fa(" + dda + ")'><span style='color: red;'>" + (dda++) + "</span></td>";
+                        str += "<td id='"+dda+"' onclick='fa(" + dda + ")'><span style='color: red;'>" + (dda++) + "</span></td>";
                     } else {
-                        str += "<td onclick='fa(" + dda + ")'>" + (dda++) + "</td>";
+                        str += "<td id='"+dda+"' onclick='fa(" + dda + ")'>" + (dda++) + "</td>";
                     }
                 } else {
                     str += "<td></td>";
@@ -89,6 +116,58 @@
 
         console.log(year+"년/"+month + "월/" + date + "일/" + day);
         $('table').append(str);
+        
+		console.log("아작스 요청 : "+d.getFullYear()+"//"+(d.getMonth()+1));
+	
+    	$.ajax({
+    		type:'get'
+    		,url:'scheduler'
+    		,data:{
+    			"year":d.getFullYear()
+    			,"smonth":d.getMonth()+1
+    		}
+    		,dataType:'json'
+    		,success : function(data) {
+				console.log(data.vacc);
+				console.log(data.sche);
+				console.log(data.vaccinList);
+				for (var i = 0; i < data.vaccinList.length; i++) {
+					console.log(data.vaccinList[i].vacc_name);
+					$('#list').append(data.vaccinList[i].vacc_name+"/맞을놈/"+data.vaccinList[i].name+"</br>");
+				}
+				var overCnt=0;
+				for (var i = 0; i < data.vacc.length; i++) {
+					var d_day = data.vacc[i].d_day;
+					var dyear = d_day.substring(0,4);
+					var dmont = d_day.substring(5,7);
+					var ddate = d_day.substring(8,10);
+					console.log("스게 //"+dyear+"/"+dmont+"/"+ddate);
+			    	console.log("스게 //"+d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
+					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && overCnt<4){	
+						overCnt++;
+						$('#'+Number(ddate)).append('<div class="schedule"><a href="./test">'+data.vacc[i].name+"/"+data.vacc[i].vacc_name+'</a></div>');
+					}
+				}
+				for (var i = 0; i < data.sche.length; i++) {
+					console.log(data.sche[i].content);
+					var d_day = data.sche[i].d_day;
+					var dyear = d_day.substring(0,4);
+					var dmont = d_day.substring(5,7);
+					var ddate = d_day.substring(8,10);
+					console.log(dyear+"/"+dmont+"/"+ddate);
+			    	console.log(d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
+					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && overCnt<4){		
+						overCnt++;
+						$('#'+Number(ddate)).append('<div class="schedule"><a href="./test">'+data.sche[i].content+'</a></div>');
+					}
+				}
+			}
+    		,error : function(e) {
+				console.log(e);
+				console.log('에러라니');
+			}
+    		
+    	});
 
     }
 
@@ -103,8 +182,8 @@
     }
 
    function fa(e){
-        console.log(e);
-        window.open("./testshow.html","","width=100,height=100,left=100,top=50%");
+       console.log(d.getFullYear()+"/"+(d.getMonth() +1)+"/"+e);
+        window.open("./calendarList?date="+d.getFullYear()+"/"+(d.getMonth() +1)+"/"+e,"","width=400,height=400,left=700,top=300");
    }
 </script>
 
