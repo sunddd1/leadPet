@@ -1,9 +1,5 @@
 package com.spring.main.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +19,6 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Model model) {
-		return "home";
+		return "Member/Member";
 	}
 }
