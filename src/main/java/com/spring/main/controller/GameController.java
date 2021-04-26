@@ -8,17 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.spring.main.service.AdminService;
+import com.spring.main.service.GameService;
 
 @Controller
-public class AdminController {
+public class GameController {
 
-private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Autowired AdminService service;
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired GameService service;
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/game", method = RequestMethod.GET)
 	public String home(Model model) {
-		return "Member/Member";
+		return "home";
 	}
 }
