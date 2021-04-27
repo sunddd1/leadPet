@@ -12,8 +12,8 @@ public class MemberService {
 	
 	//회원 탈퇴
 	@Transactional
-	public void withdrawal(MemberDTO dto) {
-		memberDAO.withdrawal(dto);
+	public void withdrawal(MemberDTO memberDTO) {
+		memberDAO.withdrawal(memberDTO);
 	}
 	
 	

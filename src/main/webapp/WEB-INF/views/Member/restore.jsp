@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>회원탈퇴</title>
+		<title>탈퇴 계정 복구</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style></style>
 	</head>
@@ -11,7 +11,7 @@
 		<table>
 			<tr>
 				<td>
-					<form action="withdraw" method="post">
+					<form action="restore" method="post">
 						<div>
 							<label>비밀번호</label><br/>
 							<input type="password" id="pw" name="pw" />
@@ -21,13 +21,13 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="button" value="회원탈퇴" id="withdrawal"/>
+					<input type="button" value="계정복구" id="restore"/>
 				</td>
 			</tr>
 		</table>
 	</body>
 	<script>
-	$("#withdrawal").click(function(){
+	$("#restore").click(function(){
 		if($("#pw").val() == "") {
 			alert("비밀번호를 입력하세요.");
 			$("#pw").focus();
@@ -54,6 +54,5 @@
 			});
 		}
 	});
-	
 	</script>
 </html>
