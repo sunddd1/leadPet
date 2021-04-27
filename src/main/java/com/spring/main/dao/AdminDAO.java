@@ -13,4 +13,8 @@ public interface AdminDAO {
 
 	int change(String oriPass, String newPass);
 
+	int adminDelete(String id);
+
+	int insert();
+
 }

@@ -32,6 +32,14 @@ public class AdminService {
 		return dao.change(oriPass,newPass);
 	}
 
+	public int adminDelete(String id) {
+		logger.info("삭제 요청");
+		return dao.adminDelete(id);
+	}
+
+	public int insert() {
+		return dao.insert();
+	}
 
 
 }

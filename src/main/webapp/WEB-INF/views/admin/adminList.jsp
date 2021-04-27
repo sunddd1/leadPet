@@ -115,16 +115,21 @@
 	                <td>${admin.reg_date}</td> 
 					<td>
 						<input type="button" value="수정" onclick="changePass()"/>
-						<button onclick="location.href='adminDelete'">삭제</button>
+						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
 	                </td>
                 </tr>
             </c:forEach>
         </table>
+        <button onclick="adminInsert()">관리자 등록</button>
     </div>
 </body>
 <script>
 function changePass(){
-	window.open('changePass','file upload','width=300, height=100, top=300, left=900')
+	window.open('changePass','Change Password','width=500, height=300, top=300, left=900')
+}
+
+function adminInsert(){
+	window.open('adminInsert','Insert Admin','width=425, height=400, top=300, left=900')
 }
 </script>
 </html>
