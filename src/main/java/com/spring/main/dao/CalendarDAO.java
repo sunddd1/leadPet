@@ -14,4 +14,8 @@ public interface CalendarDAO {
 
 	ArrayList<VaccinDTO> vaccinList(String start, String last ,String id);
 
+	SchedulerDTO calendardetail(String idx, String type);
+
+	ArrayList<SchedulerDTO> calendarList(String date);
+
 }
