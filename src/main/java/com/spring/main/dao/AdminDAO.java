@@ -36,6 +36,8 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> withdrawSearch(HashMap<String, String> params);
 
+	Object detailMember(String id);
+
 	
 
 

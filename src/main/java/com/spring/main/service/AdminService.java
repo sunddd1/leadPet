@@ -88,6 +88,11 @@ public class AdminService {
 		return dao.withdrawSearch(params);
 	}
 
+	public Object detailMember(String id) {
+		logger.info("회원 상세보기 서비스 도착");
+		return dao.detailMember(id);
+	}
+
 	
 
 

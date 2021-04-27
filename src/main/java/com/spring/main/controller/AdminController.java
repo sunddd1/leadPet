@@ -279,4 +279,21 @@ public class AdminController {
 //		}
 		return "admin/withdrawList";
 	}
+	
+	@RequestMapping(value = "/detailMember", method = RequestMethod.GET)
+	public String detailMember(
+			Model model, 
+			HttpSession session,
+			@RequestParam String id
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("회원 상세보기 팝업요청");
+		model.addAttribute("dto",service.detailMember(id));
+//			page="admin/adminList";
+//		}
+		return "admin/detailMember";
+	}
 }
