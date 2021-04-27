@@ -16,7 +16,7 @@
 			<tr>
 				<td><a href="./admin">관리자</a><br/></td>
 				<td><a href="./calendar">달력</a><br/></td>
-				<td><a href="./game">게임</a><br/></td>
+				<td><a href="./gameMain">게임</a><br/></td>
 				<td><a href="./#">공란</a><br/></td>
 			</tr>
 		</table>		
