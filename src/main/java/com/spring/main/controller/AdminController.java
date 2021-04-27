@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.AdminService;
 
 @Controller
@@ -50,16 +52,191 @@ public class AdminController {
 		return "admin/changePass";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/change", method = RequestMethod.GET)
-	public String change(Model model, HttpSession session, @RequestParam String oriPass, @RequestParam String newPass) {
+	public int change
+		(
+			Model model, 
+			HttpSession session, 
+			@RequestParam(value="oriPass") String oriPass,
+			@RequestParam(value="newPass") String newPass
+		) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
+		logger.info(oriPass+"/"+newPass);
 		logger.info("관리자 비밀번호 수정 요청");
-		service.change(oriPass,newPass);
+		int success = service.change(oriPass,newPass);
+		logger.info("비밀번호 수정 성공여부 :"+success);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@RequestMapping(value = "/adminDelete", method = RequestMethod.GET)
+	public String adminDelete(Model model, HttpSession session, @RequestParam String id) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("관리자 삭제 요청");
+		logger.info("삭제할 id="+id);
+		int success = service.adminDelete(id);
+//			page="admin/adminList";
+//		}
+		return "redirect:/admin";
+	}
+	
+	@RequestMapping(value = "/adminInsert", method = RequestMethod.GET)
+	public String adminInsert(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("관리자 등록 팝업요청");
+//			page="admin/adminList";
+//		}
+		return "admin/adminInsert";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
+	public int  idCheck(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="id") String id
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("아이디 중복체크 요청");
+		int success = service.idCheck(id);
+		logger.info("아이디 중복여부:"+success);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/nickCheck", method = RequestMethod.GET)
+	public int  nickCheck(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="nickname") String nickname
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("닉네임 중복체크 요청");
+		int success = service.nickCheck(nickname);
+		logger.info("닉네임 중복여부:"+success);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public int insert(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="id") String id,
+			@RequestParam(value="nickname") String nickname,
+			@RequestParam(value="pw") String pw
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("관리자 등록 요청");
+		int success = service.insert(id,nickname,pw);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("관리자 검색 요청");
+		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.search(params);
+		logger.info("검색된 관리자 수"+list.size());
+		model.addAttribute("adminList", list);
 //			page="admin/adminList";
 //		}
 		return "admin/adminList";
+	}
+	
+	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
+	public String memberList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			ArrayList<MemberDTO> list = service.memberList();
+			logger.info("일반 회원 수"+list.size());
+			model.addAttribute("memberList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/memberList";
+	}
+	
+	@RequestMapping(value = "/blackList", method = RequestMethod.GET)
+	public String blackList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			ArrayList<MemberDTO> list = service.blackList();
+			logger.info("블랙 회원 수"+list.size());
+			model.addAttribute("blackList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/blackList";
+	}
+	
+	@RequestMapping(value = "/withdrawList", method = RequestMethod.GET)
+	public String withdrawList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			ArrayList<MemberDTO> list = service.withdrawList();
+			logger.info("탈퇴 회원 수"+list.size());
+			model.addAttribute("withdrawList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/withdrawList";
+	}
+	
+	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)
+	public String memberSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("회원 검색 요청");
+		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.memberSearch(params);
+		logger.info("검색된 회원 수"+list.size());
+		model.addAttribute("memberList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/memberList";
 	}
 }

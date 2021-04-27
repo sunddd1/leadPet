@@ -37,7 +37,7 @@
 	
 	<!-- 쿼리 실행 전/후의 커넥션 상태 -->
 	<logger name="jdbc.connection" additivity="false">
-		<level value="INFO"/>
+		<level value="OFF"/>
 		<appender-ref ref="console"/>
 	</logger>
 	
