@@ -77,16 +77,25 @@
 		font-weight: 600;
 		color: red;
 	}
-	#insert{
+	h4{
 		position: relative;
-		left: 80%
+		left: 20%;
+		float: left;
+		z-index: 5;
+		color: white;
+		font-size: 25px;
+		margin-top: 5px;
+	}
+	#radio{
+		position: relative;
+		left: 70%
 	}
 </style>
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
     <div id="search">
-        <form action="search" method="GET">
+        <form action="memberSearch" method="GET">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
                 <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
@@ -95,46 +104,36 @@
             <input type="submit" value="검색">
         </form>
     </div>
-    <div id="insert">
-    	<button onclick="adminInsert()">관리자 등록</button>
+    <div id="radio">
+        <input type="radio" id="r1" name="radio" value="normal" OnClick="window.location.href='memberList'"/>전체 회원
+        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
+        <input type="radio" id="r3" name="radio" value="withdraw" checked="checked" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
     </div>
     <div class="table">
         <table>
             <tr>
                 <th>아이디</th>
-                <th>비밀번호</th>
                 <th>닉네임</th>
-                <th>관리자 등록일</th>
-                <th></th>
+                <th>성별</th>
+                <th>회원가입일</th>
             </tr>
-            <c:forEach items="${adminList}" var="admin">
+            <c:forEach items="${withdrawList}" var="member">
 	            <tr>
-	                <td>${admin.admin_id}</td>
-	                <td>${admin.password}</td>
-	                <td>${admin.nickname}</td>
-	                <td>${admin.reg_date}</td> 
-					<td>
-						<input type="button" value="수정" onclick="changePass()"/>
-						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
-	                </td>
+	                <td><a href="#">${member.id}</a></td>
+	                <td>${member.nickname}</td>
+	                <td>${member.gender}</td>
+	                <td>${member.reg_date}</td> 
                 </tr>
             </c:forEach>
         </table>
     </div>
 </body>
 <script>
-var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
-	window.close();
-}
-
-function changePass(){
-	window.open('changePass','Change Password','width=500, height=300, top=300, left=900')
-}
-
-function adminInsert(){
-	window.open('adminInsert','Insert Admin','width=500, height=400, top=300, left=900')
-}
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		window.close();
+	}
+	
 </script>
 </html>

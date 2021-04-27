@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	</head>
 	<style>
 		table,td,th{
@@ -19,15 +19,15 @@
 			<table>
 				<tr>
 					<td>
-						<input type="text" name="oriPass" placeholder="현재 비밀번호"/>
+						<input type="text" id="oriPass" name="oriPass" placeholder="현재 비밀번호"/>
 					</td>
 					<td rowspan="2">
-						<input type="submit" id="save" value="저장"/>
+						<button id="save" value="저장">저장</button>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="text" name="newPass" placeholder="새 비밀번호"/>
+						<input type="text" id="newPass" name="newPass" placeholder="새 비밀번호"/>
 					</td>
 				</tr>
 			</table>
@@ -40,13 +40,20 @@
 	}
 
 	$("#save").click(function(){
+		var oriPass = $("#oriPass").val();
+		var newPass = $("#newPass").val();
+		var allData = { "oriPass": oriPass, "newPass": newPass };
 			$.ajax({ 
 				type:'GET' 
 				,url:'change'
+				,data:allData
 				,dataType: 'json' 
 				,success: function(data){
-					console.log(data);
-						window.close();
+					if(data == 1){
+					alert("변경 완료");
+					opener.parent.location.reload();
+					window.close();
+					}
 				}
 				,error: function(e){
 					console.log(e);
