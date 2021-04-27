@@ -95,12 +95,12 @@
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
     <div id="search">
-        <form action="memberSearch" method="GET">
+        <form action="memberSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
                 <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
             </select>
-            <input type="text" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>

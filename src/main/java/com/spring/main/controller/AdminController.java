@@ -219,4 +219,24 @@ public class AdminController {
 //		}
 		return "admin/withdrawList";
 	}
+	
+	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)
+	public String memberSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("회원 검색 요청");
+		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.memberSearch(params);
+		logger.info("검색된 회원 수"+list.size());
+		model.addAttribute("memberList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/memberList";
+	}
 }

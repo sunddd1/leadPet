@@ -116,6 +116,7 @@
                 <th>닉네임</th>
                 <th>성별</th>
                 <th>회원가입일</th>
+                <th></th>
             </tr>
             <c:forEach items="${withdrawList}" var="member">
 	            <tr>
@@ -123,6 +124,9 @@
 	                <td>${member.nickname}</td>
 	                <td>${member.gender}</td>
 	                <td>${member.reg_date}</td> 
+	                <td>
+	                	<button>회원 복구</button>
+	                </td>
                 </tr>
             </c:forEach>
         </table>

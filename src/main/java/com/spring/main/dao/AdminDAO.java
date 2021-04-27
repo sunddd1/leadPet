@@ -30,6 +30,8 @@ public interface AdminDAO {
 
 	ArrayList<MemberDTO> withdrawList();
 
+	ArrayList<AdminDTO> memberSearch(HashMap<String, String> params);
+
 	
 
 

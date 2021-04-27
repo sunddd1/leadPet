@@ -73,6 +73,11 @@ public class AdminService {
 		return dao.withdrawList();
 	}
 
+	public ArrayList<AdminDTO> memberSearch(HashMap<String, String> params) {
+		logger.info("회원 검색 서비스 도착");
+		return dao.memberSearch(params);
+	}
+
 	
 
 
