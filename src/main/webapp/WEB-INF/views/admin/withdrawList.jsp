@@ -95,7 +95,7 @@
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
     <div id="search">
-        <form action="memberSearch" method="GET">
+        <form action="withdrawSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
                 <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>

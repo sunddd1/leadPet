@@ -32,6 +32,10 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> memberSearch(HashMap<String, String> params);
 
+	ArrayList<AdminDTO> blackSearch(HashMap<String, String> params);
+
+	ArrayList<AdminDTO> withdrawSearch(HashMap<String, String> params);
+
 	
 
 

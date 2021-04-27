@@ -239,4 +239,44 @@ public class AdminController {
 //		}
 		return "admin/memberList";
 	}
+	
+	@RequestMapping(value = "/blackSearch", method = RequestMethod.POST)
+	public String blackSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("블랙 회원 검색 요청");
+		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.blackSearch(params);
+		logger.info("검색된 블랙 회원 수"+list.size());
+		model.addAttribute("blackList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/blackList";
+	}
+	
+	@RequestMapping(value = "/withdrawSearch", method = RequestMethod.POST)
+	public String withdrawSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("탈퇴 회원 검색 요청");
+		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.withdrawSearch(params);
+		logger.info("검색된 탈퇴 회원 수"+list.size());
+		model.addAttribute("withdrawList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/withdrawList";
+	}
 }

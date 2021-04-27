@@ -78,6 +78,16 @@ public class AdminService {
 		return dao.memberSearch(params);
 	}
 
+	public ArrayList<AdminDTO> blackSearch(HashMap<String, String> params) {
+		logger.info("블랙 회원 검색 서비스 도착");
+		return dao.blackSearch(params);
+	}
+
+	public ArrayList<AdminDTO> withdrawSearch(HashMap<String, String> params) {
+		logger.info("탈퇴 회원 검색 서비스 도착");
+		return dao.withdrawSearch(params);
+	}
+
 	
 
 

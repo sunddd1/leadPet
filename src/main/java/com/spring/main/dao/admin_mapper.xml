@@ -62,6 +62,24 @@
 		</where>
 	</select>
 	
+	<select id="blackSearch" parameterType="hashMap" resultType="member">
+		SELECT * FROM member
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+		 AND black='y'
+	</select>
+	
+	<select id="withdrawSearch" parameterType="hashMap" resultType="member">
+		SELECT * FROM member	
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+		AND withdraw='y'
+	</select>
+	 
 </mapper>
 
 
