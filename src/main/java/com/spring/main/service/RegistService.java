@@ -1,5 +1,8 @@
 package com.spring.main.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +44,16 @@ public class RegistService {
 		return mav;
 	}
 	
+	public boolean checkDuplicateId(String id) {
+		logger.info("checkDuplicateId 호출");
+		
+		return registDao.checkDuplicateId(id) == 0;
+	}
+
+	public boolean checkDuplicateNickname(String nickname) {
+		logger.info("checkDuplicateNickname 호출");
+		
+		return registDao.checkDuplicateNickname(nickname) == 0;
+	}
 	
 }
