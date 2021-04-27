@@ -18,8 +18,14 @@ public class SchedulerDTO {
 	private String content;
 	private int cycle;
 	private String id;
+	private String subject;
 	
-	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	public int getSche_idx() {
 		return sche_idx;
 	}
