@@ -26,16 +26,18 @@ public class LoginService {
 		logger.info("login 호출");
 		
 		ModelAndView mav = new ModelAndView();
-		String viewName = "/main";
+		String viewName = "/login/loginForm";
 		String msg = "로그인에 실패했습니다.";
 		MemberDTO memberDto = loginDao.login(id, password);
 		
 		if(memberDto != null && checkEqualPw(password, memberDto.getPassword())) {	
 			logger.info("login 성공");
-			viewName = "/login";
+			//viewName = "/main";
+			viewName = "/login/loginForm";
 			msg = "로그인에 성공했습니다.";
 		}
 		
+		mav.addObject("id", id);
 		mav.addObject("msg", msg);
 		mav.setViewName(viewName);
 		return mav;
