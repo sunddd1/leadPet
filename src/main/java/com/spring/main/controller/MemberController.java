@@ -18,9 +18,11 @@ import com.spring.main.service.MemberService;
 public class MemberController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired MemberService memberService;
+	String plain="";//평문 
+	String hash="";//암호문 
 	
 		@RequestMapping("/checkPw")
-		public String checkPw(@RequestBody String password, HttpSession session) {
+		public String checkPw(@RequestBody String pw, HttpSession session) {
 			logger.info("비밀번호 확인 요청");
 			
 			String result = null;
@@ -28,15 +30,32 @@ public class MemberController {
 			
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 			logger.info("DB 비밀번호 : "+memberDTO.getPassword());
-			logger.info("입력한 비밀번호 : "+password);
+			logger.info("입력한 비밀번호 : "+pw);
 			
-			if(encoder.matches(password, memberDTO.getPassword())) {
+			if(encoder.matches(pw, memberDTO.getPassword())) {
 				result = "pwConfirmOK";
 			}else {
 				result = "pwConfirmNO";
 			}
 			return result;
 		}
+		
+//		@RequestMapping(value = "/checkPw", method = RequestMethod.GET)
+//		public String checkPw(Model model,@RequestParam String pw) {
+//			plain = pw;
+//			logger.info("평문 : " +pw);
+//			String result = null;
+//			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//			hash = encoder.encode(pw);
+//			logger.info("암호문 : " +hash);
+//			boolean success = encoder.matches(pw, hash);//비교
+//			String msg = "입력 내용이 일치하지 않습니다.";
+//			if(success) {
+//				msg="입력 내용이 일치 합니다.";
+//			}
+//			model.addAttribute("msg", msg);
+//			return "Member";
+//		}
 	
 		//탈퇴 페이지 요청 
 		@RequestMapping(value = "/withdrawal", method = RequestMethod.GET)
@@ -68,6 +87,6 @@ public class MemberController {
 			
 			return result;
 		}
-
 		
+
 }

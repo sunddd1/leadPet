@@ -8,23 +8,23 @@
 		<style></style>
 	</head>
 	<body>
-		<table>
-			<tr>
-				<td>
-					<form action="withdraw" method="post">
+		<form action="withdraw" method="post">
+			<table>
+				<tr>
+					<td>
 						<div>
 							<label>비밀번호</label><br/>
 							<input type="password" id="pw" name="pw" />
 						</div>
-					</form>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<input type="button" value="회원탈퇴" id="withdrawal"/>
-				</td>
-			</tr>
-		</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<input type="button" value="회원탈퇴" id="withdrawal"/>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</body>
 	<script>
 	$("#withdrawal").click(function(){
@@ -35,7 +35,9 @@
 			$.ajax({
 				type : "POST",
 				url:"checkPw",
-				data : pw,
+				data : {
+				"pw" : $("#pw").val()
+				},
 				datatype : "json",
 				success : function(result){
 					console.log(result);
@@ -54,6 +56,11 @@
 			});
 		}
 	});
+	
+	var msg = "${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
 	
 	</script>
 </html>
