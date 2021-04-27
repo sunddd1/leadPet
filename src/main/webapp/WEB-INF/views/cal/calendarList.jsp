@@ -11,15 +11,21 @@
 		</style>
 	</head>
 	<body>
-		<h3>4조</h3>
+		캘린더 리스트
 		<table>
-			<tr>
-				<td><a href="./admin">관리자</a><br/></td>
-				<td><a href="./calendar">달력</a><br/></td>
-				<td><a href="./game">게임</a><br/></td>
-				<td><a href="./#">공란</a><br/></td>
-			</tr>
-		</table>		
+			<thead>
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
 	</body>
 	<script>
 	</script>

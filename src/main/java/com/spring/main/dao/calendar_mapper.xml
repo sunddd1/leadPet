@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+ >
+ 
+ <!-- 누가 이 XML을 사용할까?(mybatis) / 누구와 연결을? (해당 DAO) -->
+ <mapper namespace="com.spring.main.dao.CalendarDAO">
+	<select id="scheduler" resultType="scheduler">
+		SELECT * FROM scheduler WHERE d_day BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="vaccin_scheduler" resultType="vaccin_scheduler">
+		SELECT vs.d_day, vs.vacc_sche_idx,vs.vac_idx,v.vacc_name , p.name  FROM 
+		pet p,vaccin_scheduler vs,pet_vaccin pv,vaccin v 
+		WHERE p.pet_idx=pv.pet_idx AND vs.vac_idx=pv.vac_idx AND v.vacc_idx=pv.vacc_idx AND
+		 d_day BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="vaccinList"  resultType="vaccin">
+		SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
+		WHERE p.pet_idx(+)=pv.pet_idx AND v.vacc_idx=pv.vacc_idx(+) AND p.pet_idx in 
+		(SELECT pet_idx FROM pet WHERE id ='testId') AND pv.expected_date BETWEEN #{param1} AND #{param2} ORDER BY pv.vac_idx DESC
+	</select>
+	
+	<!-- SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name FROM pet_vaccin  pv , pet p ,vaccin v  WHERE p.pet_idx(+)=pv.pet_idx AND v.vacc_idx=pv.vacc_idx(+) AND p.pet_idx in (SELECT pet_idx FROM pet WHERE id ='testId');
+	 -->
+ </mapper>
