@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
+<mapper namespace="com.spring.main.dao.AdminDAO">	
+<!-- 	<select id="adminCheck" resultType="admin">
+		SELECT admin_id FROM admin WHERE admin_id=#{param1}
+	</select> -->
+	
+	<select id="adminList" resultType="admin">
+		SELECT * FROM admin ORDER BY reg_date DESC
+	</select>
+	
+	<update id="change">
+		UPDATE admin SET password=#{param2} WHERE password=#{param1}  
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
