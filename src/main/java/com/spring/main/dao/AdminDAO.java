@@ -38,6 +38,8 @@ public interface AdminDAO {
 
 	Object detailMember(String id);
 
+	int restoreWithdraw(String id);
+
 	
 
 

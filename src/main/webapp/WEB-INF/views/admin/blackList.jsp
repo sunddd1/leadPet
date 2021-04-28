@@ -119,7 +119,12 @@
             </tr>
             <c:forEach items="${blackList}" var="member">
 	            <tr>
-	                <td><a href="#">${member.id}</a></td>
+	                <td>
+		                <a href="detailMember?id=${member.id}" 
+		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
+		               	 	${member.id}
+		                </a>
+	                </td>
 	                <td>${member.nickname}</td>
 	                <td>${member.gender}</td>
 	                <td>${member.reg_date}</td> 

@@ -12,6 +12,7 @@
 			border: 1px solid;
 			border-collapse: collapse;
 			padding: 5px 10px;
+			text-align: center;
 		}
 		table{
 			margin-left: auto; 
@@ -19,6 +20,10 @@
 		}
 		h3{
 			text-align: center;
+		}
+		button{
+			margin-left: auto; 
+			margin-right: auto;
 		}
 	</style>
 	<body>
@@ -58,7 +63,8 @@
 			</tr>
 			<tr>
 				<th>블랙 횟수</th>
-				<td></td>
+				<td>0</td>
+				<!-- <input type="text" name="black_cnt" value="0" readonly="readonly"/> -->
 			</tr>
 			<tr>
 				<th>상태 변경일</th>
@@ -77,6 +83,7 @@
 				<td>${dto.grade}</td>
 			</tr>
 		</table>
+		<button>블랙 추가/해제</button>
 	</body>
 	<script>
 	</script>
