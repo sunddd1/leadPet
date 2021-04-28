@@ -27,7 +27,7 @@ public class MemberController {
 	String plain="";//평문 
 	String hash="";//암호문 
 	
-		@RequestMapping("/checkPw")
+	@RequestMapping(value="/checkPw",method = RequestMethod.POST)
 		public String checkPw(@RequestBody String pw, HttpSession session) {
 			logger.info("비밀번호 확인 요청");
 			
@@ -70,7 +70,7 @@ public class MemberController {
 		}
 		
 		//탈퇴 요청 
-		@RequestMapping(value = "/withdraw", method = RequestMethod.GET)
+		@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
 		public String withdraw(HttpSession session,@RequestBody MemberDTO memberDTO) {
 			//비번 일치 확인 
 			String result = checkPw(memberDTO.getPassword(),session);

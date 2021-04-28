@@ -8,7 +8,7 @@
 		<style></style>
 	</head>
 	<body>
-		<form action="withdraw" method="post">
+		
 			<table>
 				<tr>
 					<td>
@@ -24,7 +24,7 @@
 					</td>
 				</tr>
 			</table>
-		</form>
+		
 	</body>
 	<script>
 	$("#withdrawal").click(function(){
@@ -34,7 +34,7 @@
 		}else{
 			$.ajax({
 				type : "POST",
-				url:"checkPw",
+				url:"withdraw",
 				data : {
 				"pw" : $("#pw").val()
 				},
@@ -57,10 +57,7 @@
 		}
 	});
 	
-	var msg = "${msg}";
-	if(msg!=""){
-		alert(msg);
-	}
+	
 	
 	</script>
 </html>
