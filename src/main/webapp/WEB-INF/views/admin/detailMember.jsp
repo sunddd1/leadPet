@@ -28,6 +28,8 @@
 	</style>
 	<body>
 		<h3>회원 상세보기</h3>
+			<input type="radio" id="r1" name="radio" value="member" checked="checked" OnClick="window.location.href='detailMember'"/>회원
+	        <input type="radio" id="r2" name="radio" value="pet" OnClick="window.location.href='detailPet'"/>반려동물
 		<table>
 			<tr>
 				<th>아이디</th>

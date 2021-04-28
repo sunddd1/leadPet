@@ -1,5 +1,6 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.spring.main.dto.SchedulerDTO;
@@ -14,10 +15,16 @@ public interface CalendarDAO {
 
 	ArrayList<VaccinDTO> vaccinList(String start, String last ,String id);
 
-	SchedulerDTO calendardetail(String idx, String type);
+	SchedulerDTO calendardetail(String idx);
 
 	ArrayList<SchedulerDTO> calendarList(String date);
 
-	Vaccin_schedulerDTO vaccinDetail(String idx);
+	VaccinDTO vaccinDetail(String idx);
+
+	int regVaccin(String vac_idx, String date, String id);
+
+	int upDateDay(String vac_idx,Date zZinDate);
+
+	long cycle(String vacc_idx);
 
 }
