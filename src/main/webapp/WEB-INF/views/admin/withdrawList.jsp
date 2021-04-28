@@ -155,7 +155,7 @@
 					,dataType: 'json' 
 					,success: function(data){
 						if(data == 1){
-							alert("복구 완료");
+							alert('복구 완료');
 							window.location.reload();
 						}
 					}
