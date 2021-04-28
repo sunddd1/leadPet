@@ -128,6 +128,11 @@
     		}
     		,dataType:'json'
     		,success : function(data) {
+    			
+    			for (var i = 0; i < data.vaccinList.length; i++) {
+					
+    			console.log(data.vaccinList[i]);
+				}
 
 				var overCnt=0;
 
