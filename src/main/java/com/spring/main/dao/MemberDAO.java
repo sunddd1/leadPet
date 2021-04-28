@@ -6,6 +6,8 @@ public interface MemberDAO {
 
 	void withdrawal(MemberDTO dto);
 
+	void insertMessage();
+
 	
 
 }
