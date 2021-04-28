@@ -14,7 +14,7 @@
 		SELECT vs.d_day, vs.vacc_sche_idx,vs.vac_idx,v.vacc_name , p.name  FROM 
 		pet p,vaccin_scheduler vs,pet_vaccin pv,vaccin v 
 		WHERE p.pet_idx=pv.pet_idx AND vs.vac_idx=pv.vac_idx AND v.vacc_idx=pv.vacc_idx AND
-		 d_day BETWEEN #{param1} AND #{param2}
+		 d_day BETWEEN #{param1} AND #{param2} ORDER BY vs.vacc_sche_idx DESC
 	</select>
 	
 	<select id="vaccinList"  resultType="vaccin">
