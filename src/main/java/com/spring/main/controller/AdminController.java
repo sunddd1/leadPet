@@ -315,4 +315,15 @@ public class AdminController {
 //		}
 		return success;
 	}
+	
+	@RequestMapping(value = "/detailPet", method = RequestMethod.GET)
+	public String detailPet(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+//			page="admin/adminList";
+//		}
+		return "admin/detailPet";
+	}
 }
