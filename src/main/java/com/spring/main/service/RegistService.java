@@ -31,8 +31,7 @@ public class RegistService {
 		
 		// 유효성 검사 로직 추가해야함.
 		
-		
-		encodePw(member);
+		member.setPassword(encodePw(member.getPassword()));
 		
 		if( registDao.registMember(member) > 0) {
 			viewName = "/login/loginForm";
@@ -56,8 +55,16 @@ public class RegistService {
 		return registDao.checkDuplicateNickname(nickname) == 0;
 	}
 	
-	private void encodePw(MemberDTO member) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		member.setPassword(encoder.encode(member.getPassword()));
+	public String changePw(String id, String password) {
+		logger.info("changePw 호출");
+
+		return registDao.changePw(id, encodePw(password)) != 0 ? "login/loginForm" : "login/changePwForm";
 	}
+	
+	private String encodePw(String password) {
+		return new BCryptPasswordEncoder()
+					.encode(password);
+	}
+
+	
 }

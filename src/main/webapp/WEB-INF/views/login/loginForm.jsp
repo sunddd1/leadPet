@@ -32,7 +32,9 @@
 	
 			<tr>
 				<td colspan="3" align="right" style="color: lightgray">
-					<!-- <a href="idFind.jsp">아이디</a>/<a href="../pwQuestionList">비밀번호 찾기</a> -->
+					<a href="findIdForm">아이디 찾기</a>
+					/
+					<a href="changePwForm">비밀번호 변경 </a> -->
 				</td>
 			</tr>
 			<tr>

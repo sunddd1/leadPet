@@ -47,6 +47,27 @@ public class LoginController {
 		return "login/loginForm";
 	}
 	
+	@GetMapping("/findIdForm")
+	public String findIdForm() {
+		logger.info("findIdForm 요청");
+		
+		return "login/findIdForm";
+	}
+	
+	@GetMapping("/changePwForm")
+	public String changePwForm() {
+		logger.info("changePwForm 요청");
+
+		return "login/changePwForm";
+	}
+	
+	@GetMapping("/changePw")
+	public String changePw(@RequestParam String id, @RequestParam String password) {
+		logger.info("changePw 요청");
+		
+		return registService.changePw(id, password);
+	}
+	
 	@PostMapping("/regist")
 	public ModelAndView regist(@ModelAttribute MemberDTO member) {
 		logger.info("regist 요청");
@@ -89,9 +110,18 @@ public class LoginController {
 	
 	@GetMapping("/find-id")
 	@ResponseBody
-	public Map<String, Object> findId(@RequestParam String id, @RequestParam String email) {
+	public Map<String, Object> findId(@RequestParam String name, @RequestParam String email) {
 		logger.info("findId 요청");
 		
-		return loginService.findId(id, email);
+		return loginService.findId(name, email);
+	}
+	
+	@GetMapping("/exist-id")
+	@ResponseBody
+	public boolean existId(@RequestParam String id, @RequestParam String name,
+										@RequestParam String email) {
+		logger.info("existId 요청");
+		
+		return loginService.existId(id, name, email);
 	}
 }

@@ -15,6 +15,23 @@
 			id = #{param1}
 	</select>
 
+	<select id="findId" resultType="String">
+		SELECT
+			id
+		FROM 
+			member
+		WHERE
+			name=#{param1} AND email=#{param2}
+	</select>
+	
+	<select id="existId" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			id=#{param1} AND name=#{param2} AND email=#{param3}
+	</select>
 </mapper>
 
 

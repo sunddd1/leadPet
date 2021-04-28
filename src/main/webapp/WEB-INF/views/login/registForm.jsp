@@ -159,7 +159,7 @@
 	}
 		
 	//email  옵션 선택 후 주소완성 
-	function change_email() {	
+	function change_email() {
 		if($('#email_sel').val()=='직접 입력'){
 			$('#email_span').html('<input type="text" name="email_add" id="email_add"/>');
 		}else{

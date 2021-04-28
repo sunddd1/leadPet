@@ -31,6 +31,15 @@
 			nickname = #{param1}
 	</select>
 
+	<update id="changePw">
+		UPDATE
+			member
+		SET
+			password = #{param2}
+		WHERE
+			id = #{param1}
+	</update>
+
 </mapper>
 
 

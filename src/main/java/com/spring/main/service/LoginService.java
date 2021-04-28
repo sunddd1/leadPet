@@ -51,13 +51,13 @@ public class LoginService {
 		return mav;
 	}
 	
-	public Map<String, Object> findId(String id, String email) {
+	public Map<String, Object> findId(String name, String email) {
 		logger.info("findId 호출");
 		
 		Map<String, Object> output = new HashMap<String, Object>();
-		String searchId = loginDao.findId(id, email);
+		String searchId = loginDao.findId(name, email);
 		
-		if(searchId != null) {			
+		if(searchId != null) {
 			output.put("result", true);
 			output.put("id", searchId);
 		}
@@ -65,8 +65,16 @@ public class LoginService {
 		return output;
 	}
 	
+	public boolean existId(String id, String name, String email) {
+		logger.info("validId 호출");
+		
+		return loginDao.existId(id, name, email) > 0;
+	}
+	
 	private boolean checkEqualPw(String userPw, String dbPw) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.matches(userPw, dbPw);
 	}
+
+	
 }
