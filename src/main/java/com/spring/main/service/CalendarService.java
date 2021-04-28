@@ -85,6 +85,14 @@ public class CalendarService {
 	}
 
 
+	public ModelAndView vaccinDetail(String idx) {
+		ModelAndView mav = new ModelAndView();
+		Vaccin_schedulerDTO vacc = dao.vaccinDetail(idx);
+		mav.setViewName("./cal/vaccinDetail");
+		return mav;
+	}
+
+
 
 
 }

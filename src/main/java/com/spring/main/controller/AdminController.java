@@ -296,4 +296,23 @@ public class AdminController {
 //		}
 		return "admin/detailMember";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/restoreWithdraw", method = RequestMethod.GET)
+	public Integer restoreWithdraw(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="id") String id
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("회원 복구 요청");
+		int success = service.restoreWithdraw(id);
+		logger.info("복구여부 : "+success);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
 }

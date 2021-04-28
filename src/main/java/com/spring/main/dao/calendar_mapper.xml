@@ -29,6 +29,9 @@
 	
 	</select>
 	
+	<select id="vaccinDetail">
+	
+	</select>
 	
 	<!-- SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name FROM pet_vaccin  pv , pet p ,vaccin v  WHERE p.pet_idx(+)=pv.pet_idx AND v.vacc_idx=pv.vacc_idx(+) AND p.pet_idx in (SELECT pet_idx FROM pet WHERE id ='testId');
 	 -->
