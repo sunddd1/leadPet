@@ -7,11 +7,32 @@
 <!-- 누가 이 XML을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.GameDAO">
 	 
-	<select id="quizList"  resultType="com.spring.main.dto.GameDTO">
+	<select id="quizList"  resultType="game">
 		SELECT * FROM quiz ORDER BY quiz_idx
 	</select>
-	<select id="nemoList"  resultType="com.spring.main.dto.GameDTO">
+	<select id="nemoList"  resultType="game">
 		SELECT * FROM nemo ORDER BY nemo_idx
 	</select>
-
+	
+	<select id="qWeekList"  resultType="game">
+		SELECT * FROM quiz_week ORDER BY week_quiz_idx DESC
+	</select>
+	<select id="nWeekList"  resultType="game">
+		SELECT * FROM nemo_week ORDER BY week_nemo_idx DESC
+	</select>
+	<select id="quizWeekDetail" parameterType="Integer" resultType="game">
+		SELECT w.week_quiz_idx, w.quiz_update_date, q.quiz_question, q.ex1, q.ex2, q.ex3, q.ex4, q.quiz_answer 
+    		FROM quiz_week w, quiz q WHERE w.week_quiz_idx=#{param1} AND (
+    			q.quiz_question = w.quiz_first 
+			    OR q.quiz_question = w.quiz_second 
+			    OR q.quiz_question = w.quiz_third 
+			    OR q.quiz_question = w.quiz_fourth
+			    OR q.quiz_question = w.quiz_fifth
+			    OR q.quiz_question = w.quiz_sixth
+			    OR q.quiz_question = w.quiz_seventh
+			    OR q.quiz_question = w.quiz_eighth
+			    OR q.quiz_question = w.quiz_ninth
+			    OR q.quiz_question = w.quiz_tenth
+			)
+	</select>
 </mapper>
