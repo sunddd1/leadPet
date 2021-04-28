@@ -99,10 +99,10 @@ public class CalendarController {
 		return service.calendardetail(idx,type);
 	}
 	
-	@RequestMapping(value = "/calendarListMove", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> calendarListMove(@RequestParam String date) {
-		
-		return null;
+	@RequestMapping(value = "/vaccinDetail", method = RequestMethod.GET)
+	public ModelAndView vaccinDetail(@RequestParam String idx) {
+		logger.info("idx : {}",idx);
+		return service.vaccinDetail(idx);
 	}
 	
 }
