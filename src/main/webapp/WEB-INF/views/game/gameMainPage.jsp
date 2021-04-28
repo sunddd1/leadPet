@@ -11,10 +11,10 @@
 			#game{
 				background-color: white;
 				border: 3px solid grey;
-				width: 45%;
-				height: 52%;
+				width: 50%;
+				height: 60%;
 				padding: 2%;
-				margin: 2% 25%;
+				margin: 2% 20%;
 			}
 			.flexBox {
 			   display: inline-flex;
@@ -24,19 +24,19 @@
 			#quiz{
 				/*border: 3px solid grey;*/
 				margin-right:1%;
-				padding: 1% 5%;
+				padding: 1% 3%;
 				font-family: monospace;
 			}
 			#nemo{
 				/*border: 3px solid grey;*/
 				margin-left: 1%;
-				padding: 1% 5%;
+				padding: 1% 3%;
 				font-family: monospace;
 			}
 			img{
-				width: 300px; 
-				height: 300px;
-				margin-bottom: 10%;
+				width: 250px; 
+				height: 250px;
+				margin-bottom: 8%;
 			}
 			button{
 				border: 2px solid MidnightBlue;

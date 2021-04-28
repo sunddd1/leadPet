@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-		<title>Insert title here</title>
+		<title>NemoExample</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js">
             // j쿼리 라이브러리 불러오기// 1 링크 , 2 다운로드해서 쓰기
         </script>

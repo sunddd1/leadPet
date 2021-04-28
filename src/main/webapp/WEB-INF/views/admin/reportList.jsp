@@ -94,20 +94,20 @@
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
+<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
     <div id="search">
-        <form action="withdrawSearch" method="POST">
+        <form action="memberSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
                 <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
             </select>
-            <input type="text" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>
     <div id="radio">
-        <input type="radio" id="r1" name="radio" value="normal" OnClick="window.location.href='memberList'"/>전체 회원
-        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
-        <input type="radio" id="r3" name="radio" value="withdraw" checked="checked" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
+        <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='reportList'"/>미처리
+        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='blackList'"/>처리
     </div>
     <div class="table">
         <table>
@@ -116,23 +116,18 @@
                 <th>닉네임</th>
                 <th>성별</th>
                 <th>회원가입일</th>
-                <th></th>
             </tr>
-            <c:forEach items="${withdrawList}" var="member">
+            <c:forEach items="${memberList}" var="member">
 	            <tr>
 	                <td>
 		                <a href="detailMember?id=${member.id}" 
 		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
 		               	 	${member.id}
 		                </a>
-		                <input type="hidden" id="id" value="${member.id}">
 	                </td>
 	                <td>${member.nickname}</td>
 	                <td>${member.gender}</td>
 	                <td>${member.reg_date}</td> 
-	                <td>
-	                	<button id="withdraw">회원 복구</button>
-	                </td>
                 </tr>
             </c:forEach>
         </table>
@@ -145,27 +140,5 @@
 		window.close();
 	}
 	
-	$("#withdraw").click(function(){
-		if(confirm('탈퇴 회원을 복구하시겠습니까?')){
-			var id = $("#id").val();
-				$.ajax({ 
-					type:'GET' 
-					,url:'restoreWithdraw'
-					,data: { "id": id }
-					,dataType: 'json' 
-					,success: function(data){
-						if(data == 1){
-							alert('복구 완료');
-							window.location.reload();
-						}
-					}
-					,error: function(e){
-						console.log(e);
-					}
-				});
-		}else{
-			alert("복구 취소");
-		}
-	});
 </script>
 </html>
