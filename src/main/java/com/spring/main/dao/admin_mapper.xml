@@ -81,7 +81,7 @@
 	</select>
 	 
 	 <select id="detailMember" resultType="member">
-	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade FROM member WHERE id=#{param1}
+	 	SELECT * FROM member WHERE id=#{param1}
 	 </select>
 </mapper>
 
