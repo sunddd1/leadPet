@@ -32,9 +32,9 @@
 	
 			<tr>
 				<td colspan="3" align="right" style="color: lightgray">
-					<a href="findIdForm">아이디 찾기</a>
+					<a href="find-id-form">아이디 찾기</a>
 					/
-					<a href="changePwForm">비밀번호 변경 </a> -->
+					<a href="change-pw-form">비밀번호 변경 </a> -->
 				</td>
 			</tr>
 			<tr>

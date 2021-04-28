@@ -40,28 +40,28 @@ public class LoginController {
 		return loginService.login(req, id, password);
 	}
 	
-	@GetMapping("/loginForm")
+	@GetMapping("/login-form")
 	public String loginForm() {
 		logger.info("loginForm 요청");
 		
 		return "login/loginForm";
 	}
 	
-	@GetMapping("/findIdForm")
+	@GetMapping("/find-id-form")
 	public String findIdForm() {
 		logger.info("findIdForm 요청");
 		
 		return "login/findIdForm";
 	}
 	
-	@GetMapping("/changePwForm")
+	@GetMapping("/change-pw-form")
 	public String changePwForm() {
 		logger.info("changePwForm 요청");
 
 		return "login/changePwForm";
 	}
 	
-	@GetMapping("/changePw")
+	@GetMapping("/change-pw")
 	public String changePw(@RequestParam String id, @RequestParam String password) {
 		logger.info("changePw 요청");
 		
