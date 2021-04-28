@@ -50,4 +50,14 @@ public class GameService {
 		mav.setViewName("game/quizWeekDetail");
 		return mav;
 	}
+
+	public ModelAndView quizDetail(int idx) {
+		ModelAndView mav = new ModelAndView();
+		//idx=quiz_idx
+		GameDTO dto = dao.perQuizDetail(idx);
+		mav.addObject("quizDetail", dto);
+		mav.addObject("quiz_idx", idx);
+		mav.setViewName("game/perQuizDetail");
+		return mav;
+	}
 }

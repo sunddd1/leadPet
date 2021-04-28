@@ -15,5 +15,7 @@ public interface GameDAO {
 	ArrayList<GameDTO> nWeekList();
 
 	ArrayList<GameDTO> quizWeekDetail(int idx);
+
+	GameDTO perQuizDetail(int idx);
 	
 }

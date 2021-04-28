@@ -48,4 +48,9 @@ public class GameController {
 		logger.info("{}회차 상식퀴즈 상세 페이지",idx);
 		return service.quizWeekDetail(idx);
 	}
+	@RequestMapping(value = "/quizDetail", method = RequestMethod.GET)
+	public ModelAndView quizDetail(@RequestParam int idx) {
+		logger.info("상식퀴즈 {}번 문제 상세 페이지",idx);
+		return service.quizDetail(idx);
+	}
 }

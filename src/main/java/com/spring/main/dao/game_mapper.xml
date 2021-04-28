@@ -13,6 +13,9 @@
 	<select id="nemoList"  resultType="game">
 		SELECT * FROM nemo ORDER BY nemo_idx
 	</select>
+	<select id="perQuizDetail" parameterType="Integer" resultType="game">
+		SELECT * FROM quiz WHERE quiz_idx = #{param1}
+	</select>
 	
 	<select id="qWeekList"  resultType="game">
 		SELECT * FROM quiz_week ORDER BY week_quiz_idx DESC
