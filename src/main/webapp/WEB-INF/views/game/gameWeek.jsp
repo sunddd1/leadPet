@@ -5,11 +5,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>WeeklyGameList</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
 			#conBody{
-				margin: 5% 30%;
+				margin: 5% 25%;
 			}
 			h2{
 				text-align: center;
@@ -36,6 +36,12 @@
 				border-collapse: collapse;
 				padding: 2%;
 			}
+			a:link, a:visited, a:active{
+				color:darkslategrey;
+				text-decoration: none;
+				font-size: 15px;
+				font-weight: 600;
+			}
 		</style>
 	</head>
 	<body>
@@ -56,15 +62,12 @@
 						<tr>
 							<th>회차</th><th>등록일</th>
 						</tr>
-						<tr>
-							<td>3회차 상식퀴즈</td><td>2021-04-26</td>
-						</tr>
-						<tr>
-							<td>2회차 상식퀴즈</td><td>2021-04-19</td>
-						</tr>
-						<tr>
-							<td>1회차 상식퀴즈</td><td>2021-04-12</td>
-						</tr>
+						<c:forEach items="${qWeekList}" var="qWeek">
+							<tr>
+								<td><a href="./quizWeekDetail?idx=${qWeek.week_quiz_idx}">${qWeek.week_quiz_idx}회차 상식퀴즈</a></td>
+								<td>${qWeek.quiz_update_date}</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 				<div id="nemo">			
@@ -72,15 +75,12 @@
 						<tr>
 							<th>회차</th><th>등록일</th>
 						</tr>
-						<tr>
-							<td>3회차 네모로직</td><td>2021-04-26</td>
-						</tr>
-						<tr>
-							<td>2회차 네모로직</td><td>2021-04-19</td>
-						</tr>
-						<tr>
-							<td>1회차 네모로직</td><td>2021-04-12</td>
-						</tr>
+						<c:forEach items="${nWeekList}" var="nWeek">
+							<tr>
+								<td><a href="./nemoWeekDetail?idx=${nWeek.week_nemo_idx}">${nWeek.week_nemo_idx}회차 상식퀴즈</a></td>
+								<td>${nWeek.nemo_update_date}</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>

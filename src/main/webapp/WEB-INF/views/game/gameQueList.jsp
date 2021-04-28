@@ -5,11 +5,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>GameQuestionList</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
 			#conBody{
-				margin: 5% 30%;
+				margin: 5% 25%;
 			}
 			h2{
 				text-align: center;
@@ -19,6 +19,7 @@
 			}
 			#padding{
 				padding: 2%;
+				width: 100%;
 			}
 			#quizTitle,#quiz{
 				display: inline;
@@ -38,6 +39,12 @@
 				border: 2px solid darkgrey;
 				border-collapse: collapse;
 				padding: 2%;
+			}
+			a:link, a:visited, a:active{
+				color:darkslategrey;
+				text-decoration: none;
+				font-size: 15px;
+				font-weight: 600;
 			}
 		</style>
 	</head>
@@ -63,7 +70,7 @@
 						<c:forEach items="${quizList}" var="que">
 							<tr>
 								<td>${que.quiz_idx}</td>
-								<td>${que.quiz_question}</td>
+								<td><a href="./quizDetail?idx=${que.quiz_idx}">${que.quiz_question}</a></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -77,7 +84,7 @@
 						<c:forEach items="${nemoList}" var="nemo">
 							<tr>
 								<td>${nemo.nemo_idx}</td>
-								<td>${nemo.nemo_subject}</td>
+								<td><a href="./nemoDetail?idx=${nemo.nemo_idx}">${nemo.nemo_subject}</a></td>
 							</tr>
 						</c:forEach>
 					</table>
