@@ -7,6 +7,6 @@
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MemberDAO">
 	<insert id="insertMessage" parameterType="Message">
-		insert into note(note_idx,id,content) values(note_seq)
+		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
 	</insert>
 </mapper>
