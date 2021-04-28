@@ -6,7 +6,13 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MemberDAO">
-	<insert id="insertMessage" parameterType="Message">
+	<insert id="insertMessage">
 		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
 	</insert>
+	
+	<select id="MassageList" resultType="com.spring.main.dto.NoteDTO" parameterType="String">
+		select note_idx,id,content,reg_date from note where receiving_id = #{receiving_id} order by note_idx desc
+	</select>
+	
+
 </mapper>
