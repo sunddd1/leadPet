@@ -93,6 +93,11 @@ public class AdminService {
 		return dao.detailMember(id);
 	}
 
+	public int restoreWithdraw(String id) {
+		logger.info("회원 복구 서비스 도착");
+		return dao.restoreWithdraw(id);
+	}
+
 	
 
 

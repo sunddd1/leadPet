@@ -47,11 +47,11 @@
 	</select>
 	
 	<select id="blackList" resultType="member">
-		SELECT * FROM member WHERE black='y' AND withdraw='n' ORDER BY reg_date DESC
+		SELECT * FROM member WHERE black='Y' AND withdraw='N' ORDER BY reg_date DESC
 	</select>
 	
 	<select id="withdrawList" resultType="member">
-		SELECT * FROM member WHERE black='n' AND withdraw='y' ORDER BY reg_date DESC
+		SELECT * FROM member WHERE black='N' AND withdraw='Y' ORDER BY reg_date DESC
 	</select>
 	
 	<select id="memberSearch" parameterType="hashMap" resultType="member">
@@ -68,7 +68,7 @@
 			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
 			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
 		</where>
-		 AND black='y'
+		 AND black='Y'
 	</select>
 	
 	<select id="withdrawSearch" parameterType="hashMap" resultType="member">
@@ -77,12 +77,16 @@
 			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
 			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
 		</where>
-		AND withdraw='y'
+		AND withdraw='Y'
 	</select>
 	 
 	 <select id="detailMember" resultType="member">
-	 	SELECT * FROM member WHERE id=#{param1}
+	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade FROM member WHERE id=#{param1}
 	 </select>
+	 
+	 <update id="restoreWithdraw" parameterType="int">
+	 	UPDATE member SET withdraw='N' WHERE id=#{param1}
+	 </update>
 </mapper>
 
 

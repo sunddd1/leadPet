@@ -120,12 +120,18 @@
             </tr>
             <c:forEach items="${withdrawList}" var="member">
 	            <tr>
-	                <td><a href="#">${member.id}</a></td>
+	                <td>
+		                <a href="detailMember?id=${member.id}" 
+		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
+		               	 	${member.id}
+		                </a>
+		                <input type="hidden" id="id" value="${member.id}">
+	                </td>
 	                <td>${member.nickname}</td>
 	                <td>${member.gender}</td>
 	                <td>${member.reg_date}</td> 
 	                <td>
-	                	<button>회원 복구</button>
+	                	<button id="withdraw">회원 복구</button>
 	                </td>
                 </tr>
             </c:forEach>
@@ -138,6 +144,28 @@
 		alert(msg);
 		window.close();
 	}
-	
+	$("#withdraw").click(function(){
+		var confirm = confirm("탈퇴 회원을 복구하시겠습니까?");
+		var id = $("#id").val();
+		if(confirm == true){
+			$.ajax({ 
+				type:'GET' 
+				,url:'restoreWithdraw'
+				,data: { "id": id }
+				,dataType: 'json' 
+				,success: function(data){
+					if(data == 1){
+						alert("복구 완료");
+						window.location.reload();
+					}
+				}
+				,error: function(e){
+					console.log(e);
+				}
+			});
+	}else{
+		alert("복구 취소");
+	}
+	});
 </script>
 </html>
