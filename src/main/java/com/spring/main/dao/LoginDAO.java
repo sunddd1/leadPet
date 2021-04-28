@@ -4,6 +4,8 @@ import com.spring.main.dto.MemberDTO;
 
 public interface LoginDAO {
 
-	MemberDTO login(String id, String password);
+	MemberDTO login(String id);
+
+	String findId(String id, String email);
 
 }

@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,10 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView login(@RequestParam String id, @RequestParam String password) {
+	public ModelAndView login(HttpServletRequest req ,@RequestParam String id, @RequestParam String password) {
 		logger.info("login 요청");
 		
-		return loginService.login(id, password);
+		return loginService.login(req, id, password);
 	}
 	
 	@GetMapping("/loginForm")
@@ -59,6 +61,14 @@ public class LoginController {
 		return "login/registForm";
 	}	
 	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest req) {
+		logger.info("logout 요청");
+		
+		req.removeAttribute("loginId");
+		return "main";
+	}
+	
 	// 아래부터 ajax 부분
 	
 	@GetMapping("/check-duplicate-id")
@@ -75,5 +85,13 @@ public class LoginController {
 		logger.info("checkDuplicateNickname 요청");
 		
 		return registService.checkDuplicateNickname(nickname);
+	}
+	
+	@GetMapping("/find-id")
+	@ResponseBody
+	public Map<String, Object> findId(@RequestParam String id, @RequestParam String email) {
+		logger.info("findId 요청");
+		
+		return loginService.findId(id, email);
 	}
 }

@@ -57,9 +57,7 @@
 		var re = /^[a-zA-Z0-9]{4,15}$/; //ID 유효
 		var re2 = /^[a-zA-Z0-9!@#$%^*+=-]{4,15}$/; //PW 유효
 		
-		function login() {
-			console.log("rr");
-			
+		function login() {		
 			$("#loginForm").submit();
 		}
 		

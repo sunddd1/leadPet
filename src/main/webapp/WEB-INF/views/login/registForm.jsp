@@ -17,98 +17,100 @@
 	
 	
 	<body>
-		<table>
-			<tr>
-				<th colspan="2">
-					<h2>회원가입</h2>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>아이디</label>
-				</th>
-				<td>
-					<input type="text" name="id" id="id" />
-					<input type="button" value="중복 확인" onclick="checkDuplicateId()" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>비밀번호</label><br/>
-				</th>
-				<td>
-					<input type="password" name="password" id="password" onkeyup="checkPw()" width="400px"/>
-				</td>
-			<tr>
-				<th>
-					<label>비밀번호 확인</label>
-				</th>
-				<td>
-					<input type="password" id="checkPassword" onkeyup="checkPw()" />
-					<br/>
-					<span id="checkPasswordMsg"><font color=red>비밀번호 불일치</font></span>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>닉네임</label>
-				</th>
-				<td>
-					<input type="text" name="nickname" id="nickname"/>
-					<input type="button" value="중복 확인" onclick="checkDuplicateNickname()" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>이름</label>
-				</th>
-				<td>
-					<input type="text" name="name"id="name" />
-				</td>
-			</tr>
-			<tr>	
-				<th>
-					<label>나이</label>
-				</th>
-				<td>					
-					<input type="number" min="1" max="130"name="age" id="age" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>성별</label> 
-				</th>
-				<td>
-					<input type="radio" name="gender" value="남" id="male" checked/>남
-					<input type="radio" name="gender" value="여" id="female" />여
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>이메일</label><br>
-				</th>
-				<td>
-					<input type="text" name="email" id="email_id" size="10px"/>@
-					
-					<span id="email_span"></span>
-					 <select
-						name="email_sel" id="email_sel" onchange="change_email()">
-						<option value="선택" >선택</option>
-						<option value="직접 입력">직접 입력</option>
-						<option value="naver.com">naver.com</option>
-						<option value="gmail.com">gmail.com</option>
-						<option value="daum.net">daum.net</option>
-						<option value="nate.com">nate.com</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="submit" value="회원가입" onclick="checkAll()" id="join"/>
-				</th>
-			</tr>
-		</table>
-
+		<form id="registForm" action="regist" method="post">
+			<table>			
+				<tr>
+					<th colspan="2">
+						<h2>회원가입</h2>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<label for="id">아이디</label>
+					</th>
+					<td>
+						<input type="text" name="id" id="id" />
+						<input type="button" value="중복 확인" onclick="checkDuplicateId()" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>비밀번호</label><br/>
+					</th>
+					<td>
+						<input type="password" name="password" id="password" onkeyup="checkPw()" width="400px"/>
+					</td>
+				<tr>
+					<th>
+						<label>비밀번호 확인</label>
+					</th>
+					<td>
+						<input type="password" id="checkPassword" onkeyup="checkPw()" />
+						<br/>
+						<span id="checkPasswordMsg"><font color=red>비밀번호 불일치</font></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>닉네임</label>
+					</th>
+					<td>
+						<input type="text" name="nickname" id="nickname"/>
+						<input type="button" value="중복 확인" onclick="checkDuplicateNickname()" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>이름</label>
+					</th>
+					<td>
+						<input type="text" name="name"id="name" />
+					</td>
+				</tr>
+				<tr>	
+					<th>
+						<label>나이</label>
+					</th>
+					<td>					
+						<input type="number" min="1" max="130"name="age" id="age" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>성별</label> 
+					</th>
+					<td>
+						<input type="radio" name="gender" value="남" id="male" checked/>남
+						<input type="radio" name="gender" value="여" id="female" />여
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>이메일</label><br>
+					</th>
+					<td>
+						<input type="text" name="email" id="email_id" size="10px"/>@
+						
+						<span id="email_span"></span>
+						 <select
+							name="email_sel" id="email_sel" onchange="change_email()">
+							<option value="선택" >선택</option>
+							<option value="직접 입력">직접 입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="nate.com">nate.com</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<th colspan="2">
+						<input type="button" value="회원가입" onclick="regist()"/>
+					</th>
+				</tr>
+			</table>
+		</form>
 	</body>
 	<script>
 
@@ -156,10 +158,37 @@
 		});
 	}
 		
+	//email  옵션 선택 후 주소완성 
+	function change_email() {	
+		if($('#email_sel').val()=='직접 입력'){
+			$('#email_span').html('<input type="text" name="email_add" id="email_add"/>');
+		}else{
+			$('#email_span').html('');
+		}
+		//console.log($('#email_sel').val());
+	}
+
+	function checkPw() {//비밀번호 실시간 확인
+		var pwValue = $('#password').val();
+		var checkPwValue = $('#checkPassword').val();
+		var tag = '<font color=red>비밀번호 불일치</font>';
+
+		if( pwValue != '' && checkPwValue
+				&& pwValue === checkPwValue) {
+			tag = "<font color=blue>비밀번호 일치</font>"
+		}
 		
-		
+		$('#checkPasswordMsg').html(tag);
+	}
 	
-	var idChk = false;//ID 중복 체크 여부
+	// 등록 버튼
+	function regist() {
+		console.log("되라");
+		$('#registForm').submit();
+	}
+	
+	
+	/* var idChk = false;//ID 중복 체크 여부
 	var emailChk = false;//이메일 중복체크
 	var re = /^[a-zA-Z0-9]{4,15}$/; //ID 유효
 	var re2 = /^[a-zA-Z0-9!@#$%^*+=-]{4,15}$/; //PW 유효
@@ -207,9 +236,9 @@
 					}
 				});				
 		});	 
-	});	
+	});	 */
 		
-	$(function(){
+	/* $(function(){
 		$('#email_id').change(function(){
 			$('#img2').hide();
 			$('#emailChk').show();
@@ -296,10 +325,10 @@
 				});	
 			}
 		});	 
-	});	
+	});	 */
 	
 				
-		function checkAll() {//빈칸 확인 
+		/* function checkAll() {//빈칸 확인 
 			var id = document.getElementById("id");
 			var pw = document.getElementById("pw");
 			var pw2 = document.getElementById("pw2");
@@ -423,40 +452,8 @@
 				});				
 			}
 			
-		}
-	
-		//email  옵션 선택 후 주소완성 
-		function change_email() {
-			
-			if($('#email_sel').val()=='직접 입력'){
-			$('#email_span').html('<input type="text" name="email_add" id="email_add"/>');
-				
-			}else{
-				$('#email_span').html('');
-			}
-			console.log($('#email_sel').val());
-		}
-	
-		function checkPw() {//비밀번호 실시간 확인
-	
-			var pwValue = $('#password').val();
-			var checkPwValue = $('#checkPassword').val();
-			var msg = '<font color=red>비밀번호 불일치</font>';
+		} */
 
-			if(pwValue === checkPwValue) {
-				msg = "<font color=blue>비밀번호 일치</font>"
-			}
-			
-			$('#checkPasswordMsg').html(msg);
-/* 			
-			if (document.getElementById('pw').value == document
-					.getElementById('pw2').value) {
-				document.getElementById('check').innerHTML = '';
-			} else {
-				document.getElementById('check').innerHTML = '<font color=red>비밀번호가 일치하지 않습니다.</font>';
-			} */
-		} 
-		
 		
 	</script>
 
