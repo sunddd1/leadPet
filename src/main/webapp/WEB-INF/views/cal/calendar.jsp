@@ -129,9 +129,9 @@
     		,dataType:'json'
     		,success : function(data) {
     			
-    			for (var i = 0; i < data.vaccinList.length; i++) {
-					
-    			console.log(data.vaccinList[i]);
+    			for (var i = 0; i < data.vaccinList.length; i++) {					
+    				console.log(data.vaccinList[i]);
+    				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].name+"/"+data.vaccinList[i].vacc_name+"</span>");
 				}
 
 				var overCnt=0;
@@ -196,25 +196,14 @@
    function fa(e){
        console.log(d.getFullYear()+"/"+(d.getMonth() +1)+"/"+(e));
        var link =d.getFullYear()+"/"+(d.getMonth() +1)+"/"+(e)
-        window.open("./calendarList?date="+link,"","width=400,height=400,left=300,top=300");
-       /* $.ajax({
-   		type:'get'
-   		,url:'calendarList'
-   		,data:{
-   			"date":link
-   		}
-   		,dataType:'json'
-   		,success : function(data) {
-				console.log(data);
-			}
-   		,error : function(e) {
-				console.log(e);
-				console.log('에러라니');
-			}
-   		
-   	}); */
-   
+        window.open("./calendarList?date="+link,"","width=400,height=400,left=300,top=300");   
    }
+   
+   function vaccDetail(a) {
+		console.log(a);
+		//href='./vaccinDetail?idx=
+		window.open("./vaccinDetail?idx="+a,"","width=400,height=400,left=800,top=300");   
+	}
 </script>
 
 </html>

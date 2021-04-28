@@ -144,28 +144,28 @@
 		alert(msg);
 		window.close();
 	}
+	
 	$("#withdraw").click(function(){
-		var confirm = confirm("탈퇴 회원을 복구하시겠습니까?");
-		var id = $("#id").val();
-		if(confirm == true){
-			$.ajax({ 
-				type:'GET' 
-				,url:'restoreWithdraw'
-				,data: { "id": id }
-				,dataType: 'json' 
-				,success: function(data){
-					if(data == 1){
-						alert("복구 완료");
-						window.location.reload();
+		if(confirm('탈퇴 회원을 복구하시겠습니까?')){
+			var id = $("#id").val();
+				$.ajax({ 
+					type:'GET' 
+					,url:'restoreWithdraw'
+					,data: { "id": id }
+					,dataType: 'json' 
+					,success: function(data){
+						if(data == 1){
+							alert('복구 완료');
+							window.location.reload();
+						}
 					}
-				}
-				,error: function(e){
-					console.log(e);
-				}
-			});
-	}else{
-		alert("복구 취소");
-	}
+					,error: function(e){
+						console.log(e);
+					}
+				});
+		}else{
+			alert("복구 취소");
+		}
 	});
 </script>
 </html>

@@ -18,4 +18,6 @@ public interface CalendarDAO {
 
 	ArrayList<SchedulerDTO> calendarList(String date);
 
+	Vaccin_schedulerDTO vaccinDetail(String idx);
+
 }
