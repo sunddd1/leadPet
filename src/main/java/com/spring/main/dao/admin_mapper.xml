@@ -22,9 +22,67 @@
 		DELETE FROM admin WHERE admin_id=#{param1}
 	</delete>
 	
+	<select id="idCheck" resultType="int">
+		SELECT count(admin_id) FROM admin WHERE admin_id=#{param1}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		SELECT count(nickname) FROM admin WHERE nickname=#{param1}
+	</select>
+	
 	<insert id="insert">
-		INSERT INTO admin(admin_id,nickname,password) VALUES()
+		INSERT INTO admin(admin_id,nickname,password,reg_date) VALUES(#{param1}, #{param2}, #{param3},SYSDATE)
 	</insert>
+	
+	<select id="search" parameterType="hashMap" resultType="admin">
+		SELECT * FROM admin	
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">admin_id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+	</select>
+	
+	<select id="memberList" resultType="member">
+		SELECT * FROM member ORDER BY reg_date DESC
+	</select>
+	
+	<select id="blackList" resultType="member">
+		SELECT * FROM member WHERE black='y' AND withdraw='n' ORDER BY reg_date DESC
+	</select>
+	
+	<select id="withdrawList" resultType="member">
+		SELECT * FROM member WHERE black='n' AND withdraw='y' ORDER BY reg_date DESC
+	</select>
+	
+	<select id="memberSearch" parameterType="hashMap" resultType="member">
+		SELECT * FROM member	
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+	</select>
+	
+	<select id="blackSearch" parameterType="hashMap" resultType="member">
+		SELECT * FROM member
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+		 AND black='y'
+	</select>
+	
+	<select id="withdrawSearch" parameterType="hashMap" resultType="member">
+		SELECT * FROM member	
+		<where>
+			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+		</where>
+		AND withdraw='y'
+	</select>
+	 
+	 <select id="detailMember" resultType="member">
+	 	SELECT * FROM member WHERE id=#{param1}
+	 </select>
 </mapper>
 
 

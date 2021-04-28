@@ -23,6 +23,13 @@
 		(SELECT pet_idx FROM pet WHERE id ='testId') AND pv.expected_date BETWEEN #{param1} AND #{param2} ORDER BY pv.vac_idx DESC
 	</select>
 	
+	<select id="calendardetail" resultType="scheduler">
+	
+		SELECT * FROM scheduler WHERE sche_idx=#{param1}
+	
+	</select>
+	
+	
 	<!-- SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name FROM pet_vaccin  pv , pet p ,vaccin v  WHERE p.pet_idx(+)=pv.pet_idx AND v.vacc_idx=pv.vacc_idx(+) AND p.pet_idx in (SELECT pet_idx FROM pet WHERE id ='testId');
 	 -->
  </mapper>
