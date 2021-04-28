@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
+<mapper namespace="com.spring.main.dao.MemberDAO">
+	<insert id="insertMessage">
+		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
+	</insert>
+	
+	<select id="MassageList" resultType="com.spring.main.dto.NoteDTO" parameterType="String">
+		select note_idx,id,content,reg_date from note where receiving_id = #{receiving_id} order by note_idx desc
+	</select>
+	
+
+</mapper>
