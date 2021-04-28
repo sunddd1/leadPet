@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class CalendarController {
 	}
 	
 	@RequestMapping(value = "/scheduler", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> scheduler(@RequestParam String year,@RequestParam String smonth) {
+	public @ResponseBody HashMap<String, Object> scheduler(@RequestParam String year,@RequestParam String smonth, HttpSession session) {
 		String start = year+"/"+smonth+"/01";
 		int a = Integer.parseInt(smonth)+1;
 		if(a>12) {
@@ -38,12 +40,12 @@ public class CalendarController {
 		}
 		String last = year+"/"+a+"/01";
 		logger.info("캘린더 요청 : {} / {} ",start,last);
-		return service.scheduler(start,last);
+		return service.scheduler(start,last,session);
 	}
 
 
 	@RequestMapping(value = "/calendarList", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView calendarList(@RequestParam String date) {
+	public  ModelAndView calendarList(@RequestParam String date, HttpSession session) {
 		logger.info("캘린더 목록 요청 : {}",date);
 		String year =date.substring(0, date.indexOf("/"));
 		String month =date.substring(date.indexOf("/")+1,date.lastIndexOf("/"));
@@ -88,21 +90,27 @@ public class CalendarController {
 		String last = year+"/"+month+"/"+ day;
 
 		logger.info("캘린더 목록 요청 종료 : {} ",last);
-		return service.calendarList(start,last);
+		return service.calendarList(start,last,session);
 	}
 	
 	
 	@RequestMapping(value = "/calendardetail", method = RequestMethod.GET)
-	public ModelAndView calendardetail(@RequestParam String idx,@RequestParam String type,@RequestParam String date) {
-		logger.info("캘린더 상세 요청 : {} /{}",idx,type+"/"+date);
+	public ModelAndView calendardetail(@RequestParam String idx, HttpSession session) {
+		logger.info("캘린더 상세 요청 : {} ",idx);
 		
-		return service.calendardetail(idx,type);
+		return service.calendardetail(idx,session);
 	}
 	
 	@RequestMapping(value = "/vaccinDetail", method = RequestMethod.GET)
-	public ModelAndView vaccinDetail(@RequestParam String idx) {
+	public ModelAndView vaccinDetail(@RequestParam String idx, HttpSession session) {
 		logger.info("idx : {}",idx);
-		return service.vaccinDetail(idx);
+		return service.vaccinDetail(idx,session);
 	}
 	
+	
+	@RequestMapping(value = "/regVaccin", method = RequestMethod.POST)//id 들어감
+	public  @ResponseBody HashMap<String, Object> regVaccin(@RequestParam String vac_idx,@RequestParam String vacc_idx, @RequestParam String date, HttpSession session) {
+		logger.info("vac_idx : {} / {}",vac_idx+"/"+vacc_idx,date);
+		return service.regVaccin(vacc_idx,vac_idx,date,session);
+	}
 }

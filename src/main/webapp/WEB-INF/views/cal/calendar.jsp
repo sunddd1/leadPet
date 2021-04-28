@@ -202,8 +202,18 @@
    function vaccDetail(a) {
 		console.log(a);
 		//href='./vaccinDetail?idx=
-		window.open("./vaccinDetail?idx="+a,"","width=400,height=400,left=800,top=300");   
+		window.open("./vaccinDetail?idx="+a,"","width=600,height=400,left=800,top=300");   
 	}
+   
+   function setData(data) {
+		console.log("----------"+data);
+		console.log(data.substring(0,4));
+		console.log(data.substring(5,7)-1);
+		d.setFullYear(data.substring(0,4));
+		d.setMonth(data.substring(5,7)-1);
+		cal();
+	}
+   
 </script>
 
 </html>

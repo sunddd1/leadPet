@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -15,22 +16,38 @@
 				width: 80%;
 				height: 80%;
 			}
+			th,td,input{			
+				font-size: 8pt;
+			}
 		</style>
 	</head>
 	<body>
 		<h3>상세보기 폼</h3>
-		<table>
-			<tr>
-				<td colspan="2">${sche.content }</td>
-				<th></th>
-			</tr>
-			<tr>	
-				<th>${sche.subject }</th>
-				<th><input type="date" value="${sche.d_day}"/></th>
-				<th><button>등록</button></th>			
-			</tr>
-		</table>
+		<form action="regVaccin" method="POST">
+			<table>
+				<tr>
+					<td colspan="3">${sche.content }</td>
+					<th></th>
+				</tr>
+				<tr>	
+					<th>${sche.subject }</th>
+					<th colspan="2">${sche.cycle }</th>
+				</tr>
+				<tr>	
+					<th>접종날짜 설정</th>
+					<th><input type="date" name="date" value="${sche.d_day }" /></th>
+					<th><input type="button" id="btn" value="등록"/></th>			
+				</tr>
+			</table>
+			<input type="hidden" name="vac_idx" value="${sche.sche_idx }"/>
+		</form>
+		
 	</body>
 	<script>
+		$('#btn').click(function() {
+			opener.setData($('input[type="date"]').val());
+			$('form').submit();
+
+		});
 	</script>
 </html>

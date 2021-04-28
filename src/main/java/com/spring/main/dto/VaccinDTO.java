@@ -1,5 +1,7 @@
 package com.spring.main.dto;
 
+import java.sql.Date;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("vaccin")
@@ -21,8 +23,15 @@ public class VaccinDTO {
 	private int vac_idx;
 	private int pet_idx;
 	private String name;
+	private Date expected_date;
 	
 	
+	public Date getExpected_date() {
+		return expected_date;
+	}
+	public void setExpected_date(Date expected_date) {
+		this.expected_date = expected_date;
+	}
 	public int getVac_idx() {
 		return vac_idx;
 	}
