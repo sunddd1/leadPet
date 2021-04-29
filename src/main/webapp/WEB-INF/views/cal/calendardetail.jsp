@@ -84,7 +84,7 @@
 				console.log($('input[type="date"]').val());
 				opener.setData($('input[type="date"]').val());
 				
-				//window.close();
+				window.close();
 			}
 			,error : function(e){
 				console.log(e);
