@@ -9,7 +9,7 @@
     <meta charset='utf-8'>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
-        table,td,th {
+        table,td {
             border: 2px solid;
             border-collapse: collapse;
         }
@@ -27,8 +27,8 @@
         }
         
         #list{
-        	background-color: red;
-        	width: 100px;
+			border: 1px solid black;
+        	width: 300px;
         	height: 300px;
         	float: right;
         	font-size: 8pt;
@@ -36,18 +36,29 @@
         .schedule{
         	font-size: 6pt;
         }
+        th{
+        	text-align: left;
+        }
     </style>
 </head>
 
 <body>	
-	<div id="list">
-	</div>
-    <p id="today"></p>
-    <button onclick="preMon()">이전</button>
-    <button onclick="nextMon()">다음</button>
-    <table>
-    </table>
-    
+	<table style="border-color: white; width: 800px;">
+		<tr>
+			<th>
+			    <p id="today"></p>
+			    <button onclick="preMon()">이전</button>
+			    <button onclick="nextMon()">다음</button>
+			    <table id="cal">
+			    </table>
+			</th>
+			<th>
+				<div id="list">
+				</div>
+			</th>
+		</tr>
+	</table>
+
 
     
 </body>
@@ -62,7 +73,7 @@
 
 
     function cal() {
-        $('table').html('');    
+        $('#cal').html('');    
         $('#list').html('');
         var str = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
         var year = d.getFullYear();
@@ -116,7 +127,7 @@
         }
 
         console.log(year+"년/"+month + "월/" + date + "일/" + day);
-        $('table').append(str);
+        $('#cal').append(str);
        
 		console.log("아작스 요청 : "+d.getFullYear()+"//"+(d.getMonth()+1));
     	$.ajax({
@@ -131,7 +142,7 @@
     			
     			for (var i = 0; i < data.vaccinList.length; i++) {					
     				console.log(data.vaccinList[i]);
-    				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].name+"/"+data.vaccinList[i].vacc_name+"</span>");
+    				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].name+"/"+data.vaccinList[i].vacc_name+"</span><br/>");
 				}
 
 				var overCnt=0;
@@ -143,14 +154,13 @@
 					var ddate = d_day.substring(8,10);
 					//console.log("스게 //"+dyear+"/"+dmont+"/"+ddate);
 			    	//console.log("스게 //"+d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<5){	
+					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<990){	
 						$('#'+Number(ddate)).append('<div class="schedule">'+data.vacc[i].name+"/"+data.vacc[i].vacc_name+'</div>');
 					}		
  					var cdate= $('.con').eq(ddate-1).html().substring(0,2);
 					console.log(Number(ddate)+"/"+cdate);
 					if(Number(ddate)==cdate){						
-						overCnt++;
-						
+						overCnt++;						
 					}
 				}
 				
@@ -161,7 +171,7 @@
 						var ddate = d_day.substring(8,10);
 						//console.log(dyear+"/"+dmont+"/"+ddate);
 				    	//console.log(d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-						if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<5){		
+						if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<990){		
 							$('#'+Number(ddate)).append('<div class="schedule">'+data.sche[j].subject+'</div>');
 						}
 						var cdate= $('.con').eq(ddate-1).html().substring(0,2);					
@@ -172,6 +182,7 @@
 						}
 						
 					}
+
 				
 			}
     		,error : function(e) {

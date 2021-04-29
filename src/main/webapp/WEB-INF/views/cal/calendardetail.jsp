@@ -10,44 +10,87 @@
 		<style>
 			table,td{
 				border: 1px solid navy;
-				padding: 15px 10px;
 			}
 			table{
 				width: 80%;
 				height: 80%;
+				padding: 10px;
+			}
+			tr{
 			}
 			th,td,input{			
 				font-size: 8pt;
+			}
+			textarea {	
+				font-size: 8pt;
+				resize: vertical;
+				width: 100%;
+				height: 100px;
+				border: 0px solid;
+			}
+			input[type='text'],input[type='number']{
+				border: 0px solid;
 			}
 		</style>
 	</head>
 	<body>
 		<h3>상세보기 폼</h3>
-		<form action="regVaccin" method="POST">
 			<table>
 				<tr>
-					<td colspan="3">${sche.content }</td>
+					<td colspan="3"><textarea class="fix"  <c:if test="${sche ne null}">  readonly="readonly"</c:if>   id="content">${sche.content }</textarea></td>
 					<th></th>
 				</tr>
-				<tr>	
-					<th>${sche.subject }</th>
-					<th colspan="2">${sche.cycle }</th>
+				<tr>					
+					<th><input type="text" class="fix"   id="subject"  placeholder="제목을 넣어주세요"  <c:if test="${sche ne null}"> readonly="readonly"  value="${sche.subject }"</c:if>/></th>
+					<th colspan="2">주기 : <input type="number"class="fix"  id="cycle"  <c:if test="${sche ne null}"> readonly="readonly" value="${sche.cycle }"</c:if>value="0" /> (주)</th>
 				</tr>
 				<tr>	
-					<th>접종날짜 설정</th>
-					<th><input type="date" name="date" value="${sche.d_day }" /></th>
+					<th>날짜 설정</th>
+					<th>
+						<input type="date" id="d_day" <c:if test="${sche eq null}">value="${time }" </c:if><c:if test="${sche ne null}"> value="${sche.d_day }" </c:if>/>
+					</th>
 					<th><input type="button" id="btn" value="등록"/></th>			
 				</tr>
 			</table>
-			<input type="hidden" name="vac_idx" value="${sche.sche_idx }"/>
-		</form>
-		
+			<input type="hidden" id="sche_idx" value="${sche.sche_idx }"/>		
 	</body>
 	<script>
-		$('#btn').click(function() {
-			opener.setData($('input[type="date"]').val());
-			$('form').submit();
-
+	$('.fix').dblclick(function() {
+		console.log("수정");
+		$(this).removeAttr('readonly');
+	});
+	
+	
+	$('#btn').click(function() {
+		console.log("에이작스 시작");
+		if($('#sche_idx').val()==''){
+			$('#sche_idx').val(0);
+		}
+		var params={
+				"content":$('#content').val()
+				,"subject":$('#subject').val()
+				,"cycle":$('#cycle').val()
+				,"d_day":$('#d_day').val()
+				,"sche_idx":$('#sche_idx').val()
+				
+		}
+		console.log(params);
+		  $.ajax({
+			type:'POST'
+			,url:'regSchedule'
+			,data:params
+			,dataType:'json'
+			,success : function(data) {
+				console.log($('input[type="date"]').val());
+				opener.setData($('input[type="date"]').val());
+				
+				//window.close();
+			}
+			,error : function(e){
+				console.log(e);
+			}
+			
 		});
+	});
 	</script>
 </html>
