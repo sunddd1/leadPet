@@ -9,12 +9,18 @@
 	</head>
 	<body>
 		 <table>
-            <tr>
-                <th>보낸 닉네임 : </th>
-                <th>내용</th>
-            </tr>
-            
-        </table>
+                <tr>
+                    <th>보낸 사람</th>
+                    <th>내용:</th>
+                </tr>
+		        <c:forEach var = "note" items="${messageList}">
+		        <tr>
+			        <td>${note.note.id}</td>
+			        <td>${note.content}</td>
+					<td><a id="reply" href="">답장</a></td>
+			    </tr>
+			    </c:forEach>
+	    </table>
 	</body>
 	<script></script>
 </html>

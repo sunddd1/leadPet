@@ -28,10 +28,7 @@ public class MemberService {
 //		dao.withdrawal(loginId);
 //	}
 
-	public void insertMessage(NoteDTO noteDTO) {
-		dao.insertMessage();
-		
-	}
+	
 
 	
 	public String checkPw(String pw) {
@@ -112,16 +109,13 @@ public class MemberService {
 	}
 
 	public String noteList(ArrayList<Message> message,Model model) {
-		logger.info("내 쪽지 읽기 시작");
+		logger.info("받은 쪽지 읽기 시작");
 		String loginId = "wwww";
         message = dao.MessageList(loginId);
         model.addAttribute("messageList", message);
-        logger.info("내 쪽지 읽기 종료");
+        logger.info("받은 쪽지 읽기 종료");
         return "Note/noteList";
 	}
-
-
-	
 
 	public String delMessage(int note_idx) {
 		String loginId = "wwww";
@@ -130,7 +124,32 @@ public class MemberService {
 		return "redirect:/noteList";
 	}
 
+	public String noteSend(String content) {
+		logger.info("쪽지 전송중..");
+		String loginId="wwww";
+		dao.noteSend(loginId,content);
+		logger.info("쪽지 전송 완료");
+		return "Note/sendList";
+	}
+
+	public String sendList(ArrayList<Message> sendList, Model model) {
+		logger.info("보낸 쪽지 읽기 시작");
+		String loginId = "test1122";
+		sendList = dao.sendList(loginId);
+        model.addAttribute("sendList", sendList);
+        logger.info("보낸 쪽지 읽기 종료");
+        return "Note/sendList";
+	}
+
+	public String detailNoteList(String id,int note_idx) {
+		logger.info("쪽지 상세보기");
+		String loginId = "wwww";
+		dao.detailNoteList(loginId,note_idx,id);
+		return "Note/Message";
+	}
+
 	
+
 
 	
 	

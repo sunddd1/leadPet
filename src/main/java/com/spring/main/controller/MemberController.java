@@ -60,17 +60,15 @@ public class MemberController {
 		//쪽지보내기 페이지 요청 
 		@RequestMapping("/borderlist")
 		public String borderlist() {
+			logger.info("쪽지 보내기 페이지 요청");
 			return "Note/borderList";
 		}
 		
+		//쪽지 전송 
 		@RequestMapping(value="/noteSend",method = RequestMethod.POST)
-	    public String noteSend(NoteDTO noteDTO, Model model){
-	        logger.info("쪽지 보내기 시작");
-	        
-	        memberService.insertMessage(noteDTO);
-	        
-	        logger.info("쪽지 보내기 종료");
-	        return "Note/boardList";
+	    public String noteSend(@RequestParam String content){
+			logger.info("쪽지 전송 요청"+content);
+			return memberService.noteSend(content);
 	    }
 	
 		//받은 쪽지 목록 
@@ -80,11 +78,24 @@ public class MemberController {
 			return memberService.noteList(message,model);
 		}
 		
-		//받은 쪽지 목록 
+		//받은 쪽지 삭제 요청 
 		@RequestMapping(value="/delMessageList")
 	    public String delMessageList(@RequestParam int note_idx){
 	        logger.info("받은 쪽지 삭제");
 			return memberService.delMessage(note_idx);
 		}
 		
+		//보낸 쪽지 목록 
+		@RequestMapping(value="/sendList")
+	    public String sendList(ArrayList<Message> sendList, Model model){
+	        logger.info("보낸 쪽지 목록 요청");
+			return memberService.sendList(sendList,model);
+		}
+		
+		//받은 쪽지 상세보기  
+		@RequestMapping(value="/detailNoteList")
+	    public String detailNoteList(@RequestBody String id,@RequestParam int note_idx){
+	        logger.info("받은 쪽지 상세보기");
+			return memberService.detailNoteList(id,note_idx);
+		}
 }
