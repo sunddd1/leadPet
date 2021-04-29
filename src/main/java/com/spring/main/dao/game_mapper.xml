@@ -43,8 +43,8 @@
 	
 	<!-- 문제 관리(등록/수정/삭제) -->
 	<insert id="insertQuiz" parameterType="hashMap">
-		INSERT INTO quiz(quiz_idx,quiz_question,ex1,ex2,ex3,ex4,quiz_answer) 
-			VALUES(seq_quiz.NEXTVAL,#{quiz_question},#{ex1},#{ex2},#{ex3},#{ex4},#{quiz_answer})
+		INSERT INTO quiz(quiz_idx,quiz_question,ex1,ex2,ex3,ex4,quiz_answer,quiz_blind) 
+			VALUES(seq_quiz.NEXTVAL,#{quiz_question},#{ex1},#{ex2},#{ex3},#{ex4},#{quiz_answer},'N')
 	</insert>
 	<update id="quizBlind" parameterType="Integer">
 		UPDATE quiz SET quiz_blind = 'Y'  WHERE quiz_idx=#{param1}

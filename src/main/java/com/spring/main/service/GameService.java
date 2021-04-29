@@ -22,8 +22,8 @@ public class GameService {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<GameDTO> qList = dao.quizList();
 		ArrayList<GameDTO> nList = dao.nemoList();
-		logger.info("quizListSize : {}",qList);
-		logger.info("nemoListSize : {}",nList);
+		logger.info("quizListSize : {}",qList.size());
+		logger.info("nemoListSize : {}",nList.size());
 		mav.addObject("quizList", qList);
 		mav.addObject("nemoList", nList);
 		mav.setViewName("game/gameQueList");
@@ -34,8 +34,8 @@ public class GameService {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<GameDTO> qWeekList = dao.qWeekList();
 		ArrayList<GameDTO> nWeekList = dao.nWeekList();
-		logger.info("quizListSize : {}",qWeekList);
-		logger.info("nemoListSize : {}",nWeekList);
+		logger.info("quizListSize : {}",qWeekList.size());
+		logger.info("nemoListSize : {}",nWeekList.size());
 		mav.addObject("qWeekList", qWeekList);
 		mav.addObject("nWeekList", nWeekList);
 		mav.setViewName("game/gameWeek");
