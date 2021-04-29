@@ -66,9 +66,9 @@ public class MemberController {
 		
 		//쪽지 전송 
 		@RequestMapping(value="/noteSend",method = RequestMethod.POST)
-	    public String noteSend(@RequestParam String content){
-			logger.info("쪽지 전송 요청"+content);
-			return memberService.noteSend(content);
+	    public String noteSend(@RequestParam String content,@RequestParam String id){
+			logger.info("쪽지 전송 요청 :"+content,id);
+			return memberService.noteSend(content,id);
 	    }
 	
 		//받은 쪽지 목록 
@@ -94,8 +94,15 @@ public class MemberController {
 		
 		//받은 쪽지 상세보기  
 		@RequestMapping(value="/detailNoteList")
-	    public String detailNoteList(@RequestBody String id,@RequestParam int note_idx){
+	    public String detailNoteList(ArrayList<Message> message,@RequestParam int note_idx,Model model){
 	        logger.info("받은 쪽지 상세보기");
-			return memberService.detailNoteList(id,note_idx);
+			return memberService.detailNoteList(message, note_idx,model);
 		}
+		
+//		//쪽지 읽음 표시 
+//		@RequestMapping(value="/checked")
+//		public String checked(@RequestParam int note_idx){
+//	        logger.info("보낸 쪽지 목록 요청");
+//			return memberService.checked(note_idx);
+//		}
 }

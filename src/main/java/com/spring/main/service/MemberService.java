@@ -9,12 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.spring.main.dao.MemberDAO;
-import com.spring.main.dto.MemberDTO;
-import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
 @Service
@@ -124,12 +121,11 @@ public class MemberService {
 		return "redirect:/noteList";
 	}
 
-	public String noteSend(String content) {
+	public String noteSend(String content,String id) {
 		logger.info("쪽지 전송중..");
-		String loginId="wwww";
-		dao.noteSend(loginId,content);
+		dao.noteSend(id,content);
 		logger.info("쪽지 전송 완료");
-		return "Note/sendList";
+		return "redirect:/sendList";
 	}
 
 	public String sendList(ArrayList<Message> sendList, Model model) {
@@ -141,12 +137,17 @@ public class MemberService {
         return "Note/sendList";
 	}
 
-	public String detailNoteList(String id,int note_idx) {
+	public String detailNoteList(ArrayList<Message> detailList,int note_idx,Model model) {
 		logger.info("쪽지 상세보기");
 		String loginId = "wwww";
-		dao.detailNoteList(loginId,note_idx,id);
+		detailList = dao.detailList(loginId,note_idx);
+		logger.info(note_idx+"번 읽음 처리");
+		dao.checked(note_idx);
+		model.addAttribute("detailList", detailList);
 		return "Note/Message";
 	}
+
+	
 
 	
 

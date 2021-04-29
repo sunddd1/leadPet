@@ -29,7 +29,10 @@ public interface MemberDAO {
 	ArrayList<Message> sendList(String loginId);
 
 
-	NoteDTO detailNoteList(String loginId, int note_idx, String id);
+	ArrayList<Message> detailList(String loginId, int note_idx);
+
+
+	void checked(int note_idx);
 
 	
 }

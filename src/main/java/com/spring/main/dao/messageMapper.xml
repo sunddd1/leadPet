@@ -15,7 +15,7 @@
 	</insert> -->
 	
 	<select id="MessageList" resultType="com.spring.main.dto.NoteDTO">
-		select note_idx,id,content,reg_date from note where receiving_id = #{param1} and del='N' order by note_idx desc
+		select note_idx,id,content,reg_date,checked from note where receiving_id = #{param1} and del='N' order by note_idx desc
 	</select>
 	
 	<select id="sendList" resultType="com.spring.main.dto.NoteDTO">
@@ -26,11 +26,16 @@
 		UPDATE note SET del = 'Y' WHERE note_idx=#{note_idx}
 	</update>
 	
-	<select id="detailNoteList" resultType="com.spring.main.dto.NoteDTO">
-		select content from note where id = #{param3} and receiving_id = #{param1} and note_idx = #{param2} 
+	<select id="detailList" resultType="com.spring.main.dto.NoteDTO">
+		select content,id from note where  receiving_id = #{param1} and note_idx = #{param2} 
 	</select>
 	
 	<!-- <select id="detailNoteList" resultType="com.spring.main.dto.NoteDTO">
 		select id,content from note where receiving_id = #{param1} and note_idx = #{param2} 
 	</select> -->
+	
+	<update id="checked">
+		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx} 
+	</update>
+	
 </mapper>

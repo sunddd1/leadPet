@@ -16,7 +16,23 @@
 	    보낸 날짜 : ${note.reg_date} 
 	    <input type="button" value="삭제" id="del">
 	    </c:forEach> --%>
-	    <table>
+	   <%--  <table>
+                <tr>
+                    <th>번호</th>
+                    <th>내용</th>
+                    <th>닉네임</th>
+                    <th>보낸 날짜</th>
+                </tr>
+                <c:forEach var = "note" items="${sendList}">
+                	<tr>
+                		<td>${note.note_idx}</td>
+                		<td>${note.content}</td>
+                		<td> ${note.receiving_id}</td>
+                		<td>${note.reg_date}</td>
+                	</tr>
+                </c:forEach>
+            </table> --%>
+            <table>
                 <tr>
                     <th>번호</th>
                     <th>내용</th>
@@ -34,8 +50,6 @@
             </table>
 	</body>
 	<script>
-		$("#id").click(function(){
-			
-		});
+		
 	</script>
 </html>
