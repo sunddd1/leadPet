@@ -8,7 +8,7 @@
 		<style></style>
 	</head>
 	<body>
-		<form action="restore" method="post">
+		
 			<table>
 				<tr>
 					<td>
@@ -24,7 +24,7 @@
 					</td>
 				</tr>
 			</table>
-		</form>
+		
 	</body>
 	<script>
 	$("#restore").click(function(){
@@ -34,8 +34,11 @@
 		}else{
 			$.ajax({
 				type : "POST",
-				url:"checkPw",
-				data : "pw" : $("#pw").val()
+				url:"restore",
+				
+				data : {
+				"pw" : $("#pw").val()
+				},
 				datatype : "json",
 				success : function(result){
 					console.log(result);
@@ -44,9 +47,9 @@
 						$('#pwMsg').html('');
 						chk1=true;
 					}else{
-						$('#pwMsg').html(''); 
+						$('#pwMsg').html('비밀번호가 올바르지 않습니다.'); 
 						chk1 = false;
-					}
+					} 
 				},
 				error : function(error){
 					console.log("error : "+error);

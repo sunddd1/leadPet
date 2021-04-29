@@ -27,4 +27,24 @@ public interface CalendarDAO {
 
 	long cycle(String vacc_idx);
 
+	int updateVaccin(String vac_idx, String date);
+
+	int updateSchedule(SchedulerDTO dto);
+
+	int regSchedule(SchedulerDTO dto);
+
+	int deleteSche(int idx);
+
+	int deleteVaccSche(int idx);
+
+	int regVaccin_suc(String vac_idx);
+
+	int deleteVaccSche_suc(int idx);
+
+	VaccinDTO vacc_scheSearch(String vac_idx);
+
+	int executed(int vac_idx);
+
+	int executed(String vac_idx);
+
 }

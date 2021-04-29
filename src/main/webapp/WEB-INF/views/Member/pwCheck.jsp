@@ -8,7 +8,7 @@
 		<style></style>
 	</head>
 	<body>
-		<form action="withdraw" method="post">
+		
 			<table>
 				<tr>
 					<td>
@@ -24,7 +24,7 @@
 					</td>
 				</tr>
 			</table>
-		</form>
+		
 	</body>
 	<script>
 	$("#withdrawal").click(function(){
@@ -34,7 +34,7 @@
 		}else{
 			$.ajax({
 				type : "POST",
-				url:"checkPw",
+				url:"withdraw",
 				data : {
 				"pw" : $("#pw").val()
 				},
@@ -42,13 +42,13 @@
 				success : function(result){
 					console.log(result);
 					
-					if(result==="pwConfirmOK"){
+					/* if(result==="pwConfirmOK"){
 						$('#pwMsg').html('');
 						chk1=true;
 					}else{
-						$('#pwMsg').html(''); 
+						$('#pwMsg').html('비밀번호가 올바르지 않습니다.'); 
 						chk1 = false;
-					}
+					} */
 				},
 				error : function(error){
 					console.log("error : "+error);
@@ -57,10 +57,7 @@
 		}
 	});
 	
-	var msg = "${msg}";
-	if(msg!=""){
-		alert(msg);
-	}
+	
 	
 	</script>
 </html>

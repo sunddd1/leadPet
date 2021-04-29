@@ -19,13 +19,27 @@ public class VaccinDTO {
 	private int cycle;
 	private int vacc_cnt;
 	
-	///
+	///checked
 	private int vac_idx;
 	private int pet_idx;
 	private String name;
 	private Date expected_date;
+	private String executed;
+	private String checked;
 	
-	
+
+	public String getChecked() {
+		return checked;
+	}
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+	public String getExecuted() {
+		return executed;
+	}
+	public void setExecuted(String executed) {
+		this.executed = executed;
+	}
 	public Date getExpected_date() {
 		return expected_date;
 	}

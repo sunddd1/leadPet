@@ -7,20 +7,29 @@
  <!-- 누가 이 XML을 사용할까?(mybatis) / 누구와 연결을? (해당 DAO) -->
  <mapper namespace="com.spring.main.dao.CalendarDAO">
 	<select id="scheduler" resultType="scheduler">
-		SELECT * FROM scheduler WHERE d_day BETWEEN #{param1} AND #{param2}
+		SELECT * FROM scheduler WHERE  
+		<![CDATA[d_day >= #{param1}]]> AND
+		<![CDATA[d_day < #{param2}]]>
 	</select>
 	
 	<select id="vaccin_scheduler" resultType="vaccin_scheduler">
 		SELECT vs.d_day, vs.vacc_sche_idx,vs.vac_idx,v.vacc_name , p.name  FROM 
 		pet p,vaccin_scheduler vs,pet_vaccin pv,vaccin v 
 		WHERE p.pet_idx=pv.pet_idx AND vs.vac_idx=pv.vac_idx AND v.vacc_idx=pv.vacc_idx AND
-		 d_day BETWEEN #{param1} AND #{param2} ORDER BY vs.vacc_sche_idx DESC
+		<![CDATA[d_day >= #{param1}]]> AND
+		<![CDATA[d_day < #{param2}]]>
+		 
+		 ORDER BY vs.vacc_sche_idx DESC
 	</select>
 	
 	<select id="vaccinList"  resultType="vaccin">
 		SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
 		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx AND p.pet_idx in 
-		(SELECT pet_idx FROM pet WHERE id ='testId') AND pv.expected_date BETWEEN #{param1} AND #{param2} AND pv.added='N'  ORDER BY pv.vac_idx DESC
+		(SELECT pet_idx FROM pet WHERE id ='testId') AND
+
+		<!-- <![CDATA[ pv.expected_date >= #{param1}]]> AND -->
+		<![CDATA[ pv.expected_date < #{param2}]]>
+		  AND pv.added='N'  ORDER BY pv.vac_idx DESC
 	</select>
 	
 	<select id="calendardetail" resultType="scheduler">
@@ -30,24 +39,66 @@
 	</select>
 	
 	<select id="vaccinDetail" resultType="vaccin">
-		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx 
+		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx ,pv.checked 
 		FROM pet_vaccin pv, vaccin v 
 		WHERE pv.vacc_idx=v.vacc_idx AND pv.vac_idx=#{param1}
 	</select>
+
+	<select id="vacc_scheSearch" resultType="vaccin">
+		SELECT vacc_sche_idx, executed FROM vaccin_scheduler
+		WHERE vac_idx=#{param1}
+	</select>
+	
+	
 	
  	<insert id="regVaccin">
 		INSERT INTO vaccin_scheduler (vacc_sche_idx,vac_idx,d_day,id)
 		VALUES (vacc_sche_idx_seq.NEXTVAL,#{param1},#{param2},#{param3} )
 	</insert> 
 	
+	<update id="regVaccin_suc">
+		UPDATE pet_vaccin SET added='Y'
+		WHERE vac_idx = #{param1}
+	</update>
+	
 	<select id="cycle" resultType="long">
 		SELECT cycle FROM vaccin WHERE vacc_idx = #{param1}
 	</select>
 	
  	<update id="upDateDay">
-		UPDATE pet_vaccin SET added='Y', expected_date=#{param3} 
+		UPDATE pet_vaccin SET added='N', expected_date=#{param2} 
 		WHERE vac_idx = #{param1}
 	</update> 
 	
+	<update id="updateVaccin">
+		UPDATE vaccin_scheduler SET d_day= #{param2} WHERE vac_idx=#{param1} AND executed='N'
+	</update>
+	
+	<update id="updateSchedule" parameterType="scheduler">
+		UPDATE scheduler SET content=#{content}, subject=#{subject}, cycle=#{cycle}, d_day=#{d_day} WHERE sche_idx=#{sche_idx}
+	</update>
+	
+	<insert id="regSchedule" parameterType="scheduler">
+		INSERT INTO scheduler (sche_idx, content, subject, cycle, d_day)
+		VALUES (SCHE_IDX_SEQ.NEXTVAL, #{content},#{subject},#{cycle},#{d_day})
+	</insert>
+	
+	<delete id="deleteSche">
+		DELETE FROM scheduler WHERE sche_idx=#{param1}
+	</delete>
+
+	<delete id="deleteVaccSche">
+		DELETE FROM vaccin_scheduler WHERE vacc_sche_idx=#{param1} AND executed='N'
+	</delete>
+	
+	<update id="deleteVaccSche_suc">
+		UPDATE pet_vaccin SET added='N'
+		WHERE vac_idx = #{param1}
+	</update>
+
+	<update id="executed">
+		UPDATE vaccin_scheduler SET executed='Y' WHERE vac_idx=#{param1}
+	</update>
+
 
  </mapper>

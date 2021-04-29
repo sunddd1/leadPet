@@ -1,7 +1,9 @@
 package com.spring.main.service;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -80,6 +82,7 @@ public class CalendarService {
 		SchedulerDTO sche= dao.calendardetail(idx);
 		sche.setD_day(sche.getD_day().substring(0,10));
 		logger.info("지정날 : {}",sche.getD_day().substring(0,10));
+
 		mav.addObject("sche", sche);
 		mav.setViewName("./cal/calendardetail");
 		return mav;
@@ -96,23 +99,77 @@ public class CalendarService {
 
 	@Transactional//vacc_idx,vac_idx,date,session
 	public HashMap<String, Object> regVaccin(String vacc_idx, String vac_idx, String date, HttpSession session) {
-		String id = "testId";
-		int suc =  dao.regVaccin(vac_idx,date,id);
-		long cycle = dao.cycle(vacc_idx)*7*24*60*60*1000;
-		/*
-		 * int year = Integer.parseInt(date.substring(0, date.indexOf("-"))); int month
-		 * =Integer.parseInt(date.substring(date.indexOf("-")+1,date.lastIndexOf("-")));
-		 * int day =conDate.getTime()+vac_idx='9988' 
-		 * Integer.parseInt(date.substring(date.lastIndexOf("-")+1,date.length()));
-		 */
-		
-		Date conDate =java.sql.Date.valueOf(date);
-		long a =cycle;
-		Date ZZinDate = new Date(a+conDate.getTime());
-		logger.info("conDate 목 : {} ",ZZinDate);
-		logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+cycle);
-		suc+=dao.upDateDay(vac_idx,ZZinDate);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		String id = "testId";
+		int suc = 0;
+		//조회 
+		VaccinDTO vacc = dao.vacc_scheSearch(vac_idx);
+		logger.info("조회 여부 : "+vacc);
+		if(vacc!=null) {
+			if(vacc.getExecuted().equals("N")) {
+				suc = dao.updateVaccin(vac_idx,date);
+				logger.info("수정 함 : "+vac_idx +"/"+date);				
+			}
+		}else {
+			suc =  dao.regVaccin(vac_idx,date,id);
+
+			int a = dao.regVaccin_suc(vac_idx);
+			logger.info("a : "+a);
+		}
+		logger.info("suc : "+suc);
+
+		map.put("suc", suc);
+		return map;
+	}
+
+	public HashMap<String, Object> regSchedule(SchedulerDTO dto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int suc =0;
+		if(dto.getSche_idx()>0) {
+			suc =dao.updateSchedule(dto);
+			
+		}else {
+			suc = dao.regSchedule(dto);
+		}
+		logger.info("suc : "+suc);
+		map.put("suc", suc);
+		return map;
+	}
+
+	public HashMap<String, Object> deleteSche(int idx, int type, int pet) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int suc = 0;
+		if(type==1) {//백신스케줄러
+			suc=dao.deleteVaccSche(idx);
+			if(suc>0) {
+				suc +=dao.deleteVaccSche_suc(pet);				
+			}
+		}
+		if(type==2) {//그냥 스케줄러
+			suc=dao.deleteSche(idx);			
+		}
+		logger.info("suc : "+suc);
+		map.put("suc", suc);
+		return map;
+	}
+
+	public HashMap<String, Object> executed(String vac_idx, String vacc_idx, String date) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int suc = 0;
+		suc=dao.executed(vac_idx);
+		if(suc>0) {
+			// 일정이 완료되면 예상 추가 + 일정추가여부 수정
+			 long cycle = dao.cycle(vacc_idx)*7*24*60*60*1000;
+			  
+			 logger.info("등록 함 : "+vac_idx +"/"+date); 
+			 Date conDate=java.sql.Date.valueOf(date); Date ZZinDate = new
+			 Date(cycle+conDate.getTime()); logger.info("conDate 목 : {} ",ZZinDate);
+			 logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+cycle);
+			 suc+=dao.upDateDay(vac_idx,ZZinDate);
+			 
+			
+		}
+		map.put("suc", suc);
 		return map;
 	}
 
