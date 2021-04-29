@@ -14,6 +14,7 @@ public class GameDTO {
 		private String ex3;
 		private String ex4;
 		private String quiz_answer;
+		private String quiz_blind;
 		
 		//nemo Table
 		private int nemo_idx;
@@ -82,6 +83,12 @@ public class GameDTO {
 		}
 		public void setQuiz_answer(String quiz_answer) {
 			this.quiz_answer = quiz_answer;
+		}
+		public String getQuiz_blind() {
+			return quiz_blind;
+		}
+		public void setQuiz_blind(String quiz_blind) {
+			this.quiz_blind = quiz_blind;
 		}
 		public int getNemo_idx() {
 			return nemo_idx;
@@ -182,8 +189,8 @@ public class GameDTO {
 		public Date getQuiz_update_date() {
 			return quiz_update_date;
 		}
-		public void setUpdate_date(Date update_date) {
-			this.quiz_update_date = update_date;
+		public void setQuiz_update_date(Date quiz_update_date) {
+			this.quiz_update_date = quiz_update_date;
 		}
 		public int getWeek_nemo_idx() {
 			return week_nemo_idx;
