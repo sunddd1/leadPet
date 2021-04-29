@@ -24,12 +24,24 @@ public class LoginService {
 	public String login(String id, String password) {
 		logger.info("login 호출");
 		
-		MemberDTO memberDto = loginDao.login(id);
+		String userId = id.trim();
+		String userPw = password.trim();
 		
-		if(memberDto != null && checkEqualPw(password, memberDto.getPassword())) {	
-			logger.info("login 성공");
+		if(userId.equals("") || userPw.equals("")) {
+			return null;
 		}
 		
+		MemberDTO memberDto = loginDao.login(userId);
+		
+		if(memberDto == null) {
+			return null;
+		}
+
+		if(checkEqualPw(userPw, memberDto.getPassword()) == false) {
+			return null;
+		}
+		
+		logger.info("login 성공");
 		return id;
 	}
 	

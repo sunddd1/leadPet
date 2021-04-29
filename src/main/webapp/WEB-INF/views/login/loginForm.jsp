@@ -19,15 +19,18 @@
 					<h3>leadPet</h3>
 				</td>
 			</tr>
-			id : wwww , pw : pass
 			<tr>
 				<td>
 					<form id="loginForm" action="login" method="post">
 						<div>
-							<label>아이디</label><br/> <input type="text" id="id" name="id" value="${id}" />
+							<label>아이디 test123</label
+							><br/>
+							<input type="text" id="id" name="id" value="${id}" />
 						</div>
 						<div>
-							<label>비밀번호</label><br/> <input type="password" id="password" name="password" />
+							<label>비밀번호 pass</label>
+							<br/>
+							<input type="password" id="password" name="password" />
 						</div>
 					</form>
 				</td>
