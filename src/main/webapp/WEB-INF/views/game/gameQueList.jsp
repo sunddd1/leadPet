@@ -27,6 +27,12 @@
 			#nemoTitle,#nemo{
 				display: none;
 			}
+			table,th,td{
+				text-align: center;
+				border: 2px solid darkgrey;
+				border-collapse: collapse;
+				padding: 2%;
+			}
 			table{
 				width: 100%;
 				margin-top: 2%;
@@ -34,11 +40,8 @@
 			th,td{
 				min-width: 100px;
 			}
-			table,th,td{
-				text-align: center;
-				border: 2px solid darkgrey;
-				border-collapse: collapse;
-				padding: 2%;
+			th{
+				border-bottom: 3px double darkgrey;
 			}
 			a:link, a:visited, a:active{
 				color:darkslategrey;
@@ -62,15 +65,16 @@
 			</div>	
 			<div id="padding">
 				<div id="quiz">
-					<button id="quizInsert">상식퀴즈 게임등록</button>			
+					<button id="quizInsert" onclick="location.href='./insertQuizForm'">상식퀴즈 게임등록</button>			
 					<table>
 						<tr>
-							<th>퀴즈번호</th><th>문제</th>
+							<th>퀴즈번호</th><th>문제</th><th>블라인드</th>
 						</tr>
 						<c:forEach items="${quizList}" var="que">
 							<tr>
 								<td>${que.quiz_idx}</td>
 								<td><a href="./quizDetail?idx=${que.quiz_idx}">${que.quiz_question}</a></td>
+								<td><a href="./quizBlind?idx=${que.quiz_idx}" style="color: #1B4F72; font-family: cursive;">Blind</a></td>
 							</tr>
 						</c:forEach>
 					</table>
