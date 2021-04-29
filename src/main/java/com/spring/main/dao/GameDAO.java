@@ -24,5 +24,7 @@ public interface GameDAO {
 	int quizBlind(int idx);
 
 	int updateQuiz(HashMap<String, String> params);
+
+	ArrayList<GameDTO> getThisWeekQuiz();
 	
 }

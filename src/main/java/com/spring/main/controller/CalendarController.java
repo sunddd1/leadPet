@@ -1,5 +1,8 @@
 package com.spring.main.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -8,12 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.SchedulerDTO;
 import com.spring.main.service.CalendarService;
 
 @Controller
@@ -112,5 +118,34 @@ public class CalendarController {
 	public  @ResponseBody HashMap<String, Object> regVaccin(@RequestParam String vac_idx,@RequestParam String vacc_idx, @RequestParam String date, HttpSession session) {
 		logger.info("vac_idx : {} / {}",vac_idx+"/"+vacc_idx,date);
 		return service.regVaccin(vacc_idx,vac_idx,date,session);
+	}
+	
+	@RequestMapping(value = "/regScheForm", method = RequestMethod.GET)
+	public String regScheForm(HttpSession session,Model mav) {
+		logger.info("등록폼");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		Calendar time = Calendar.getInstance();
+		logger.info("날짜" + format1.format((time.getTime())));
+		mav.addAttribute("time", format1.format(time.getTime()));
+		return "./cal/calendardetail";
+	}
+	
+	@RequestMapping(value = "/regSchedule", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> regSchedule(HttpSession session,@ModelAttribute SchedulerDTO dto) {
+		logger.info("파라메터들 : "+dto.getContent()+"/"+dto.getSubject()+"/"+dto.getCycle()+"/"+dto.getD_day()+"/"+dto.getSche_idx());
+		return service.regSchedule(dto);
+	}
+	
+	@RequestMapping(value = "/deleteSche", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> deleteSche(HttpSession session,@RequestParam int idx, @RequestParam int type, @RequestParam int pet) {
+		logger.info("파라메터들 : "+idx +"/"+type+"/"+pet);
+		return service.deleteSche(idx,type,pet);
+	}
+	
+
+	@RequestMapping(value = "/executed", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> executed(HttpSession session,@RequestParam String vac_idx,@RequestParam String vacc_idx,@RequestParam String date) {
+		logger.info("vac_idx : "+vac_idx+"//"+date);
+		return service.executed(vac_idx,vacc_idx,date);
 	}
 }

@@ -106,4 +106,17 @@ public class GameService {
 		}
 		return mav;
 	}
+
+	public ModelAndView getThisWeekQuiz() {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<GameDTO> ThisWeekQuiz = dao.getThisWeekQuiz();
+		logger.info("ThisWeekQuiz : {}",ThisWeekQuiz.size());
+		GameDTO dto = new GameDTO();
+		logger.info("{}주차 상식퀴즈",ThisWeekQuiz.get(0).getWeek_quiz_idx());
+		logger.info("업데이트 날짜 : {}",ThisWeekQuiz.get(0).getQuiz_update_date());
+		mav.addObject("ThisWeekQuiz", ThisWeekQuiz);
+		mav.addObject("week_quiz_idx",ThisWeekQuiz.get(0).getWeek_quiz_idx());
+		mav.setViewName("game/quizPlayingPage");
+		return mav;
+	}
 }

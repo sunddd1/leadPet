@@ -8,11 +8,12 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
-			table,td,th {
-	            border: 2px solid;
+			#draw ,#draw td,#draw th {
+				margin: 5px;
+	            border: 1px solid;
 	            border-collapse: collapse;
 			}
-	        td {
+	        #draw td {
 	        	font-size: 8pt;
 	        	text-overflow: ellipsis;
 	        	overflow: hidden;
@@ -20,8 +21,11 @@
 	        	width: 20px;
 	        	height: 20px;
 	        }
-	        div{
-	        	font-size: 8pt;
+	        #list {
+	        	width: 100%;
+	        }
+	        #list td{
+	        	width: 80%;
 	        }
 		</style>
 	</head>
@@ -30,16 +34,31 @@
 		<p id="today"></p>
 	    <button onclick="preMon()">이전</button>
 	    <button onclick="nextMon()">다음</button>
-	    <table>
+	    <button id="btn" onclick="reg()">등록</button>
+	    <table id="draw">
 	    </table>
-	    <div id="list">
+	    <table id="list">
  	    	<c:forEach items="#{vacc }" var="list">
-	    		<div onclick='window.open("./vaccinDetail?idx=${list.vacc_sche_idx}","","width=600,height=400,left=800,top=300")'>${list.name} / ${list.vacc_name}</div>
+ 	    		<tr>
+ 	    			<td>
+			    		<span onclick='window.open("./vaccinDetail?idx=${list.vac_idx}","","width=600,height=400,left=800,top=300")'>${list.name} / ${list.vacc_name}</span>
+ 	    			</td>
+ 	    			<th>
+			    		<a onclick="del(1,${list.vacc_sche_idx},${list.vac_idx})" >삭제</a>
+ 	    			</th>
+	    		</tr>
 	    	</c:forEach>
 	    	<c:forEach items="${sche }" var="list">
-	    		<div onclick='window.open("./calendardetail?idx=${list.sche_idx}","","width=600,height=400,left=800,top=300")'>${list.subject}</div>
+ 	    		<tr>
+ 	    			<td>
+			    		<span onclick='window.open("./calendardetail?idx=${list.sche_idx}","","width=600,height=400,left=800,top=300")'>${list.subject}</span>
+			 		</td>
+ 	    			<th>
+			    		<a  onclick="del(2,${list.sche_idx},0)">삭제</a>
+ 	    			</th>
+	    		</tr>
 	    	</c:forEach>
-	    </div>
+	    </table>
 	</body>
 	<script>
     $(document).ready(function () {
@@ -51,7 +70,7 @@
     d.setMonth("${month}"-1);
     console.log("---------------"+d.getMonth());
 	function cal() {
-		$('table').html('');    
+		$('#draw').html('');    
         var str = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
         var year = d.getFullYear();
         var month = d.getMonth() + 1;
@@ -59,7 +78,10 @@
         var day = d.getDay();
         var maxday = 30;
         console.log(month+"//////");
-        $('#today').html(year+"년 "+month+"월");
+        
+        console.log($('#today').html());
+        $('#today').html(year+"년 "+month+"월"+"${day}"+"일");
+
         if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
             maxday = 31;
         } else if (month == 2) {
@@ -104,15 +126,14 @@
             str += "</tr>";
         }
 
-        console.log(year+"년/"+month + "월/" + date + "일/" + day);
-       $('table').append(str);
+        console.log(year+"년/"+month + "월/" + date + "일/" );
+       $('#draw').append(str);
 
         
 	}
 	function fa(e) {
 		 d.setDate(e);
 		console.log((d.getMonth()+1) +"+++"+e+"+++"+d.getDate());
-		
 		var link = d.getFullYear()+"/"+(d.getMonth() +1)+"/"+e;
 		
 		console.log(link);
@@ -132,10 +153,49 @@
     }
 
     function setData(data) {
-    	
+    	console.log(data);
+		d.setFullYear(data.substring(0,4));
+		d.setMonth(data.substring(5,7)-1);
+		console.log(data.substring(8,10));
+		d.setDate(data.substring(8,10));
+		fa(data.substring(8,10));
     	opener.setData(data);
     }
     
+
+    
+    function reg() {//location.href='./regScheForm'
+    	window.open("./regScheForm","","width=600,height=400,left=800,top=300");
+	}
+    function del(a,b,c) {
+		console.log(a+"/"+b+"/"+c);
+		//location.reload();
+		$.ajax({
+			type:'get'
+			,url:'deleteSche'
+			,data:{
+				"idx":b
+				,"type":a
+				,"pet":c
+			}
+			,dataType:'json'
+			,success : function(data) {
+				console.log(data);
+				if(data.suc>0){
+					console.log(d);
+					opener.location.reload();
+					location.reload();					
+				}
+				if(data.suc==0){
+					alert("완료한 일정 삭제하거나 수정 할 수 없습니다.");
+				}
+			}
+			,error : function(e){
+				console.log(e);
+			}
+			
+		});
+	}
     
 	</script>
 </html>
