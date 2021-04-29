@@ -52,4 +52,21 @@
 	<update id="updateQuiz" parameterType="hashMap">
 		UPDATE quiz SET quiz_question=#{quiz_question}, ex1=#{ex1}, ex2=#{ex2}, ex3=#{ex3}, ex4=#{ex4}, quiz_answer=#{quiz_answer} WHERE quiz_idx=#{quiz_idx}
 	</update>
+	
+	<!-- 게임 화면 페이지 : 상식퀴즈 풀기 / 네모로직 풀기 -->
+	<select id="getThisWeekQuiz" resultType="game">
+		SELECT w.week_quiz_idx, w.quiz_update_date, q.quiz_idx, q.quiz_question, q.ex1, q.ex2, q.ex3, q.ex4, q.quiz_answer 
+    		FROM quiz_week w, quiz q WHERE quiz_blind = 'N' AND (
+    			q.quiz_question = w.quiz_first 
+			    OR q.quiz_question = w.quiz_second 
+			    OR q.quiz_question = w.quiz_third 
+			    OR q.quiz_question = w.quiz_fourth
+			    OR q.quiz_question = w.quiz_fifth
+			    OR q.quiz_question = w.quiz_sixth
+			    OR q.quiz_question = w.quiz_seventh
+			    OR q.quiz_question = w.quiz_eighth
+			    OR q.quiz_question = w.quiz_ninth
+			    OR q.quiz_question = w.quiz_tenth
+			) AND week_quiz_idx=(SELECT MAX(week_quiz_idx)FROM quiz_week)
+	</select>
 </mapper>
