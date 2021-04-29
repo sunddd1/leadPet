@@ -124,7 +124,7 @@
 				var id = $('#id').val();
 				var pw = $('#password').val();
 				
-				location.href = "changePw?id=" + id + "&password=" + pw;
+				location.href = "change-pw?id=" + id + "&password=" + pw;
 			}
 		}
 	</script>
