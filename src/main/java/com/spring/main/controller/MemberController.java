@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.io.Writer;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.NoteDTO;
 import com.spring.main.service.MemberService;
@@ -66,9 +68,9 @@ public class MemberController {
 		
 		//쪽지 전송 
 		@RequestMapping(value="/noteSend",method = RequestMethod.POST)
-	    public String noteSend(@RequestParam String content,@RequestParam String id){
-			logger.info("쪽지 전송 요청 :"+content,id);
-			return memberService.noteSend(content,id);
+	    public String noteSend(@RequestParam String content){
+			logger.info("쪽지 전송 요청"+content);
+			return memberService.noteSend(content);
 	    }
 	
 		//받은 쪽지 목록 
@@ -98,11 +100,12 @@ public class MemberController {
 	        logger.info("받은 쪽지 상세보기");
 			return memberService.detailNoteList(message, note_idx,model);
 		}
+
+		//내가 쓴 글 목록 
+		@RequestMapping(value="/writeList")
+	    public String writeList(ArrayList<Object> dto, Model model){
+	        logger.info("내가 쓴 글 목록 요청");
+			return memberService.writeList(dto,model);
+		}
 		
-//		//쪽지 읽음 표시 
-//		@RequestMapping(value="/checked")
-//		public String checked(@RequestParam int note_idx){
-//	        logger.info("보낸 쪽지 목록 요청");
-//			return memberService.checked(note_idx);
-//		}
 }

@@ -38,4 +38,17 @@
 		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx} 
 	</update>
 	
+	<select id="writeList" resultType="com.spring.main.dto.NoteDTO">
+		select bbs_idx,bbs_subject,bbs_content,category_name from bbs where nickname = #{param1}  
+	</select>
+	
+		<insert id="write" 
+		useGeneratedKeys="true"
+		keyProperty="bbs_idx"
+		keyColumn="bbs_idx"
+		parameterType="board">
+	INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views)
+		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0)	
+	</insert>
+	
 </mapper>

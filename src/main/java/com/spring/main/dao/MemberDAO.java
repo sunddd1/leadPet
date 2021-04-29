@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
@@ -20,9 +21,6 @@ public interface MemberDAO {
 
 	void delMessage(int note_idx);
 
-	void noteSend(NoteDTO dto);
-
-
 	void noteSend(String content, String loginId);
 
 
@@ -33,6 +31,9 @@ public interface MemberDAO {
 
 
 	void checked(int note_idx);
+
+
+	ArrayList<Object> writeList(String loginId);
 
 	
 }

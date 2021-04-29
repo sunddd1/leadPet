@@ -1,6 +1,8 @@
 package com.spring.main.service;
 
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.BoardDTO;
 
 import oracle.jdbc.driver.Message;
 @Service
@@ -121,9 +124,10 @@ public class MemberService {
 		return "redirect:/noteList";
 	}
 
-	public String noteSend(String content,String id) {
+	public String noteSend(String content) {
 		logger.info("쪽지 전송중..");
-		dao.noteSend(id,content);
+		String loginId="wwww";
+		dao.noteSend(loginId,content);
 		logger.info("쪽지 전송 완료");
 		return "redirect:/sendList";
 	}
@@ -145,6 +149,15 @@ public class MemberService {
 		dao.checked(note_idx);
 		model.addAttribute("detailList", detailList);
 		return "Note/Message";
+	}
+
+	public String writeList(ArrayList<Object>write, Model model) {
+		logger.info("목록 불러오는 중");
+		String loginId = "멍멍";
+		write = dao.writeList(loginId);
+		logger.info("writeList"+write);
+        model.addAttribute("writeList", write);
+        return "Note/writeList";
 	}
 
 	
