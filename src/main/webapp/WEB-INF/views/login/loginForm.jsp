@@ -19,6 +19,7 @@
 					<h3>leadPet</h3>
 				</td>
 			</tr>
+			id : wwww , pw : pass
 			<tr>
 				<td>
 					<form id="loginForm" action="login" method="post">
@@ -29,7 +30,7 @@
 							<label>비밀번호</label><br/> <input type="password" id="password" name="password" />
 						</div>
 					</form>
-	
+				</td>
 			<tr>
 				<td colspan="3" align="right" style="color: lightgray">
 					<a href="find-id-form">아이디 찾기</a>

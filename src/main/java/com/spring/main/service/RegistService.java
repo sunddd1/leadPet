@@ -22,25 +22,14 @@ public class RegistService {
 		this.registDao = registDao;
 	}
 
-	public ModelAndView regist(MemberDTO member) {
-		logger.info("regist 호출");
-		
-		ModelAndView mav = new ModelAndView();
-		String viewName = "/login/regist";
-		String msg = "회원가입에 실패했습니다.";
+	public boolean regist(MemberDTO member) {
+		logger.info("regist 호출");	
 		
 		// 유효성 검사 로직 추가해야함.
 		
 		member.setPassword(encodePw(member.getPassword()));
-		
-		if( registDao.registMember(member) > 0) {
-			viewName = "/login/loginForm";
-			msg = "회원가입에 성공했습니다.";
-		}
-		
-		mav.addObject("msg", msg);
-		mav.setViewName(viewName);
-		return mav;
+
+		return registDao.registMember(member) > 0;
 	}
 
 	public boolean checkDuplicateId(String id) {
@@ -55,15 +44,15 @@ public class RegistService {
 		return registDao.checkDuplicateNickname(nickname) == 0;
 	}
 	
-	public String changePw(String id, String password) {
+	public boolean changePw(String id, String password) {
 		logger.info("changePw 호출");
 
-		return registDao.changePw(id, encodePw(password)) != 0 ? "login/loginForm" : "login/changePwForm";
+		return registDao.changePw(id, encodePw(password)) > 0;
 	}
 	
 	private String encodePw(String password) {
-		return new BCryptPasswordEncoder()
-					.encode(password);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.encode(password);
 	}
 
 	
