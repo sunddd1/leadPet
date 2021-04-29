@@ -4,33 +4,34 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 
-<mapper namespace="com.spring.main.dao.RegistDAO">	
+<mapper namespace="com.spring.main.dao.LoginDAO">	
 	
-	<insert id="registMember" parameterType="member">
-		INSERT
-			member(id, password, name, age, gender, email, nickname)
-		VALUES
-			(#{id}, #{password}, #{name}, #{age}, #{email}, #{nickname})
-	</insert>
-
-	<select id="checkDuplicateId" resultType="int">
-		SELECT
-			count(*)
+	<select id="login" resultType="member">
+		SELECT 
+			id, password
 		FROM
-			member
+			member 
 		WHERE
 			id = #{param1}
 	</select>
 
-	<select id="checkDuplicateNickname" resultType="int">
+	<select id="findId" resultType="String">
+		SELECT
+			id
+		FROM 
+			member
+		WHERE
+			name=#{param1} AND email=#{param2}
+	</select>
+	
+	<select id="existId" resultType="int">
 		SELECT
 			count(*)
 		FROM
 			member
 		WHERE
-			nickname = #{param1}
+			id=#{param1} AND name=#{param2} AND email=#{param3}
 	</select>
-
 </mapper>
 
 

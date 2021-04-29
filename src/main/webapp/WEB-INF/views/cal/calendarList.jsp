@@ -20,6 +20,9 @@
 	        	width: 20px;
 	        	height: 20px;
 	        }
+	        div{
+	        	font-size: 8pt;
+	        }
 		</style>
 	</head>
 	<body>		
@@ -31,10 +34,10 @@
 	    </table>
 	    <div id="list">
  	    	<c:forEach items="#{vacc }" var="list">
-	    	${list.name} / ${list.vacc_name}<br/>
+	    		<div onclick='window.open("./vaccinDetail?idx=${list.vacc_sche_idx}","","width=600,height=400,left=800,top=300")'>${list.name} / ${list.vacc_name}</div>
 	    	</c:forEach>
 	    	<c:forEach items="${sche }" var="list">
-	    	${list.subject}<br/>
+	    		<div onclick='window.open("./calendardetail?idx=${list.sche_idx}","","width=600,height=400,left=800,top=300")'>${list.subject}</div>
 	    	</c:forEach>
 	    </div>
 	</body>
@@ -44,9 +47,9 @@
     });
     var d = new Date();
     var nM = new Date();
-    d.setFullYear("${year}")
-    d.setMonth("${month}") 
-    d.setDate("${date}")
+    d.setFullYear("${year}");
+    d.setMonth("${month}"-1);
+    console.log("---------------"+d.getMonth());
 	function cal() {
 		$('table').html('');    
         var str = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
@@ -103,68 +106,7 @@
 
         console.log(year+"년/"+month + "월/" + date + "일/" + day);
        $('table').append(str);
-       
-/*        $.ajax({
-   		type:'get'
-   		,url:'calendarList'
-   		,data:{
-   			"date":year+"/"+month+"/"+date
-   		}
-   		,dataType:'json'
-   		,success : function(data) {
-			}
-   		,error : function(e) {
-				console.log(e);
-				console.log('에러라니11');
-			} 
-   		
-   		}); */
-       
-       /*  $.ajax({
-    		type:'get'
-    		,url:'scheduler'
-    		,data:{
-    			"year":d.getFullYear()
-    			,"smonth":d.getMonth()+1
-    		}
-    		,dataType:'json'
-    		,success : function(data) {
-				console.log(data.vacc);
-				console.log(data.sche);
-				console.log(data.vaccinList);
-				
-				for (var i = 0; i < data.vacc.length; i++) {
-					var d_day = data.vacc[i].d_day;
-					var dyear = d_day.substring(0,4);
-					var dmont = d_day.substring(5,7);
-					var ddate = d_day.substring(8,10);
-					console.log("스게 //"+dyear+"/"+dmont+"/"+ddate);
-			    	console.log("스게 //"+d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 ){	
-						var link= data.vacc[i].vacc_sche_idx+",1";
-						$('#list').append('<div class="schedule" onclick="detail('+link+')">'+data.vacc[i].name+"/"+data.vacc[i].vacc_name+'</div>');
-					}
-				}
-				for (var i = 0; i < data.sche.length; i++) {
-					console.log(data.sche[i].content);
-					var d_day = data.sche[i].d_day;
-					var dyear = d_day.substring(0,4);
-					var dmont = d_day.substring(5,7);
-					var ddate = d_day.substring(8,10);
-					console.log(dyear+"/"+dmont+"/"+ddate);
-			    	console.log(d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 ){		
-						var link =data.sche[i].sche_idx+",2";
-						$('#list').append('<div class="schedule" onclick="detail('+link+')">'+data.sche[i].subject+'</div>');
-					}
-				}
-			}
-    		,error : function(e) {
-				console.log(e);
-				console.log('에러라니');
-			} 
-    		
-    	}); */
+
         
 	}
 	function fa(e) {
@@ -175,11 +117,11 @@
 		
 		console.log(link);
        window.open("./calendarList?date="+link,"_self");
-		//window.open("./calendarListForm","","width=400,height=400,left=300,top=300");
 	}
     function nextMon() {
         $('#list').html('');
     	d.setMonth(d.getMonth() + 1);
+    	console.log("무슨달이야 ? "+ d.getMonth());
         cal();
         
     }
@@ -188,9 +130,12 @@
         d.setMonth(d.getMonth() - 1);
         cal();
     }
-/* 	function detail(a,b) {
-		console.log(a,b);
-        window.open("./calendardetail?idx="+a+"&type="+b,"","width=600,height=300,left=700,top=300");
-	} */
+
+    function setData(data) {
+    	
+    	opener.setData(data);
+    }
+    
+    
 	</script>
 </html>

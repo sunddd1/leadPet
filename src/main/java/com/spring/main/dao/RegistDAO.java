@@ -9,5 +9,7 @@ public interface RegistDAO {
 	int checkDuplicateId(String id);
 
 	int checkDuplicateNickname(String nickname);
+
+	int changePw(String id, String encodePw);
 	
 }

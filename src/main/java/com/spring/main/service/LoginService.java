@@ -1,5 +1,10 @@
 package com.spring.main.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +27,22 @@ public class LoginService {
 		this.loginDao = loginDao;
 	}
 	
-	public ModelAndView login(String id, String password) {
+	public ModelAndView login(HttpServletRequest req, String id, String password) {
 		logger.info("login 호출");
 		
 		ModelAndView mav = new ModelAndView();
 		String viewName = "/login/loginForm";
 		String msg = "로그인에 실패했습니다.";
-		MemberDTO memberDto = loginDao.login(id, password);
+		
+		MemberDTO memberDto = loginDao.login(id);
 		
 		if(memberDto != null && checkEqualPw(password, memberDto.getPassword())) {	
 			logger.info("login 성공");
 			//viewName = "/main";
 			viewName = "/login/loginForm";
 			msg = "로그인에 성공했습니다.";
+			
+			req.setAttribute("loginId", id);
 		}
 		
 		mav.addObject("id", id);
@@ -43,8 +51,30 @@ public class LoginService {
 		return mav;
 	}
 	
+	public Map<String, Object> findId(String name, String email) {
+		logger.info("findId 호출");
+		
+		Map<String, Object> output = new HashMap<String, Object>();
+		String searchId = loginDao.findId(name, email);
+		
+		if(searchId != null) {
+			output.put("result", true);
+			output.put("id", searchId);
+		}
+		
+		return output;
+	}
+	
+	public boolean existId(String id, String name, String email) {
+		logger.info("validId 호출");
+		
+		return loginDao.existId(id, name, email) > 0;
+	}
+	
 	private boolean checkEqualPw(String userPw, String dbPw) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.matches(userPw, dbPw);
 	}
+
+	
 }

@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,10 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView login(@RequestParam String id, @RequestParam String password) {
+	public ModelAndView login(HttpServletRequest req ,@RequestParam String id, @RequestParam String password) {
 		logger.info("login 요청");
 		
-		return loginService.login(id, password);
+		return loginService.login(req, id, password);
 	}
 	
 	@GetMapping("/loginForm")
@@ -43,6 +45,27 @@ public class LoginController {
 		logger.info("loginForm 요청");
 		
 		return "login/loginForm";
+	}
+	
+	@GetMapping("/findIdForm")
+	public String findIdForm() {
+		logger.info("findIdForm 요청");
+		
+		return "login/findIdForm";
+	}
+	
+	@GetMapping("/changePwForm")
+	public String changePwForm() {
+		logger.info("changePwForm 요청");
+
+		return "login/changePwForm";
+	}
+	
+	@GetMapping("/changePw")
+	public String changePw(@RequestParam String id, @RequestParam String password) {
+		logger.info("changePw 요청");
+		
+		return registService.changePw(id, password);
 	}
 	
 	@PostMapping("/regist")
@@ -58,6 +81,14 @@ public class LoginController {
 		
 		return "login/registForm";
 	}	
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest req) {
+		logger.info("logout 요청");
+		
+		req.removeAttribute("loginId");
+		return "main";
+	}
 	
 	// 아래부터 ajax 부분
 	
@@ -75,5 +106,22 @@ public class LoginController {
 		logger.info("checkDuplicateNickname 요청");
 		
 		return registService.checkDuplicateNickname(nickname);
+	}
+	
+	@GetMapping("/find-id")
+	@ResponseBody
+	public Map<String, Object> findId(@RequestParam String name, @RequestParam String email) {
+		logger.info("findId 요청");
+		
+		return loginService.findId(name, email);
+	}
+	
+	@GetMapping("/exist-id")
+	@ResponseBody
+	public boolean existId(@RequestParam String id, @RequestParam String name,
+										@RequestParam String email) {
+		logger.info("existId 요청");
+		
+		return loginService.existId(id, name, email);
 	}
 }

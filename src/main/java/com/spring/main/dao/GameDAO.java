@@ -9,5 +9,13 @@ public interface GameDAO {
 	ArrayList<GameDTO> quizList();
 
 	ArrayList<GameDTO> nemoList();
+
+	ArrayList<GameDTO> qWeekList();
+
+	ArrayList<GameDTO> nWeekList();
+
+	ArrayList<GameDTO> quizWeekDetail(int idx);
+
+	GameDTO perQuizDetail(int idx);
 	
 }
