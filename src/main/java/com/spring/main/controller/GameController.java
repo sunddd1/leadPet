@@ -81,4 +81,9 @@ public class GameController {
 		logger.info("상식퀴즈 수정사항 저장 : ",params);
 		return service.updateQuiz(params);
 	}
+	@RequestMapping(value = "/quizPlaying", method = RequestMethod.GET)
+	public ModelAndView quizPlaying(Model model) {
+		logger.info("상식퀴즈 게임 화면 : 가장 최근 등록된 회차 상식퀴즈 리스트 불러오기");
+		return service.getThisWeekQuiz();
+	}
 }
