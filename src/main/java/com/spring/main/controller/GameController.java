@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.GameDTO;
 import com.spring.main.service.GameService;
 
 @Controller
@@ -52,5 +55,30 @@ public class GameController {
 	public ModelAndView quizDetail(@RequestParam int idx) {
 		logger.info("상식퀴즈 {}번 문제 상세 페이지",idx);
 		return service.quizDetail(idx);
+	}
+	@RequestMapping(value = "/insertQuizForm", method = RequestMethod.GET)
+	public String insertQuiz(Model model) {
+		logger.info("상식퀴즈 문제등록 페이지");
+		return "game/insertQuizForm";
+	}
+	@RequestMapping(value = "/insertQuiz", method = RequestMethod.POST)
+	public ModelAndView insertQuiz(@RequestParam HashMap<String, String> params) {
+		logger.info("상식퀴즈 문제등록 : {}",params);
+		return service.insertQuiz(params);
+	}
+	@RequestMapping(value = "/quizBlind", method = RequestMethod.GET)
+	public ModelAndView quizBlind(@RequestParam int idx) {
+		logger.info("상식퀴즈 {}번 문제 블라인드 처리",idx);
+		return service.quizBlind(idx);
+	}
+	@RequestMapping(value = "/quizUpdateForm", method = RequestMethod.GET)
+	public ModelAndView quizUpdateForm(@RequestParam int idx) {
+		logger.info("상식퀴즈 {}번 문제 수정 폼으로",idx);
+		return service.quizUpdateForm(idx);
+	}
+	@RequestMapping(value = "/updateQuiz", method = RequestMethod.POST)
+	public ModelAndView updateQuiz(@RequestParam HashMap<String, String> params) {
+		logger.info("상식퀴즈 수정사항 저장 : ",params);
+		return service.updateQuiz(params);
 	}
 }

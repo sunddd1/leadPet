@@ -6,13 +6,31 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MemberDAO">
-	<insert id="insertMessage">
-		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
+	<insert id="noteSend">
+		insert into note(note_idx,id,receiving_id,content) values(note_seq.nextval,'test1122',#{param1},#{param2})
 	</insert>
 	
-	<select id="MassageList" resultType="com.spring.main.dto.NoteDTO" parameterType="String">
-		select note_idx,id,content,reg_date from note where receiving_id = #{receiving_id} order by note_idx desc
+	<!-- <insert id="noteSend">
+		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
+	</insert> -->
+	
+	<select id="MessageList" resultType="com.spring.main.dto.NoteDTO">
+		select note_idx,id,content,reg_date from note where receiving_id = #{param1} and del='N' order by note_idx desc
 	</select>
 	
-
+	<select id="sendList" resultType="com.spring.main.dto.NoteDTO">
+		select note_idx,receiving_id,content,reg_date from note where id = #{param1}  order by note_idx desc
+	</select>
+	
+	<update id="delMessage">
+		UPDATE note SET del = 'Y' WHERE note_idx=#{note_idx}
+	</update>
+	
+	<select id="detailNoteList" resultType="com.spring.main.dto.NoteDTO">
+		select content from note where id = #{param3} and receiving_id = #{param1} and note_idx = #{param2} 
+	</select>
+	
+	<!-- <select id="detailNoteList" resultType="com.spring.main.dto.NoteDTO">
+		select id,content from note where receiving_id = #{param1} and note_idx = #{param2} 
+	</select> -->
 </mapper>

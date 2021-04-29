@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<a href="loginForm">로그인하러 가기</a>
+					<a href="login-form">로그인하러 가기</a>
 				</td>
 			</tr>
 		</table>

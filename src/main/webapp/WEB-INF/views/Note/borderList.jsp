@@ -9,26 +9,26 @@
 	</head>
 	<body>
 		<h3>쪽지 보내기</h3>
-		<%-- <c:if test="${sessionScope.id != null }"> --%>
+		<%-- <c:if test="${sessionScope.loginId != null }"> --%>
     
      
     <p>쪽지</p>
-    <form action="noteSend" method="post" onsubmit="return formCheck();" >
-    <input type="hidden" name="id" value="${sessionScope.id }">
-    <input type= "text" name ="note" id="note"> 
-    <select name="receiving_id_id" >
-    <c:forEach var="receiving_id_id" items="${customerList }">
-    <c:if test="${receiving_id_id.custid != sessionScope.id }">
-        <option>$receiving_id.custid }</option>
+    <form action="noteSend" method="post">
+    <input type="hidden" name="id" value="${sessionScope.loginId}">
+    <input type= "text" name ="content" id="content"> 
+    <select name="receiving_id" >
+    <c:forEach var="receiving_id" items="${receiving_id}">
+    <c:if test="${receiving_id != sessionScope.loginId }">
+        <option>${receiving_id}</option>
     </c:if> 
     </c:forEach>
     </select>
     <input type="submit" value="쪽지 보내기" >
     </form>
     
-        <p><a href="noteList?s_id=${sessionScope.id}" >쪽지함</a></p>
+        <p><a href="noteList?id=${sessionScope.loginId}" >쪽지함</a></p>
         
-    <%-- </c:if> --%>
+   <%--  </c:if> --%>
 	</body>
 	<script></script>
 </html>

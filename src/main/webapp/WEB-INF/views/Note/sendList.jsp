@@ -8,7 +8,7 @@
 		<style></style>
 	</head>
 	<body>
-		<h3>[받은 쪽지함]</h3>
+		<h3>[보낸 쪽지함]</h3>
 		<%-- <c:forEach var = "note" items="${messageList}">
 	    쪽지번호 : ${note.note_idx} <br>
 	    보낸사람 : ${note.id} <br>
@@ -21,16 +21,14 @@
                     <th>번호</th>
                     <th>내용</th>
                     <th>닉네임</th>
-                    <th>받은 날짜</th>
-                    <th>삭제</th>
+                    <th>보낸 날짜</th>
                 </tr>
-                <c:forEach var = "note" items="${messageList}">
+                <c:forEach var = "note" items="${sendList}">
                 	<tr>
                 		<td>${note.note_idx}</td>
-                		<td><a id="detail" href="./detailNoteList?note_idx=${note.note_idx}+note.id=${note.id}">${note.content}</a></td>
-                		<td> ${note.id}</td>
+                		<td>${note.content}</td>
+                		<td> ${note.receiving_id}</td>
                 		<td>${note.reg_date}</td>
-                		<td><a id="del" href="./delMessageList?note_idx=${note.note_idx}">삭제</a></td>
                 	</tr>
                 </c:forEach>
             </table>

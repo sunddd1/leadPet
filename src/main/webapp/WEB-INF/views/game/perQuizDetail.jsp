@@ -48,7 +48,7 @@
 				<h2>${quiz_idx}번 상식퀴즈</h2>
 			</div>
 			<div id="btn">
-				<button onclick="location.href='./updateQuiz'">수정하기</button>
+				<button onclick="location.href='./quizUpdateForm?idx=${quiz_idx}'">수정하기</button>
 				<button onclick="location.href='./gameQueList'">목록으로</button>
 			</div>
 			<div id="queDetail">			
@@ -62,28 +62,28 @@
 					<tr>
 						<td>
 							<c:if test="${quizDetail.ex1 == quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex1}" checked="checked"/>${quizDetail.ex1}
+								<input type="checkbox" name="exam" value="${quizDetail.ex1}" checked="checked"/>${quizDetail.ex1}
 							</c:if>
 							<c:if test="${quizDetail.ex1 != quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex1}"/>${quizDetail.ex1}							
+								<input type="checkbox" name="exam" value="${quizDetail.ex1}" disabled="disabled"/>${quizDetail.ex1}							
 							</c:if>
 							<c:if test="${quizDetail.ex2 == quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex2}" checked="checked"/>${quizDetail.ex2}
+								<input type="checkbox" name="exam" value="${quizDetail.ex2}" checked="checked"/>${quizDetail.ex2}
 							</c:if>
 							<c:if test="${quizDetail.ex2 != quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex2}"/>${quizDetail.ex2}							
+								<input type="checkbox" name="exam" value="${quizDetail.ex2}" disabled="disabled"/>${quizDetail.ex2}							
 							</c:if>
 							<c:if test="${quizDetail.ex3 == quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex3}" checked="checked"/>${quizDetail.ex3}
+								<input type="checkbox" name="exam" value="${quizDetail.ex3}" checked="checked"/>${quizDetail.ex3}
 							</c:if>
 							<c:if test="${quizDetail.ex3 != quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex3}"/>${quizDetail.ex3}							
+								<input type="checkbox" name="exam" value="${quizDetail.ex3}" disabled="disabled"/>${quizDetail.ex3}							
 							</c:if>
 							<c:if test="${quizDetail.ex4 == quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex4}" checked="checked"/>${quizDetail.ex4}
+								<input type="checkbox" name="exam" value="${quizDetail.ex4}" checked="checked"/>${quizDetail.ex4}
 							</c:if>
 							<c:if test="${quizDetail.ex4 != quizDetail.quiz_answer}">
-								<input type="radio" name="exam" value="${quizDetail.ex4}"/>${quizDetail.ex4}							
+								<input type="checkbox" name="exam" value="${quizDetail.ex4}" disabled="disabled"/>${quizDetail.ex4}							
 							</c:if>
 						</td>
 					</tr>

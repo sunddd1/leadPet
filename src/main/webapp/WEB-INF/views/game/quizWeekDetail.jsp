@@ -57,28 +57,28 @@
 						<tr>
 							<td>
 								<c:if test="${list.ex1 == list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex1}" checked="checked"/>${list.ex1}
+									<input type="checkbox" name="exam" value="${list.ex1}" checked="checked"/>${list.ex1}
 								</c:if>
 								<c:if test="${list.ex1 != list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex1}"/>${list.ex1}								
+									<input type="checkbox" name="exam" value="${list.ex1}" disabled="disabled"/>${list.ex1}	
 								</c:if>
 								<c:if test="${list.ex2 == list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex2}" checked="checked"/>${list.ex2}
+									<input type="checkbox" name="exam" value="${list.ex2}" checked="checked"/>${list.ex2}
 								</c:if>
 								<c:if test="${list.ex2 != list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex2}"/>${list.ex2}								
+									<input type="checkbox" name="exam" value="${list.ex2}" disabled="disabled"/>${list.ex2}								
 								</c:if>
 								<c:if test="${list.ex3 == list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex3}" checked="checked"/>${list.ex3}
+									<input type="checkbox" name="exam" value="${list.ex3}" checked="checked"/>${list.ex3}
 								</c:if>
 								<c:if test="${list.ex3 != list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex3}"/>${list.ex3}								
+									<input type="checkbox" name="exam" value="${list.ex3}" disabled="disabled"/>${list.ex3}								
 								</c:if>
 								<c:if test="${list.ex4 == list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex4}" checked="checked"/>${list.ex4}
+									<input type="checkbox" name="exam" value="${list.ex4}" checked="checked"/>${list.ex4}
 								</c:if>
 								<c:if test="${list.ex4 != list.quiz_answer}">
-									<input type="radio" name="exam" value="${list.ex4}"/>${list.ex4}								
+									<input type="checkbox" name="exam" value="${list.ex4}" disabled="disabled"/>${list.ex4}								
 								</c:if>
 								&nbsp;&nbsp;<span> 정답 : ${list.quiz_answer}</span>
 							</td>
