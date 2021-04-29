@@ -13,9 +13,9 @@
     
      
     <p>쪽지</p>
-    <form action="noteSend" method="post" onsubmit="return formCheck();" >
+    <form action="noteSend" method="post">
     <input type="hidden" name="id" value="${sessionScope.id }">
-    <input type= "text" name ="note" id="note"> 
+    <input type= "text" name ="content" id="content"> 
     <select name="receiving_id_id" >
     <c:forEach var="receiving_id_id" items="${customerList }">
     <c:if test="${receiving_id_id.custid != sessionScope.id }">

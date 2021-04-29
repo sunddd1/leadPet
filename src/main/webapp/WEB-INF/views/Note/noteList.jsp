@@ -8,13 +8,36 @@
 		<style></style>
 	</head>
 	<body>
-		<h3>야호</h3>
-		<c:forEach var = "note" items="${messageList}">
-	    쪽지번호 : ${note.note_idx } <br>
-	    보낸사람 : ${note.id } <br>
+		<h3>[받은 쪽지함]</h3>
+		<%-- <c:forEach var = "note" items="${messageList}">
+	    쪽지번호 : ${note.note_idx} <br>
+	    보낸사람 : ${note.id} <br>
 	    내용 : ${note.content} <br>
 	    보낸 날짜 : ${note.reg_date} 
-	    </c:forEach>
+	    <input type="button" value="삭제" id="del">
+	    </c:forEach> --%>
+	    <table>
+                <tr>
+                    <th>번호</th>
+                    <th>내용</th>
+                    <th>닉네임</th>
+                    <th>보낸 날짜</th>
+                    <th>삭제</th>
+                </tr>
+                <c:forEach var = "note" items="${messageList}">
+                	<tr>
+                		<td>${note.note_idx}</td>
+                		<td> ${note.id}</td>
+                		<td>${note.content}</td>
+                		<td>${note.reg_date}</td>
+                		<td><a id="del" href="./delMessageList?note_idx=${note.note_idx}">삭제</a></td>
+                	</tr>
+                </c:forEach>
+            </table>
 	</body>
-	<script></script>
+	<script>
+		$("#id").click(function(){
+			
+		});
+	</script>
 </html>

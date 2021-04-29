@@ -13,12 +13,7 @@
                 <th>보낸 닉네임 : </th>
                 <th>내용</th>
             </tr>
-            <c:forEach items="${review_list}" var="review3">
-	            <tr>
-	                <td>${review3.idx}</td>
-	                <td><a href="../reviewDetail?Idx=${review3.idx}">${review3.subject}</a></td>
-	            </tr>
-            </c:forEach>
+            
         </table>
 	</body>
 	<script></script>

@@ -6,7 +6,16 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MemberDAO">
-	<update id="withdrawal">
+	<update id="withdrawa">
 		UPDATE member SET withdraw = 'Y' WHERE id=#{id}
 	</update>
+	
+	<select id="checkPw" resultType="String">
+		SELECT password FROM member WHERE id = #{param1} 
+	</select>
+	
+	<update id="restore">
+		UPDATE member SET withdraw = 'N' WHERE id=#{id}
+	</update>
+
 </mapper>

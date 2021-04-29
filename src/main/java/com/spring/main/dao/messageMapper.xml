@@ -10,9 +10,12 @@
 		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
 	</insert>
 	
-	<select id="MassageList" resultType="com.spring.main.dto.NoteDTO" parameterType="String">
-		select note_idx,id,content,reg_date from note where receiving_id = #{receiving_id} order by note_idx desc
+	<select id="MessageList" resultType="com.spring.main.dto.NoteDTO">
+		select note_idx,id,content,reg_date from note where receiving_id = #{param1} order by note_idx desc
 	</select>
 	
-
+	<update id="delMessage">
+		UPDATE note SET del = 'Y' WHERE note_idx=#{note_idx}
+	</update>
+	
 </mapper>
