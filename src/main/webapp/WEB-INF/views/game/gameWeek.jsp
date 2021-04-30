@@ -77,7 +77,7 @@
 						</tr>
 						<c:forEach items="${nWeekList}" var="nWeek">
 							<tr>
-								<td><a href="./nemoWeekDetail?idx=${nWeek.week_nemo_idx}">${nWeek.week_nemo_idx}회차 상식퀴즈</a></td>
+								<td><a href="./nemoWeekDetail?idx=${nWeek.week_nemo_idx}">${nWeek.week_nemo_idx}회차 네모로직</a></td>
 								<td>${nWeek.nemo_update_date}</td>
 							</tr>
 						</c:forEach>

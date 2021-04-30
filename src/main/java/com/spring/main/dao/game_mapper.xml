@@ -69,4 +69,17 @@
 			    OR q.quiz_question = w.quiz_tenth
 			) AND week_quiz_idx=(SELECT MAX(week_quiz_idx)FROM quiz_week)
 	</select>
+	<select id="ifExist" resultType="game">
+		SELECT * FROM quiz_test WHERE id=#{param1} AND week_quiz_idx=#{param2} AND if_submit='N'
+	</select>
+	<insert id="initialQuizData">
+		INSERT INTO quiz_test(quiz_score,quiz_timer,id,week_quiz_idx,if_submit)
+			VALUES(0,0,#{param1},#{param2},'N')
+	</insert>
+	<select id="matchQue" parameterType="game" resultType="String">
+		SELECT quiz_question FROM quiz WHERE quiz_idx=#{quiz_idx} AND quiz_question=#{quiz_question} AND quiz_answer=#{quiz_answer}
+	</select>
+	<update id="recordScore">
+		UPDATE quiz_test SET quiz_score=#{param1}, quiz_timer=#{param2}, if_submit='Y' WHERE id=#{param3} AND week_quiz_idx=#{param4}
+	</update>
 </mapper>

@@ -9,7 +9,7 @@
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
 			#conBody{
-				margin: 5% 25%;
+				margin: 5% 15%;
 			}
 			h2{
 				text-align: center;
@@ -51,43 +51,54 @@
 		</style>
 	</head>
 	<body>
-		<div id="conBody">
-			<div  id="title">
-				<h2>${week_quiz_idx}회차 상식퀴즈</h2>
-			</div>
-			<div id="queList">			
-				<table>
-					<tr>
-						<td id="timeWatch">
-							<span id="postTestMin">00</span><!-- 분 -->
-							<span>:</span>
-							<span id="postTestSec">00</span><!--초-->
-							<span>.</span>
-							<span id="postTestMilisec">00</span><!--밀리초-->
-						</td>
-					</tr>
-					<c:forEach items="${ThisWeekQuiz}" var="list">
+		<form action="./submitQuiz" method="post">
+			<div id="conBody">
+				<div  id="title">
+					<h2>${week_quiz_idx}회차 상식퀴즈</h2>
+					<input type="hidden" name="week_quiz_idx" value="${week_quiz_idx}"/>
+				</div>
+				<div id="queList">			
+					<table>
 						<tr>
-							<th>Q. ${list.quiz_question}</th>			
+							<td id="timeWatch">
+								<span id="postTestMin">00</span><!-- 분 -->
+								<span>:</span>
+								<span id="postTestSec">00</span><!--초-->
+								<span>.</span>
+								<span id="postTestMilisec">00</span><!--밀리초-->
+							</td>
+						</tr>
+						<c:forEach items="${ThisWeekQuiz}" var="list">
+							<tr>
+								<th>
+									Q. ${list.quiz_question}
+									<input type="hidden" name="quiz_idx${list.quiz_idx}" value="${list.quiz_idx}"/>
+									<input type="hidden" name="quiz_question${list.quiz_idx}" value="${list.quiz_question}"/>
+								</th>			
+							</tr>
+							<tr>
+								<td>
+									<input type="radio" name="exam${list.quiz_idx}" value="${list.ex1}">${list.ex1}	
+									<input type="radio" name="exam${list.quiz_idx}" value="${list.ex2}"/>${list.ex2}								
+									<input type="radio" name="exam${list.quiz_idx}" value="${list.ex3}"/>${list.ex3}								
+									<input type="radio" name="exam${list.quiz_idx}" value="${list.ex4}"/>${list.ex4}								
+								</td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td>
+								<input type="hidden" name="quiz_timer" id="quiz_timer"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="radio" name="exam${list.quiz_idx}" value="${list.ex1}">${list.ex1}	
-								<input type="radio" name="exam${list.quiz_idx}" value="${list.ex2}"/>${list.ex2}								
-								<input type="radio" name="exam${list.quiz_idx}" value="${list.ex3}"/>${list.ex3}								
-								<input type="radio" name="exam${list.quiz_idx}" value="${list.ex4}"/>${list.ex4}								
+								<button type="button" id="testStopBtn">STOP</button><!--스톱 버튼-->
 							</td>
 						</tr>
-					</c:forEach>
-					<tr>
-						<td>
-							<button type="button" id="testStopBtn">STOP</button><!--스톱 버튼-->
-						</td>
-					</tr>
-				</table>
+					</table>
+				</div>
 			</div>
-		</div>
-		<!-- 출처: https://im-developer.tistory.com/53 [Code Playground] -->
+		</form>
 	</body>
 	<script>
 		//페이지 띄우자 마자 stop watch 시작
@@ -111,7 +122,11 @@
 		document.getElementById('testStopBtn').addEventListener('click', function() {
 			if(timerStart) {
 				clearInterval(timerStart)
-				console.log($('#postTestMin').html(),$('#postTestSec').html(),$('#postTestMilisec').html())
+				//console.log($('#postTestMin').html(),$('#postTestSec').html(),$('#postTestMilisec').html())
+				var timerCnt = $('#postTestMin').html()+"/"+$('#postTestSec').html()+"/"+$('#postTestMilisec').html();
+				$('#quiz_timer').val(timerCnt);
+				console.log(timerCnt);
+				$('form').submit();
 			}
 		});
 		function addZero(num) {
