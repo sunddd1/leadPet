@@ -96,16 +96,21 @@
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
     <div id="search">
-        <form action="memberSearch" method="POST">
-            <select id="select" name="search">
-                <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-                <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
-            </select>
+        <form action="finishListSearch" method="POST">
+        <select id="type">
+	    	<option value="">타입</option>
+	    	<option value="tip">팁</option>
+	    	<option value="gal">갤러리</option>
+	    	<option value="fed">사료</option>
+	    	<option value="run">산책</option>
+	    	<option value="res">식당</option>
+	    </select>
             <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>
     <div id="radio">
+    	
         <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='reportList'"/>미처리
         <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishList'"/>처리
     </div>
@@ -118,7 +123,7 @@
                 <th>처리자</th>
                 <th>신고일</th>
             </tr>
-            <c:forEach items="${reportList}" var="report">
+            <c:forEach items="${finishList}" var="report">
 	            <tr>
 	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>

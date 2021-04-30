@@ -116,7 +116,7 @@
 	                <td>${admin.nickname}</td>
 	                <td>${admin.reg_date}</td> 
 					<td>
-						<button value="${admin.admin_id}" onclick='changePass(this)'>수정</button>
+						<button value="${admin.admin_id}" onclick='changePass(this)'>비밀번호 수정</button>
 						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
 	                </td>
                 </tr>

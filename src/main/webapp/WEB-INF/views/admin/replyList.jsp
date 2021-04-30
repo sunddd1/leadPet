@@ -99,7 +99,6 @@
         <form action="memberSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-                <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
             </select>
             <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
@@ -126,7 +125,10 @@
 		               	 	${report.id}
 		                </a>
 	                </td>
-	                <td><a href="#">${report.field}</a></td>
+	                <td><a href="detailReply?field=${report.field}" 
+		                onclick="window.open(this.href, 'detailReply', 'width=800, height=600, top=100, left=400'); return false;">
+		               	 	${report.field}
+		                </a></td>
 	                <td>${report.reg_date}</td>
 	                <td>${report.proc_ex}</td> 
                 </tr>
