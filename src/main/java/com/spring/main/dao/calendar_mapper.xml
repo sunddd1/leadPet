@@ -110,9 +110,14 @@
 	<select id="popup" resultType="vaccin_scheduler">
 		SELECT p.name, vs.d_day, v.vacc_name FROM vaccin_scheduler vs, vaccin v, pet_vaccin pv, pet p
         WHERE vs.id=#{param3} AND vs.vac_idx=pv.vac_idx AND pv.vacc_idx=v.vacc_idx AND pv.pet_idx= p.pet_idx
-         AND <![CDATA[vs.d_day >= '21/04/26']]>
-         AND <![CDATA[vs.d_day < '22/04/26']]>
+         AND <![CDATA[vs.d_day >= #{param1}]]>
+         AND <![CDATA[vs.d_day < #{param2}]]>
+         AND executed='N'
 	</select>
 	
+	<!-- 어드민으로 넘어갈거  -->
+	<select id="vaccList" resultType="vaccin">
+		SELECT * FROM vaccin
+	</select>
 
  </mapper>

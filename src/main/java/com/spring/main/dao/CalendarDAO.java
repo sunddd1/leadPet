@@ -53,4 +53,7 @@ public interface CalendarDAO {
 
 	int schExecuted(String vac_idx);
 
+	//////////////
+	ArrayList<VaccinDTO> vaccList();
+
 }

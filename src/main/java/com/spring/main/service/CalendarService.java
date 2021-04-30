@@ -189,6 +189,17 @@ public class CalendarService {
 		return map;
 	}
 
+	
+	/////////////////
+	public ModelAndView vaccList(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<VaccinDTO> list = dao.vaccList();
+		
+		mav.addObject("list", list);
+		mav.setViewName("admin/vaccinList");
+		return mav;
+	}
+
 
 
 

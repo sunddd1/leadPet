@@ -38,7 +38,8 @@
 	    <table id="draw">
 	    </table>
 	    <table id="list">
- 	    	<c:forEach items="#{vacc }" var="list">
+	    	
+ 	    	<c:forEach items="${vacc }" var="list">
  	    		<tr>
  	    			<td>
 			    		<span onclick='window.open("./vaccinDetail?idx=${list.vac_idx}","","width=600,height=400,left=800,top=300")'>${list.name} / ${list.vacc_name}</span>
@@ -162,10 +163,8 @@
     	opener.setData(data);
     }
     
-	console.log("${sche[0].d_day }");
-	var thisDay="${sche[0].d_day }";
-	console.log("-------------");
-	console.log(thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1));
+
+
     
     function reg() {//location.href='./regScheForm'
     	window.open("./regScheForm","","width=600,height=400,left=800,top=300");
@@ -186,9 +185,15 @@
 			,success : function(data) {
 				console.log(data);
 				if(data.suc>0){
-
+					console.log("${sche[0].d_day }");
+					var thisDay="${sche[0].d_day }";
+					if(thisDay==""){
+						thisDay="${vacc[0].d_day}";
+					}
+					thisDay=thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1)
+					console.log("-------------"+thisDay);
 					location.reload();
-					opener.setData(thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1));
+					opener.setData(thisDay);
 								
 				}
 				if(data.suc==0){

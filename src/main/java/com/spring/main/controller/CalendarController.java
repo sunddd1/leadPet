@@ -155,6 +155,16 @@ public class CalendarController {
 		return service.popup(todate,ladate,session);
 	}
 	
-	
+	////////regVaccForm
+	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
+	public ModelAndView vaccList(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return service.vaccList(session);
+	}
+	@RequestMapping(value = "/regVaccForm", method = RequestMethod.GET)
+	public String regVaccForm(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return "regVaccForm";
+	}
 	
 }
