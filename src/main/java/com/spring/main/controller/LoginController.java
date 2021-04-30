@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView login(HttpServletRequest req ,@RequestParam String id, @RequestParam String password) {
+	public ModelAndView login(HttpSession session ,@RequestParam String id, @RequestParam String password) {
 		logger.info("login 요청");
 		
 		ModelAndView mav = new ModelAndView();
@@ -49,7 +50,7 @@ public class LoginController {
 			viewName = "home";
 			msg = "로그인에 성공했습니다.";
 			
-			req.setAttribute("loginId", id);
+			session.setAttribute("loginId", loginId);
 		}
 				
 		mav.setViewName(viewName);
@@ -79,7 +80,7 @@ public class LoginController {
 		return "login/changePwForm";
 	}
 	
-	@GetMapping("/change-pw")
+	@PostMapping("/change-pw")
 	public String changePw(@RequestParam String id, @RequestParam String password) {
 		logger.info("changePw 요청");
 
