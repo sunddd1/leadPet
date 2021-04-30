@@ -31,77 +31,48 @@ public class MemberService {
 	
 
 	
-	public String checkPw(String pw) {
+	public boolean checkPw(String id, String pw) {
 		logger.info("비밀번호 확인 요청");
-		
-		String result = null;
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		String DBpass = dao.checkPw("wwww");
+
+		String DBpass = dao.checkPw(id);
 		
 		logger.info("DB 비밀번호 : "+DBpass);
 		logger.info("입력한 비밀번호 : "+pw);
 		
-		if(encoder.matches(pw, DBpass)) {
-			result = "pwConfirmOK";
-		}else {
-			result = "pwConfirmNO";
-		}
-		return result;
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.matches(pw, DBpass);
 	}
 
-	public String withdraw(String pw,HttpSession session) {
+	public String withdraw(String id, String pw) {
 		//비번 일치 확인 
-		String result = checkPw(pw);
-		String loginId = "wwww";
 		String page = "pwCheck";
 		
-		if(result.equals("pwConfirmOK")) {
+		if(checkPw(id, pw)) {
 			//탈퇴 
-			dao.withdrawa(loginId);
-			
-			//로그인 세션 삭제
-			Object object = session.getAttribute("login");
-			if(object!=null) {
-				session.removeAttribute("login");
-				session.invalidate();
-				logger.info("로그인 세션 삭제 ");
-			}
-			result = "success";
+			dao.withdrawa(id);
+
 			logger.info("비번 일치");
-			page= "redirect:/loginForm";
+			page= "redirect:/login-form";
 		}else {
 			//비번 틀림 
-			result = "fail";
 			logger.info("비번 틀림");
 		}
 		
 		return page;
 	}
 
-	public String restore(String pw,HttpSession session) {
+	public String restore(String id, String pw) {
 		//비번 일치 확인 
-		String result = checkPw(pw);
-		String loginId = "wwww";
 		String page = "pwCheck";
 		
-		if(result.equals("pwConfirmOK")) {
+		if(checkPw(id, pw)) {
 			//계정 복구 
-			dao.restore(loginId);
-			
-			//로그인 세션 삭제
-			Object object = session.getAttribute("login");
-			if(object!=null) {
-				session.removeAttribute("login");
-				session.invalidate();
-				logger.info("로그인 세션 삭제 ");
-			}
-			result = "success";
+			dao.restore(id);
+
 			logger.info("비번 일치");
-			page= "redirect:/loginForm";
+			page= "redirect:/login-form";
 		}else {
 			//비번 틀림 
-			result = "fail";
 			logger.info("비번 틀림");
 		}
 		
@@ -148,9 +119,26 @@ public class MemberService {
 		return "Note/Message";
 	}
 
-	
+	public MemberDTO getMember(String id) {
+		logger.info(id);
+		
+		return dao.getMember(id);
+	}
 
+	public boolean updateChangeDate(String id) {
+		logger.info("멤버 탈퇴일 최신으로 변경");
+		
+		return dao.updateChangeDate(id) > 0;
+	}
 
+	public int update(MemberDTO member) {
+		logger.info("멤버 업데이트");
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		member.setPassword(encoder.encode(member.getPassword()));
+		
+		return dao.update(member);
+	}
 	
 	
 }

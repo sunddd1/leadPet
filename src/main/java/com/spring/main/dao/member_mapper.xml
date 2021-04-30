@@ -18,4 +18,38 @@
 		UPDATE member SET withdraw = 'N' WHERE id=#{id}
 	</update>
 
+	<select id="getMember" resultType="member">
+		SELECT
+			id, name, age, gender, email, reg_date, black, withdraw, 
+			change_date, nickname, point, grade
+		FROM
+			member
+		WHERE
+			id=#{param1}
+	</select>
+
+	<update id="updateChangeDate">
+		UPDATE
+			member
+		SET
+			change_date=sysdate
+		WHERE
+			id=#{param1}
+	</update>
+
+	<update id="update" parameterType="member">
+		UPDATE
+			member
+		<set>
+			<if test="password != null">password=#{password},</if>
+			<if test="name != null">name=#{name},</if>
+			<if test="age != null">age=#{age},</if>
+			<if test="gender != null">gender=#{gender},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="nickname != null">nickname=#{nickname}</if>
+		</set>
+		WHERE
+			id=#{id}		
+	</update>
+
 </mapper>

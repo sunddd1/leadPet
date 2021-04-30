@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.MemberDTO;
-import com.spring.main.dto.NoteDTO;
+import com.spring.main.service.LoginService;
 import com.spring.main.service.MemberService;
 
 import oracle.jdbc.driver.Message;
@@ -27,6 +26,7 @@ import oracle.jdbc.driver.Message;
 public class MemberController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired MemberService memberService;
+	@Autowired LoginService loginService;
 
 
 		//탈퇴 페이지 요청 
@@ -47,14 +47,30 @@ public class MemberController {
 		@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
 		public String withdraw(@RequestParam String pw,HttpSession session) {
 
-			return memberService.withdraw(pw,session);
+			String id = (String)session.getAttribute("loginId");
+			String page = memberService.withdraw(id, pw);
+			memberService.updateChangeDate(id);
+			
+			//로그인 세션 삭제
+			session.removeAttribute("loginId");
+			session.invalidate();
+			logger.info("로그인 세션 삭제 ");
+			
+			return page;
 		}
 		
 		//계정 복구 요청 
 		@RequestMapping(value = "/restore", method = RequestMethod.POST)
 		public String restore(@RequestParam String pw,HttpSession session) {
 
-			return memberService.restore(pw,session);
+			String page = memberService.restore((String)session.getAttribute("loginId"), pw);
+			
+			//로그인 세션 삭제
+			session.removeAttribute("loginId");
+			session.invalidate();
+			logger.info("로그인 세션 삭제 ");
+			
+			return page;
 		}
 		
 		//쪽지보내기 페이지 요청 
@@ -97,5 +113,50 @@ public class MemberController {
 	    public String detailNoteList(@RequestBody String id,@RequestParam int note_idx){
 	        logger.info("받은 쪽지 상세보기");
 			return memberService.detailNoteList(id,note_idx);
+		}
+		
+		@RequestMapping("/member-detail")
+		public ModelAndView detail(@RequestParam String id) {
+			logger.info("멤버 상세보기");
+			
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("member", memberService.getMember(id));
+			mav.setViewName("Member/myInfo");
+			
+			return mav;
+		}
+		
+		@PostMapping("/member-update-form")
+		public ModelAndView updateForm(@RequestParam String id, @RequestParam String password) {
+			logger.info("updateForm 요청");
+			
+			ModelAndView mav = new ModelAndView();
+			String viewName = "forward:/member-detail";
+			String msg = "비밀번호가 일치하지 않습니다.";
+
+			// 비밀번호 확인 성공
+			if(loginService.login(id, password) != null) {
+				mav.addObject("member", memberService.getMember(id));
+				viewName = "Member/myUpdateForm";
+				mav.setViewName(viewName);
+				return mav;
+			}
+			
+			logger.info(id);
+			
+			mav.addObject("msg", msg);
+			mav.addObject("id", id);
+			mav.setViewName(viewName);
+			return mav;
+		}
+		
+		@PostMapping("/member-update")
+		public String updateMember(@ModelAttribute MemberDTO member) {
+			logger.info("update 요청");
+			
+			memberService.update(member);
+			
+			return "forward:/member-detail";
 		}
 }

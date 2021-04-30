@@ -55,61 +55,12 @@
 		var msg = "${msg}";
 		if(msg != '') {
 			alert(msg);
-			msg = null;
+			msg = '';
 		}
-	
-		var id = document.getElementById("id");
-		var pw = document.getElementById("pw");
-		var re = /^[a-zA-Z0-9]{4,15}$/; //ID 유효
-		var re2 = /^[a-zA-Z0-9!@#$%^*+=-]{4,15}$/; //PW 유효
-		
+
 		function login() {		
 			$("#loginForm").submit();
 		}
 		
-		 
-		/* $("#login").click(function() {
-			console.log(id + "/" + pw);
-			if (id.value == "") {
-				alert("아이디를 입력하세요.");
-				id.focus();
-			}else if(!re.test(id.value)) {
-				 alert("아이디는 4~15자 이내의 영문 대소문자와 숫자로만 입력");
-				 id.focus(); 
-		    } else if (pw.value == "") {
-				alert("패스워드를 입력하세요.");
-				pw.focus();
-			}else if(!re2.test(pw.value)) {
-				 alert("비밀번호는 4~15자 이내의 영문 대소문자와 숫자,특수문자 조합이여야 합니다");
-				 pw.focus(); 
-		    }else if (pw.value.lenth>50) {
-				pw.focus();
-				document.getElementById('pw').innerHTML = '<font color=red>비밀번호는 15자 이내여야 합니다.</font>';
-			}else if (pw.value == "") {
-				alert("");
-				pw.focus();
-			} else {
-				$.ajax({
-					type : 'POST',
-					url : 'login',
-					data : {
-						"myLoginId" : id.value,
-						"pw" : pw.value
-					},
-					success : function(data){
-						console.log(data);
-						console.log(data.use);
-						if(data=='{"use":true}'){
-							location.href="../movie/home";
-						}else{
-							alert("아이디 또는 비밀번호를 확인하세요.");
-						}
-					},
-					error : function(e){
-						console.log(e);
-					}
-				});
-			}
-		}); */
 	</script>
 </html>

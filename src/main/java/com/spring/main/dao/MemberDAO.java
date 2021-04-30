@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
@@ -30,6 +31,15 @@ public interface MemberDAO {
 
 
 	NoteDTO detailNoteList(String loginId, int note_idx, String id);
+
+
+	MemberDTO getMember(String id);
+
+
+	int updateChangeDate(String id);
+
+
+	int update(MemberDTO member);
 
 	
 }
