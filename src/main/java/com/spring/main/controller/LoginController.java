@@ -1,8 +1,10 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +36,27 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView login(HttpServletRequest req ,@RequestParam String id, @RequestParam String password) {
+	public ModelAndView login(HttpSession session ,@RequestParam String id, @RequestParam String password) {
 		logger.info("login 요청");
 		
-		return loginService.login(req, id, password);
+		ModelAndView mav = new ModelAndView();
+		String viewName = "/login/loginForm";
+		String msg = "로그인에 실패했습니다.";
+		
+		String loginId = loginService.login(id, password);
+		
+		if(loginId != null) {
+			mav.addObject("id", loginId);
+			viewName = "home";
+			msg = "로그인에 성공했습니다.";
+			
+			session.setAttribute("loginId", loginId);
+		}
+				
+		mav.setViewName(viewName);
+		mav.addObject("msg", msg);
+		
+		return mav;
 	}
 	
 	@GetMapping("/login-form")
@@ -61,18 +80,30 @@ public class LoginController {
 		return "login/changePwForm";
 	}
 	
-	@GetMapping("/change-pw")
+	@PostMapping("/change-pw")
 	public String changePw(@RequestParam String id, @RequestParam String password) {
 		logger.info("changePw 요청");
-		
-		return registService.changePw(id, password);
+
+		return registService.changePw(id, password) ? "login/loginForm" : "login/changePwForm";
 	}
 	
 	@PostMapping("/regist")
 	public ModelAndView regist(@ModelAttribute MemberDTO member) {
 		logger.info("regist 요청");
 		
-		return registService.regist(member);
+		ModelAndView mav = new ModelAndView();
+		String viewName = "/login/regist";
+		String msg = "회원가입에 실패했습니다.";
+		
+		if(registService.regist(member)) {
+			viewName = "/login/loginForm";
+			msg = "회원가입에 성공했습니다.";
+		}
+		
+		mav.setViewName(viewName);
+		mav.addObject("msg", msg);
+		
+		return mav;
 	}
 	
 	@GetMapping("/registForm")
@@ -80,7 +111,7 @@ public class LoginController {
 		logger.info("registForm 요청");
 		
 		return "login/registForm";
-	}	
+	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest req) {
@@ -113,7 +144,15 @@ public class LoginController {
 	public Map<String, Object> findId(@RequestParam String name, @RequestParam String email) {
 		logger.info("findId 요청");
 		
-		return loginService.findId(name, email);
+		Map<String, Object> output = new HashMap<String, Object>();
+		String searchId = loginService.findId(name, email);
+		
+		if(searchId != null) {
+			output.put("result", true);
+			output.put("id", searchId);
+		}
+		
+		return output;
 	}
 	
 	@GetMapping("/exist-id")

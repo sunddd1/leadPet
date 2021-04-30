@@ -5,17 +5,17 @@
 >
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
-<mapper namespace="com.spring.main.dao.AdminDAO">	
+<mapper namespace="com.spring.main.dao.AdminDAO">
 <!-- 	<select id="adminCheck" resultType="admin">
 		SELECT admin_id FROM admin WHERE admin_id=#{param1}
 	</select> -->
 	
 	<select id="adminList" resultType="admin">
-		SELECT * FROM admin ORDER BY reg_date DESC
+		SELECT * FROM admin WHERE admin_id='admin' ORDER BY reg_date DESC
 	</select>
 	
 	<update id="change">
-		UPDATE admin SET password=#{param2} WHERE password=#{param1}  
+		UPDATE admin SET password=#{param1} WHERE admin_id=#{param2}  
 	</update>
 	
 	<delete id="adminDelete">
@@ -84,9 +84,86 @@
 	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade FROM member WHERE id=#{param1}
 	 </select>
 	 
+	 <select id="detailPet" resultType="pet">
+	 	SELECT p.pet_idx, p.dog_cat, p.name, p.bday, p.kg, pi.newFileName FROM pet p, pet_img pi WHERE p.id=#{param1} AND p.pet_idx = pi.pet_idx
+	 </select> 
+	 
 	 <update id="restoreWithdraw">
 	 	UPDATE member SET withdraw='N' WHERE id=#{param1}
 	 </update>
+	 
+	 <select id="toggleMemberDisable" resultType="String">
+	 	SELECT black FROM member WHERE id=#{param1}
+	 </select>
+	 
+	 <update id="memberBlackY">
+	 	UPDATE member SET black='Y' WHERE id=#{param1}
+	 </update>
+	 
+	 <update id="memberBlackN">
+	 	UPDATE member SET black='N' WHERE id=#{param1}
+	 </update>
+	 
+<!-- 	 <insert id="insertBlack">
+	 	INSERT INTO blackList(black_idx, id, admin_id, reg_date, black_cnt) VALUES(seq_blackList.NEXTVAL, #{param1}, , SYSDATE, black_cnt+1)
+	 </insert> -->
+	 
+	 <select id="reportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="finishList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="replyList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type= 'com' ORDER BY reg_date
+	 </select>
+	 
+	  <select id="finishReplyList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type = 'com' ORDER BY reg_date DESC
+	 </select>
+	 
+<!-- 	 <select id="typeReportList" resultType="report" parameterType="String">
+		SELECT * FROM report
+		<where>
+			<if test="#{type} == 'tip'">type ='tip'</if>
+			<if test="#{type} == 'gal'">type ='gal'</if>
+			<if test="#{type} == 'fed'">type ='fed'</if>
+			<if test="#{type} == 'res'">type ='res'</if>
+			<if test="#{type} == 'run'">type ='run'</if>
+		</where>
+		 AND proc_ex='N'
+	</select> -->
+	
+	<select id="tipReportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type ='tip' ORDER BY reg_date
+	 </select>
+	
+	<select id="galReportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type ='gal' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="fedReportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type ='fed' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="resReportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type ='res' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="runReportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type ='run' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="reportSearch" parameterType="hashMap" resultType="report">
+		SELECT * FROM report	WHERE id LIKE '%'||#{keyword}||'%' AND proc_ex='N'
+	</select>
+	
+	<select id="finishListSearch" parameterType="hashMap" resultType="report">
+		SELECT * FROM report	WHERE id LIKE '%'||#{keyword}||'%' AND proc_ex='Y'
+	</select>
+	
 </mapper>
 
 

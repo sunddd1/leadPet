@@ -89,7 +89,7 @@
 						<label>이메일</label><br>
 					</th>
 					<td>
-						<input type="hidden" name="email"/>
+						<input type="hidden" id="email" name="email"/>
 						<input type="text" id="prefixEmail"/>
 						@
 						<input type="text" id="suffixEmail"/>
@@ -282,7 +282,7 @@
 		var suffix = $('#suffixEmail').val();	
 		var email = prefix + "@" + suffix;
 		
-		$("#email").val(email);	
+		$("#email").val(email);
 		return email;
 	}
 	
