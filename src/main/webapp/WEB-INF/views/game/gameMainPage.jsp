@@ -11,8 +11,8 @@
 			#game{
 				background-color: white;
 				border: 3px solid grey;
-				width: 45%;
-				height: 55%;
+				width: 50%;
+				height: 65%;
 				padding: 2%;
 				margin: 2% 20%;
 			}

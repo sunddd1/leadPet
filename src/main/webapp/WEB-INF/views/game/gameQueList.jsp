@@ -9,7 +9,7 @@
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
 			#conBody{
-				margin: 5% 25%;
+				margin: 5% 20%;
 			}
 			h2{
 				text-align: center;
@@ -83,7 +83,7 @@
 					<button id="nemoInsert">네모로직 게임등록</button>			
 					<table>
 						<tr>
-							<th>네모 번호</th><th>제목</th>
+							<th>네모로직 문제번호</th><th>네모로직 제목</th>
 						</tr>
 						<c:forEach items="${nemoList}" var="nemo">
 							<tr>

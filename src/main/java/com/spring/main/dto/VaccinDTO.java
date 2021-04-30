@@ -18,6 +18,9 @@ public class VaccinDTO {
 	private String content;
 	private int cycle;
 	private int vacc_cnt;
+	private String dog_cat;
+	
+	private String type;
 	
 	///checked
 	private int vac_idx;
@@ -26,8 +29,21 @@ public class VaccinDTO {
 	private Date expected_date;
 	private String executed;
 	private String checked;
+	private String added;
 	
 
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getAdded() {
+		return added;
+	}
+	public void setAdded(String added) {
+		this.added = added;
+	}
 	public String getChecked() {
 		return checked;
 	}
@@ -100,5 +116,4 @@ public class VaccinDTO {
 	public void setDog_cat(String dog_cat) {
 		this.dog_cat = dog_cat;
 	}
-	private String dog_cat;
 }

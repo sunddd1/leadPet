@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.SchedulerDTO;
+import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.CalendarService;
 
 @Controller
@@ -138,7 +139,7 @@ public class CalendarController {
 	
 	@RequestMapping(value = "/deleteSche", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> deleteSche(HttpSession session,@RequestParam int idx, @RequestParam int type, @RequestParam int pet) {
-		logger.info("파라메터들 : "+idx +"/"+type+"/"+pet);
+		logger.info("삭제요청 파라메터들 : "+idx +"/"+type+"/"+pet);
 		return service.deleteSche(idx,type,pet);
 	}
 	
@@ -148,4 +149,37 @@ public class CalendarController {
 		logger.info("vac_idx : "+vac_idx+"//"+date);
 		return service.executed(vac_idx,vacc_idx,date);
 	}
+	
+	@RequestMapping(value = "/popup", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> popup(HttpSession session,@RequestParam String todate,@RequestParam String ladate ) {
+		logger.info("팝업 확인 : "+todate +"---"+ ladate);
+		return service.popup(todate,ladate,session);
+	}
+	
+	////////regVaccForm
+	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
+	public ModelAndView vaccList(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return service.vaccList(session);
+	}
+	@RequestMapping(value = "/regVaccForm", method = RequestMethod.GET)
+	public String regVaccForm(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return "./admin/regVaccForm";
+	}
+	
+	@RequestMapping(value = "/regVacc", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> regVacc(HttpSession session,@ModelAttribute VaccinDTO dto) {
+		logger.info("dto 확인 : "+dto.getVacc_name()+"/"+dto.getContent()+"/"+dto.getCycle()+"/"+dto.getVacc_cnt()+"/"+dto.getDog_cat() );
+		return service.regVacc(dto);
+	}
+	
+	@RequestMapping(value = "/regVaccDetail", method = RequestMethod.GET)
+	public ModelAndView regVaccDetail(HttpSession session,@RequestParam String vacc_idx) {
+		logger.info("백신 상세보기 "+vacc_idx);
+		return service.regVaccDetail(vacc_idx);
+	}
+	
+	
+	
 }

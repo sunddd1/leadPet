@@ -38,7 +38,8 @@
 	    <table id="draw">
 	    </table>
 	    <table id="list">
- 	    	<c:forEach items="#{vacc }" var="list">
+	    	
+ 	    	<c:forEach items="${vacc }" var="list">
  	    		<tr>
  	    			<td>
 			    		<span onclick='window.open("./vaccinDetail?idx=${list.vac_idx}","","width=600,height=400,left=800,top=300")'>${list.name} / ${list.vacc_name}</span>
@@ -163,13 +164,15 @@
     }
     
 
+
     
     function reg() {//location.href='./regScheForm'
     	window.open("./regScheForm","","width=600,height=400,left=800,top=300");
 	}
     function del(a,b,c) {
 		console.log(a+"/"+b+"/"+c);
-		//location.reload();
+		
+		var toss = 
 		$.ajax({
 			type:'get'
 			,url:'deleteSche'
@@ -182,9 +185,16 @@
 			,success : function(data) {
 				console.log(data);
 				if(data.suc>0){
-					console.log(d);
-					opener.location.reload();
-					location.reload();					
+					console.log("${sche[0].d_day }");
+					var thisDay="${sche[0].d_day }";
+					if(thisDay==""){
+						thisDay="${vacc[0].d_day}";
+					}
+					thisDay=thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1)
+					console.log("-------------"+thisDay);
+					location.reload();
+					opener.setData(thisDay);
+								
 				}
 				if(data.suc==0){
 					alert("완료한 일정 삭제하거나 수정 할 수 없습니다.");

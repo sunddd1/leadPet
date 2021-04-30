@@ -126,8 +126,9 @@ public class CalendarService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int suc =0;
 		if(dto.getSche_idx()>0) {
+			logger.info("업데이트");
 			suc =dao.updateSchedule(dto);
-			
+			logger.info("업데이트1");
 		}else {
 			suc = dao.regSchedule(dto);
 		}
@@ -152,25 +153,69 @@ public class CalendarService {
 		map.put("suc", suc);
 		return map;
 	}
-
+	@Transactional
 	public HashMap<String, Object> executed(String vac_idx, String vacc_idx, String date) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int suc = 0;
-		suc=dao.executed(vac_idx);
-		if(suc>0) {
-			// 일정이 완료되면 예상 추가 + 일정추가여부 수정
-			 long cycle = dao.cycle(vacc_idx)*7*24*60*60*1000;
-			  
-			 logger.info("등록 함 : "+vac_idx +"/"+date); 
-			 Date conDate=java.sql.Date.valueOf(date); Date ZZinDate = new
-			 Date(cycle+conDate.getTime()); logger.info("conDate 목 : {} ",ZZinDate);
-			 logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+cycle);
-			 suc+=dao.upDateDay(vac_idx,ZZinDate);
-			 
-			
+		logger.info("vacc idx : "+vacc_idx);
+		if(vacc_idx.equals("0")) {
+			logger.info("스케줄 일정완료");
+			suc= dao.schExecuted(vac_idx);
+		}else {
+			suc=dao.executed(vac_idx);
+			if(suc>0) {
+				// 일정이 완료되면 예상 추가 + 일정추가여부 수정
+				long cycle = dao.cycle(vacc_idx)*7*24*60*60*1000;
+				
+				logger.info("등록 함 : "+vac_idx +"/"+date); 
+				Date conDate=java.sql.Date.valueOf(date); Date ZZinDate = new
+						Date(cycle+conDate.getTime()); logger.info("conDate 목 : {} ",ZZinDate);
+						logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+cycle);
+						suc+=dao.upDateDay(vac_idx,ZZinDate);
+						suc+=dao.upCnt(vac_idx);
+						
+			}			
 		}
 		map.put("suc", suc);
 		return map;
+	}
+
+	public HashMap<String, Object> popup(String todate, String ladate, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String id = "testId";
+		ArrayList<Vaccin_schedulerDTO> list = dao.popup(todate,ladate,id);
+		
+		map.put("list", list);
+		return map;
+	}
+
+	
+	/////////////////
+	public ModelAndView vaccList(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<VaccinDTO> list = dao.vaccList();
+		
+		mav.addObject("list", list);
+		mav.setViewName("admin/vaccinList");
+		return mav;
+	}
+
+	public HashMap<String, Object> regVacc(VaccinDTO dto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int suc = dao.regVacc(dto);
+		
+		map.put("suc", suc);
+		return map;
+	}
+
+	public ModelAndView regVaccDetail(String vacc_idx) {
+		ModelAndView mav = new ModelAndView();
+		VaccinDTO vacc = dao.regVaccDetail(vacc_idx);
+		vacc.setType(vacc.getVacc_name().substring(vacc.getVacc_name().indexOf("(")+1, vacc.getVacc_name().lastIndexOf(")")));
+		vacc.setVacc_name(vacc.getVacc_name().substring(0, vacc.getVacc_name().indexOf("(")));
+		mav.addObject("vacc", vacc);
+		mav.setViewName("admin/regVaccForm");
+		return mav;
 	}
 
 

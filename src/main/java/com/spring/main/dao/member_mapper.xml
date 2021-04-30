@@ -6,18 +6,23 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MemberDAO">
-	<update id="withdrawa">
+	
+	<!-- 탈퇴 -->
+	<update id="withdraw">
 		UPDATE member SET withdraw = 'Y' WHERE id=#{id}
 	</update>
 	
+	<!-- 비번 일치 확인 -->
 	<select id="checkPw" resultType="String">
 		SELECT password FROM member WHERE id = #{param1} 
 	</select>
 	
+	<!-- 탈퇴 복구 -->
 	<update id="restore">
 		UPDATE member SET withdraw = 'N' WHERE id=#{id}
 	</update>
 
+	<!-- id로 유저 가져오기 -->
 	<select id="getMember" resultType="member">
 		SELECT
 			id, name, age, gender, email, reg_date, black, withdraw, 
@@ -28,6 +33,7 @@
 			id=#{param1}
 	</select>
 
+	<!-- 탈퇴일 최신으로 변경 -->
 	<update id="updateChangeDate">
 		UPDATE
 			member
@@ -37,6 +43,7 @@
 			id=#{param1}
 	</update>
 
+	<!-- 유저 세부사항 수정 -->
 	<update id="update" parameterType="member">
 		UPDATE
 			member
@@ -51,5 +58,22 @@
 		WHERE
 			id=#{id}		
 	</update>
+
+	<!-- 작성글 목록 -->
+	<select id="writeList" resultType="board">
+		select * from bbs where nickname = #{param1}  
+	</select>
+	
+	<!-- 글 상세보기 -->
+	<select id="detail" resultType="board">
+		SELECT 
+			idx,subject,content,user_name,reg_date,bHit		
+		FROM bbs_kdj WHERE idx=#{param1}
+	</select>
+	
+	<!-- 글 상세보기의 파일 목록  -->
+	<select id="fileList" resultType="board">
+		SELECT  * FROM bbs_img WHERE bbs_idx=#{param1}
+	</select>
 
 </mapper>

@@ -13,7 +13,7 @@ public class ReportDTO {
 	private String proc_ex;
 	private Date reg_date;
 	private String id;
-	private String type_name;
+	private String type;
 	private String admin_id;
 	private Date proc_date;
 	
@@ -53,11 +53,11 @@ public class ReportDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getType_name() {
-		return type_name;
+	public String getType() {
+		return type;
 	}
-	public void setType_name(String type_name) {
-		this.type_name = type_name;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getAdmin_id() {
 		return admin_id;
@@ -71,6 +71,7 @@ public class ReportDTO {
 	public void setProc_date(Date proc_date) {
 		this.proc_date = proc_date;
 	}
+	
 	
 	
 }

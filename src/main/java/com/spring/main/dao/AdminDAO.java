@@ -57,6 +57,24 @@ public interface AdminDAO {
 	ArrayList<AdminDTO> replyList();
 
 	ArrayList<AdminDTO> finishReplyList();
+	
+	
+
+	ArrayList<AdminDTO> tipReportList();
+
+	ArrayList<AdminDTO> galReportList();
+
+	ArrayList<AdminDTO> fedReportList();
+
+	ArrayList<AdminDTO> resReportList();
+
+	ArrayList<AdminDTO> runReportList();
+
+	ArrayList<AdminDTO> reportSearch(HashMap<String, String> params);
+
+	ArrayList<AdminDTO> finishListSearch(HashMap<String, String> params);
+
+//	ArrayList<AdminDTO> typeReportList(String type);
 
 	
 

@@ -410,4 +410,82 @@ public class AdminController {
 //		}
 		return "admin/finishReplyList";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/type", method = RequestMethod.GET)
+	public String type(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="type") String type
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			logger.info("선택된 타입:"+type);
+			if(type.equals("tip")) {
+				ArrayList<AdminDTO> list =	service.tipReportList();
+				logger.info("팁 신고 수"+list.size());
+				model.addAttribute("reportList", list);
+			}else if(type.equals("gal")){
+				ArrayList<AdminDTO> list =	service.galReportList();
+				logger.info("갤러리 신고 수"+list.size());
+				model.addAttribute("reportList", list);
+			}else if(type.equals("fed")){
+				ArrayList<AdminDTO> list =	service.fedReportList();
+				logger.info("사료 신고 수"+list.size());
+				model.addAttribute("reportList", list);
+			}else if(type.equals("res")){
+				ArrayList<AdminDTO> list =	service.resReportList();
+				logger.info("식당 신고 수"+list.size());
+				model.addAttribute("reportList", list);
+			}else if(type.equals("run")){
+				ArrayList<AdminDTO> list =	service.runReportList();
+				logger.info("산책 신고 수"+list.size());
+				model.addAttribute("reportList", list);
+			}
+//		ArrayList<AdminDTO> list =	service.typeReportList(type);
+//		logger.info("신고 수"+list.size());
+//		model.addAttribute("reportList", list);
+//			page="admin/adminList";
+//		}
+		return "true";
+	}
+	
+	@RequestMapping(value = "/reportSearch", method = RequestMethod.POST)
+	public String reportSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("검색 아이디 :"+params.get("keyword"));
+		ArrayList<AdminDTO> list = service.reportSearch(params);
+		logger.info("미처리 글 검색된 수"+list.size());
+		model.addAttribute("reportList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/reportList";
+	}
+	
+	@RequestMapping(value = "/finishListSearch", method = RequestMethod.GET)
+	public String finishListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.finishListSearch(params);
+		logger.info("처리 글 검색 수"+list.size());
+		model.addAttribute("finishList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/finishList";
+	}
 }
