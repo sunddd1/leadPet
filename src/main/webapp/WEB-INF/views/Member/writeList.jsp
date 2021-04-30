@@ -9,22 +9,25 @@
 	</head>
 	<body>
 		<h3>[작성글]</h3>
-            <table>
+		 <table>
                 <tr>
                     <th>번호</th>
-                    <th>내용</th>
-                    <th>닉네임</th>
+                    <th>제목</th>
+                    <th>게시판</th>
+                    <th>추천수</th>
+                    <th>조회수</th>
                     <th>작성일</th>
-                    
                 </tr>
-                <c:forEach var = "write" items="${writeList}">
+                
                 	<tr>
                 		<td>${write.bbs_idx}</td>
-                		<td>${write.bbs_subject}</td>
-                		<td> ${write.category_name}</td>
+                		<td><a id="detail" href="./detailWriteList?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
+                		<td>${write.category_name}</td>
+                		<td> ${write.reco_count}</td>
+                		<td>${write.views}</td>
                 		<td>${write.reg_date}</td>
                 	</tr>
-                </c:forEach>
+                
             </table>
 	</body>
 	<script>

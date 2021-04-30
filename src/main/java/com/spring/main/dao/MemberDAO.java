@@ -3,7 +3,6 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDTO;
-import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
 
@@ -15,7 +14,7 @@ public interface MemberDAO {
 
 	int restore(String loginId);
 
-	int withdrawa(String loginId);
+	int withdraw(String loginId);
 
 	ArrayList<Message> MessageList(String loginId);
 
@@ -33,7 +32,16 @@ public interface MemberDAO {
 	void checked(int note_idx);
 
 
-	ArrayList<Object> writeList(String loginId);
+	BoardDTO writeList(String loginId);
+
+
+	void upHit(int bbs_idx);
+
+
+	BoardDTO detail(int bbs_idx);
+
+
+	ArrayList<BoardDTO> fileList(int bbs_idx);
 
 	
 }

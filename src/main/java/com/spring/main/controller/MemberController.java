@@ -2,6 +2,7 @@ package com.spring.main.controller;
 
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,11 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.BoardDTO;
@@ -48,14 +51,14 @@ public class MemberController {
 		//탈퇴 요청 
 		@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
 		public String withdraw(@RequestParam String pw,HttpSession session) {
-
+			logger.info("탈퇴 요청");
 			return memberService.withdraw(pw,session);
 		}
 		
 		//계정 복구 요청 
 		@RequestMapping(value = "/restore", method = RequestMethod.POST)
-		public String restore(@RequestParam String pw,HttpSession session) {
-
+		public @ResponseBody Map<String, Object> restore(@RequestParam String pw,HttpSession session) {
+			logger.info("계정 복구  요청");
 			return memberService.restore(pw,session);
 		}
 		
@@ -103,9 +106,15 @@ public class MemberController {
 
 		//내가 쓴 글 목록 
 		@RequestMapping(value="/writeList")
-	    public String writeList(ArrayList<Object> dto, Model model){
+	    public ModelAndView writeList(){
 	        logger.info("내가 쓴 글 목록 요청");
-			return memberService.writeList(dto,model);
+	        String id = "멍멍";
+			return memberService.writeList(id);
 		}
 		
+		@RequestMapping(value = "/detailWriteList", method = RequestMethod.GET)
+		public ModelAndView detailWriteList(@RequestParam int bbs_idx) {	
+			logger.info("상세보기 요청");
+			return memberService.detailWriteList(bbs_idx);
+		}
 }
