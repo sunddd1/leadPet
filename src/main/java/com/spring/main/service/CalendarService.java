@@ -200,6 +200,24 @@ public class CalendarService {
 		return mav;
 	}
 
+	public HashMap<String, Object> regVacc(VaccinDTO dto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int suc = dao.regVacc(dto);
+		
+		map.put("suc", suc);
+		return map;
+	}
+
+	public ModelAndView regVaccDetail(String vacc_idx) {
+		ModelAndView mav = new ModelAndView();
+		VaccinDTO vacc = dao.regVaccDetail(vacc_idx);
+		vacc.setType(vacc.getVacc_name().substring(vacc.getVacc_name().indexOf("(")+1, vacc.getVacc_name().lastIndexOf(")")));
+		vacc.setVacc_name(vacc.getVacc_name().substring(0, vacc.getVacc_name().indexOf("(")));
+		mav.addObject("vacc", vacc);
+		mav.setViewName("admin/regVaccForm");
+		return mav;
+	}
+
 
 
 

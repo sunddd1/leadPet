@@ -23,14 +23,17 @@
 				<th>이름</th>
 				<th>내용</th>
 				<th>주기</th>
-				<th><button onclick='window.open("./regVaccForm","","")'>등록</button></th>
+				<th><button onclick='window.open("./regVaccForm","","width=600,height=400,left=300,top=300")'>등록</button></th>
 			</tr>
 			<c:forEach items="${list}" var="vacc">
 				<tr>
-				<td>${vacc.vacc_name }</td>
-				<td>${vacc.content }</td>
-				<td>${vacc.cycle }</td>
-				<td><button>수정</button> <button>삭제</button></td>
+					<td>${vacc.vacc_name }</td>
+					<td>${vacc.content }</td>
+					<td>${vacc.cycle }</td>
+					<td>
+						<button onclick='window.open("./regVaccDetail?vacc_idx=${vacc.vacc_idx}","","width=600,height=400,left=300,top=300")'>수정 </button> 
+						<button onclick='window.open("./regVaccForm","","width=600,height=400,left=300,top=300")'> 삭제</button>${vacc.vacc_idx}
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -56,4 +56,8 @@ public interface CalendarDAO {
 	//////////////
 	ArrayList<VaccinDTO> vaccList();
 
+	int regVacc(VaccinDTO dto);
+
+	VaccinDTO regVaccDetail(String vacc_idx);
+
 }

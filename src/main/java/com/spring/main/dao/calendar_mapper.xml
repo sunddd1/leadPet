@@ -117,7 +117,16 @@
 	
 	<!-- 어드민으로 넘어갈거  -->
 	<select id="vaccList" resultType="vaccin">
-		SELECT * FROM vaccin
+		SELECT * FROM vaccin ORDER BY vacc_idx DESC
+	</select>
+	
+	<insert id="regVacc" parameterType="vaccin">
+		INSERT INTO vaccin (vacc_idx, vacc_name, content, cycle, vacc_cnt, dog_cat)
+			VALUES (vacc_idx_seq.NEXTVAL, #{vacc_name},#{content},#{cycle},#{vacc_cnt},#{dog_cat})
+	</insert>
+
+	<select id="regVaccDetail" resultType="vaccin">
+		SELECT * FROM vaccin WHERE vacc_idx=#{param1}
 	</select>
 
  </mapper>

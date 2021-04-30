@@ -34,7 +34,7 @@
 		</style>
 	</head>
 	<body>
-		<h3>상세보기 폼 ${sche.executed }</h3>
+		<h3>상세보기 폼</h3>
 			<table>
 				<tr>
 					<td colspan="3"><textarea class="fix"  <c:if test="${sche ne null}">  readonly="readonly"</c:if>   id="content">${sche.content }</textarea></td>
