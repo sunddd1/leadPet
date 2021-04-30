@@ -24,6 +24,10 @@ public class LoginService {
 	public String login(String id, String password) {
 		logger.info("login 호출");
 		
+		if(id == null || password == null) {
+			return null;
+		}
+		
 		String userId = id.trim();
 		String userPw = password.trim();
 		
