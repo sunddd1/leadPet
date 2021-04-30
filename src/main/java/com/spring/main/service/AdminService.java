@@ -28,9 +28,9 @@ public class AdminService {
 		return dao.adminList();
 	}
 
-	public int change(String oriPass, String newPass) {
+	public int change(String newPass, String id) {
 		logger.info("비밀번호 수정 서비스 도착");
-		return dao.change(oriPass,newPass);
+		return dao.change(newPass,id);
 	}
 
 	public int adminDelete(String id) {
@@ -93,10 +93,56 @@ public class AdminService {
 		return dao.detailMember(id);
 	}
 
+	public ArrayList<AdminDTO> detailPet(String id) {
+		logger.info("반려동물 상세보기 서비스 도착");
+		return dao.detailPet(id);
+	}
+	
 	public int restoreWithdraw(String id) {
 		logger.info("회원 복구 서비스 도착");
 		return dao.restoreWithdraw(id);
 	}
+
+	public String toggleMemberDisable(String id) {
+		logger.info("블랙 서비스 요청");
+		return dao.toggleMemberDisable(id);
+	}
+
+	public int memberBlackY(String id) {
+		logger.info("블랙 요청");
+		return dao.memberBlackY(id);
+	}
+
+	public int memberBlackN(String id) {
+		logger.info("블랙 해제 요청");
+		return dao.memberBlackN(id);
+	}
+
+	public String insertBlack(String id) {
+		logger.info("블랙 추가 요청");
+		return dao.insertBlack(id);
+	}
+
+	public ArrayList<AdminDTO> reportList() {
+		logger.info("미처리 신고 서비스 요청");
+		return dao.reportList();
+	}
+
+	public ArrayList<AdminDTO> finishList() {
+		logger.info("처리 신고 서비스 요청");
+		return dao.finishList();
+	}
+
+	public ArrayList<AdminDTO> replyList() {
+		logger.info("미처리 댓글 서비스 요청");
+		return dao.replyList();
+	}
+
+	public ArrayList<AdminDTO> finishReplyList() {
+		logger.info("처리 댓글 신고 서비스 요청");
+		return dao.finishReplyList();
+	}
+
 
 	
 

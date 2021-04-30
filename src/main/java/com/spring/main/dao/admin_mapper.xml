@@ -15,7 +15,7 @@
 	</select>
 	
 	<update id="change">
-		UPDATE admin SET password=#{param2} WHERE password=#{param1}  
+		UPDATE admin SET password=#{param1} WHERE admin_id=#{param2}  
 	</update>
 	
 	<delete id="adminDelete">
@@ -84,9 +84,45 @@
 	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade FROM member WHERE id=#{param1}
 	 </select>
 	 
+	 <select id="detailPet" resultType="pet">
+	 	SELECT p.pet_idx, p.dog_cat, p.name, p.bday, p.kg, pi.newFileName FROM pet p, pet_img pi WHERE p.id=#{param1} AND p.pet_idx = pi.pet_idx
+	 </select> 
+	 
 	 <update id="restoreWithdraw">
 	 	UPDATE member SET withdraw='N' WHERE id=#{param1}
 	 </update>
+	 
+	 <select id="toggleMemberDisable" resultType="String">
+	 	SELECT black FROM member WHERE id=#{param1}
+	 </select>
+	 
+	 <update id="memberBlackY">
+	 	UPDATE member SET black='Y' WHERE id=#{param1}
+	 </update>
+	 
+	 <update id="memberBlackN">
+	 	UPDATE member SET black='N' WHERE id=#{param1}
+	 </update>
+	 
+	 <insert id="insertBlack">
+	 	INSERT INTO blackList(black_idx, id, admin_id, reg_date, black_cnt) VALUES(seq_blackList.NEXTVAL, #{param1}, , SYSDATE, black_cnt+1)
+	 </insert>
+	 
+	 <select id="reportList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date
+	 </select>
+	 
+	 <select id="finishList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="replyList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='N' AND type= 'com' ORDER BY reg_date
+	 </select>
+	 
+	  <select id="finishReplyList" resultType="report">
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type = 'com' ORDER BY reg_date DESC
+	 </select>
 </mapper>
 
 

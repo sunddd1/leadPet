@@ -58,16 +58,16 @@ public class AdminController {
 		(
 			Model model, 
 			HttpSession session, 
-			@RequestParam(value="oriPass") String oriPass,
-			@RequestParam(value="newPass") String newPass
+			@RequestParam(value="newPass") String newPass,
+			@RequestParam(value="id") String id
 		) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info(oriPass+"/"+newPass);
+		logger.info(newPass+"/"+id);
 		logger.info("관리자 비밀번호 수정 요청");
-		int success = service.change(oriPass,newPass);
+		int success = service.change(newPass,id);
 		logger.info("비밀번호 수정 성공여부 :"+success);
 //			page="admin/adminList";
 //		}
@@ -317,13 +317,97 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/detailPet", method = RequestMethod.GET)
-	public String detailPet(Model model, HttpSession session) {
+	public String detailPet(Model model, HttpSession session,@RequestParam String id) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
+		model.addAttribute("dto",service.detailMember(id));
+		ArrayList<AdminDTO> list = service.detailPet(id);
+		logger.info("반려동물 수"+list.size());
+		model.addAttribute("petList", list);
 //			page="admin/adminList";
 //		}
 		return "admin/detailPet";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/toggleMemberDisable", method = RequestMethod.GET)
+	public String toggleMemberDisable(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="id") String id
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("블랙 요청");
+		if(service.toggleMemberDisable(id).equals("N")) {
+			service.memberBlackY(id);
+			service.insertBlack(id);
+			return "Y";
+		}else {
+			service.memberBlackN(id);
+			return "N";
+		}
+//			page="admin/adminList";
+//		}
+	}
+	
+	@RequestMapping(value = "/reportList", method = RequestMethod.GET)
+	public String reportList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.reportList();
+		logger.info("미처리 글 신고 수"+list.size());
+		model.addAttribute("reportList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/reportList";
+	}
+	
+	@RequestMapping(value = "/finishList", method = RequestMethod.GET)
+	public String finishList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.finishList();
+		logger.info("처리 글 신고 수"+list.size());
+		model.addAttribute("finishList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/finishList";
+	}
+	
+	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
+	public String replyList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.replyList();
+		logger.info("미처리 댓글 신고 수"+list.size());
+		model.addAttribute("replyList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/replyList";
+	}
+	
+	@RequestMapping(value = "/finishReplyList", method = RequestMethod.GET)
+	public String finishReplyList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.finishReplyList();
+		logger.info("처리 댓글 신고 수"+list.size());
+		model.addAttribute("finishReplyList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/finishReplyList";
 	}
 }

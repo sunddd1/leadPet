@@ -17,17 +17,15 @@
 	</style>
 	<body>
 			<table>
-				<tr>
-					<td>
-						<input type="text" id="oriPass" name="oriPass" placeholder="현재 비밀번호"/>
-					</td>
-					<td rowspan="2">
-						<button id="save" value="저장">저장</button>
-					</td>
-				</tr>
+
 				<tr>
 					<td>
 						<input type="text" id="newPass" name="newPass" placeholder="새 비밀번호"/>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="2">
+						<button id="save" value="저장">저장</button>
 					</td>
 				</tr>
 			</table>
@@ -39,10 +37,12 @@
 		window.close();
 	}
 
+		
 	$("#save").click(function(){
-		var oriPass = $("#oriPass").val();
+		var id = opener.oriWindow;
+		console.log(id);
 		var newPass = $("#newPass").val();
-		var allData = { "oriPass": oriPass, "newPass": newPass };
+		var allData = {"newPass": newPass, "id": id };
 			$.ajax({ 
 				type:'GET' 
 				,url:'change'

@@ -12,7 +12,7 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> adminList();
 
-	int change(String oriPass, String newPass);
+	int change(String newPass, String id);
 
 	int adminDelete(String id);
 
@@ -39,6 +39,24 @@ public interface AdminDAO {
 	Object detailMember(String id);
 
 	int restoreWithdraw(String id);
+
+	ArrayList<AdminDTO> detailPet(String id);
+
+	String toggleMemberDisable(String id);
+
+	int memberBlackY(String id);
+
+	int memberBlackN(String id);
+
+	String insertBlack(String id);
+
+	ArrayList<AdminDTO> reportList();
+
+	ArrayList<AdminDTO> finishList();
+
+	ArrayList<AdminDTO> replyList();
+
+	ArrayList<AdminDTO> finishReplyList();
 
 	
 
