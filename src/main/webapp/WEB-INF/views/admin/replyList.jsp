@@ -77,71 +77,69 @@
 		font-weight: 600;
 		color: red;
 	}
-	#insert{
+	h4{
 		position: relative;
-		left: 80%
+		left: 20%;
+		float: left;
+		z-index: 5;
+		color: white;
+		font-size: 25px;
+		margin-top: 5px;
+	}
+	#radio{
+		position: relative;
+		left: 70%
 	}
 </style>
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
-<button onclick="location.href='replyList'">댓글 신고 리스트 DEMO</button>
     <div id="search">
-        <form action="search" method="GET">
+        <form action="memberSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
                 <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
             </select>
-            <input type="text" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>
-    <div id="insert">
-    	<button onclick="adminInsert()">관리자 등록</button>
+    <div id="radio">
+        <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='replyList'"/>미처리
+        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='finishReplyList'"/>처리
     </div>
     <div class="table">
         <table>
             <tr>
-                <th>아이디</th>
-                <th>비밀번호</th>
-                <th>닉네임</th>
-                <th>관리자 등록일</th>
-                <th></th>
+               <th>신고자</th>
+                <th>신고 당한 글</th>
+                <th>신고일</th>
+                <th>처리유무</th>
             </tr>
-            <c:forEach items="${adminList}" var="admin">
+            <c:forEach items="${replyList}" var="report">
 	            <tr>
-	                <td id="id">${admin.admin_id}</td>
-	                <td>${admin.password}</td>
-	                <td>${admin.nickname}</td>
-	                <td>${admin.reg_date}</td> 
-					<td>
-						<button value="${admin.admin_id}" onclick='changePass(this)'>수정</button>
-						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
+	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
+	                <td>
+		                <a href="detailMember?id=${report.id}" 
+		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
+		               	 	${report.id}
+		                </a>
 	                </td>
+	                <td><a href="#">${report.field}</a></td>
+	                <td>${report.reg_date}</td>
+	                <td>${report.proc_ex}</td> 
                 </tr>
             </c:forEach>
         </table>
     </div>
 </body>
 <script>
-var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
-	window.close();
-}
-
-	var oriWindow;
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		window.close();
+	}
 	
-function changePass(buttonObj){
-	var button = $(buttonObj);
-	var flag = $("#"+buttonObj.value);
-	oriWindow = buttonObj.value;
-	 window.open('changePass?id='+oriWindow,'Change Password','width=500, height=300, top=300, left=900')
-}
-
-function adminInsert(){
-	window.open('adminInsert','Insert Admin','width=500, height=400, top=300, left=900')
-}
 </script>
 </html>

@@ -94,7 +94,7 @@
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
+<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
     <div id="search">
         <form action="memberSearch" method="POST">
             <select id="select" name="search">
@@ -107,27 +107,28 @@
     </div>
     <div id="radio">
         <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='reportList'"/>미처리
-        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='blackList'"/>처리
+        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='finishList'"/>처리
     </div>
     <div class="table">
         <table>
             <tr>
-                <th>아이디</th>
-                <th>닉네임</th>
-                <th>성별</th>
-                <th>회원가입일</th>
+               <th>신고자</th>
+                <th>신고 당한 글</th>
+                <th>신고일</th>
+                <th>처리유무</th>
             </tr>
-            <c:forEach items="${memberList}" var="member">
+            <c:forEach items="${reportList}" var="report">
 	            <tr>
+	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>
-		                <a href="detailMember?id=${member.id}" 
+		                <a href="detailMember?id=${report.id}" 
 		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
-		               	 	${member.id}
+		               	 	${report.id}
 		                </a>
 	                </td>
-	                <td>${member.nickname}</td>
-	                <td>${member.gender}</td>
-	                <td>${member.reg_date}</td> 
+	                <td><a href="#">${report.field}</a></td>
+	                <td>${report.reg_date}</td>
+	                <td>${report.proc_ex}</td> 
                 </tr>
             </c:forEach>
         </table>
