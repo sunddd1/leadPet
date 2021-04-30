@@ -1,6 +1,8 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,12 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
-import com.spring.main.dto.MemberDTO;
-import com.spring.main.dto.NoteDTO;
+import com.spring.main.dto.BoardDTO;
 
 import oracle.jdbc.driver.Message;
 @Service
@@ -37,12 +38,13 @@ public class MemberService {
 		String result = null;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-		String DBpass = dao.checkPw("wwww");
+		String DBpass = dao.checkPw("hello");
 		
 		logger.info("DB 비밀번호 : "+DBpass);
 		logger.info("입력한 비밀번호 : "+pw);
 		
 		if(encoder.matches(pw, DBpass)) {
+			logger.info("비번 확인 함수 성공 ");
 			result = "pwConfirmOK";
 		}else {
 			result = "pwConfirmNO";
@@ -53,13 +55,13 @@ public class MemberService {
 	public String withdraw(String pw,HttpSession session) {
 		//비번 일치 확인 
 		String result = checkPw(pw);
-		String loginId = "wwww";
+		String loginId = "hello";
 		String page = "pwCheck";
 		
 		if(result.equals("pwConfirmOK")) {
 			//탈퇴 
-			dao.withdrawa(loginId);
-			
+			dao.withdraw(loginId);
+			logger.info("탈퇴 z쿼리 ");
 			//로그인 세션 삭제
 			Object object = session.getAttribute("login");
 			if(object!=null) {
@@ -69,7 +71,7 @@ public class MemberService {
 			}
 			result = "success";
 			logger.info("비번 일치");
-			page= "redirect:/loginForm";
+			page= "login/loginForm";
 		}else {
 			//비번 틀림 
 			result = "fail";
@@ -79,13 +81,14 @@ public class MemberService {
 		return page;
 	}
 
-	public String restore(String pw,HttpSession session) {
+	public	Map<String, Object> restore(String pw,HttpSession session) {
 		//비번 일치 확인 
 		String result = checkPw(pw);
-		String loginId = "wwww";
-		String page = "pwCheck";
-		
+		String loginId = "hello";
+		String page = "restore";
+		Map<String, Object> restore = new HashMap<String, Object>();
 		if(result.equals("pwConfirmOK")) {
+			logger.info("계정복구요청");
 			//계정 복구 
 			dao.restore(loginId);
 			
@@ -98,14 +101,15 @@ public class MemberService {
 			}
 			result = "success";
 			logger.info("비번 일치");
-			page= "redirect:/loginForm";
+			page= "home";
 		}else {
 			//비번 틀림 
 			result = "fail";
 			logger.info("비번 틀림");
 		}
-		
-		return page;
+		restore.put("page", page);
+		restore.put("result", result);
+		return restore;
 	}
 
 	public String noteList(ArrayList<Message> message,Model model) {
@@ -129,7 +133,7 @@ public class MemberService {
 		String loginId="wwww";
 		dao.noteSend(loginId,content);
 		logger.info("쪽지 전송 완료");
-		return "Note/sendList";
+		return "redirect:/sendList";
 	}
 
 	public String sendList(ArrayList<Message> sendList, Model model) {
@@ -141,12 +145,52 @@ public class MemberService {
         return "Note/sendList";
 	}
 
-	public String detailNoteList(String id,int note_idx) {
+	public String detailNoteList(ArrayList<Message> detailList,int note_idx,Model model) {
 		logger.info("쪽지 상세보기");
 		String loginId = "wwww";
-		dao.detailNoteList(loginId,note_idx,id);
+		detailList = dao.detailList(loginId,note_idx);
+		logger.info(note_idx+"번 읽음 처리");
+		dao.checked(note_idx);
+		model.addAttribute("detailList", detailList);
 		return "Note/Message";
 	}
+
+	public ModelAndView writeList( String id) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("목록 불러오는 중");
+		logger.info("요청 유저 닉네임 : "+id);
+		String page = "home";
+		BoardDTO dto = dao.writeList(id);
+		logger.info("들어옴? ::"+dto.getBbs_idx());
+		
+		if(dto != null) {
+			page="Member/writeList";
+			mav.addObject("write", dto);
+		}
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView detailWriteList(int bbs_idx) {
+		logger.info(bbs_idx+"번 상세보기");
+		BoardDTO dto = dao.detail(bbs_idx);//글 상세보기 
+		ArrayList<BoardDTO> fileList = dao.fileList(bbs_idx);//해당 글 파일 목록 
+		return null;
+	}
+
+//	@Transactional
+//	public ModelAndView detail(String bbs_idx) {				
+//		dao.upHit(bbs_idx);//조회수 올리기		
+//		BoardDTO dto = dao.detail(bbs_idx);//상세정보 가져오기
+//		ArrayList<PhotoBean> fileList = dao.fileList(bbs_idx);//해당 글의 파일 리스트
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("dto", dto);
+//		mav.addObject("fileList", fileList);
+//		mav.setViewName("detail");		
+//		return mav;
+//	}
+
+	
 
 	
 
