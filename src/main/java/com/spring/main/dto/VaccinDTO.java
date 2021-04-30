@@ -26,8 +26,15 @@ public class VaccinDTO {
 	private Date expected_date;
 	private String executed;
 	private String checked;
+	private String added;
 	
 
+	public String getAdded() {
+		return added;
+	}
+	public void setAdded(String added) {
+		this.added = added;
+	}
 	public String getChecked() {
 		return checked;
 	}

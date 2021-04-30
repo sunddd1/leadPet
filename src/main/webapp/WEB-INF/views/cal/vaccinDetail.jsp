@@ -36,9 +36,11 @@
 				<tr>	
 					<th>접종날짜 설정</th>
 					<th><input type="date" id="date" value="${vacc.expected_date }"/></th>
-					<th><input type="button" id="btn" value="등록"/></th>			
+					<c:if test="${vacc.added ne 'N'}">
+						<th><input type="button" id="btn" value="등록"/></th>			
+					</c:if>
 				</tr>
-				<c:if test="${vacc.executed ne 'N'}">
+				<c:if test="${vacc.added ne 'N'}">
 					<tr>
 						<th colspan="3">
 							<input type="button" id="checkBtn" value="일정완료" />
@@ -64,6 +66,9 @@
 				,dataType:'json'
 				,success : function(data) {
 					console.log(data);
+					if(data.suc>0){
+						location.reload();			
+					};
 				}
 				,error : function(e){
 					console.log(e);
@@ -84,7 +89,7 @@
 				}
 				,dataType:'json'
 				,success : function(data) {
-					console.log(data);
+					console.log(data.suc);
 					if(data.suc>0){
 						opener.setData($('input[type="date"]').val());
 						window.close();						

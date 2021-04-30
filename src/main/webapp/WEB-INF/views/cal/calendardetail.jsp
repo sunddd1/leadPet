@@ -34,7 +34,7 @@
 		</style>
 	</head>
 	<body>
-		<h3>상세보기 폼</h3>
+		<h3>상세보기 폼 ${sche.executed }</h3>
 			<table>
 				<tr>
 					<td colspan="3"><textarea class="fix"  <c:if test="${sche ne null}">  readonly="readonly"</c:if>   id="content">${sche.content }</textarea></td>
@@ -49,12 +49,47 @@
 					<th>
 						<input type="date" id="d_day" <c:if test="${sche eq null}">value="${time }" </c:if><c:if test="${sche ne null}"> value="${sche.d_day }" </c:if>/>
 					</th>
-					<th><input type="button" id="btn" value="등록"/></th>			
-				</tr>
+					<c:if test="${sche.executed ne 'Y' }">
+						<th>
+							<input type="button" id="btn" value="등록"/>
+						</th>		
+						<c:if test="${sche.executed eq 'N' }">
+						<tr>
+							<th colspan="3">
+								<input type="button" id="checkBtn" value="일정완료" />
+							</th>
+						</tr>	
+						</c:if>
+					</c:if>
+				</tr>				
 			</table>
 			<input type="hidden" id="sche_idx" value="${sche.sche_idx }"/>		
 	</body>
 	<script>
+		$('#checkBtn').click(function() {
+			console.log("${vacc.vac_idx }");
+			$.ajax({
+				type:'POST'
+				,url:'executed'
+				,data:{
+					"vac_idx":"${sche.sche_idx }"
+					,"vacc_idx":"0"
+					,"date": "0"
+				}
+				,dataType:'json'
+				,success : function(data) {
+					console.log(data.suc);
+					if(data.suc>0){
+						location.reload();
+					};
+				}
+				,error : function(e){
+					console.log(e);
+				}
+				
+			});
+		});
+	
 	$('.fix').dblclick(function() {
 		console.log("수정");
 		$(this).removeAttr('readonly');

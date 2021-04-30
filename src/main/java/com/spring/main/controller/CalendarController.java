@@ -138,7 +138,7 @@ public class CalendarController {
 	
 	@RequestMapping(value = "/deleteSche", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> deleteSche(HttpSession session,@RequestParam int idx, @RequestParam int type, @RequestParam int pet) {
-		logger.info("파라메터들 : "+idx +"/"+type+"/"+pet);
+		logger.info("삭제요청 파라메터들 : "+idx +"/"+type+"/"+pet);
 		return service.deleteSche(idx,type,pet);
 	}
 	
@@ -148,4 +148,13 @@ public class CalendarController {
 		logger.info("vac_idx : "+vac_idx+"//"+date);
 		return service.executed(vac_idx,vacc_idx,date);
 	}
+	
+	@RequestMapping(value = "/popup", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> popup(HttpSession session,@RequestParam String todate,@RequestParam String ladate ) {
+		logger.info("팝업 확인 : "+todate +"---"+ ladate);
+		return service.popup(todate,ladate,session);
+	}
+	
+	
+	
 }
