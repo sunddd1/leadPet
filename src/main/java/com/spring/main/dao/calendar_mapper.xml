@@ -26,8 +26,6 @@
 		SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
 		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx AND p.pet_idx in 
 		(SELECT pet_idx FROM pet WHERE id ='testId') AND
-
-		<!-- <![CDATA[ pv.expected_date >= #{param1}]]> AND -->
 		<![CDATA[ pv.expected_date < #{param2}]]>
 		  AND pv.added='N'  ORDER BY pv.vac_idx DESC
 	</select>
@@ -39,7 +37,7 @@
 	</select>
 	
 	<select id="vaccinDetail" resultType="vaccin">
-		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx ,pv.checked 
+		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx ,pv.checked ,pv.added
 		FROM pet_vaccin pv, vaccin v 
 		WHERE pv.vacc_idx=v.vacc_idx AND pv.vac_idx=#{param1}
 	</select>
@@ -99,6 +97,27 @@
 	<update id="executed">
 		UPDATE vaccin_scheduler SET executed='Y' WHERE vac_idx=#{param1}
 	</update>
+	
+	<update id="schExecuted">
+		UPDATE scheduler SET executed='Y' WHERE sche_idx=#{param1} 
+	</update>
+	
+	<update id="upCnt">
+		UPDATE pet_vaccin SET vacc_cnt =vacc_cnt +1 
+        WHERE vac_idx=#{param1}
+	</update>
 
+	<select id="popup" resultType="vaccin_scheduler">
+		SELECT p.name, vs.d_day, v.vacc_name FROM vaccin_scheduler vs, vaccin v, pet_vaccin pv, pet p
+        WHERE vs.id=#{param3} AND vs.vac_idx=pv.vac_idx AND pv.vacc_idx=v.vacc_idx AND pv.pet_idx= p.pet_idx
+         AND <![CDATA[vs.d_day >= #{param1}]]>
+         AND <![CDATA[vs.d_day < #{param2}]]>
+         AND executed='N'
+	</select>
+	
+	<!-- 어드민으로 넘어갈거  -->
+	<select id="vaccList" resultType="vaccin">
+		SELECT * FROM vaccin
+	</select>
 
  </mapper>

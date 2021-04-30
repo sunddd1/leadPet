@@ -9,11 +9,12 @@
     <meta charset='utf-8'>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
-        table,td {
+        #cal ,#cal td {
+        	margin: 5px;
             border: 2px solid;
             border-collapse: collapse;
         }
-        td {
+        #cal td {
         	font-size: 8pt;
         	text-overflow: ellipsis;
         	overflow: hidden;
@@ -36,7 +37,7 @@
         .schedule{
         	font-size: 6pt;
         }
-        th{
+        #cal th{
         	text-align: left;
         }
     </style>
@@ -59,7 +60,7 @@
 		</tr>
 	</table>
 
-
+	<jsp:include page="./popup.jsp"/>
     
 </body>
 <script>
@@ -67,6 +68,8 @@
     var d = new Date();
     var nM = new Date();
     $(document).ready(function () {
+    	
+    	
         cal();
     });
     

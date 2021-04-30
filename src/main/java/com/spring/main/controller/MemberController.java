@@ -1,6 +1,8 @@
 package com.spring.main.controller;
 
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,13 +13,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.NoteDTO;
 import com.spring.main.service.MemberService;
@@ -46,14 +51,14 @@ public class MemberController {
 		//탈퇴 요청 
 		@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
 		public String withdraw(@RequestParam String pw,HttpSession session) {
-
+			logger.info("탈퇴 요청");
 			return memberService.withdraw(pw,session);
 		}
 		
 		//계정 복구 요청 
 		@RequestMapping(value = "/restore", method = RequestMethod.POST)
-		public String restore(@RequestParam String pw,HttpSession session) {
-
+		public @ResponseBody Map<String, Object> restore(@RequestParam String pw,HttpSession session) {
+			logger.info("계정 복구  요청");
 			return memberService.restore(pw,session);
 		}
 		
@@ -94,8 +99,22 @@ public class MemberController {
 		
 		//받은 쪽지 상세보기  
 		@RequestMapping(value="/detailNoteList")
-	    public String detailNoteList(@RequestBody String id,@RequestParam int note_idx){
+	    public String detailNoteList(ArrayList<Message> message,@RequestParam int note_idx,Model model){
 	        logger.info("받은 쪽지 상세보기");
-			return memberService.detailNoteList(id,note_idx);
+			return memberService.detailNoteList(message, note_idx,model);
+		}
+
+		//내가 쓴 글 목록 
+		@RequestMapping(value="/writeList")
+	    public ModelAndView writeList(){
+	        logger.info("내가 쓴 글 목록 요청");
+	        String id = "멍멍";
+			return memberService.writeList(id);
+		}
+		
+		@RequestMapping(value = "/detailWriteList", method = RequestMethod.GET)
+		public ModelAndView detailWriteList(@RequestParam int bbs_idx) {	
+			logger.info("상세보기 요청");
+			return memberService.detailWriteList(bbs_idx);
 		}
 }

@@ -3,24 +3,19 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>쪽지</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style></style>
 	</head>
 	<body>
-		 <table>
-                <tr>
-                    <th>보낸 사람</th>
-                    <th>내용:</th>
-                </tr>
-		        <c:forEach var = "note" items="${messageList}">
-		        <tr>
-			        <td>${note.note.id}</td>
-			        <td>${note.content}</td>
-					<td><a id="reply" href="">답장</a></td>
-			    </tr>
-			    </c:forEach>
-	    </table>
+        <h3>쪽지</h3>
+		<c:forEach var = "note" items="${detailList}">
+	    보낸사람 : ${note.id}<br>
+	    내용 : ${note.content}<br>
+	    <input type="button" id="reply" value="답장" onclick="location.href='./borderlist?receiving_id=${note.id}'"/>
+        </c:forEach>
 	</body>
-	<script></script>
+	<script>
+	
+	</script>
 </html>

@@ -47,4 +47,13 @@ public interface CalendarDAO {
 
 	int executed(String vac_idx);
 
+	ArrayList<Vaccin_schedulerDTO> popup(String todate, String ladate, String id);
+
+	int upCnt(String vac_idx);
+
+	int schExecuted(String vac_idx);
+
+	//////////////
+	ArrayList<VaccinDTO> vaccList();
+
 }

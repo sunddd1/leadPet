@@ -41,15 +41,18 @@
 				},
 				datatype : "json",
 				success : function(result){
-					console.log(result);
+					console.log(result.result);
 					
-					if(result==="pwConfirmOK"){
+					if(result.result=="success"){
+						location.href="./";					
+					}
+					/* if(result=="pwConfirmOK"){
 						$('#pwMsg').html('');
 						chk1=true;
 					}else{
 						$('#pwMsg').html('비밀번호가 올바르지 않습니다.'); 
 						chk1 = false;
-					} 
+					} */
 				},
 				error : function(error){
 					console.log("error : "+error);
