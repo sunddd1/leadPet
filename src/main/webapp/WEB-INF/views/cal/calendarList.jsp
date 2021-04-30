@@ -162,14 +162,18 @@
     	opener.setData(data);
     }
     
-
+	console.log("${sche[0].d_day }");
+	var thisDay="${sche[0].d_day }";
+	console.log("-------------");
+	console.log(thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1));
     
     function reg() {//location.href='./regScheForm'
     	window.open("./regScheForm","","width=600,height=400,left=800,top=300");
 	}
     function del(a,b,c) {
 		console.log(a+"/"+b+"/"+c);
-		//location.reload();
+		
+		var toss = 
 		$.ajax({
 			type:'get'
 			,url:'deleteSche'
@@ -182,9 +186,10 @@
 			,success : function(data) {
 				console.log(data);
 				if(data.suc>0){
-					console.log(d);
-					opener.location.reload();
-					location.reload();					
+
+					location.reload();
+					opener.setData(thisDay.substring(0,thisDay.lastIndexOf("00:00:00")-1));
+								
 				}
 				if(data.suc==0){
 					alert("완료한 일정 삭제하거나 수정 할 수 없습니다.");

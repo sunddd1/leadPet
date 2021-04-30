@@ -36,9 +36,9 @@
 				<tr>	
 					<th>접종날짜 설정</th>
 					<th><input type="date" id="date" value="${vacc.expected_date }"/></th>
-					<c:if test="${vacc.added ne 'N'}">
+					
 						<th><input type="button" id="btn" value="등록"/></th>			
-					</c:if>
+					
 				</tr>
 				<c:if test="${vacc.added ne 'N'}">
 					<tr>
