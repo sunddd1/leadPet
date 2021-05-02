@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -8,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.ReplyDTO;
 import com.spring.main.service.BoardService;
 
 @RestController
@@ -41,14 +45,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/writeForm", method = RequestMethod.GET)
-	public ModelAndView writeForm(Model model, HttpSession session) {
-		logger.info("댕냥노하우 / 경험기 게시판 글쓰기 폼 : ");
+	public ModelAndView writeForm(Model model, HttpSession session,@RequestParam String id) {
+		logger.info("댕냥노하우 / 경험기 게시판 글쓰기 폼 : "+id);
 		//업로드할 파일 이름을 저장한 HashMap 을 생성해서 session 에 저장		
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/Board/writeForm");
-		return mav;
+		return service.writeForm(id);
 	}
 	
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
@@ -84,6 +86,42 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/Board/Experience");
 		return mav;
+	}
+	
+	@RequestMapping(value = "/BoardDetail", method = RequestMethod.GET)
+	public ModelAndView BoardDetail(Model model, @RequestParam String bbs_idx) {
+		logger.info("댕냥노하우 / 경험기 게시판 상세보기 : "+bbs_idx);
+		return service.BoardDetail(bbs_idx);
+	}
+	
+	@RequestMapping(value = "/recoConfirm", method = RequestMethod.GET)
+	public Boolean recoConfirm(Model model, @RequestParam String id , String bbs_idx) {
+		logger.info("추천여부 확인 : "+id+bbs_idx);
+		return service.recoConfirm(id,bbs_idx);
+	}
+	
+	@RequestMapping(value = "/recoUp", method = RequestMethod.GET)
+	public Boolean recoUp(Model model, @RequestParam String id , String bbs_idx) {
+		logger.info("추천 버튼(+1): "+id+bbs_idx);
+		return service.recoUp(id,bbs_idx);
+	}
+	
+	@RequestMapping(value = "/recoDown", method = RequestMethod.GET)
+	public Boolean recoDown(Model model, @RequestParam String id , String bbs_idx) {
+		logger.info("추천취소 버튼(-1): "+id+bbs_idx);
+		return service.recoDown(id,bbs_idx);
+	}
+	
+	@RequestMapping(value = "/replyList", method = RequestMethod.POST)
+	public HashMap<String, Object> replyList(Model model, @RequestParam String id , String bbs_idx) {
+		logger.info("댓글리스트 불러오기: "+id+bbs_idx);
+		return service.replyList(id,bbs_idx);
+	}
+	
+	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
+	public int replyWrite(@ModelAttribute ReplyDTO reply) {
+		logger.info("댓글작성 불러오기: "+reply.getId()+reply.getReply_content()+reply.getBbs_idx());
+		return service.replyWrite(reply);
 	}
 	
 }

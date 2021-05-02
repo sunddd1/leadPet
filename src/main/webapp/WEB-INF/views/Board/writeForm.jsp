@@ -39,29 +39,51 @@
 <form action="write" method="post">
 	<table>
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="bbs_subject" value=""/></td>
+			<th>작성자</th>
+			<td colspan="3"><input type="text" name="nickname" value="${dto.name}" readonly/></td>
+			<c:if test="${dto.dog_cat ne null}">
+				<td colspan="2">
+					<input type="text" name="dog_cat" value="${dto.dog_cat}" readonly/></td>
+				</td>
+			</c:if>
 		</tr>
 		<tr>
-			<th>작성자</th>
-			<td><input type="text" name="nickname" value=""/></td>
+			<th>카테고리</th>
+			<td>
+				<select name="category_name">
+				    <option value="">카테고리 선택</option>
+				    <option value="food">사료,간식,영양제</option>
+				    <option value="park">공원</option>
+				    <option value="restaurant">식당</option>
+				    <option value="living">생활</option>
+				    <option value="play">놀이</option>
+				    <option value="medical">의료</option>
+				</select>
+			</td>
+			<td>${dto.pet_name}</td>
+			<td>${dto.kind }</td>
+			<td>${dto.bday}</td>
+			<td>${dto.kg }</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="5"><input type="text" name="bbs_subject" value=""/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>
-				<!-- div 에 있는 녀석은 서버로 보낼 수 없다. -->
+			<td  colspan="5">
 				<div id="editable" contenteditable="true"></div>
 				<input id="bbs_content" type="hidden" name="bbs_content" value=""/>
 			</td>
 		</tr>
 		<tr>
-			<th>파일첨부</th>
-			<td>
+			<th >파일첨부</th>
+			<td colspan="5">
 				<input type="button" value="사진 업로드" onclick="fileUp()"/>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><input id="save" type="button" value="글작성"/></td>
+			<td colspan="6"><input id="save" type="button" value="글작성"/></td>
 		</tr>	
 	</table>
 </form>

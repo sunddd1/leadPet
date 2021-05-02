@@ -7,7 +7,7 @@
 <mapper namespace="com.spring.main.dao.BoardDAO">
 
 	<select id="tab" resultType="board" parameterType="map">
-		SELECT b.bbs_idx,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
 		FROM bbs b JOIN bbs_img bi ON bi.bbs_idx(+)=b.bbs_idx
 		<if test="dog_cat.equals('dog')">		
 			WHERE b.bbs_blind='N' AND b.pet_idx in
@@ -22,6 +22,10 @@
 		</if>	 
 	</select>
 	
+	<select id="writeForm" resultType="pet">
+		SELECT m.name,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
+	</select>
+	
 	<insert id="write" 
 		useGeneratedKeys="true"
 		keyProperty="bbs_idx"
@@ -30,10 +34,52 @@
 	INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views)
 		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0)	
 	</insert>
-	
+
 	<insert id="writeFile">
 		INSERT INTO bbs_img(newFileName, oriFileName, bbs_idx)
 			VALUES(#{param1},#{param2},#{param3})
+	</insert>
+	
+	<update id="upViews">
+		UPDATE bbs SET views = views+1 WHERE bbs_idx=#{param1}
+	</update>
+	
+	<select id="boardDetail" resultType="board">
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.reco_count,b.nickname,b.pet_idx,b.category_name,p.kind,p.bday,p.pet_name,p.kg
+		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx) pet_newfilename
+		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{param1}
+	</select>
+	
+	<select id="viewimg" resultType="board_img">
+		SELECT  * FROM bbs_img WHERE bbs_idx=#{param1}
+	</select>
+	
+	<select id="recoConfirm" resultType="hashmap">
+		SELECT * FROM recommend WHERE id=#{param1} AND bbs_idx=#{param2}
+	</select>
+	
+	<insert id="recoTableUp">
+		INSERT INTO recommend(id,bbs_idx) VALUES (#{param1},#{param2})
+	</insert>
+	
+	<update id="recoPlus">
+		UPDATE bbs SET reco_count = reco_count+1 WHERE bbs_idx=#{param1}
+	</update>
+	
+	<delete id="recoTableDown">
+		DELETE FROM recommend WHERE id=#{param1} AND bbs_idx=#{param2}
+	</delete>
+	
+	<update id="recoMinus">
+		UPDATE bbs SET reco_count = reco_count-1 WHERE bbs_idx=#{param1}
+	</update>
+	
+	<select id="replyList" resultType="reply">
+		SELECT r.reply_idx,r.reply_content,r.reg_date,m.nickname FROM reply r, member m WHERE  r.id = m.id AND bbs_idx = #{param2} AND reply_blind='N'
+	</select>
+	
+	<insert id="replyWrite" parameterType="reply">
+		INSERT INTO reply(reply_idx,reply_content,reply_blind,id,bbs_idx) VALUES(reply_seq.NEXTVAL,#{reply_content},'N',#{id},#{bbs_idx})
 	</insert>
 
 </mapper>
