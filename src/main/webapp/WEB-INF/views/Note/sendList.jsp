@@ -9,14 +9,7 @@
 	</head>
 	<body>
 		<h3>[보낸 쪽지함]</h3>
-		<%-- <c:forEach var = "note" items="${messageList}">
-	    쪽지번호 : ${note.note_idx} <br>
-	    보낸사람 : ${note.id} <br>
-	    내용 : ${note.content} <br>
-	    보낸 날짜 : ${note.reg_date} 
-	    <input type="button" value="삭제" id="del">
-	    </c:forEach> --%>
-	    <table>
+            <table>
                 <tr>
                     <th>번호</th>
                     <th>내용</th>
@@ -34,8 +27,6 @@
             </table>
 	</body>
 	<script>
-		$("#id").click(function(){
-			
-		});
+		
 	</script>
 </html>

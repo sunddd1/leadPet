@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,24 +36,38 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView login(HttpServletRequest req ,@RequestParam String id, @RequestParam String password) {
+	public ModelAndView login(HttpSession session ,@RequestParam String id, @RequestParam String password) {
 		logger.info("login 요청");
 		
 		ModelAndView mav = new ModelAndView();
-		String viewName = "/login/loginForm";
 		String msg = "로그인에 실패했습니다.";
 		
-		String loginId = loginService.login(id, password);
-		
-		if(loginId != null) {
-			mav.addObject("id", loginId);
-			viewName = "home";
-			msg = "로그인에 성공했습니다.";
-			
-			req.setAttribute("loginId", id);
+		LoginService.Type loginType = loginService.login(id, password);
+
+		if(loginType != LoginService.Type.NONE) {
+			session.setAttribute("loginId", id);
 		}
-				
-		mav.setViewName(viewName);
+		
+		switch (loginType) {
+		case ADMIN:
+			session.setAttribute("isMaganer", true);
+			break;
+			
+		case USER:
+			break;
+			
+		case WITHDRAW:
+			return new ModelAndView("/Member/restore");
+			
+		default:
+			logger.info("로그인 실패");
+			
+			return new ModelAndView("/login/loginForm", "msg", msg);
+		}
+
+		msg = "로그인에 성공했습니다.";
+		
+		mav.setViewName("home");
 		mav.addObject("msg", msg);
 		
 		return mav;
@@ -79,7 +94,7 @@ public class LoginController {
 		return "login/changePwForm";
 	}
 	
-	@GetMapping("/change-pw")
+	@PostMapping("/change-pw")
 	public String changePw(@RequestParam String id, @RequestParam String password) {
 		logger.info("changePw 요청");
 
@@ -113,11 +128,13 @@ public class LoginController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest req) {
+	public String logout(HttpSession session) {
 		logger.info("logout 요청");
-		
-		req.removeAttribute("loginId");
-		return "main";
+		if(session.getAttribute("isMaganer") != null) {
+			session.removeAttribute("isMaganer");
+		}
+		session.removeAttribute("loginId");
+		return "redirect:/";
 	}
 	
 	// 아래부터 ajax 부분

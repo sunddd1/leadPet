@@ -143,6 +143,46 @@ public class AdminService {
 		return dao.finishReplyList();
 	}
 
+	public ArrayList<AdminDTO> tipReportList() {
+		logger.info("팁 신고 서비스 요청");
+		return dao.tipReportList();
+	}
+
+	public ArrayList<AdminDTO> galReportList() {
+		logger.info("갤러리 신고 서비스 요청");
+		return dao.galReportList();
+	}
+
+	public ArrayList<AdminDTO> fedReportList() {
+		logger.info("사료 신고 서비스 요청");
+		return dao.fedReportList();
+	}
+
+	public ArrayList<AdminDTO> resReportList() {
+		logger.info("식당 신고 서비스 요청");
+		return dao.resReportList();
+	}
+
+	public ArrayList<AdminDTO> runReportList() {
+		logger.info("산책 신고 서비스 요청");
+		return dao.runReportList();
+	}
+
+	public ArrayList<AdminDTO> reportSearch(HashMap<String, String> params) {
+		logger.info("미처리 신고 검색 서비스 도착");
+		return dao.reportSearch(params);
+	}
+
+	public ArrayList<AdminDTO> finishListSearch(HashMap<String, String> params) {
+		logger.info("처리 신고 검색 서비스 도착");
+		return dao.finishListSearch(params);
+	}
+
+//	public ArrayList<AdminDTO> typeReportList(String type) {
+//		logger.info("타입 신고 서비스 요청");
+//		return dao.typeReportList(type);
+//	}
+
 
 	
 

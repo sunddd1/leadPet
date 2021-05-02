@@ -9,17 +9,17 @@ import com.spring.main.dto.Vaccin_schedulerDTO;
 
 public interface CalendarDAO {
 
-	ArrayList<SchedulerDTO> scheduler(String start, String last);
+	ArrayList<SchedulerDTO> scheduler(String start, String last, String id);
 
-	ArrayList<Vaccin_schedulerDTO> vaccin_scheduler(String start, String last);
+	ArrayList<Vaccin_schedulerDTO> vaccin_scheduler(String start, String last, String id);
 
 	ArrayList<VaccinDTO> vaccinList(String start, String last ,String id);
 
-	SchedulerDTO calendardetail(String idx);
+	SchedulerDTO calendardetail(String idx, String id);
 
 	ArrayList<SchedulerDTO> calendarList(String date);
 
-	VaccinDTO vaccinDetail(String idx);
+	VaccinDTO vaccinDetail(String vac_idx);
 
 	int regVaccin(String vac_idx, String date, String id);
 
@@ -27,24 +27,47 @@ public interface CalendarDAO {
 
 	long cycle(String vacc_idx);
 
-	int updateVaccin(String vac_idx, String date);
+	int updateVaccin(String vac_idx, String date, String id);
 
 	int updateSchedule(SchedulerDTO dto);
 
 	int regSchedule(SchedulerDTO dto);
 
-	int deleteSche(int idx);
+	int deleteSche(int idx, String id);
 
-	int deleteVaccSche(int idx);
+	int deleteVaccSche(int idx, String id);
 
 	int regVaccin_suc(String vac_idx);
 
 	int deleteVaccSche_suc(int idx);
 
-	VaccinDTO vacc_scheSearch(String vac_idx);
+	Vaccin_schedulerDTO vacc_scheSearch(String vac_idx, String id);
 
 	int executed(int vac_idx);
 
-	int executed(String vac_idx);
+	int executed(String vac_idx, String id);
+
+	ArrayList<Vaccin_schedulerDTO> popup(String todate, String ladate, String id);
+
+	int upCnt(String vac_idx);
+
+	int schExecuted(String vac_idx, String id);
+
+	//////////////
+	ArrayList<VaccinDTO> vaccList();
+
+	int regVacc(VaccinDTO dto);
+
+	VaccinDTO regVaccDetail(String vacc_idx);
+
+	int addSche(SchedulerDTO dto);
+
+	int updateRegVacc(VaccinDTO dto);
+
+	int deleteVacc(String vacc_idx);
+
+	ArrayList<VaccinDTO> VaccSearch(String keyword);
+
+	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
 
 }

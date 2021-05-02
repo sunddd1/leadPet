@@ -18,24 +18,17 @@ public class HomeController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "redirect:login-form";
-	}
-	
-	@RequestMapping(value = "/Member", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("하이");
+	public String home() {
+		logger.info("home");
+
 		return "home";
 	}
+	
+//	@RequestMapping(value = "/Member", method = RequestMethod.GET)
+//	public String home(Model model) {
+//		logger.info("하이");
+//		return "home";
+//	}
 	
 	@GetMapping("/pointForm")
 	public String pointForm() {
