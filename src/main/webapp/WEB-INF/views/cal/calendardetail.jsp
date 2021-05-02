@@ -65,9 +65,23 @@
 			</table>
 			<input type="hidden" id="sche_idx" value="${sche.sche_idx }"/>		
 	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script>
+		var toDay = new Date();
+		var comDay = new Date("${sche.d_day }");
+		toDay =moment(toDay).format('YYYY MM DD');
+		comDay =moment(comDay).format('YYYY MM DD');
+		console.log(toDay + "////" + comDay);
+		if(toDay != comDay){
+			console.log("날짜 달라서 버튼 지움");
+			$('#checkBtn').remove();
+		}
 		$('#checkBtn').click(function() {
 			console.log("${vacc.vac_idx }");
+			var content ="${sche.content }";
+			var subject = "${sche.subject }";
+			var cycle ="${sche.cycle }" ;
+			var d_day = "${sche.d_day }";
 			$.ajax({
 				type:'POST'
 				,url:'executed'
@@ -75,12 +89,17 @@
 					"vac_idx":"${sche.sche_idx }"
 					,"vacc_idx":"0"
 					,"date": "0"
+					,"content":content
+					,"subject":subject
+					,"cycle":cycle
+					,"d_day":d_day
 				}
 				,dataType:'json'
 				,success : function(data) {
 					console.log(data.suc);
 					if(data.suc>0){
-						location.reload();
+						opener.location.reload();
+						window.close();
 					};
 				}
 				,error : function(e){

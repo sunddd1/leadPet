@@ -63,9 +63,9 @@
 					</th>
 				</tr>
 				<tr>	
-					<th>
-						<input type="radio" name="dog_cat" value="강아지"/> 강아지
-						<input type="radio" name="dog_cat" value="고양이"/> 고양이		
+					<th>						
+						<input type="radio" name="dog_cat" value="강아지" <c:if test="${vacc.dog_cat eq '강아지'}"> checked </c:if>/> 강아지
+						<input type="radio" name="dog_cat" value="고양이" <c:if test="${vacc.dog_cat eq '고양이'}"> checked </c:if>/> 고양이		
 					</th>
 					<th></th>
 					<th></th>
@@ -77,6 +77,7 @@
 			<input type="hidden" id="vacc_idx" value="${vacc.vacc_idx }"/>		
 	</body>
 	<script>
+	console.log("개냥이 /// "+"${vacc.dog_cat}");
 		$('#btn').click(function() {
 			var content = $('#content').val();
 			var vacc_name = $('#vacc_name').val()+"("+$('select').val()+")";
@@ -84,8 +85,11 @@
 			var vacc_cnt = $('#vacc_cnt').val();
 			var dog_cat = $('input[name="dog_cat"]:checked').val();
 			var vacc_idx = $('#vacc_idx').val();
+			if(vacc_idx==''){
+				vacc_idx=0;
+			};
 			console.log("넘길 값 "+content+"/"+vacc_name+"/"+cycle+"/"+vacc_cnt+"/"+dog_cat+"/"+vacc_idx);
-
+		
 			$.ajax({
 				type:'POST'
 				,url:'regVacc'
@@ -95,6 +99,7 @@
 					,"cycle":cycle
 					,"vacc_cnt":vacc_cnt
 					,"dog_cat":dog_cat
+					,"vacc_idx":vacc_idx
 				}
 				,dataType:'json'
 				,success : function(data) {

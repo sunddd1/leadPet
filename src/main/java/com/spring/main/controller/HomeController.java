@@ -21,14 +21,14 @@ public class HomeController {
 	public String home() {
 		logger.info("home");
 
-		return "redirect:login-form";
-	}
-	
-	@RequestMapping(value = "/Member", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("하이");
 		return "home";
 	}
+	
+//	@RequestMapping(value = "/Member", method = RequestMethod.GET)
+//	public String home(Model model) {
+//		logger.info("하이");
+//		return "home";
+//	}
 	
 	@GetMapping("/pointForm")
 	public String pointForm() {

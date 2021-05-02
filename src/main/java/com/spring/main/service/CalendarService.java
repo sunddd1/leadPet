@@ -30,14 +30,16 @@ public class CalendarService {
 	
 	@Transactional
 	public HashMap<String, Object> scheduler(String start, String last, HttpSession session) {
-		ArrayList<VaccinDTO> vaccinList =  dao.vaccinList(start,last,"testId");
+		String id = (String) session.getAttribute("loginId");
+		logger.info("스케줄 서비스");
+		ArrayList<VaccinDTO> vaccinList =  dao.vaccinList(start,last,id);
 
 		logger.info("vaccinList : {}",vaccinList.size());
 		
-		ArrayList<SchedulerDTO> sche =  dao.scheduler(start,last);
+		ArrayList<SchedulerDTO> sche =  dao.scheduler(start,last,id);
 		
 		logger.info("sche : {}",sche);
-		ArrayList<Vaccin_schedulerDTO> vacc = dao.vaccin_scheduler(start,last);
+		ArrayList<Vaccin_schedulerDTO> vacc = dao.vaccin_scheduler(start,last,id);
 
 		logger.info("vacc : {}",vacc);
 		
@@ -53,11 +55,12 @@ public class CalendarService {
 
 	@Transactional
 	public ModelAndView calendarList(String start, String last, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<SchedulerDTO> sche =  dao.scheduler(start,last);
+		ArrayList<SchedulerDTO> sche =  dao.scheduler(start,last,id);
 		
 		logger.info("sche : {}",sche);
-		ArrayList<Vaccin_schedulerDTO> vacc = dao.vaccin_scheduler(start,last);
+		ArrayList<Vaccin_schedulerDTO> vacc = dao.vaccin_scheduler(start,last,id);
 
 		logger.info("vacc : {}",vacc);
 		String year =start.substring(0, start.indexOf("/"));
@@ -78,8 +81,10 @@ public class CalendarService {
 
 
 	public ModelAndView calendardetail(String idx, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
-		SchedulerDTO sche= dao.calendardetail(idx);
+		logger.info("세션 아이디 : " +id);
+		SchedulerDTO sche= dao.calendardetail(idx,id);
 		sche.setD_day(sche.getD_day().substring(0,10));
 		logger.info("지정날 : {}",sche.getD_day().substring(0,10));
 
@@ -89,30 +94,39 @@ public class CalendarService {
 	}
 
 
-	public ModelAndView vaccinDetail(String idx, HttpSession session) {
+	public ModelAndView vaccinDetail(String vac_idx, String vacc_sche_idx, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
-		VaccinDTO vacc = dao.vaccinDetail(idx);
+		VaccinDTO vacc = dao.vaccinDetail(vac_idx);
+		Vaccin_schedulerDTO check= null;
+		logger.info("vacc_sche_idx : "+vacc_sche_idx);
+		if(!vacc_sche_idx.equals("0")) {
+			check = dao.vacc_scheSearch(vacc_sche_idx,id);						
+		}
+		logger.info("chgeck : "+check);
+		mav.addObject("check", check);
 		mav.addObject("vacc", vacc);
 		mav.setViewName("./cal/vaccinDetail");
 		return mav;
 	}
 
+
+	
 	@Transactional//vacc_idx,vac_idx,date,session
 	public HashMap<String, Object> regVaccin(String vacc_idx, String vac_idx, String date, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String id = "testId";
 		int suc = 0;
 		//조회 
-		VaccinDTO vacc = dao.vacc_scheSearch(vac_idx);
-		logger.info("조회 여부 : "+vacc);
+		Vaccin_schedulerDTO vacc = dao.vacc_scheSearch(vacc_idx,id);
+		logger.info("vacc 여부 : "+vacc);
 		if(vacc!=null) {
 			if(vacc.getExecuted().equals("N")) {
-				suc = dao.updateVaccin(vac_idx,date);
+				suc = dao.updateVaccin(vac_idx,date,id);
 				logger.info("수정 함 : "+vac_idx +"/"+date);				
 			}
 		}else {
 			suc =  dao.regVaccin(vac_idx,date,id);
-
 			int a = dao.regVaccin_suc(vac_idx);
 			logger.info("a : "+a);
 		}
@@ -121,6 +135,8 @@ public class CalendarService {
 		map.put("suc", suc);
 		return map;
 	}
+	
+	
 
 	public HashMap<String, Object> regSchedule(SchedulerDTO dto) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -130,6 +146,7 @@ public class CalendarService {
 			suc =dao.updateSchedule(dto);
 			logger.info("업데이트1");
 		}else {
+			logger.info("일정 등록");
 			suc = dao.regSchedule(dto);
 		}
 		logger.info("suc : "+suc);
@@ -137,42 +154,47 @@ public class CalendarService {
 		return map;
 	}
 
-	public HashMap<String, Object> deleteSche(int idx, int type, int pet) {
+	public HashMap<String, Object> deleteSche(int idx, int type, int pet, HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int suc = 0;
 		if(type==1) {//백신스케줄러
-			suc=dao.deleteVaccSche(idx);
+			logger.info("백신일정 삭제");
+			suc=dao.deleteVaccSche(idx,id);
 			if(suc>0) {
 				suc +=dao.deleteVaccSche_suc(pet);				
 			}
 		}
 		if(type==2) {//그냥 스케줄러
-			suc=dao.deleteSche(idx);			
+			logger.info("일정 삭제");
+			suc=dao.deleteSche(idx,id);			
 		}
 		logger.info("suc : "+suc);
 		map.put("suc", suc);
 		return map;
 	}
 	@Transactional
-	public HashMap<String, Object> executed(String vac_idx, String vacc_idx, String date) {
+	public HashMap<String, Object> executed(String vac_idx, String vacc_idx, String date, SchedulerDTO dto) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int suc = 0;
 		logger.info("vacc idx : "+vacc_idx);
 		if(vacc_idx.equals("0")) {
 			logger.info("스케줄 일정완료");
-			suc= dao.schExecuted(vac_idx);
+			suc= dao.schExecuted(vac_idx,dto.getId());
+			if(dto.getCycle()>0) {
+				suc+=dao.addSche(dto);				
+			}
 		}else {
-			suc=dao.executed(vac_idx);
+			suc=dao.executed(vac_idx,dto.getId());
 			if(suc>0) {
-				// 일정이 완료되면 예상 추가 + 일정추가여부 수정
-				long cycle = dao.cycle(vacc_idx)*7*24*60*60*1000;
-				
+				// 일정이 완료되면 예상 추가 + 일정추가여부 수정				
 				logger.info("등록 함 : "+vac_idx +"/"+date); 
-				Date conDate=java.sql.Date.valueOf(date); Date ZZinDate = new
-						Date(cycle+conDate.getTime()); logger.info("conDate 목 : {} ",ZZinDate);
-						logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+cycle);
-						suc+=dao.upDateDay(vac_idx,ZZinDate);
-						suc+=dao.upCnt(vac_idx);
+				Date conDate=java.sql.Date.valueOf(date); 
+				Date ZZinDate = new Date(dao.cycle(vacc_idx)*7*24*60*60*1000+conDate.getTime()); 
+				logger.info("conDate 목 : {} ",ZZinDate);
+				logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+dao.cycle(vacc_idx)*7*24*60*60*1000);
+				suc+=dao.upDateDay(vac_idx,ZZinDate);
+				suc+=dao.upCnt(vac_idx);
 						
 			}			
 		}
@@ -182,9 +204,10 @@ public class CalendarService {
 
 	public HashMap<String, Object> popup(String todate, String ladate, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String id = "testId";
+		logger.info("팝업 서비스");
+		String id = (String) session.getAttribute("loginId");
 		ArrayList<Vaccin_schedulerDTO> list = dao.popup(todate,ladate,id);
-		
+		logger.info("list"+list.get(0).getD_day());
 		map.put("list", list);
 		return map;
 	}
@@ -202,7 +225,12 @@ public class CalendarService {
 
 	public HashMap<String, Object> regVacc(VaccinDTO dto) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int suc = dao.regVacc(dto);
+		int suc =0;
+		if(dto.getVacc_idx()>0) {
+			suc = dao.updateRegVacc(dto);
+		}else {
+			suc = dao.regVacc(dto);			
+		}
 		
 		map.put("suc", suc);
 		return map;
@@ -217,6 +245,31 @@ public class CalendarService {
 		mav.setViewName("admin/regVaccForm");
 		return mav;
 	}
+
+	public ModelAndView deleteVacc(String vacc_idx) {
+		ModelAndView mav = new ModelAndView();
+		int suc= dao.deleteVacc(vacc_idx);
+		logger.info("삭제여부 : "+suc);
+		mav.setViewName("redirect:./vaccList");
+		return mav;
+	}
+
+	public ModelAndView VaccSearch(String keyword) {
+		ModelAndView mav = new ModelAndView();
+		if(keyword.equals("")) {
+			mav.setViewName("redirect:./vaccList");
+			return mav;
+		}
+		keyword = "%"+keyword+"%";
+		ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
+		mav.addObject("list", result);
+		logger.info("result : "+result);
+		mav.setViewName("admin/vaccinList");
+		//mav.setViewName("redirect:./vaccList?result="+result);
+		return mav;
+	}
+
+
 
 
 

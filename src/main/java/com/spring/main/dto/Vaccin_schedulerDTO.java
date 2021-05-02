@@ -20,20 +20,21 @@ public class Vaccin_schedulerDTO {
 	
 ////////////
 	private String vacc_name;
-	private String name;
+	private String pet_name;
 	
+	public String getPet_name() {
+		return pet_name;
+	}
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
+	}
 	public String getVacc_name() {
 		return vacc_name;
 	}
 	public void setVacc_name(String vacc_name) {
 		this.vacc_name = vacc_name;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public int getVacc_sche_idx() {
 		return vacc_sche_idx;
 	}

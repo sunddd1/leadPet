@@ -130,9 +130,11 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		logger.info("logout 요청");
-		
+		if(session.getAttribute("isMaganer") != null) {
+			session.removeAttribute("isMaganer");
+		}
 		session.removeAttribute("loginId");
-		return "main";
+		return "redirect:/";
 	}
 	
 	// 아래부터 ajax 부분

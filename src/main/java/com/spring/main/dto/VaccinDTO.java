@@ -25,13 +25,26 @@ public class VaccinDTO {
 	///checked
 	private int vac_idx;
 	private int pet_idx;
-	private String name;
+	private String pet_name;
 	private Date expected_date;
 	private String executed;
 	private String checked;
 	private String added;
+	private Date d_day;
 	
 
+	public Date getD_day() {
+		return d_day;
+	}
+	public void setD_day(Date d_day) {
+		this.d_day = d_day;
+	}
+	public String getPet_name() {
+		return pet_name;
+	}
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
+	}
 	public String getType() {
 		return type;
 	}
@@ -74,12 +87,7 @@ public class VaccinDTO {
 	public void setPet_idx(int pet_idx) {
 		this.pet_idx = pet_idx;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public int getVacc_idx() {
 		return vacc_idx;
 	}
