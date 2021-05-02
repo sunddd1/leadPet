@@ -16,4 +16,8 @@ public interface BoardDAO {
 
 	void writeFile(String key, String string, int bbs_idx);
 
+	ArrayList<BoardDAO> bbsTop5();
+
+	ArrayList<BoardDAO> galTop3();
+
 }

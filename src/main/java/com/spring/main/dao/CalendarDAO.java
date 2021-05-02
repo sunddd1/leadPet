@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.main.dto.SchedulerDTO;
 import com.spring.main.dto.VaccinDTO;
@@ -69,5 +70,7 @@ public interface CalendarDAO {
 	ArrayList<VaccinDTO> VaccSearch(String keyword);
 
 	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
+
+	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
 
 }

@@ -24,15 +24,18 @@
         	height: 60px;
         	max-height: 60px;
         	max-width: 60px;
+        	min-width: 60px;
         	text-align: justify;
         }
         
         #list{
 			border: 1px solid black;
-        	width: 300px;
+        	width: 200px;
         	height: 300px;
         	float: right;
         	font-size: 8pt;
+        	box-shadow: 5px 5px red;
+        	padding: 10px;
         }
         .schedule{
         	font-size: 6pt;
@@ -45,16 +48,12 @@
 			margin: 25px;
 			padding: 50px;        	
         }
-        #list{
-        	box-shadow: 5px 5px red;
-        	padding: 10px;
-        }
     </style>
 </head>
 <body>	
 	<jsp:include page="../main/top_Navi.jsp"/>
 	
-	<table>
+	<table style="height: 100%;">
 		<tr>
 			<td>
 				<jsp:include page="../main/side_myNavi.jsp"/>

@@ -31,7 +31,10 @@ public class CalendarService {
 	@Transactional
 	public HashMap<String, Object> scheduler(String start, String last, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
-		logger.info("스케줄 서비스");
+		if(id==null) {
+			id="11";
+		}
+		logger.info("스케줄 서비스 : " +start+"//"+last+"//"+id);
 		ArrayList<VaccinDTO> vaccinList =  dao.vaccinList(start,last,id);
 
 		logger.info("vaccinList : {}",vaccinList.size());
@@ -206,9 +209,16 @@ public class CalendarService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("팝업 서비스");
 		String id = (String) session.getAttribute("loginId");
+		if(id==null) {
+			id="11";
+		}
 		ArrayList<Vaccin_schedulerDTO> list = dao.popup(todate,ladate,id);
-		logger.info("list"+list.get(0).getD_day());
-		map.put("list", list);
+		logger.info("list 내용물 : "+list);
+		if(list.size()>0) {
+			logger.info("list"+list.get(0).getD_day());
+			map.put("list", list);			
+		}
+		//map.put("size", list.size());
 		return map;
 	}
 

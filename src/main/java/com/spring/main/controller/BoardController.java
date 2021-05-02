@@ -85,5 +85,13 @@ public class BoardController {
 		mav.setViewName("/Board/Experience");
 		return mav;
 	}
+	//메인으로 가야할까galTop3
+	@RequestMapping(value = "/mainTop", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> bbsTop5(@RequestParam String type) {
+		logger.info("타입  : " + type);
+
+		return service.mainTop(type);
+	}
+
 	
 }
