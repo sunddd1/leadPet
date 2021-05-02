@@ -32,7 +32,7 @@ public class CalendarService {
 	public HashMap<String, Object> scheduler(String start, String last, HttpSession session) {
 		String id = (String) session.getAttribute("loginId");
 		if(id==null) {
-			id="11";
+			id="...";
 		}
 		logger.info("스케줄 서비스 : " +start+"//"+last+"//"+id);
 		ArrayList<VaccinDTO> vaccinList =  dao.vaccinList(start,last,id);
@@ -210,7 +210,7 @@ public class CalendarService {
 		logger.info("팝업 서비스");
 		String id = (String) session.getAttribute("loginId");
 		if(id==null) {
-			id="11";
+			id="...";
 		}
 		ArrayList<Vaccin_schedulerDTO> list = dao.popup(todate,ladate,id);
 		logger.info("list 내용물 : "+list);
