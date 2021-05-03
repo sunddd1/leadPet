@@ -15,6 +15,7 @@
             border-collapse: collapse;
         }
         #cal td {
+        	table-layout:fixed;
         	font-size: 8pt;
         	text-overflow: ellipsis;
         	overflow: hidden;
@@ -23,44 +24,60 @@
         	height: 60px;
         	max-height: 60px;
         	max-width: 60px;
-        	align-self: flex-start;
-        	
+        	min-width: 60px;
+        	text-align: justify;
         }
         
         #list{
 			border: 1px solid black;
-        	width: 300px;
+        	width: 200px;
         	height: 300px;
         	float: right;
         	font-size: 8pt;
+        	box-shadow: 5px 5px red;
+        	padding: 10px;
         }
         .schedule{
         	font-size: 6pt;
         }
-        #cal th{
-        	text-align: left;
+        #calendar{
+        	background-color: lightcoral;
+        }
+        #calend{
+        	width: 100%;
+			margin: 25px;
+			padding: 50px;        	
         }
     </style>
 </head>
-
 <body>	
-	<table style="border-color: white; width: 800px;">
+	<jsp:include page="../main/top_Navi.jsp"/>
+	
+	<table style="height: 100%;">
 		<tr>
+			<td>
+				<jsp:include page="../main/side_myNavi.jsp"/>
+			</td>
 			<th>
-			    <p id="today"></p>
-			    <button onclick="preMon()">이전</button>
-			    <button onclick="nextMon()">다음</button>
-			    <table id="cal">
-			    </table>
-			</th>
-			<th>
-				<div id="list">
-				</div>
+				<table id="calend">
+					<tr>
+						<th>
+						    <p id="today"></p>
+						    <button onclick="preMon()">이전</button>
+						    <button onclick="nextMon()">다음</button>
+						    <table id="cal">
+						    </table>
+						</th>
+						<th>
+							<div id="list">
+							</div>
+						</th>
+					</tr>
+				</table>
 			</th>
 		</tr>
 	</table>
 
-	<jsp:include page="./popup.jsp"/>
     
 </body>
 <script>
@@ -68,8 +85,6 @@
     var d = new Date();
     var nM = new Date();
     $(document).ready(function () {
-    	
-    	
         cal();
     });
     
@@ -145,9 +160,11 @@
     			
     			for (var i = 0; i < data.vaccinList.length; i++) {					
     				console.log(data.vaccinList[i]);
-    				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].name+"/"+data.vaccinList[i].vacc_name+"</span><br/>");
+    				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].pet_name+"/"+data.vaccinList[i].vacc_name+"</span><br/>");
 				}
 
+
+    			
 				var overCnt=0;
 
 				for (var i = 0; i < data.vacc.length; i++) {//일정을 달력에 넣어줌.
@@ -157,14 +174,11 @@
 					var ddate = d_day.substring(8,10);
 					//console.log("스게 //"+dyear+"/"+dmont+"/"+ddate);
 			    	//console.log("스게 //"+d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<990){	
-						$('#'+Number(ddate)).append('<div class="schedule">'+data.vacc[i].name+"/"+data.vacc[i].vacc_name+'</div>');
-					}		
- 					var cdate= $('.con').eq(ddate-1).html().substring(0,2);
-					console.log(Number(ddate)+"/"+cdate);
-					if(Number(ddate)==cdate){						
-						overCnt++;						
-					}
+					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<55){	
+						$('#'+Number(ddate)).append('<div class="schedule">'+data.vacc[i].pet_name+"/"+data.vacc[i].vacc_name+'</div>');
+					}	
+					
+
 				}
 				
 					for (var j = 0; j < data.sche.length; j++) {//일정을 달력에 넣어줌.
@@ -174,18 +188,22 @@
 						var ddate = d_day.substring(8,10);
 						//console.log(dyear+"/"+dmont+"/"+ddate);
 				    	//console.log(d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
-						if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<990){		
+						if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<55){		
 							$('#'+Number(ddate)).append('<div class="schedule">'+data.sche[j].subject+'</div>');
 						}
-						var cdate= $('.con').eq(ddate-1).html().substring(0,2);					
-						console.log(Number(ddate)+"/"+cdate);
-						if(Number(ddate)==cdate){						
-							overCnt++;
-							
-						}
 						
-					}
 
+					}
+	    			for (var i = 1; i < dda; i++) {
+						console.log(i+"번 째 "+$('#'+i).find('div').length);
+						if($('#'+i).find('div').length>6){
+							for (var a = 3; a < $('#'+i).find('div').length; a++) {
+								console.log("지운다 : "+i +"/"+ a);
+								console.log($('#'+i).find('div').eq(a).html(''));
+							}
+							$('#'+i).append("<div style='float:right;'>더보기...</div>");
+						}
+					}
 				
 			}
     		,error : function(e) {
@@ -215,8 +233,8 @@
    
    function vaccDetail(a) {
 		console.log(a);
-		//href='./vaccinDetail?idx=
-		window.open("./vaccinDetail?idx="+a,"","width=600,height=400,left=800,top=300");   
+		//href='./vaccinDetail?idx=  vacc_sche_idx=${list.vacc_sche_idx}&vac_idx=
+		window.open("./vaccinDetail?vacc_sche_idx=0&vac_idx="+a,"","width=600,height=400,left=800,top=300");   
 	}
    
    function setData(data) {

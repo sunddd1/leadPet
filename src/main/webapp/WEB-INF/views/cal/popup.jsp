@@ -27,6 +27,7 @@
 	</head>
 	<body>	
 	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script>
 	var cookiedata = document.cookie;
 	console.log("쿠키 쿠키"+cookiedata);
@@ -45,16 +46,28 @@
 				}
 				,dataType:'json'
 				,success : function(data) {
-					console.log(data.list);
-					if(data!=null){
+					console.log(data);
+					if(data.list !=null){
 						var list = data.list;
 						for (var i = 0; i < list.length; i++) {
 							
 							if(cookiedata.indexOf('pop'+i)< 0){
+								
+								var toDay = new Date();
+								var comDay = new Date(list[i].d_day.substring(0,10));
+								toDay =moment(toDay).format('YYYY MM DD');
+								comDay =moment(comDay).format('YYYY MM DD');
+								console.log(toDay + "////" + comDay);
+								var  vacc_sche_idx = list[i].vacc_sche_idx;
 								var addPop ="";
-								addPop+= "<div class='pop' id='pop"+i+"' style='left: "+i+1*300+"px; top: "+i+1*200+"px; z-index: 5"+i+";'>";
+								var size = (i+1)*100;
+								addPop+= "<div class='pop' id='pop"+i+"' style='left: "+size+"px; top: "+size+"px; z-index: 5"+i+";'>";
 								addPop+= "<div>";
-								addPop+= list[i].name+"(이)의 <br/>" +list[i].vacc_name +" 접종 예방이 "+"<br/><b style='color:red;'>" +list[i].d_day.substring(0,10)+"</b>에 있습니다.";
+								if(toDay==comDay){
+									addPop+= list[i].pet_name+"(이)의 <br/>" +list[i].vacc_name +" 접종 예방이 "+"<br/><b style='color:red;'> 오늘 </b> 있습니다.";
+								}else{
+									addPop+= list[i].pet_name+"(이)의 <br/>" +list[i].vacc_name +" 접종 예방이 "+"<br/><b style='color:red;'>" +list[i].d_day.substring(0,10)+"</b>에 있습니다.";
+								}
 								addPop+="</div>";
 								addPop+="<a href='#' >3일 동안 보지 않기 X</a>"
 								addPop+="<button value="+i+"> 닫기 </button>";
@@ -67,8 +80,8 @@
 								$('#pop'+$(this).val()).remove();
 							});
 						 	$('a').click(function() {
-						 		console.log($(this).next().val());
-						 		TodayPopup($(this).next().val());
+						 		console.log(vacc_sche_idx);
+						 		TodayPopup($(this).next().val(),vacc_sche_idx);
 							});
 		
 						}
@@ -88,8 +101,8 @@
 					+ todayDate.toGMTString() + ";"
 		}
 
-		function TodayPopup(i) {
-			setCookie("pop"+i, "done", 72);
+		function TodayPopup(i,vacc_sche_idx) {
+			setCookie("pop"+i+vacc_sche_idx, "done", 72);
 			$('#pop'+i).remove();
 		}
 

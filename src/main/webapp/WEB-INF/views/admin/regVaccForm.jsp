@@ -12,120 +12,110 @@
 				border: 1px solid navy;
 			}
 			table{
-				width: 80%;
-				height: 80%;
+				width: 90%;
+				height: 90%;
 				padding: 10px;
 			}
 			tr{
 			}
-			th,td,input{			
+			th,td,input,select{			
 				font-size: 8pt;
 			}
 			textarea {	
 				font-size: 8pt;
 				resize: vertical;
-				width: 100%;
+				width: 99%;
 				height: 100px;
 				border: 0px solid;
 			}
-			input[type='text'],input[type='number']{
-				border: 0px solid;
+			
+			input[type='text']{
+				border: 1px solid;
+				width: 100px;
+			}
+			input[type='number']{
+				border: 1px solid;
+				width: 50px;				
 			}
 		</style>
 	</head>
 	<body>
-		<h3>상세보기 폼 ${sche.executed }</h3>
+		<h3>백신등록 폼 </h3>
 			<table>
 				<tr>
-					<td colspan="3"><textarea class="fix"  <c:if test="${sche ne null}">  readonly="readonly"</c:if>   id="content">${sche.content }</textarea></td>
+					<td colspan="4"><textarea class="fix"    id="content">${vacc.content }</textarea></td>
 					<th></th>
 				</tr>
 				<tr>					
-					<th><input type="text" class="fix"   id="subject"  placeholder="제목을 넣어주세요"  <c:if test="${sche ne null}"> readonly="readonly"  value="${sche.subject }"</c:if>/></th>
-					<th colspan="2">주기 : <input type="number"class="fix"  id="cycle"  <c:if test="${sche ne null}"> readonly="readonly" value="${sche.cycle }"</c:if>value="0" /> (주)</th>
+					<th>
+						<input type="text" class="fix"   id="vacc_name" placeholder="백신이름" value="${vacc.vacc_name }"/>
+						<select>
+							<option value="기초" <c:if test="${vacc.type eq '기초'}"> selected="selected"</c:if>>기초</option>
+							<option value="추가" <c:if test="${vacc.type eq '추가'}"> selected="selected"</c:if>>추가</option>							
+							<option value="보강" <c:if test="${vacc.type eq '보강'}"> selected="selected"</c:if>>보강</option>
+						</select>
+					</th>
+					<th colspan="2">
+						<input type="number"class="fix"  id="cycle" <c:if test="${vacc ne null}">value="${vacc.cycle}"</c:if> value="0" />주 마다
+					</th>
+					<th>	
+						<input type="number"class="fix"  id="vacc_cnt" <c:if test="${vacc ne null}">value="${vacc.vacc_cnt}"</c:if>value="0" />회
+					</th>
 				</tr>
 				<tr>	
-					<th>날짜 설정</th>
-					<th>
-						<input type="date" id="d_day" <c:if test="${sche eq null}">value="${time }" </c:if><c:if test="${sche ne null}"> value="${sche.d_day }" </c:if>/>
+					<th>						
+						<input type="radio" name="dog_cat" value="강아지" <c:if test="${vacc.dog_cat eq '강아지'}"> checked </c:if>/> 강아지
+						<input type="radio" name="dog_cat" value="고양이" <c:if test="${vacc.dog_cat eq '고양이'}"> checked </c:if>/> 고양이		
 					</th>
-					<c:if test="${sche.executed ne 'Y' }">
-						<th>
-							<input type="button" id="btn" value="등록"/>
-						</th>		
-						<c:if test="${sche.executed eq 'N' }">
-						<tr>
-							<th colspan="3">
-								<input type="button" id="checkBtn" value="일정완료" />
-							</th>
-						</tr>	
-						</c:if>
-					</c:if>
-				</tr>				
+					<th></th>
+					<th></th>
+					<th>
+						<input type="button" id="btn" value="등록"/>
+					</th>		
+				<tr>
 			</table>
-			<input type="hidden" id="sche_idx" value="${sche.sche_idx }"/>		
+			<input type="hidden" id="vacc_idx" value="${vacc.vacc_idx }"/>		
 	</body>
 	<script>
-		$('#checkBtn').click(function() {
-			console.log("${vacc.vac_idx }");
+	console.log("개냥이 /// "+"${vacc.dog_cat}");
+		$('#btn').click(function() {
+			var content = $('#content').val();
+			var vacc_name = $('#vacc_name').val()+"("+$('select').val()+")";
+			var cycle = $('#cycle').val();
+			var vacc_cnt = $('#vacc_cnt').val();
+			var dog_cat = $('input[name="dog_cat"]:checked').val();
+			var vacc_idx = $('#vacc_idx').val();
+			if(vacc_idx==''){
+				vacc_idx=0;
+			};
+			console.log("넘길 값 "+content+"/"+vacc_name+"/"+cycle+"/"+vacc_cnt+"/"+dog_cat+"/"+vacc_idx);
+		
 			$.ajax({
 				type:'POST'
-				,url:'executed'
+				,url:'regVacc'
 				,data:{
-					"vac_idx":"${sche.sche_idx }"
-					,"vacc_idx":"0"
-					,"date": "0"
+					"content":content
+					,"vacc_name":vacc_name
+					,"cycle":cycle
+					,"vacc_cnt":vacc_cnt
+					,"dog_cat":dog_cat
+					,"vacc_idx":vacc_idx
 				}
 				,dataType:'json'
 				,success : function(data) {
-					console.log(data.suc);
+					console.log(data);
 					if(data.suc>0){
-						location.reload();
-					};
+						opener.location.reload();
+						window.close();
+						return;
+					}
+					alert("등록 실패함 ");
 				}
-				,error : function(e){
+				,error : function(e) {
 					console.log(e);
 				}
-				
 			});
-		});
-	
-	$('.fix').dblclick(function() {
-		console.log("수정");
-		$(this).removeAttr('readonly');
-	});
-	
-	
-	$('#btn').click(function() {
-		console.log("에이작스 시작");
-		if($('#sche_idx').val()==''){
-			$('#sche_idx').val(0);
-		}
-		var params={
-				"content":$('#content').val()
-				,"subject":$('#subject').val()
-				,"cycle":$('#cycle').val()
-				,"d_day":$('#d_day').val()
-				,"sche_idx":$('#sche_idx').val()
-				
-		}
-		console.log(params);
-		  $.ajax({
-			type:'POST'
-			,url:'regSchedule'
-			,data:params
-			,dataType:'json'
-			,success : function(data) {
-				console.log($('input[type="date"]').val());
-				opener.setData($('input[type="date"]').val());
-				
-				window.close();
-			}
-			,error : function(e){
-				console.log(e);
-			}
 			
 		});
-	});
 	</script>
 </html>

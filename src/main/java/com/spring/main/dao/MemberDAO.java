@@ -3,13 +3,14 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.MemberDTO;
 
 import oracle.jdbc.driver.Message;
 
 public interface MemberDAO {
 
 
-	String checkPw(String string);
+	String checkPw(String id);
 
 
 	int restore(String loginId);
@@ -42,6 +43,15 @@ public interface MemberDAO {
 
 
 	ArrayList<BoardDTO> fileList(int bbs_idx);
+
+
+	MemberDTO getMember(String id);
+
+
+	int updateChangeDate(String id);
+
+
+	int update(MemberDTO member);
 
 	
 }

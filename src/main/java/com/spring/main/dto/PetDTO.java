@@ -15,6 +15,8 @@ public class PetDTO {
 	private String kg;
 	private String id;
 	private String delegate;
+	private String pet_name;
+	private String nickname;
 	
 	public int getPet_idx() {
 		return pet_idx;
@@ -64,6 +66,19 @@ public class PetDTO {
 	public void setDelegate(String delegate) {
 		this.delegate = delegate;
 	}
+	public String getPet_name() {
+		return pet_name;
+	}
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 	
 	
 }
