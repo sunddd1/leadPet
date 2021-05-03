@@ -1,25 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>    
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
 			#conBody{
-				margin: 5% 25%;
+				margin-left: 10%;
+				width: 50%;
+				border: 1px solid;
 			}
 			h2{
 				text-align: center;
 			}
 			#queDetail{
-				padding-top: 3%;
+				padding: 3% 20%;
 			}
-			table{
+			#quizTable{
 				border: 3px solid;
-				padding: 5%;
+				padding: 10% 12%;
 				width: 100%;
 			}
 			th,td{
@@ -51,7 +57,7 @@
 			</div>
 			<div id="queDetail">
 				<form action="./insertQuiz" method="post">			
-					<table>
+					<table id=#quizTable>
 						<tr>
 							<th>
 								[ 문제 ]<hr/>
