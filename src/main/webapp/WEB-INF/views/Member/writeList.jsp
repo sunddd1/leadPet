@@ -18,7 +18,7 @@
                     <th>조회수</th>
                     <th>작성일</th>
                 </tr>
-                
+                <c:forEach var="write" items="${write}">
                 	<tr>
                 		<td>${write.bbs_idx}</td>
                 		<td><a id="detail" href="./detailWriteList?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
@@ -27,7 +27,7 @@
                 		<td>${write.views}</td>
                 		<td>${write.reg_date}</td>
                 	</tr>
-                
+                </c:forEach>
             </table>
 	</body>
 	<script>

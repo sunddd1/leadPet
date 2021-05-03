@@ -93,11 +93,12 @@ public class MemberController {
 
 		//내가 쓴 글 목록 
 		@RequestMapping(value="/writeList")
-	    public ModelAndView writeList(){
+	    public ModelAndView writeList(@RequestParam String id){
 	        logger.info("내가 쓴 글 목록 요청");
-	        String id = "멍멍";
 			return memberService.writeList(id);
 		}
+		
+		
 		
 		//글 상세보기 
 		@RequestMapping(value = "/detailWriteList", method = RequestMethod.GET)
