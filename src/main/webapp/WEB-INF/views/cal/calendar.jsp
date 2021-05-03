@@ -44,21 +44,20 @@
         	background-color: lightcoral;
         }
         #calend{
-        	width: 100%;
+        	width: 60%;
 			margin: 25px;
+			margin-left : 20%;
 			padding: 50px;        	
         }
     </style>
 </head>
 <body>	
 	<jsp:include page="../main/top_Navi.jsp"/>
-	
-	<table style="height: 100%;">
-		<tr>
-			<td>
 				<jsp:include page="../main/side_myNavi.jsp"/>
-			</td>
-			<th>
+	
+<!-- 	<table style="height: 100%;">
+		<tr>
+			<th> -->
 				<table id="calend">
 					<tr>
 						<th>
@@ -74,10 +73,10 @@
 						</th>
 					</tr>
 				</table>
-			</th>
+<!-- 			</th>
 		</tr>
 	</table>
-
+ -->
     
 </body>
 <script>

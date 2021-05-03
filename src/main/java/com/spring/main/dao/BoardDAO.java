@@ -46,4 +46,18 @@ public interface BoardDAO {
 	int replyWrite(ReplyDTO reply);
 
 
+	BoardDTO BoardUpdateForm(String bbs_idx);
+
+	ReplyDTO replyUpdateForm(HashMap<String, Object> map);
+
+	int replyUpdate(ReplyDTO reply);
+
+	int replyDel(String reply_idx);
+
+	ArrayList<BoardDAO> searchBbs(String category, String keyword, int start, int end);
+
+	double maxPage(String category, String keyword, int start, int end);
+
+
+
 }

@@ -1,32 +1,21 @@
 package com.spring.main.controller;
 
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.LoginService;
 import com.spring.main.service.MemberService;
-
-import oracle.jdbc.driver.Message;
 @Controller
 public class MemberController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -100,47 +89,7 @@ public class MemberController {
 			return new ModelAndView(page);
 		}
 		
-		//쪽지보내기 페이지 요청 
-		@RequestMapping("/borderlist")
-		public String borderlist() {
-			logger.info("쪽지 보내기 페이지 요청");
-			return "Note/borderList";
-		}
 		
-		//쪽지 전송 
-		@RequestMapping(value="/noteSend",method = RequestMethod.POST)
-	    public String noteSend(@RequestParam String content){
-			logger.info("쪽지 전송 요청"+content);
-			return memberService.noteSend(content);
-	    }
-	
-		//받은 쪽지 목록 
-		@RequestMapping(value="/noteList")
-	    public String noteList(ArrayList<Message> message, Model model){
-	        logger.info("받은 쪽지 목록 요청");
-			return memberService.noteList(message,model);
-		}
-		
-		//받은 쪽지 삭제 요청 
-		@RequestMapping(value="/delMessageList")
-	    public String delMessageList(@RequestParam int note_idx){
-	        logger.info("받은 쪽지 삭제");
-			return memberService.delMessage(note_idx);
-		}
-		
-		//보낸 쪽지 목록 
-		@RequestMapping(value="/sendList")
-	    public String sendList(ArrayList<Message> sendList, Model model){
-	        logger.info("보낸 쪽지 목록 요청");
-			return memberService.sendList(sendList,model);
-		}
-		
-		//받은 쪽지 상세보기  
-		@RequestMapping(value="/detailNoteList")
-	    public String detailNoteList(ArrayList<Message> message,@RequestParam int note_idx,Model model){
-	        logger.info("받은 쪽지 상세보기");
-			return memberService.detailNoteList(message, note_idx,model);
-		}
 
 		//내가 쓴 글 목록 
 		@RequestMapping(value="/writeList")
@@ -150,12 +99,14 @@ public class MemberController {
 			return memberService.writeList(id);
 		}
 		
+		//글 상세보기 
 		@RequestMapping(value = "/detailWriteList", method = RequestMethod.GET)
 		public ModelAndView detailWriteList(@RequestParam int bbs_idx) {	
 			logger.info("상세보기 요청");
 			return memberService.detailWriteList(bbs_idx);
 		}
 		
+
 		@RequestMapping("/member-detail")
 		public ModelAndView detail(@RequestParam String id) {
 			logger.info("멤버 상세보기");

@@ -84,9 +84,10 @@
 </style>
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
-<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
-<button onclick="location.href='replyList'">댓글 신고 리스트 DEMO</button>
+<button onclick="location.href='memberList'">회원관리 리스트</button>
+<button onclick="location.href='reportList'">글 신고 리스트</button>
+<button onclick="location.href='replyList'">댓글 신고 리스트</button>
+<button onclick="location.href='blindNList'">블라인드 리스트</button>
     <div id="search">
         <form action="search" method="GET">
             <select id="select" name="search">

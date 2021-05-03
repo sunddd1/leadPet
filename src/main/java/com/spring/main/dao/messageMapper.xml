@@ -5,7 +5,7 @@
 >
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
-<mapper namespace="com.spring.main.dao.MemberDAO">
+<mapper namespace="com.spring.main.dao.MyNotiDAO">
 	<insert id="noteSend">
 		insert into note(note_idx,id,receiving_id,content) values(note_seq.nextval,'test1122',#{param1},#{param2})
 	</insert>
@@ -38,6 +38,7 @@
 		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx} 
 	</update>
 	
-	
-	
+	<select id="notiCheck" resultType="int">
+		select count(*) from note where receiving_id = #{param1} and del='N' and checked='N'
+	</select>
 </mapper>

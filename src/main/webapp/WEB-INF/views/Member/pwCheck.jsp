@@ -5,11 +5,19 @@
 		<meta charset="UTF-8">
 		<title>회원탈퇴</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<style></style>
+		<style>
+			#withdrawTable{
+					width: 60%;
+					margin-left: 20%;
+			}
+		</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
 		<form id="withdrawForm" action="withdraw" method="post">
-			<table>
+			<table id="withdrawTable">
 				<tr>
 					<td>
 						<div>

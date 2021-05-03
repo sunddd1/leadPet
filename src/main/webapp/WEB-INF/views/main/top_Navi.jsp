@@ -55,11 +55,13 @@
 				<th class="firstBar"></th>
 				<td class="firstBar" id="right">
 					<select>
-						<option value="리빙">리빙</option>
-						<option value="놀이">놀이</option>
-						<option value="사료간식영양제">사료간식영양제</option>
-						<option value="공원">공원</option>
-						<option value="식당">식당</option>
+						<option value="ALL">전체</option>
+						<option value="living">리빙</option>
+						<option value="play">놀이</option>
+						<option value="food">사료간식영양제</option>
+						<option value="park">공원</option>
+						<option value="restaurant">식당</option>
+						<option value="medical">의료</option>
 					</select>
 				</td>
 				<th class="firstBar" colspan="2">
@@ -88,7 +90,7 @@
 				<th onclick="location.href='./admin'">동반입장 식당 소개</th>
 				<th onclick="location.href='./admin'">목줄 프리 공원</th>			
 				<c:if test="${sessionScope.isMaganer eq null}">
-					<th onclick="location.href='./admin'">마이페이지</th>
+					<th onclick="location.href='./member-detail?id=${sessionScope.loginId}'">마이페이지</th>
 				</c:if>
 				<c:if test="${sessionScope.isMaganer ne null}">
 					<th onclick="location.href='./admin'">관리자페이지</th>	
@@ -102,5 +104,29 @@
 		</table>
 	</body>
 	<script>
+		$('#topSearchBtn').click(function() {
+			var category= $('select').first().val();
+			var keyword = $('#searchBar').val();
+			console.log("검색 요청" + category+"/"+keyword);
+			if(keyword!=""){
+				location.href="./searchBbs?category="+category+"&keyword="+keyword;
+			}
+			/* $.ajax({
+				type:'get'
+				,url:'search'
+				,data:{
+					
+				}
+				,dataType:'json'
+				,success : function(data) {
+					console.log(data);
+				}
+				,error : function(e) {
+					console.log(e);
+				}
+				
+			}); */
+			
+		});
 	</script>
 </html>

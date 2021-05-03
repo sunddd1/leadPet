@@ -5,9 +5,16 @@
 		<meta charset="UTF-8">
 		<title>탈퇴 계정 복구</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<style></style>
+		<style>
+			#restoreForm{
+				width: 60%;
+				margin-left: 20%;
+			}
+		</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
 		
 		<form id="restoreForm" action="restore" method="post">
 			<table>

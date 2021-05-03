@@ -34,9 +34,9 @@
 </style>
 </head>
 <body>
-<h3>글쓰기</h3>
+<h3>글 수정하기</h3>
 <hr/>
-<form action="write" method="post">
+<form action="update" method="post">
 	<table>
 		<tr>
 			<th>작성자</th>
@@ -50,7 +50,7 @@
 		<tr>
 			<th>카테고리</th>
 			<td>
-				<select name="category_name">
+				<select name="category_name" value="${dto.category_name }">
 				    <option value="food">사료,간식,영양제</option>
 				    <option value="park">공원</option>
 				    <option value="restaurant">식당</option>
@@ -66,12 +66,12 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="5"><input type="text" name="bbs_subject" value=""/></td>
+			<td colspan="5"><input type="text" name="bbs_subject" value="${dto.bbs_subject }"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
 			<td  colspan="5">
-				<div id="editable" contenteditable="true"></div>
+				<div id="editable" contenteditable="true">${dto.bbs_content}</div>
 				<input id="bbs_content" type="hidden" name="bbs_content" value=""/>
 			</td>
 		</tr>
@@ -82,7 +82,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6"><input id="save" type="button" value="글작성"/></td>
+			<td colspan="6"><input id="save" type="button" value="수정하기"/></td>
 		</tr>	
 	</table>
 </form>

@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,7 +81,7 @@ public class BoardService {
 		logger.info("글쓰기 폼 요청");
 		ModelAndView mav = new ModelAndView();
 		PetDTO dto = dao.writeForm(id);
-		logger.info("글쓰기폼 유저정보 : "+dto);
+		logger.info("글쓰기폼 유저정보 : "+dto.getNickname());
 		mav.addObject("dto",dto);
 		mav.setViewName("Board/writeForm");
 		return mav;
@@ -96,14 +97,27 @@ public class BoardService {
 		dto.setBbs_subject(params.get("bbs_subject"));
 		dto.setBbs_content(params.get("bbs_content"));
 		dto.setNickname(params.get("nickname"));
+		dto.setCategory_name(params.get("category_name"));
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		if(dao.write(dto)>0) {
 			logger.info("idx : "+dto.getBbs_idx());
 			if(fileList.size()>0) {
+				/*
+				 * for(String key : fileList.keySet()) {
+				 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
+				 */
+				ArrayList<String> keyArr = new ArrayList<String>();
 				for(String key : fileList.keySet()) {
-					dao.writeFile(key,fileList.get(key),dto.getBbs_idx());
+					keyArr.add(key);
 				}
+					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
+					logger.info("keyArray0.. {}",keyArr.get(0));
+					logger.info("keyArr.size() : " ,keyArr.size());
+					/*
+					 * if(fileList.size()>1) { for(String key : fileList.keySet()) { dao. } }
+					 */
+				
 			}
 			page="/Board/Experience";
 		}else {
@@ -209,6 +223,41 @@ public class BoardService {
 		return success;
 	}
 
+	public ModelAndView BoardUpdateForm(String bbs_idx) {
+		BoardDTO dto = dao.BoardUpdateForm(bbs_idx);
+		logger.info("{}",dto);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("Board/BoardUpdateForm");		
+		return mav;
+	}
+
+	public HashMap<String, Object> replyUpdateForm(HashMap<String, Object> map) {
+		HashMap<String, Object> replyupdateForm = new HashMap<String, Object>();
+		ReplyDTO dto = dao.replyUpdateForm(map);
+		logger.info("{}",dto.getNickname());
+		replyupdateForm.put("replyUpdate", dto);
+		
+		return replyupdateForm;
+	}
+
+	public int replyUpdate(ReplyDTO reply) {
+		int success = 0;
+		logger.info("댓글 수정하기");
+		success = dao.replyUpdate(reply);
+		logger.info("{}",success);
+		return success;
+	}
+
+	public int  replyDel(String reply_idx) {
+		int success = 0;
+		logger.info("블라인드 처리하기");
+		success = dao.replyDel(reply_idx);
+		return success;
+	}
+
+
+
 	public HashMap<String, Object> mainTop(String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDAO> list = null;
@@ -222,5 +271,23 @@ public class BoardService {
 		map.put("list",list);
 		return map;
 	}
+
+	public ModelAndView searchBbs(String category, String keyword) {
+		keyword =  "%"+keyword+"%";
+		int currPage = 1;
+		int start = 1+ (currPage-1) *12;
+		int end = start + 11;
+		int maxPage = (int) Math.ceil(dao.maxPage(category,keyword,start,end)/12);
+		ModelAndView mav = new ModelAndView();
+		logger.info("키워드 : "+ keyword +"//"+ maxPage);
+		ArrayList<BoardDAO> list = dao.searchBbs(category,keyword,start,end);
+		logger.info("list : "+list);
+		mav.addObject("list", list);
+		mav.setViewName("main/result");
+		return mav;
+	}
 	
+	
+
+
 }
