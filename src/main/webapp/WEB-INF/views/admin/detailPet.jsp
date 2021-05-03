@@ -32,7 +32,7 @@
 		<c:forEach items="${petList}" var="pet">
 				<tr>
 					<td rowspan="4"></td>
-					<td>${pet.name}</td>
+					<td>${pet.pet_name}</td>
 				</tr>
 				<tr>
 					<td>${pet.dog_cat}</td>

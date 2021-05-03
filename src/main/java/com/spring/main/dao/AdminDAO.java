@@ -74,6 +74,12 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> finishListSearch(HashMap<String, String> params);
 
+	Object detailReply(int id);
+
+	ArrayList<AdminDTO> blindNList();
+
+	ArrayList<AdminDTO> blindYList();
+
 //	ArrayList<AdminDTO> typeReportList(String type);
 
 	
