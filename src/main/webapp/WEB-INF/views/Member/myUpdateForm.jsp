@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,11 +18,11 @@
 	
 	
 	<body>
-		<form id="registForm" action="regist" method="post">
-			<table>
+		<form id="registForm" action="member-update" method="post">
+			<table>			
 				<tr>
 					<th colspan="2">
-						<h2>회원가입</h2>
+						<h2>회원 정보 수정</h2>
 					</th>
 				</tr>
 				<tr>
@@ -29,8 +30,7 @@
 						<label for="id">아이디</label>
 					</th>
 					<td>
-						<input type="text" name="id" id="id" onkeyup="updateId()" />
-						<input type="button" value="중복 확인" onclick="isDuplicateId()" />
+						<input type="text" name="id" id="id" value="${member.id }" readonly />
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 						<label>비밀번호</label><br/>
 					</th>
 					<td>
-						<input type="password" name="password" id="password" onkeyup="checkPw()" width="400px"/>
+						<input type="password" name="password" id="password" onkeyup="checkPw()"/>
 					</td>
 				<tr>
 					<th>
@@ -55,7 +55,7 @@
 						<label>닉네임</label>
 					</th>
 					<td>
-						<input type="text" name="nickname" id="nickname" onkeyup="updateNickname()"/>
+						<input type="text" name="nickname" id="nickname" value="${member.nickname }" onkeyup="updateNickname()"/>
 						<input type="button" value="중복 확인" onclick="isDuplicateNickname()" />
 					</td>
 				</tr>
@@ -64,7 +64,7 @@
 						<label>이름</label>
 					</th>
 					<td>
-						<input type="text" name="name"id="name" />
+						<input type="text" name="name"id="name" value="${member.name }"/>
 					</td>
 				</tr>
 				<tr>	
@@ -72,7 +72,7 @@
 						<label>나이</label>
 					</th>
 					<td>					
-						<input type="number" min="1" max="130"name="age" id="age" />
+						<input type="number" min="1" max="130"name="age" id="age" value="${member.age }" />
 					</td>
 				</tr>
 				<tr>
@@ -80,8 +80,14 @@
 						<label>성별</label> 
 					</th>
 					<td>
-						<input type="radio" name="gender" value="남" id="male" checked/>남
-						<input type="radio" name="gender" value="여" id="female" />여
+						<c:if test="${member.gender eq '남' }">
+						<input type="radio" name="gender" value="남" id="male" checked />남
+						<input type="radio" name="gender" value="여" id="female" />여	
+					</c:if>
+					<c:if test="${member.gender eq '여' }">
+						<input type="radio" name="gender" value="남" id="male"/>남
+						<input type="radio" name="gender" value="여" id="female" checked />여	
+					</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -89,8 +95,8 @@
 						<label>이메일</label><br>
 					</th>
 					<td>
-						<input type="hidden" id="email" name="email"/>
-						<input type="text" id="prefixEmail"/>
+						<input type="hidden" id="email" name="email" />
+						<input type="text" id="prefixEmail" value="${fn:split(member.email,'@')[0]}"/>
 						@
 						<input type="text" id="suffixEmail"/>
 						<select
@@ -106,7 +112,7 @@
 				
 				<tr>
 					<th colspan="2">
-						<input type="button" value="회원가입" onclick="regist()"/>
+						<input type="button" value="정보 수정" onclick="update()"/>
 					</th>
 				</tr>
 			</table>
@@ -114,43 +120,8 @@
 	</body>
 	<script>
 
-	var validId = false;
 	var validPw = false;
 	var validNickname = false;
-	
-	function updateId() {
-		validId = false;
-	}
-	
-	function isDuplicateId() {
-		var $id = $("#id");
-		
-		if($id.val() == "") {
-			alert("아이디를 입력해주세요.");
-			return;
-		}
-		
-		$.ajax({
-			type:'get'
-			,url:'check-duplicate-id'
-			,data:{"id":$("#id").val()}
-			,dataType:'JSON'
-			,success:function(result){
-				var msg = "이미 사용중인 아이디입니다.";
-				validId = false;
-				
-				if(result) {
-					msg = "사용 가능한 아이디입니다.";
-					validId = true;
-				}
-				
-				alert(msg);
-			}
-			,error:function(e){
-				console.log(e);
-			}
-		});
-	}
 	
 	//비밀번호 일치 확인
 	function checkPw() {
@@ -169,16 +140,19 @@
 		
 		$('#checkPasswordMsg').html(tag);
 	}
-	
-	function updateNickname() {
-		validNickname = false;
-	}
-	
+
 	function isDuplicateNickname() {
+		var nickname = $("#nickname").val();
+		if("${member.nickname }" === nickname) {
+			validNickname = true;
+			alert("사용 가능한 닉네임입니다.");
+			return;
+		}
+		
 		$.ajax({
 			type:'get'
 			,url:'check-duplicate-nickname'
-			,data:{"nickname":$("#nickname").val()}
+			,data:{"nickname": nickname}
 			,dataType:'JSON'
 			,success:function(result){
 				var msg = '이미 사용중인 닉네임입니다.';			
@@ -195,9 +169,10 @@
 			}
 		});
 	}
-
-	// 비밀번호 불일치일 때, 글자 안띄우기
 	
+	function updateNickname() {
+		validNickname = false;
+	}
 	
 	function emailSelect() {
 		var option = $('#emailOption').val();
@@ -214,17 +189,13 @@
 	}
 	
 	// 등록 버튼
-	function regist() {
+	function update() {
 		if(isAllValid()) {
 			$('#registForm').submit();
 		}
 	}
 	
 	function isAllValid() {
-		if(!isValidId()) {
-			alert("아이디를 확인해주세요.");
-			return false;
-		}
 		if(!isValidPw()) {		
 			alert("비밀번호를 확인해주세요.");
 			return false;
@@ -248,15 +219,11 @@
 		
 		return true;
 	}
-	
-	function isValidId() {
-		return validId;
-	}
-	
+
 	function isValidPw() {
 		return validPw;
 	}
-	
+
 	function isValidNickname() {
 		return validNickname;
 	}
@@ -280,7 +247,7 @@
 			return false;
 		}
 		
-		completeEmailString();	
+		completeEmailString();
 		return true;
 	}
 	
@@ -293,16 +260,7 @@
 		$("#email").val(email);
 		return email;
 	}
-	
-	/* var idChk = false;//ID 중복 체크 여부
-	var emailChk = false;//이메일 중복체크
-	var re = /^[a-zA-Z0-9]{4,15}$/; //ID 유효
-	var re2 = /^[a-zA-Z0-9!@#$%^*+=-]{4,15}$/; //PW 유효
-	var re3 = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //이름 유효
-	var re4 = /^[0-9]{1,3}$/; //나이 유효
-	var re5 = /^[a-z0-9]{4,50}$/; //email 유효	 
-	*/
-		
+
 	</script>
 
 </html>

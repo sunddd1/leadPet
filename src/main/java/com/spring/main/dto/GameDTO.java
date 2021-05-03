@@ -20,7 +20,6 @@ public class GameDTO {
 		private int nemo_idx;
 		private String nemo_subject;
 		private String nemo_question;
-		private String nemo_hint;
 		private String nemo_answer;
 		
 		//weekly Quiz Table
@@ -42,6 +41,44 @@ public class GameDTO {
 		/*private int nemo_idx; //위에서 선언*/
 		private Date nemo_update_date;
 		
+		//quiz Test Table
+		private int quiz_score;
+		private int quiz_timer;
+		private Date quiz_success_date;
+		private String id;
+		/*private int week_quiz_idx;//위에서 선언*/
+		private String if_submit;
+		
+		public int getQuiz_score() {
+			return quiz_score;
+		}
+		public void setQuiz_score(int quiz_score) {
+			this.quiz_score = quiz_score;
+		}
+		public int getQuiz_timer() {
+			return quiz_timer;
+		}
+		public void setQuiz_timer(int quiz_timer) {
+			this.quiz_timer = quiz_timer;
+		}
+		public Date getQuiz_success_date() {
+			return quiz_success_date;
+		}
+		public void setQuiz_success_date(Date quiz_success_date) {
+			this.quiz_success_date = quiz_success_date;
+		}
+		public String getId() {
+			return id;
+		}
+		public void setId(String id) {
+			this.id = id;
+		}
+		public String getIf_submit() {
+			return if_submit;
+		}
+		public void setIf_submit(String if_submit) {
+			this.if_submit = if_submit;
+		}
 		public int getQuiz_idx() {
 			return quiz_idx;
 		}
@@ -107,12 +144,6 @@ public class GameDTO {
 		}
 		public void setNemo_question(String nemo_question) {
 			this.nemo_question = nemo_question;
-		}
-		public String getNemo_hint() {
-			return nemo_hint;
-		}
-		public void setNemo_hint(String nemo_hint) {
-			this.nemo_hint = nemo_hint;
 		}
 		public String getNemo_answer() {
 			return nemo_answer;

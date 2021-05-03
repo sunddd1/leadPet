@@ -26,5 +26,13 @@ public interface GameDAO {
 	int updateQuiz(HashMap<String, String> params);
 
 	ArrayList<GameDTO> getThisWeekQuiz();
+
+	int initialQuizData(String loginId, int quizIdx);
+
+	GameDTO ifExist(String loginId, int quizIdx);
+
+	String matchQue(GameDTO gameDTO);
+
+	int recordScore(int score, String quiz_timer, String loginId, String week_quiz_idx);
 	
 }

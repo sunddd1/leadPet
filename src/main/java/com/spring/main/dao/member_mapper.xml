@@ -22,6 +22,43 @@
 		UPDATE member SET withdraw = 'N' WHERE id=#{id}
 	</update>
 
+	<!-- id로 유저 가져오기 -->
+	<select id="getMember" resultType="member">
+		SELECT
+			id, name, age, gender, email, reg_date, black, withdraw, 
+			change_date, nickname, point, grade
+		FROM
+			member
+		WHERE
+			id=#{param1}
+	</select>
+
+	<!-- 탈퇴일 최신으로 변경 -->
+	<update id="updateChangeDate">
+		UPDATE
+			member
+		SET
+			change_date=sysdate
+		WHERE
+			id=#{param1}
+	</update>
+
+	<!-- 유저 세부사항 수정 -->
+	<update id="update" parameterType="member">
+		UPDATE
+			member
+		<set>
+			<if test="password != null">password=#{password},</if>
+			<if test="name != null">name=#{name},</if>
+			<if test="age != null">age=#{age},</if>
+			<if test="gender != null">gender=#{gender},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="nickname != null">nickname=#{nickname}</if>
+		</set>
+		WHERE
+			id=#{id}		
+	</update>
+
 	<!-- 작성글 목록 -->
 	<select id="writeList" resultType="board">
 		select * from bbs where nickname = #{param1}  

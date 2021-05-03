@@ -9,47 +9,46 @@
 	<select id="scheduler" resultType="scheduler">
 		SELECT * FROM scheduler WHERE  
 		<![CDATA[d_day >= #{param1}]]> AND
-		<![CDATA[d_day < #{param2}]]>
+		<![CDATA[d_day < #{param2}]]> 
+		AND id =#{param3}
+		ORDER BY sche_idx DESC
 	</select>
 	
 	<select id="vaccin_scheduler" resultType="vaccin_scheduler">
-		SELECT vs.d_day, vs.vacc_sche_idx,vs.vac_idx,v.vacc_name , p.name  FROM 
+		SELECT vs.d_day, vs.vacc_sche_idx,vs.vac_idx,v.vacc_name , p.pet_name  FROM 
 		pet p,vaccin_scheduler vs,pet_vaccin pv,vaccin v 
 		WHERE p.pet_idx=pv.pet_idx AND vs.vac_idx=pv.vac_idx AND v.vacc_idx=pv.vacc_idx AND
-		<![CDATA[d_day >= #{param1}]]> AND
-		<![CDATA[d_day < #{param2}]]>
-		 
+		<![CDATA[vs.d_day >= #{param1}]]> AND
+		<![CDATA[vs.d_day < #{param2}]]> 
+		AND vs.id =#{param3}		 
 		 ORDER BY vs.vacc_sche_idx DESC
 	</select>
 	
 	<select id="vaccinList"  resultType="vaccin">
-		SELECT pv.vac_idx , p.pet_idx, p.name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
-		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx AND p.pet_idx in 
-		(SELECT pet_idx FROM pet WHERE id ='testId') AND
-
-		<!-- <![CDATA[ pv.expected_date >= #{param1}]]> AND -->
+		SELECT pv.vac_idx , p.pet_idx, p.pet_name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
+		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx 
+		AND p.pet_idx in (SELECT pet_idx FROM pet WHERE id =#{param3}) AND
 		<![CDATA[ pv.expected_date < #{param2}]]>
 		  AND pv.added='N'  ORDER BY pv.vac_idx DESC
 	</select>
 	
 	<select id="calendardetail" resultType="scheduler">
 	
-		SELECT * FROM scheduler WHERE sche_idx=#{param1}
+		SELECT * FROM scheduler WHERE sche_idx=#{param1} AND id =#{param2}
 	
 	</select>
 	
 	<select id="vaccinDetail" resultType="vaccin">
-		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx ,pv.checked 
+		SELECT v.content,v.vacc_name,v.cycle, v.vacc_idx ,pv.expected_date,pv.vac_idx ,pv.checked ,pv.added
 		FROM pet_vaccin pv, vaccin v 
-		WHERE pv.vacc_idx=v.vacc_idx AND pv.vac_idx=#{param1}
+		WHERE pv.vacc_idx=v.vacc_idx AND pv.vac_idx=#{param1}	
+
 	</select>
 
-	<select id="vacc_scheSearch" resultType="vaccin">
-		SELECT vacc_sche_idx, executed FROM vaccin_scheduler
-		WHERE vac_idx=#{param1}
+	<select id="vacc_scheSearch" resultType="vaccin_scheduler">
+		SELECT vacc_sche_idx, executed, d_day FROM vaccin_scheduler
+		WHERE vacc_sche_idx=#{param1} AND id =#{param2}
 	</select>
-	
-	
 	
  	<insert id="regVaccin">
 		INSERT INTO vaccin_scheduler (vacc_sche_idx,vac_idx,d_day,id)
@@ -71,24 +70,25 @@
 	</update> 
 	
 	<update id="updateVaccin">
-		UPDATE vaccin_scheduler SET d_day= #{param2} WHERE vac_idx=#{param1} AND executed='N'
+		UPDATE vaccin_scheduler SET d_day= #{param2} WHERE vac_idx=#{param1} AND executed='N' AND  id =#{param3}
 	</update>
 	
 	<update id="updateSchedule" parameterType="scheduler">
-		UPDATE scheduler SET content=#{content}, subject=#{subject}, cycle=#{cycle}, d_day=#{d_day} WHERE sche_idx=#{sche_idx}
+		UPDATE scheduler SET content=#{content}, subject=#{subject}, cycle=#{cycle}, d_day=#{d_day} 
+		WHERE sche_idx=#{sche_idx} AND id=#{id}
 	</update>
 	
 	<insert id="regSchedule" parameterType="scheduler">
-		INSERT INTO scheduler (sche_idx, content, subject, cycle, d_day)
-		VALUES (SCHE_IDX_SEQ.NEXTVAL, #{content},#{subject},#{cycle},#{d_day})
+		INSERT INTO scheduler (sche_idx, content, subject, cycle, d_day,id)
+		VALUES (SCHE_IDX_SEQ.NEXTVAL, #{content},#{subject},#{cycle},#{d_day},#{id})
 	</insert>
 	
 	<delete id="deleteSche">
-		DELETE FROM scheduler WHERE sche_idx=#{param1}
+		DELETE FROM scheduler WHERE sche_idx=#{param1} AND id =#{param2}
 	</delete>
 
 	<delete id="deleteVaccSche">
-		DELETE FROM vaccin_scheduler WHERE vacc_sche_idx=#{param1} AND executed='N'
+		DELETE FROM vaccin_scheduler WHERE vacc_sche_idx=#{param1} AND executed='N' AND id =#{param2}
 	</delete>
 	
 	<update id="deleteVaccSche_suc">
@@ -97,8 +97,56 @@
 	</update>
 
 	<update id="executed">
-		UPDATE vaccin_scheduler SET executed='Y' WHERE vac_idx=#{param1}
+		UPDATE vaccin_scheduler SET executed='Y' WHERE vac_idx=#{param1} AND id =#{param2}
+	</update>
+	
+	<insert id="addSche" parameterType="scheduler">
+		INSERT INTO scheduler (sche_idx, d_day, content, cycle, id, subject)
+		VALUES (sche_idx_seq.NEXTVAL, #{d_day}, #{content}, #{cycle}, #{id}, #{subject})
+	</insert>
+	
+	<update id="schExecuted">
+		UPDATE scheduler SET executed='Y' WHERE sche_idx=#{param1} AND id =#{param2}
+	</update>
+	
+	<update id="upCnt">
+		UPDATE pet_vaccin SET vacc_cnt =vacc_cnt +1 
+        WHERE vac_idx=#{param1}
 	</update>
 
+	<select id="popup" resultType="vaccin_scheduler">
+		SELECT p.pet_name, vs.d_day, v.vacc_name, vs.vacc_sche_idx FROM vaccin_scheduler vs, vaccin v, pet_vaccin pv, pet p
+        WHERE vs.id=#{param3} AND vs.vac_idx=pv.vac_idx AND pv.vacc_idx=v.vacc_idx AND pv.pet_idx= p.pet_idx
+         AND <![CDATA[vs.d_day >= #{param1}]]>
+         AND <![CDATA[vs.d_day < #{param2}]]>
+	     AND vs.id = #{param3}         
+	</select>
+	
+	<!-- 어드민으로 넘어갈거  -->
+	<select id="vaccList" resultType="vaccin">
+		SELECT * FROM vaccin ORDER BY vacc_idx DESC
+	</select>
+	
+	<insert id="regVacc" parameterType="vaccin">
+		INSERT INTO vaccin (vacc_idx, vacc_name, content, cycle, vacc_cnt, dog_cat)
+			VALUES (vacc_idx_seq.NEXTVAL, #{vacc_name},#{content},#{cycle},#{vacc_cnt},#{dog_cat})
+	</insert>
+
+	<select id="regVaccDetail" resultType="vaccin">
+		SELECT * FROM vaccin WHERE vacc_idx=#{param1}
+	</select>
+	
+	<update id="updateRegVacc" parameterType="vaccin">
+		UPDATE vaccin SET content=#{content}, vacc_name=#{vacc_name},cycle=#{cycle},vacc_cnt=#{vacc_cnt}, dog_cat=#{dog_cat}
+		 WHERE vacc_idx=#{vacc_idx}
+	</update>
+	
+	<delete id="deleteVacc">
+		DELETE FROM vaccin WHERE vacc_idx = #{param1}
+	</delete>
+
+	<select id="VaccSearch" resultType="vaccin">
+		SELECT * FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
+	</select>
 
  </mapper>

@@ -23,7 +23,6 @@
 	</head>
 	<body>
 		<h3>상세보기 폼</h3>
-		
 			<table>
 				<tr>
 					<td colspan="3">${vacc.content }</td>
@@ -35,13 +34,17 @@
 				</tr>
 				<tr>	
 					<th>접종날짜 설정</th>
-					<th><input type="date" id="date" value="${vacc.expected_date }"/></th>
-					<th><input type="button" id="btn" value="등록"/></th>			
+					<th>					
+						<input type="date" id="date" <c:if test="${check ne null}"> value="${check.d_day.substring(0,10)}" </c:if>value="${vacc.expected_date}"/>
+					</th>
+					<c:if test="${check.executed ne 'Y'}">
+						<th><input type="button" id="btn" value="등록"/></th>			
+					</c:if>
 				</tr>
-				<c:if test="${vacc.executed ne 'N'}">
+				<c:if test="${check.executed ne 'Y'}">
 					<tr>
 						<th colspan="3">
-							<input type="button" id="checkBtn" value="일정완료" />
+							<input type="button" id="checkBtn" value="일정완료"/>
 						</th>
 					</tr>
 				</c:if>
@@ -50,7 +53,18 @@
 			<input type="hidden" id="vacc_idx" value="${vacc.vacc_idx }"/>
 		
 	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 	<script>
+		var toDay = new Date();
+		var comDay = new Date("${check.d_day}");
+		toDay =moment(toDay).format('YYYY MM DD');
+		comDay =moment(comDay).format('YYYY MM DD');
+		console.log(toDay + "////" + comDay);
+		if(toDay != comDay){
+			console.log("날짜 달라서 버튼 지움");
+			$('#checkBtn').remove();
+		}
 		$('#checkBtn').click(function() {
 			console.log("${vacc.vac_idx }");
 			$.ajax({
@@ -64,6 +78,9 @@
 				,dataType:'json'
 				,success : function(data) {
 					console.log(data);
+					if(data.suc>0){
+						window.close();	
+					};
 				}
 				,error : function(e){
 					console.log(e);
@@ -84,7 +101,7 @@
 				}
 				,dataType:'json'
 				,success : function(data) {
-					console.log(data);
+					console.log(data.suc);
 					if(data.suc>0){
 						opener.setData($('input[type="date"]').val());
 						window.close();						
