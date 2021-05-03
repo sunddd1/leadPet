@@ -85,7 +85,7 @@
 	 </select>
 	 
 	 <select id="detailPet" resultType="pet">
-	 	SELECT p.pet_idx, p.dog_cat, p.name, p.bday, p.kg, pi.newFileName FROM pet p, pet_img pi WHERE p.id=#{param1} AND p.pet_idx = pi.pet_idx
+	 	SELECT p.pet_idx, p.dog_cat, p.pet_name, p.bday, p.kg, pi.newFileName FROM pet p, pet_img pi WHERE p.id=#{param1} AND p.pet_idx = pi.pet_idx
 	 </select> 
 	 
 	 <update id="restoreWithdraw">
@@ -164,6 +164,17 @@
 		SELECT * FROM report	WHERE id LIKE '%'||#{keyword}||'%' AND proc_ex='Y'
 	</select>
 	
+	<select id="detailReply" resultType="reply">
+		SELECT 
+	</select>
+	
+	<select id="blindNList" resultType="board">
+		SELECT * FROM bbs WHERE bbs_blind='N'
+	</select>
+	
+	<select id="blindYList" resultType="board">
+		SELECT * FROM bbs WHERE bbs_blind='Y'
+	</select>
 </mapper>
 
 

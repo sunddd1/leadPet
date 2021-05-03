@@ -9,9 +9,6 @@
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	</head>
 <style>
-    #top{
-        text-align: right;
-    }
     a{
         text-decoration: none;
     }
@@ -57,26 +54,6 @@
     .table{
         margin-top: 10px;
     }
-    .pageArea{
-		width:800px;
-		text-align: center;
-		margin: 10px;
-		margin-top: 50px;
-		position: relative;
-		float: left;
-		left: 30%
-	}
-	.pageArea span{
-		font-size: 18px;
-		border : 1px solid lightgray;
-		padding: 2px 10px;		
-		margin: 5px;		
-		color : white;
-	}
-	#page{
-		font-weight: 600;
-		color: red;
-	}
 	h4{
 		position: relative;
 		left: 20%;
@@ -88,49 +65,36 @@
 	}
 	#radio{
 		position: relative;
-		left: 70%
+		left: 70%;
 	}
 </style>
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
+	
     <div id="search">
-        <form action="memberSearch" method="POST">
-            <select id="select" name="search">
-                <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-            </select>
-            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
+        <form action="reportSearch" method="POST">
+            <input type="text" value="${params.keyword}" name="keyword" placeholder="아이디로 검색">
             <input type="submit" value="검색">
         </form>
     </div>
     <div id="radio">
-        <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='replyList'"/>미처리
-        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='finishReplyList'"/>처리
+        <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='blindNList'"/>미처리
+        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='blindYList'"/>처리
     </div>
     <div class="table">
         <table>
             <tr>
-               <th>신고자</th>
-                <th>신고 당한 글</th>
-                <th>신고일</th>
-                <th>처리유무</th>
+               <th>글 번호</th>
+                <th>블라인드 여부</th>
+                <th>글쓰기 날짜</th>
             </tr>
-            <c:forEach items="${replyList}" var="report">
+            <c:forEach items="${blindNList}" var="board">
 	            <tr>
-	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
-	                <td>
-		                <a href="detailMember?id=${report.id}" 
-		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
-		               	 	${report.id}
-		                </a>
-	                </td>
-	                <td><a href="detailReply?id=${report.id}" 
-		                onclick="window.open(this.href, 'detailReply', 'width=800, height=600, top=100, left=400'); return false;">
-		               	 	${report.field}
-		                </a></td>
-	                <td>${report.reg_date}</td>
-	                <td>${report.proc_ex}</td> 
+	            <td><a href="#">${board.bbs_idx}</a></td>
+	                <td>${board.bbs_blind}</td> 
+	                <td>${board.reg_date}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -143,5 +107,45 @@
 		window.close();
 	}
 	
+	$('#type').change(function(){
+		var type = $(this).val();
+		console.log(type);
+		$.ajax({ 
+			type:'GET' 
+			,url:'type'
+			,data:{"type": type}
+			,dataType: 'text' 
+			,success: function(data){
+				console.log(data);
+			}
+			,error: function(e){
+				console.log(e);
+			}
+		});
+	});
+	
+	
+	$("#save").click(function(){
+		var id = opener.oriWindow;
+		console.log(id);
+		var newPass = $("#newPass").val();
+		var allData = {"newPass": newPass, "id": id };
+			$.ajax({ 
+				type:'GET' 
+				,url:'change'
+				,data:allData
+				,dataType: 'tes' 
+				,success: function(data){
+					if(data == 1){
+					alert("변경 완료");
+					opener.parent.location.reload();
+					window.close();
+					}
+				}
+				,error: function(e){
+					console.log(e);
+				}
+			});
+	});
 </script>
 </html>

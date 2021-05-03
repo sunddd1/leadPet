@@ -11,7 +11,6 @@ public class PetDTO {
 	private String dog_cat;
 	private String kind;
 	private Date bday;
-	private String name;
 	private String kg;
 	private String id;
 	private String delegate;
@@ -41,12 +40,6 @@ public class PetDTO {
 	}
 	public void setBday(Date bday) {
 		this.bday = bday;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getKg() {
 		return kg;

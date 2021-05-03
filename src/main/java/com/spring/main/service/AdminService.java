@@ -178,6 +178,21 @@ public class AdminService {
 		return dao.finishListSearch(params);
 	}
 
+	public Object detailReply(int id) {
+		logger.info("신고댓글 상세보기 서비스 도착");
+		return dao.detailReply(id);
+	}
+
+	public ArrayList<AdminDTO> blindNList() {
+		logger.info("블라인드 리스트 서비스 도착");
+		return dao.blindNList();
+	}
+
+	public ArrayList<AdminDTO> blindYList() {
+		logger.info("블라인드 리스트 서비스 도착");
+		return dao.blindYList();
+	}
+
 //	public ArrayList<AdminDTO> typeReportList(String type) {
 //		logger.info("타입 신고 서비스 요청");
 //		return dao.typeReportList(type);
