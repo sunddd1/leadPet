@@ -161,4 +161,5 @@ public class BoardController {
 		logger.info("검색요청 : {} / {} " ,category,keyword);
 		return service.searchBbs(category,keyword);
 	}
+
 }

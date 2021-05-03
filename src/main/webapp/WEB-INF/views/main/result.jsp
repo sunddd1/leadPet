@@ -32,6 +32,12 @@
 						<td>
 							<table class="bbscontent">
 								<tr>
+									<td>
+										<c:if test="${bbs.newFileName eq null}">
+											<img src="/photo/${bbs.newFileName}"alt='대체이미지'/>
+										</c:if>
+										<img src="/photo/${bbs.newFileName}"alt='${bbs.oriFileName }'/>
+									</td>
 									<td>${bbs.category_name}</td>
 									<td>조회수 ${bbs.views}</td>
 									<td>추천 ${bbs.reco_count}</td>
@@ -51,6 +57,12 @@
 						<td>
 							<table class="bbscontent">
 								<tr>
+									<td>
+										<c:if test="${bbs.newFileName eq null}">
+											<img src="/photo/${bbs.newFileName}"alt='대체이미지'/>
+										</c:if>
+										<img src="/photo/${bbs.newFileName}"alt='${bbs.oriFileName }'/>
+									</td>
 									<td>${bbs.category_name}</td>
 									<td>조회수 ${bbs.views}</td>
 									<td>추천 ${bbs.reco_count}</td>
@@ -70,6 +82,12 @@
 						<td>
 							<table class="bbscontent">
 								<tr>
+									<td>
+										<c:if test="${bbs.newFileName eq null}">
+											<img src="/photo/${bbs.newFileName}"alt='대체이미지'/>
+										</c:if>
+										<img src="/photo/${bbs.newFileName}"alt='${bbs.oriFileName }'/>
+									</td>
 									<td>${bbs.category_name}</td>
 									<td>조회수 ${bbs.views}</td>
 									<td>추천 ${bbs.reco_count}</td>
@@ -97,5 +115,27 @@
 		</div>
 	</body>
 	<script>
+/* 	var currPage =Number("${currPage}");
+	 $(document).ready(function () {
+		paging();
+	 });
+	 
+	 function paging() {
+		 console.log("페이징 요청1" + currPage);		 
+		 $.ajax({
+			 type:'get'
+			 ,url:'paging'
+			 ,data:{
+				 "currPage":currPage
+			 }
+		 	 ,dataTpye:'json'
+		 	 ,success : function(data) {
+				console.log(data);
+			}
+		 	 ,error : function(e) {
+				console.log(e);
+			}
+		 });
+	} */
 	</script>
 </html>
