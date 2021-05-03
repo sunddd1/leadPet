@@ -80,10 +80,9 @@ public class MemberService {
 		logger.info("목록 불러오는 중");
 		logger.info("요청 유저 닉네임 : "+id);
 		String page = "home";
-		BoardDTO dto = dao.writeList(id);
-		logger.info("들어옴? ::"+dto.getBbs_idx());
+		ArrayList<BoardDTO> dto = dao.writeList(id);
 		
-		if(dto != null) {
+		if(dto.size()>0) {
 			page="Member/writeList";
 			mav.addObject("write", dto);
 		}
