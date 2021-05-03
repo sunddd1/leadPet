@@ -18,6 +18,12 @@
                 <td></td>
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
+                <!-- 임시 닉네임 지정 세션으,로 변경해야함  -->
+                <c:if test="${dto.nickname eq '멍뭉'}">
+	                <td>
+	                	<button onclick="location.href='BoardUpdate?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
+	                </td>
+                </c:if>
             </tr>
 			<tr>
 				<th>제목</th>
@@ -28,7 +34,9 @@
                 <td>${dto.nickname }</td>
                 <c:if test="${dto.pet_name ne null}">
 	                <th>사진</th>
-	                <td>${dto.pet_newfilename }</td>
+	                <td>
+	                		<img src='/photo/${dto.pet_newfilename}' width='100px' height='100px'/>
+	                </td>
 	                <th>이름</th>
 	                <td>${dto.pet_name }</td>
 	                <th>품종</th>
@@ -45,8 +53,7 @@
 			</tr>
 		</table>
 		
-		<table>
-			<thead>
+		<table style="border-collapse: collapse;">
 			<tr>
 				<td>
 					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"></textarea>
@@ -55,7 +62,9 @@
 					<button onclick='replyButton()'>등록</button>
 				</td>
 			</tr>
-			</thead>
+			<tbody id="replyUpdate" style="border: 2px solid black">
+				
+			</tbody>
 			<tbody id="replyList">
 			
 			</tbody>
@@ -77,6 +86,7 @@
 				type:'GET'
 				,url:'recoConfirm'
 				,data:{
+					//로그인아이디로 변경해야함
 					id: 'test1122'
 					,bbs_idx: '${dto.bbs_idx}'
 				}
@@ -105,6 +115,7 @@
 		function norecoButton(elem){
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
+			//로그인아이디로 변경해야함
 			recoContent.id = 'test1122';
 			console.log(recoContent.bbs_idx,recoContent.id);
 			
@@ -130,6 +141,7 @@
 		function recoButton(elem){
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
+			//로그인아이디로 변경해야함
 			recoContent.id = 'test1122';
 			console.log(recoContent.bbs_idx,recoContent.id);
 			
@@ -181,8 +193,8 @@
 				,dataType:'JSON'
 				,success:function(data){
 						if(data){
+							console.log(data.replyList)
 							console.log(data.replyList.length);
-							console.log(data.replyList.nickname);
 							var replyDraw = ""
 							if(data.replyList.length==0){
 								replyDraw += "<tr><td>댓글이 없습니다.</td></tr>"
@@ -206,10 +218,14 @@
 			var replyDraw = "";
 			for(var i =0; i<list.length; i++){
 				replyDraw +="<tr>"
-				replyDraw +="<td>"+list[i].nickname+"</td>"
-				replyDraw +="<td>"+list[i].reg_date+"</td>"
-				replyDraw +="<td><a href='#'>수정</a></td>"
-				replyDraw +="<td><a href='#'>삭제</a></td>"
+				replyDraw +="<td><b>"+list[i].nickname+"</b></td>"
+				var date = new Date(list[i].reg_date);
+				replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				//로그인 아이디라면
+				if(list[i].nickname== "withdrawal"){
+				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
+				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
+				}
 				replyDraw +="</tr>"
 				replyDraw +="<tr>"
 				replyDraw +="<td>"+list[i].reply_content+"</td>"
@@ -218,12 +234,36 @@
 			$("#replyList").empty();
 			$("#replyList").append(replyDraw);
 		}
+		//댓글 삭제
+		function replyDel (reply_idx){
+			$.ajax({
+				url:'./replyDel/'+reply_idx
+				,type:'GET'
+				,data:{}
+				,dataType:'JSON'
+				,success:function(data){
+					if(data>0){
+						$('#reply_content').val('');
+						$("#replyUpdate").empty();
+						replyList();
+					}else{
+						console.log("댓글블라인드 실패입니다")
+					}
+				}
+				,error:function(error){
+					console.log(error);
+				}
+			});
+			
+		}
+		
 		
 		//댓글 등록
 		function replyButton(){
 			var replyContent ={}
 			replyContent.reply_content = $('#reply_content').val();
 			replyContent.bbs_idx = '${dto.bbs_idx}';
+			//로그인아이디로 변경해야함
 			replyContent.id = 'test1122';
 			console.log(replyContent.bbs_idx,replyContent.id,replyContent.reply_content);
 			
@@ -245,7 +285,71 @@
 					console.log(e);
 				}
 			})
-			
+		}
+		//댓글 수정
+		function replyUpdateForm(reply_idx){
+			console.log(reply_idx)
+			var replyContent ={}
+			replyContent.reply_idx = reply_idx;
+			$.ajax({
+				type:'GET'
+				,url:'replyUpdateForm'
+				,data:replyContent
+				,dataType:'JSON'
+				,success:function(data){
+						console.log(data.replyUpdate)
+						replyUpdateFormDraw(data.replyUpdate);
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			})
+				
+		}
+		//reply updateform 그리기
+		function replyUpdateFormDraw(map){
+			var replyDraw = "";
+			replyDraw +="<tr>"
+			replyDraw +="<td><b>"+map.nickname+"</b></td>"
+			var date = new Date(map.reg_date);
+			replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+			replyDraw +="</tr>"
+			replyDraw +="<tr>"
+			replyDraw +="<td><input type='text' id='reply_update' value="+map.reply_content+"/></td>"
+			replyDraw +="<td><button onclick='replyUpdateButton("+map.reply_idx+")'>수정</button></td>"
+			replyDraw +="</tr>"
+			$("#replyUpdate").empty();
+			$("#replyUpdate").append(replyDraw);
+		}
+		
+		//수정하기
+		function replyUpdateButton(reply_idx){
+			var replyContent ={}
+			replyContent.reply_content = $('#reply_update').val();
+			replyContent.reply_idx = reply_idx;
+			//로그인아이디로 변경해야함
+			replyContent.id = 'test1122';
+			console.log(replyContent.reply_content,replyContent.reply_idx,replyContent.id);
+
+			$.ajax({
+				type:'POST'
+				,url:'replyUpdate'
+				,data:replyContent
+				,dataType:'JSON'
+				,success:function(data){
+						if(data){
+							console.log(data)
+							replyList();
+							$('#reply_content').val('');
+							$("#replyUpdate").empty();
+						}else{
+							console.log("댓글쓰기 실패입니다")
+						}
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			})
 		}
 		
 		
