@@ -258,5 +258,16 @@ public class BoardService {
 		map.put("list",list);
 		return map;
 	}
+
+	public ModelAndView searchBbs(String category, String keyword) {
+		ModelAndView mav = new ModelAndView();
+		keyword =  "%"+keyword+"%";
+		logger.info("키워드 : "+ keyword);
+		ArrayList<BoardDAO> list = dao.searchBbs(category,keyword);
+		logger.info("list : "+list);
+		mav.addObject("list", list);
+		mav.setViewName("main/result");
+		return mav;
+	}
 	
 }

@@ -113,5 +113,15 @@
 		(SELECT ROW_NUMBER() over(ORDER BY b.reco_count DESC) AS rnum, bi.bbs_idx, bi.newFileName, bi.oriFileName FROM bbs_img bi, bbs b WHERE b.bbs_idx = bi.bbs_idx AND b.type= 'gal') 
 		WHERE rnum BETWEEN 1 AND 3
 	</select>
+	
+	<select id="searchBbs" resultType="board">
+		SELECT bbs_idx, bbs_subject, bbs_content, reco_count, views, category_name FROM
+		(SELECT ROW_NUMBER() OVER(ORDER BY bbs_idx DESC) AS rnum,bbs_idx, bbs_subject, bbs_content, reco_count, views, category_name 
+		FROM bbs WHERE bbs_subject LIKE #{param2} OR bbs_content LIKE #{param2}) WHERE rnum BETWEEN 1 AND 12 
+		<if test="!param1.equals('ALL')">
+			AND CATEGORY_NAME= #{param1}
+		</if>
+	</select>
+	
 
 </mapper>
