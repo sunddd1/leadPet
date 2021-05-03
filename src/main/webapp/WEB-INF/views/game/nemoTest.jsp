@@ -9,7 +9,9 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#conBody{
-				margin: 3% 30%;
+				justify-content: center;
+				align-content: center;
+				align-items: center;
 			}
 			table{
 				border: 5px double grey;
@@ -18,108 +20,250 @@
 			th,td{
 				border: 1px solid black;
 				border-collapse: collapse;
-				width: 100px;
-				height: 100px;
+				width: 70px;
+				height: 70px;
+				font-size: 12px;
 			}
 			.block{
 				background-color: white;
 				color: white;
+			}
+			.nemoNum{
+				text-align: center;
+				font-size:small;
+				width: 100%;
+				height: 100%;
+			}
+			#subjectSpace{
+				padding-top: 2%;
+			}
+			#nemo_subject{
+				width: 70%;
+				height: 35px;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="conBody">
 			<button onclick="location.href='./nemoEx'">네모로직 참고자료</button>
+			<button class="btn">정답!</button>
+     		<button class="btn">힌트!</button>
 			<br/>
-			<table>
-				<tr>
-					<th>NemoLogic</th>
-					<th>[ 숫자 ]</th>
-					<th>[ 숫자 ]</th>
-					<th>[ 숫자 ]</th>
-					<th>[ 숫자 ]</th>
-					<th>[ 숫자 ]</th>
-				</tr>
-				<tr>
-					<th>[ 숫자 ]</th>
-					<td class="block" id="1">OFF</td>
-					<td class="block" id="2">OFF</td>
-					<td class="block" id="3">OFF</td>
-					<td class="block" id="4">OFF</td>
-					<td class="block" id="5">OFF</td>
-				</tr>
-				<tr>
-					<th>[ 숫자 ]</th>
-					<td class="block" id="6">OFF</td>
-					<td class="block" id="7">OFF</td>
-					<td class="block" id="8">OFF</td>
-					<td class="block" id="9">OFF</td>
-					<td class="block" id="10">OFF</td>
-				</tr>
-				<tr>
-					<th>[ 숫자 ]</th>
-					<td class="block" id="11">OFF</td>
-					<td class="block" id="12">OFF</td>
-					<td class="block" id="13">OFF</td>
-					<td class="block" id="14">OFF</td>
-					<td class="block" id="15">OFF</td>
-				</tr>
-				<tr>
-					<th>[ 숫자 ]</th>
-					<td class="block" id="16">OFF</td>
-					<td class="block" id="17">OFF</td>
-					<td class="block" id="18">OFF</td>
-					<td class="block" id="19">OFF</td>
-					<td class="block" id="20">OFF</td>
-				</tr>
-				<tr>
-					<th>[ 숫자 ]</th>
-					<td class="block" id="21">OFF</td>
-					<td class="block" id="22">OFF</td>
-					<td class="block" id="23">OFF</td>
-					<td class="block" id="24">OFF</td>
-					<td class="block" id="25">OFF</td>
-				</tr>
-			</table>
+			<form action="/nemoMake">
+				<table>
+					<tr>
+						<th colspan="11" id="subjectSpace">
+							<h2>네모 제목 : <input type="text" name="nemo_subject" id="nemo_subject"/></h2>
+						</th>
+					</tr>
+					<tr>
+						<th>NemoLogic</th>
+						<th><input type="text" class="nemoNum" id="col1" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col2" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col3" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col4" placeholder="숫자입력"/></th>
+						<th style="border-right: 3px double">
+							<input type="text" class="nemoNum" id="col5" placeholder="숫자입력"/>
+						</th>
+						<th><input type="text" class="nemoNum" id="col6" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col7" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col8" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col9" placeholder="숫자입력"/></th>
+						<th><input type="text" class="nemoNum" id="col10" placeholder="숫자입력"/></th>
+					</tr>
+					<tr id="block1">
+						<th><input type="text" class="nemoNum" id="row1" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block2">
+						<th><input type="text" class="nemoNum" id="row2" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block3">
+						<th><input type="text" class="nemoNum" id="row3" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block4">
+						<th><input type="text" class="nemoNum" id="row4" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block5">
+						<th style="border-bottom: 3px double">
+							<input type="text" class="nemoNum" id="row5" placeholder="숫자입력"/>
+						</th>
+						<td class="false" id="A" style="border-bottom: 3px double"></td>
+						<td class="false" id="B" style="border-bottom: 3px double"></td>
+						<td class="false" id="C" style="border-bottom: 3px double"></td>
+						<td class="false" id="D" style="border-bottom: 3px double"></td>
+						<td class="false" id="E" style="border-right: 3px double; border-bottom: 3px double"></td>
+						<td class="false" id="F" style="border-bottom: 3px double"></td>
+						<td class="false" id="G" style="border-bottom: 3px double"></td>
+						<td class="false" id="H" style="border-bottom: 3px double"></td>
+						<td class="false" id="I" style="border-bottom: 3px double"></td>
+						<td class="false" id="J" style="border-bottom: 3px double"></td>
+					</tr>
+					<tr id="block6">
+						<th><input type="text" class="nemoNum" id="row6" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block7">
+						<th><input type="text" class="nemoNum" id="row7" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block8">
+						<th><input type="text" class="nemoNum" id="row8" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block9">
+						<th><input type="text" class="nemoNum" id="row9" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr id="block10">
+						<th><input type="text" class="nemoNum" id="row10" placeholder="숫자입력"/></th>
+						<td class="false" id="A"></td>
+						<td class="false" id="B"></td>
+						<td class="false" id="C"></td>
+						<td class="false" id="D"></td>
+						<td class="false" id="E" style="border-right: 3px double"></td>
+						<td class="false" id="F"></td>
+						<td class="false" id="G"></td>
+						<td class="false" id="H"></td>
+						<td class="false" id="I"></td>
+						<td class="false" id="J"></td>
+					</tr>
+					<tr style="display: none">
+						<td colspan="6">
+							<input type="hidden" id="nemo_question" name="nemo_question" value=""/>
+							<input type="hidden" id="nemo_answer" name="nemo_answer" value=""/>
+						</td>
+					</tr>
+				</table>
+			</form>
 			<br/>
 			<button onclick="save()">저장</button>
 			<!-- <td><input class="block" type="text" value="OFF"></td> -->
 		</div>	
 	</body>
 	<script>
-		var answer = {};
-		var idNum = 0;
-		//console.log($('.block'));
-		//console.log($('.block')[15]);
-		$('.block').click(function(){
-			if($(this).html() == "OFF"){
-				//console.log($(this).attr("id"));
-				idNum = $(this).attr("id");
+		var question = [];
+		var questionIdVal = '';
+		var answer = [];
+		var answerIdVal = '';
+		
+		//console.log($('td').eq(15));
+		//console.log($('td')[15]);
+		
+		$('td').click(function(){
+			if($(this).attr('class') == "false"){
 				$(this).css({'background-color':'black'});
 				$(this).css({'color':'black'});
-				$(this).html("ON");
-				//obj.key3 = "value3";
-				//obj["key3"] = "value3";
-				answer[idNum] = $(this);
-				console.log(answer);
-			} else if($(this).html() == "ON"){
-				idNum = $(this).attr("id");
+				$(this).attr('class','true');
+			} else if($(this).attr('class') == "true"){
 				$(this).css({'background-color':'white'});
 				$(this).css({'color':'white'});
-				$(this).html("OFF");
-				//delete obj.key3;
-				//delete obj[key3];
-				delete answer[idNum];
-				console.log(answer);
+				$(this).attr('class','false');
 			}
 		});
-		
 		function save(){
-			for(var i=0; i<25; i++){
-				//answer.  $('.block')[i];					
+			for(var i=0; i<=20; i++){
+				if($('input[type="text"]').eq(i).attr('class') == "nemoNum"){
+					console.log($('input[type="text"]').eq(i).val());
+					questionIdVal = $('input[type="text"]').eq(i).val();
+					console.log(questionIdVal);
+					question.push(questionIdVal);
+				}
 			}
+			for(var i=0; i<100; i++){
+				if($('td').eq(i).attr('class') == "true"){
+					console.log($('td').eq(i).attr("id"));
+					 answerIdVal = answerIdVal + $('td').eq(i).attr("id");
+				}
+				 if((i%10) == 9){
+					 	console.log(answerIdVal);
+					 	answer.push(answerIdVal);
+					 	answerIdVal = '';
+				 }
+			} 
+			console.log(question);
 			console.log(answer);
-		}
+			$('#nemo_question').val(question);
+			$('#nemo_answer').val(answer);
+			console.log($('#nemo_question').val());
+			console.log($('#nemo_answer').val());
+			//$('form').submit();
+		}	
 		
 	</script>
 </html>

@@ -18,8 +18,15 @@ public class SchedulerDTO {
 	private String content;
 	private int cycle;
 	private String id;
-	private String subject;
+	private String subject; 
+	private String executed;
 	
+	public String getExecuted() {
+		return executed;
+	}
+	public void setExecuted(String executed) {
+		this.executed = executed;
+	}
 	public String getSubject() {
 		return subject;
 	}

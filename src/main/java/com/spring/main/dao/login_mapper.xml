@@ -6,13 +6,22 @@
 
 <mapper namespace="com.spring.main.dao.LoginDAO">	
 	
-	<select id="login" resultType="member">
+	<select id="userLogin" resultType="member">
 		SELECT 
-			id, password
+			id, password, change_date ,withdraw
 		FROM
 			member 
 		WHERE
 			id = #{param1}
+	</select>
+	
+	<select id="adminLogin" resultType="admin">
+		SELECT
+			admin_id, password
+		FROM
+			admin
+		WHERE
+			admin_id=#{param1}
 	</select>
 
 	<select id="findId" resultType="String">

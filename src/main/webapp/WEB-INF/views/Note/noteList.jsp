@@ -22,14 +22,16 @@
                     <th>내용</th>
                     <th>닉네임</th>
                     <th>받은 날짜</th>
+                    <th>확인</th>
                     <th>삭제</th>
                 </tr>
                 <c:forEach var = "note" items="${messageList}">
                 	<tr>
                 		<td>${note.note_idx}</td>
-                		<td><a id="detail" href="./detailNoteList?note_idx=${note.note_idx}+note.id=${note.id}">${note.content}</a></td>
+                		<td><a id="detail" href="./detailNoteList?note_idx=${note.note_idx}">${note.content}</a></td>
                 		<td> ${note.id}</td>
                 		<td>${note.reg_date}</td>
+                		<td>${note.checked}</td>
                 		<td><a id="del" href="./delMessageList?note_idx=${note.note_idx}">삭제</a></td>
                 	</tr>
                 </c:forEach>

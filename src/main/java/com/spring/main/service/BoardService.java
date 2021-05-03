@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.PetDTO;
+import com.spring.main.dto.ReplyDTO;
+import com.spring.main.dto.bbs_imgDTO;
 
-import oracle.net.aso.l;
 
 @Service
 public class BoardService {
@@ -66,13 +68,25 @@ public class BoardService {
 			session.setAttribute("fileList", fileList);
 			mav.addObject("path","/photo/"+newfileName);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		mav.setViewName("./Board/uploadForm");
 		return mav;
 	}
+	
+	
+	public ModelAndView writeForm(String id) {
+		logger.info("글쓰기 폼 요청");
+		ModelAndView mav = new ModelAndView();
+		PetDTO dto = dao.writeForm(id);
+		logger.info("글쓰기폼 유저정보 : "+dto);
+		mav.addObject("dto",dto);
+		mav.setViewName("Board/writeForm");
+		return mav;
+	}
+	
+	
 	
 	@Transactional
 	public ModelAndView write(HashMap<String, String> params, HttpSession session) {
@@ -128,6 +142,85 @@ public class BoardService {
 		}
 		return map;
 	}
+	
+	@Transactional
+	public ModelAndView BoardDetail(String bbs_idx) {
+		dao.upViews(bbs_idx);
+		logger.info("조회수 +1");
+		BoardDTO dto = dao.boardDetail(bbs_idx);
+		logger.info("{}",dto);
+		logger.info("{}",dto.getPet_newfilename());
+		logger.info("{}",dto.getKg());
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("Board/detail");		
+		return mav;
+	}
 
+	public Boolean recoConfirm(String id, String bbs_idx) {
+		boolean success = false;
+		logger.info("추천 여부 확인 요청");
+		HashMap<String, Object> map = dao.recoConfirm(id,bbs_idx);
+		logger.info("추천확인 : " + map);
+		if(map != null) {
+			success = true;
+		}
+		return success;
+	}
+
+	public Boolean recoUp(String id, String bbs_idx) {
+		boolean success = false;
+		logger.info("추천 추가 요청");
+		int add = dao.recoTableUp(id,bbs_idx);
+		logger.info("추천테이블 데이터 추가 : " + add);
+		if(add>0) {
+			int plus = dao.recoPlus(bbs_idx);
+			logger.info("추천갯수 +1 : " + plus);
+			success = true;
+		}
+		return success;
+	}
+
+	public Boolean recoDown(String id, String bbs_idx) {
+		boolean success = false;
+		logger.info("추천 취소 요청");
+		int delete = dao.recoTableDown(id,bbs_idx);
+		logger.info("추천테이블 데이터 삭제 : " + delete);
+		if(delete>0) {
+			int minus = dao.recoMinus(bbs_idx);
+			logger.info("추천갯수 -1 : " + minus);
+			//셀렉트로 조회수 추천갯수 조회 후 map에 담아서 넣어서 보낸다.
+			success = true;
+		}
+		return success;
+	}
+
+	public HashMap<String, Object> replyList(String id, String bbs_idx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("댓글 리스트 요청" + id+"/"+bbs_idx);
+		ArrayList<ReplyDTO> list = dao.replyList(id,bbs_idx);
+		map.put("replyList", list);
+		return map;
+	}
+
+	public int replyWrite(ReplyDTO reply) {
+		logger.info("댓글 작성 요청 : "+reply);
+		int success = dao.replyWrite(reply);
+		return success;
+	}
+
+	public HashMap<String, Object> mainTop(String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDAO> list = null;
+		if(type.equals("gal")) {
+			logger.info("갤러리 탑 3 요청");	
+			 list = dao.galTop3();
+		}else {
+			logger.info("게시물 탑 5 요청");			
+			list = dao.bbsTop5();
+		}
+		map.put("list",list);
+		return map;
+	}
 	
 }

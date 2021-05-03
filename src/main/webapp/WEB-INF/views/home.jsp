@@ -8,18 +8,41 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+			#main{
+				border: 3px solid red;
+				width: 100%;
+			}
+			#main th{
+				border: 3px solid green;
+			}
+
 		</style>
 	</head>
 	<body>
 		<h3>4조</h3>
-		<table>
+		<jsp:include page="./main/top_Navi.jsp"/>
+		<jsp:include page="./main/side_adminNavi.jsp"/>
+		<jsp:include page="./main/side_myNavi.jsp"/>
+		<jsp:include page="./cal/popup.jsp"/>
+		
+		<table id="main">
 			<tr>
-				<td><a href="./admin">관리자</a><br/></td>
-				<td><a href="./calendar">달력</a><br/></td>
-				<td><a href="./gameMain">게임</a><br/></td>
-				<td><a href="./#">공란</a><br/></td>
+				<th>
+					<jsp:include page="./main/main_calendar.jsp"/>
+				</th>
+				<th>
+					<jsp:include page="./main/main_bbsTop5.jsp"/>
+				</th>
 			</tr>
-		</table>		
+			<tr>
+				<th>
+					<jsp:include page="./main/main_galTop3.jsp"/>
+				</th>
+				<th>
+				</th>
+			</tr>
+		</table>
+		
 	</body>
 	<script>
 	</script>

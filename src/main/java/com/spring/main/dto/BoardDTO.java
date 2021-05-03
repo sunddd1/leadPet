@@ -20,6 +20,12 @@ public class BoardDTO {
 	private String oriFileName;
 	private String newFileName;
 	private String dog_cat;
+	private String kind;
+	private Date bday;
+	private String name;
+	private String pet_name;
+	private int kg;
+	private String pet_newfilename;
 	
 	public int getBbs_idx() {
 		return bbs_idx;
@@ -110,6 +116,42 @@ public class BoardDTO {
 	}
 	public void setDog_cat(String dog_cat) {
 		this.dog_cat = dog_cat;
+	}
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+	public Date getBday() {
+		return bday;
+	}
+	public void setBday(Date bday) {
+		this.bday = bday;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getKg() {
+		return kg;
+	}
+	public void setKg(int kg) {
+		this.kg = kg;
+	}
+	public String getPet_name() {
+		return pet_name;
+	}
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
+	}
+	public String getPet_newfilename() {
+		return pet_newfilename;
+	}
+	public void setPet_newfilename(String pet_newfilename) {
+		this.pet_newfilename = pet_newfilename;
 	}
 	
 }

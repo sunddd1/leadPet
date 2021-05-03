@@ -85,6 +85,8 @@
 <body>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
+<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
+<button onclick="location.href='replyList'">댓글 신고 리스트 DEMO</button>
     <div id="search">
         <form action="search" method="GET">
             <select id="select" name="search">
@@ -109,12 +111,12 @@
             </tr>
             <c:forEach items="${adminList}" var="admin">
 	            <tr>
-	                <td>${admin.admin_id}</td>
+	                <td id="id">${admin.admin_id}</td>
 	                <td>${admin.password}</td>
 	                <td>${admin.nickname}</td>
 	                <td>${admin.reg_date}</td> 
 					<td>
-						<input type="button" value="수정" onclick="changePass()"/>
+						<button value="${admin.admin_id}" onclick='changePass(this)'>비밀번호 수정</button>
 						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
 	                </td>
                 </tr>
@@ -129,8 +131,13 @@ if(msg != ""){
 	window.close();
 }
 
-function changePass(){
-	window.open('changePass','Change Password','width=500, height=300, top=300, left=900')
+	var oriWindow;
+	
+function changePass(buttonObj){
+	var button = $(buttonObj);
+	var flag = $("#"+buttonObj.value);
+	oriWindow = buttonObj.value;
+	 window.open('changePass?id='+oriWindow,'Change Password','width=500, height=300, top=300, left=900')
 }
 
 function adminInsert(){

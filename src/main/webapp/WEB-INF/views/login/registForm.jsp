@@ -18,7 +18,7 @@
 	
 	<body>
 		<form id="registForm" action="regist" method="post">
-			<table>			
+			<table>
 				<tr>
 					<th colspan="2">
 						<h2>회원가입</h2>
@@ -29,7 +29,7 @@
 						<label for="id">아이디</label>
 					</th>
 					<td>
-						<input type="text" name="id" id="id" />
+						<input type="text" name="id" id="id" onkeyup="updateId()" />
 						<input type="button" value="중복 확인" onclick="isDuplicateId()" />
 					</td>
 				</tr>
@@ -55,7 +55,7 @@
 						<label>닉네임</label>
 					</th>
 					<td>
-						<input type="text" name="nickname" id="nickname"/>
+						<input type="text" name="nickname" id="nickname" onkeyup="updateNickname()"/>
 						<input type="button" value="중복 확인" onclick="isDuplicateNickname()" />
 					</td>
 				</tr>
@@ -89,7 +89,7 @@
 						<label>이메일</label><br>
 					</th>
 					<td>
-						<input type="hidden" name="email"/>
+						<input type="hidden" id="email" name="email"/>
 						<input type="text" id="prefixEmail"/>
 						@
 						<input type="text" id="suffixEmail"/>
@@ -117,6 +117,10 @@
 	var validId = false;
 	var validPw = false;
 	var validNickname = false;
+	
+	function updateId() {
+		validId = false;
+	}
 	
 	function isDuplicateId() {
 		var $id = $("#id");
@@ -164,6 +168,10 @@
 		}
 		
 		$('#checkPasswordMsg').html(tag);
+	}
+	
+	function updateNickname() {
+		validNickname = false;
 	}
 	
 	function isDuplicateNickname() {
@@ -282,7 +290,7 @@
 		var suffix = $('#suffixEmail').val();	
 		var email = prefix + "@" + suffix;
 		
-		$("#email").val(email);	
+		$("#email").val(email);
 		return email;
 	}
 	

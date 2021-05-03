@@ -14,62 +14,64 @@
 	</style>
 	</head>
 	<body>
-		<table>
-			<tr>
-				<th>
-					<label>아이디</label>
-				</th>
-				<td>
-					<input type="text" id="id">
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>이름</label>
-				</th>
-				<td>
-					<input type="text" id="name">
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label>이메일</label>
-				</th>
-				<td>
-					<input type="text" id="email">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="button" value="아이디 확인" onclick="existId()"/>
-				</td>
-			</tr>
-		</table>
-		<br/>
-		<table id="changeForm" style="display:none">
-			<tr>
-				<th>
-					<label>비밀번호</label><br/>
-				</th>
-				<td>
-					<input type="password" name="password" id="password" onkeyup="checkPw()" width="400px"/>
-				</td>
-			<tr>
-				<th>
-					<label>비밀번호 확인</label>
-				</th>
-				<td>
-					<input type="password" id="checkPassword" onkeyup="checkPw()" />
-					<br/>
-					<span id="checkPasswordMsg"><font color=red>비밀번호 불일치</font></span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button onclick="changePw()">변경 완료</button>
-				</td>
-			</tr>
-		</table>		
+		<form id="changeForm" action="change-pw" method="post">
+			<table>
+				<tr>
+					<th>
+						<label>아이디</label>
+					</th>
+					<td>
+						<input type="text" id="id" name="id">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>이름</label>
+					</th>
+					<td>
+						<input type="text" id="name">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label>이메일</label>
+					</th>
+					<td>
+						<input type="text" id="email">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" value="아이디 확인" onclick="existId()"/>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<table id="changeTable" style="display:none">
+				<tr>
+					<th>
+						<label>비밀번호</label><br/>
+					</th>
+					<td>
+						<input type="password" name="password" id="password" onkeyup="checkPw()" width="400px"/>
+					</td>
+				<tr>
+					<th>
+						<label>비밀번호 확인</label>
+					</th>
+					<td>
+						<input type="password" id="checkPassword" onkeyup="checkPw()" />
+						<br/>
+						<span id="checkPasswordMsg"><font color=red>비밀번호 불일치</font></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button onclick="changePw()">변경 완료</button>
+					</td>
+				</tr>
+			</table>		
+		</form>
 	</body>
 	<script>
 		var validPw = false;
@@ -88,7 +90,7 @@
 				,dataType:"JSON"
 				,success:function(data) {
 					if(data) {
-						$('#changeForm').css("display", "");
+						$('#changeTable').css("display", "");
 						
 						id.attr("readonly",true);
 						name.attr("readonly",true);
@@ -121,10 +123,7 @@
 		
 		function changePw() {
 			if(validPw) {
-				var id = $('#id').val();
-				var pw = $('#password').val();
-				
-				location.href = "change-pw?id=" + id + "&password=" + pw;
+				$('#changeForm').submit();
 			}
 		}
 	</script>

@@ -41,7 +41,7 @@
 			<li data-tab="cat" class='tabmenu'>고양이</li>
 			<li data-tab="all" class='tabmenu current'>전체보기</li>
 		</ul>
-		<button onclick="location.href='writeForm' ">글쓰기</button>
+		<button onclick="location.href='writeForm?id=test1122' ">글쓰기</button>
 			<table>
 			<thead>
 				<tr>
@@ -61,6 +61,7 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
+	
 		ListAll();
 		
 		function ListAll() {
@@ -100,7 +101,7 @@
 					});
 			})
 		})
-		
+/* 		
 		function BoardDel(elem){
 			$.ajax({
 				url:'./BoardDel'
@@ -114,8 +115,10 @@
 					console.log(error);
 				}
 			});
-		}
+		} */
 		
+
+	  	var BoardDetail="BoardDetail"
 		
 		function listPrint(list){
 			var content ="";
@@ -124,8 +127,8 @@
 			for(var i=0; i<list.length; i++){
 					content +="<tr>"
 					content +="<td>"+list[i].bbs_idx+"</td>"
-					content += "<td><img src='/photo/"+list[i].newFileName+"' alt='photo/"+list[i].oriFileName+" ' width='300px' 'height='398px'/></td>" 
-					content +="<td>"+list[i].bbs_subject+"</td>"
+					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' alt='photo/"+list[i].oriFileName+" ' width='300px' 'height='398px'/></a></td>" 
+					content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
 					content +="<td>"+list[i].nickname+"</td>"
 					//java에서 가끔 날짜가 mileseconds로 나올경우...
 					var date = new Date(list[i].reg_date);
