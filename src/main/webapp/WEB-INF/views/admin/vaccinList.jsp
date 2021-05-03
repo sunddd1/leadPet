@@ -29,17 +29,18 @@
 			#vaccinManage{
 				background-color: coral;
 			}			
-			
+			#vacctable{
+				width: 60%;
+				margin-left: 20%;
+			}
 		</style>
 	</head>
 	<body>
 		<h3>백신 게시판</h3>
 		<jsp:include page="../main/top_Navi.jsp"/>
-		<table>
+		<jsp:include page="../main/side_adminNavi.jsp"/>
+		<table id="vacctable">
 			<tr>
-				<td>
-					<jsp:include page="../main/side_adminNavi.jsp"/>
-				</td>
 				<td>					
 					<div id="vaccSearchbar">
 						백신 이름 검색 : <input type="text" id="VaccSearch"/><button id="searchBtn">SEARCH</button>
