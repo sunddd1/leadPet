@@ -46,8 +46,8 @@
 				}
 				,dataType:'json'
 				,success : function(data) {
-					console.log(data.list);
-					if(data!=null){
+					console.log(data);
+					if(data.list !=null){
 						var list = data.list;
 						for (var i = 0; i < list.length; i++) {
 							
@@ -58,7 +58,7 @@
 								toDay =moment(toDay).format('YYYY MM DD');
 								comDay =moment(comDay).format('YYYY MM DD');
 								console.log(toDay + "////" + comDay);
-								
+								var  vacc_sche_idx = list[i].vacc_sche_idx;
 								var addPop ="";
 								var size = (i+1)*100;
 								addPop+= "<div class='pop' id='pop"+i+"' style='left: "+size+"px; top: "+size+"px; z-index: 5"+i+";'>";
@@ -80,8 +80,8 @@
 								$('#pop'+$(this).val()).remove();
 							});
 						 	$('a').click(function() {
-						 		console.log($(this).next().val());
-						 		TodayPopup($(this).next().val());
+						 		console.log(vacc_sche_idx);
+						 		TodayPopup($(this).next().val(),vacc_sche_idx);
 							});
 		
 						}
@@ -101,8 +101,8 @@
 					+ todayDate.toGMTString() + ";"
 		}
 
-		function TodayPopup(i) {
-			setCookie("pop"+i, "done", 72);
+		function TodayPopup(i,vacc_sche_idx) {
+			setCookie("pop"+i+vacc_sche_idx, "done", 72);
 			$('#pop'+i).remove();
 		}
 

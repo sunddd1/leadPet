@@ -245,4 +245,18 @@ public class BoardService {
 
 
 
+	public HashMap<String, Object> mainTop(String type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDAO> list = null;
+		if(type.equals("gal")) {
+			logger.info("갤러리 탑 3 요청");	
+			 list = dao.galTop3();
+		}else {
+			logger.info("게시물 탑 5 요청");			
+			list = dao.bbsTop5();
+		}
+		map.put("list",list);
+		return map;
+	}
+	
 }

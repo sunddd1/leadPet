@@ -8,6 +8,14 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+			#main{
+				border: 3px solid red;
+				width: 100%;
+			}
+			#main th{
+				border: 3px solid green;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -16,6 +24,25 @@
 		<jsp:include page="./main/side_adminNavi.jsp"/>
 		<jsp:include page="./main/side_myNavi.jsp"/>
 		<jsp:include page="./cal/popup.jsp"/>
+		
+		<table id="main">
+			<tr>
+				<th>
+					<jsp:include page="./main/main_calendar.jsp"/>
+				</th>
+				<th>
+					<jsp:include page="./main/main_bbsTop5.jsp"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<jsp:include page="./main/main_galTop3.jsp"/>
+				</th>
+				<th>
+				</th>
+			</tr>
+		</table>
+		
 	</body>
 	<script>
 	</script>

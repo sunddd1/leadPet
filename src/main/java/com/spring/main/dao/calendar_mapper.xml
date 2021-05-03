@@ -9,7 +9,8 @@
 	<select id="scheduler" resultType="scheduler">
 		SELECT * FROM scheduler WHERE  
 		<![CDATA[d_day >= #{param1}]]> AND
-		<![CDATA[d_day < #{param2}]]> AND id =#{param3}
+		<![CDATA[d_day < #{param2}]]> 
+		AND id =#{param3}
 		ORDER BY sche_idx DESC
 	</select>
 	
@@ -18,15 +19,15 @@
 		pet p,vaccin_scheduler vs,pet_vaccin pv,vaccin v 
 		WHERE p.pet_idx=pv.pet_idx AND vs.vac_idx=pv.vac_idx AND v.vacc_idx=pv.vacc_idx AND
 		<![CDATA[vs.d_day >= #{param1}]]> AND
-		<![CDATA[vs.d_day < #{param2}]]> AND vs.id =#{param3}
-		 
+		<![CDATA[vs.d_day < #{param2}]]> 
+		AND vs.id =#{param3}		 
 		 ORDER BY vs.vacc_sche_idx DESC
 	</select>
 	
 	<select id="vaccinList"  resultType="vaccin">
 		SELECT pv.vac_idx , p.pet_idx, p.pet_name , v.vacc_name, pv.expected_date FROM pet_vaccin  pv , pet p ,vaccin v  
-		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx AND p.pet_idx in 
-		(SELECT pet_idx FROM pet WHERE id =#{param3}) AND
+		WHERE p.pet_idx=pv.pet_idx AND v.vacc_idx=pv.vacc_idx 
+		AND p.pet_idx in (SELECT pet_idx FROM pet WHERE id =#{param3}) AND
 		<![CDATA[ pv.expected_date < #{param2}]]>
 		  AND pv.added='N'  ORDER BY pv.vac_idx DESC
 	</select>
@@ -114,11 +115,11 @@
 	</update>
 
 	<select id="popup" resultType="vaccin_scheduler">
-		SELECT p.pet_name, vs.d_day, v.vacc_name FROM vaccin_scheduler vs, vaccin v, pet_vaccin pv, pet p
+		SELECT p.pet_name, vs.d_day, v.vacc_name, vs.vacc_sche_idx FROM vaccin_scheduler vs, vaccin v, pet_vaccin pv, pet p
         WHERE vs.id=#{param3} AND vs.vac_idx=pv.vac_idx AND pv.vacc_idx=v.vacc_idx AND pv.pet_idx= p.pet_idx
          AND <![CDATA[vs.d_day >= #{param1}]]>
          AND <![CDATA[vs.d_day < #{param2}]]>
-         AND vs.executed='N' AND vs.id = #{param3}
+	     AND vs.id = #{param3}         
 	</select>
 	
 	<!-- 어드민으로 넘어갈거  -->

@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,6 +85,7 @@ public class BoardController {
 		mav.setViewName("/Board/Experience");
 		return mav;
 	}
+
 	
 	@RequestMapping(value = "/BoardDetail", method = RequestMethod.GET)
 	public ModelAndView BoardDetail(Model model, @RequestParam String bbs_idx) {
@@ -148,4 +147,12 @@ public class BoardController {
 		return service.BoardUpdateForm(bbs_idx);
 	}
 	
+
+	//메인으로 가야할까galTop3
+	@RequestMapping(value = "/mainTop", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> bbsTop5(@RequestParam String type) {
+		logger.info("타입  : " + type);
+
+		return service.mainTop(type);
+	}
 }

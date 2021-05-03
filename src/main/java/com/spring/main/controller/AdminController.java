@@ -488,4 +488,21 @@ public class AdminController {
 //		}
 		return "admin/finishList";
 	}
+	
+	@RequestMapping(value = "/detailReply", method = RequestMethod.GET)
+	public String detailReply(
+			Model model, 
+			HttpSession session,
+			@RequestParam int field
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("회원 상세보기 팝업요청");
+		model.addAttribute("dto",service.detailMember(id));
+//			page="admin/adminList";
+//		}
+		return "admin/detailMember";
+	}
 }

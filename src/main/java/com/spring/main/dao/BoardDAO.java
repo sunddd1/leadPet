@@ -2,7 +2,6 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.PetDTO;
@@ -18,6 +17,11 @@ public interface BoardDAO {
 	int write(BoardDTO dto);
 
 	void writeFile(String key, String string, int bbs_idx);
+
+
+	ArrayList<BoardDAO> bbsTop5();
+
+	ArrayList<BoardDAO> galTop3();
 
 	void upViews(String bbs_idx);
 
@@ -41,6 +45,7 @@ public interface BoardDAO {
 
 	int replyWrite(ReplyDTO reply);
 
+
 	BoardDTO BoardUpdateForm(String bbs_idx);
 
 	ReplyDTO replyUpdateForm(HashMap<String, Object> map);
@@ -48,6 +53,7 @@ public interface BoardDAO {
 	int replyUpdate(ReplyDTO reply);
 
 	int replyDel(String reply_idx);
+
 
 
 }
