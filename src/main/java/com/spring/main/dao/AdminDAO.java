@@ -80,6 +80,14 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> blindYList();
 
+	int blindY(int idx);
+
+	int blindN(int idx);
+
+	ArrayList<AdminDTO> blindNSearch(HashMap<String, String> params);
+
+	ArrayList<AdminDTO> blindYSearch(HashMap<String, String> params);
+
 //	ArrayList<AdminDTO> typeReportList(String type);
 
 	

@@ -193,6 +193,26 @@ public class AdminService {
 		return dao.blindYList();
 	}
 
+	public int blindY(int idx) {
+		logger.info("블라인드 Y처리 서비스 도착");
+		return dao.blindY(idx);
+	}
+
+	public int blindN(int idx) {
+		logger.info("블라인드 N처리 서비스 도착");
+		return dao.blindN(idx);
+	}
+
+	public ArrayList<AdminDTO> blindNSearch(HashMap<String, String> params) {
+		logger.info("블라인드 N 닉네임 검색 서비스 도착");
+		return dao.blindNSearch(params);
+	}
+
+	public ArrayList<AdminDTO> blindYSearch(HashMap<String, String> params) {
+		logger.info("블라인드 Y 닉네임 검색 서비스 도착");
+		return dao.blindYSearch(params);
+	}
+
 //	public ArrayList<AdminDTO> typeReportList(String type) {
 //		logger.info("타입 신고 서비스 요청");
 //		return dao.typeReportList(type);

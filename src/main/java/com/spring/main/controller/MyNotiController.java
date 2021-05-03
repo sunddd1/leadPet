@@ -1,6 +1,7 @@
 package com.spring.main.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.MyNotiDTO;
@@ -65,19 +67,6 @@ public class MyNotiController {
 			return new ModelAndView("Member/header");
 		}
 		
-		//새로운 쪽지 페이지 요청 
-		@RequestMapping("/myNoti")
-		public String MyNoti() {
-			logger.info("새로운 쪽지 페이지 요청");
-			return "Note/MyNoti";
-		}
-		
-//		//새로온 쪽지 목록 요청 
-//		@RequestMapping(value="/newNoti")
-//	    public String newNoti(Model model){
-//	        logger.info("새로운 쪽지 목록 ");
-//			return service.newNoti(model);
-//		}
 
 		//받은 쪽지 삭제 요청 
 		@RequestMapping(value="/delMessageList")
@@ -85,6 +74,13 @@ public class MyNotiController {
 	        logger.info("받은 쪽지 삭제");
 	        boolean notiCheck = service.isNotiCheck(note_idx);
 			return service.delMessage(note_idx,notiCheck);
+		}
+		
+		//새로운 쪽지 확인(header)  
+		@RequestMapping(value="/notiCheck",method = RequestMethod.GET)
+		public @ResponseBody HashMap<String, Object> notiCheck(@RequestParam String id) {
+			logger.info("새로운 쪽지 요청 ");
+			return service.notiCheck(id);
 		}
 
 }

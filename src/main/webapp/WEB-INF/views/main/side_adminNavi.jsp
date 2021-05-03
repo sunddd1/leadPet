@@ -8,6 +8,10 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+			#side_Navi{
+				position: absolute;
+				top: 30%;
+			}
 		</style>
 	</head>
 	<body>

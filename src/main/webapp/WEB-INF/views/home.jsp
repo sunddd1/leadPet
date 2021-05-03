@@ -21,8 +21,6 @@
 	<body>
 		<h3>4조</h3>
 		<jsp:include page="./main/top_Navi.jsp"/>
-		<jsp:include page="./main/side_adminNavi.jsp"/>
-		<jsp:include page="./main/side_myNavi.jsp"/>
 		<jsp:include page="./cal/popup.jsp"/>
 		
 		<table id="main">

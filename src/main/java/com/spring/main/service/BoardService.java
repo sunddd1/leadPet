@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,7 +81,7 @@ public class BoardService {
 		logger.info("글쓰기 폼 요청");
 		ModelAndView mav = new ModelAndView();
 		PetDTO dto = dao.writeForm(id);
-		logger.info("글쓰기폼 유저정보 : "+dto);
+		logger.info("글쓰기폼 유저정보 : "+dto.getNickname());
 		mav.addObject("dto",dto);
 		mav.setViewName("Board/writeForm");
 		return mav;
@@ -102,9 +103,21 @@ public class BoardService {
 		if(dao.write(dto)>0) {
 			logger.info("idx : "+dto.getBbs_idx());
 			if(fileList.size()>0) {
+				/*
+				 * for(String key : fileList.keySet()) {
+				 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
+				 */
+				ArrayList<String> keyArr = new ArrayList<String>();
 				for(String key : fileList.keySet()) {
-					dao.writeFile(key,fileList.get(key),dto.getBbs_idx());
+					keyArr.add(key);
 				}
+					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
+					logger.info("keyArray0.. {}",keyArr.get(0));
+					logger.info("keyArr.size() : " ,keyArr.size());
+					/*
+					 * if(fileList.size()>1) { for(String key : fileList.keySet()) { dao. } }
+					 */
+				
 			}
 			page="/Board/Experience";
 		}else {
@@ -257,6 +270,17 @@ public class BoardService {
 		}
 		map.put("list",list);
 		return map;
+	}
+
+	public ModelAndView searchBbs(String category, String keyword) {
+		ModelAndView mav = new ModelAndView();
+		keyword =  "%"+keyword+"%";
+		logger.info("키워드 : "+ keyword);
+		ArrayList<BoardDAO> list = dao.searchBbs(category,keyword);
+		logger.info("list : "+list);
+		mav.addObject("list", list);
+		mav.setViewName("main/result");
+		return mav;
 	}
 	
 }

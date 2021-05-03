@@ -54,6 +54,8 @@ public interface BoardDAO {
 
 	int replyDel(String reply_idx);
 
+	ArrayList<BoardDAO> searchBbs(String category, String keyword);
+
 
 
 }

@@ -74,14 +74,14 @@
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
 	
     <div id="search">
-        <form action="blindNSearch" method="POST">
+        <form action="blindYSearch" method="POST">
             <input type="text" value="${params.keyword}" name="keyword" placeholder="닉네임으로 검색">
             <input type="submit" value="검색">
         </form>
     </div>
     <div id="radio">
-        <input type="radio" id="r1" name="radio" value="notFinish" checked="checked" OnClick="window.location.href='blindNList'"/>N
-        <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='blindYList'"/>Y
+        <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='blindNList'"/>N
+        <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='blindYList'"/>Y
     </div>
     <div class="table">
         <table>
@@ -92,14 +92,14 @@
                 <th>글쓰기 날짜</th>
                 <th></th>
             </tr>
-            <c:forEach items="${blindNList}" var="board">
+            <c:forEach items="${blindYList}" var="board">
 	            <tr>
 	            	<td><a href="#">${board.bbs_idx}</a></td>
 	            	 <td>${board.nickname}</td> 
 	                <td>${board.bbs_blind}</td> 
 	                <td>${board.reg_date}</td>
 	                <td>
-	                	<button value="${board.bbs_idx}" onclick='toggleDisable(this)'>블라인드 추가</button>
+	                	<button value="${board.bbs_idx}" onclick='toggleDisable(this)'>블라인드 해제</button>
 	                </td>
                 </tr>
             </c:forEach>
@@ -162,15 +162,15 @@ function toggleDisable(buttonObj) {
 		console.log(button);
 		console.log(flag);
 		
-		if(confirm('블라인드 처리 하시겠습니까?')){
+		if(confirm('블라인드 해제 하시겠습니까?')){
 			$.ajax({ 
 				type:'GET' 
-				,url:'blindY'
+				,url:'blindN'
 				,data: { "idx": buttonObj.value }
 				,dataType: 'json' 
 				,success: function(data){
 					if(data == 1){
-						alert('블라인드 완료');
+						alert('해제 완료');
 						window.location.reload();
 					}
 				}
@@ -179,7 +179,7 @@ function toggleDisable(buttonObj) {
 				}
 			});
 	}else{
-		alert("블라인드 취소");
+		alert("취소");
 	}
 	};
 </script>
