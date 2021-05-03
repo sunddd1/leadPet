@@ -41,4 +41,13 @@ public interface BoardDAO {
 
 	int replyWrite(ReplyDTO reply);
 
+	BoardDTO BoardUpdateForm(String bbs_idx);
+
+	ReplyDTO replyUpdateForm(HashMap<String, Object> map);
+
+	int replyUpdate(ReplyDTO reply);
+
+	int replyDel(String reply_idx);
+
+
 }

@@ -123,5 +123,29 @@ public class BoardController {
 		logger.info("댓글작성 불러오기: "+reply.getId()+reply.getReply_content()+reply.getBbs_idx());
 		return service.replyWrite(reply);
 	}
+	@RequestMapping(value = "/replyUpdateForm", method = RequestMethod.GET)
+	public HashMap<String, Object> replyUpdateForm(Model model, @RequestParam HashMap<String, Object> map ) {
+		logger.info("댓글 수정 폼 불러오기: " + map);
+		return service.replyUpdateForm(map);
+	}
+	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
+	public int replyUpdate(Model model, @ModelAttribute ReplyDTO reply ) {
+		logger.info("댓글 수정 불러오기: " + reply);
+		return service.replyUpdate(reply);
+	}
+	@RequestMapping(value = "/replyDel/{reply_idx}", method = RequestMethod.GET)
+	public int replyDel(Model model,@PathVariable String reply_idx) {
+		logger.info("블라인드 할 댓근  : "+reply_idx);
+		return service.replyDel(reply_idx);
+	}
+	
+
+	@RequestMapping(value = "/BoardUpdate", method = RequestMethod.GET)
+	public ModelAndView BoardUpdate(Model model, HttpSession session,@RequestParam String bbs_idx) {
+		logger.info("댕냥노하우 / 경험기 게시판 수정하기 폼 이동 : ");
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
+		return service.BoardUpdateForm(bbs_idx);
+	}
 	
 }

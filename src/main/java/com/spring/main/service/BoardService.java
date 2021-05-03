@@ -96,6 +96,7 @@ public class BoardService {
 		dto.setBbs_subject(params.get("bbs_subject"));
 		dto.setBbs_content(params.get("bbs_content"));
 		dto.setNickname(params.get("nickname"));
+		dto.setCategory_name(params.get("category_name"));
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		if(dao.write(dto)>0) {
@@ -208,5 +209,40 @@ public class BoardService {
 		int success = dao.replyWrite(reply);
 		return success;
 	}
+
+	public ModelAndView BoardUpdateForm(String bbs_idx) {
+		BoardDTO dto = dao.BoardUpdateForm(bbs_idx);
+		logger.info("{}",dto);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("Board/BoardUpdateForm");		
+		return mav;
+	}
+
+	public HashMap<String, Object> replyUpdateForm(HashMap<String, Object> map) {
+		HashMap<String, Object> replyupdateForm = new HashMap<String, Object>();
+		ReplyDTO dto = dao.replyUpdateForm(map);
+		logger.info("{}",dto.getNickname());
+		replyupdateForm.put("replyUpdate", dto);
+		
+		return replyupdateForm;
+	}
+
+	public int replyUpdate(ReplyDTO reply) {
+		int success = 0;
+		logger.info("댓글 수정하기");
+		success = dao.replyUpdate(reply);
+		logger.info("{}",success);
+		return success;
+	}
+
+	public int  replyDel(String reply_idx) {
+		int success = 0;
+		logger.info("블라인드 처리하기");
+		success = dao.replyDel(reply_idx);
+		return success;
+	}
+
+
 
 }
