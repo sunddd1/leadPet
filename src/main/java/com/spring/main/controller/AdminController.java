@@ -531,4 +531,64 @@ public class AdminController {
 //		}
 		return "admin/blindYList";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
+	public int blindY(Model model, HttpSession session,@RequestParam(value="idx") int idx) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		int success = service.blindY(idx);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blindN", method = RequestMethod.GET)
+	public int blindN(Model model, HttpSession session,@RequestParam(value="idx") int idx) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		int success = service.blindN(idx);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@RequestMapping(value = "/blindNSearch", method = RequestMethod.POST)
+	public String blindNSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.blindNSearch(params);
+		model.addAttribute("blindNList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/blindNList";
+	}
+	
+	@RequestMapping(value = "/blindYSearch", method = RequestMethod.POST)
+	public String blindYSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.blindYSearch(params);
+		model.addAttribute("blindYList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/blindYList";
+	}
 }
