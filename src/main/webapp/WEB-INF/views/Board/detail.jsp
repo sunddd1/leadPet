@@ -69,6 +69,7 @@
 			
 			</tbody>
 		</table>
+		<div style="border: 2px solid black; text-align: center;" onclick="moreReply(10);" >더보기</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
@@ -322,7 +323,7 @@
 			$("#replyUpdate").append(replyDraw);
 		}
 		
-		//수정하기
+		//댓글 수정하기
 		function replyUpdateButton(reply_idx){
 			var replyContent ={}
 			replyContent.reply_content = $('#reply_update').val();
