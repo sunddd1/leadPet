@@ -9,15 +9,22 @@
 	<title>내 정보</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-		table, th, td {
-			border : 1px solid black;
+		#myInfoTable{
+				width: 60%;
+				margin-left: 20%;
+		}
+		#myInfoTable, #myInfoTable td, myInfoTable th {
+			border : 1px solid black
 		}
 	</style>
 	</head>
 	
 	
 	<body>
-		<table>			
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
+		<table id="myInfoTable">
 			<tr>
 				<th colspan="2">
 					<h2>내정보</h2>

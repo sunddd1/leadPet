@@ -8,13 +8,20 @@
 	<title>Insert title here</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-		table, th, td {
+		#findIdForm{
+			width: 60%;
+			margin-left: 20%;
+		}
+		#findIdForm, #findIdForm th, #findIdForm td {
 			border : 1px solid black;
 		}
 	</style>
 	</head>
 	<body>
-		<table>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+	
+		<table id="findIdForm">
 			<tr>
 				<th>
 					<label>이름</label>
