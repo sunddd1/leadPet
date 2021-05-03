@@ -271,5 +271,23 @@ public class BoardService {
 		map.put("list",list);
 		return map;
 	}
+
+	public ModelAndView searchBbs(String category, String keyword) {
+		keyword =  "%"+keyword+"%";
+		int currPage = 1;
+		int start = 1+ (currPage-1) *12;
+		int end = start + 11;
+		int maxPage = (int) Math.ceil(dao.maxPage(category,keyword,start,end)/12);
+		ModelAndView mav = new ModelAndView();
+		logger.info("키워드 : "+ keyword +"//"+ maxPage);
+		ArrayList<BoardDAO> list = dao.searchBbs(category,keyword,start,end);
+		logger.info("list : "+list);
+		mav.addObject("list", list);
+		mav.setViewName("main/result");
+		return mav;
+	}
 	
+	
+
+
 }

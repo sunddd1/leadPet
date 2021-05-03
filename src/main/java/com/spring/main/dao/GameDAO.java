@@ -35,4 +35,12 @@ public interface GameDAO {
 
 	int recordScore(int score, String quiz_timer, String loginId, String week_quiz_idx);
 	
+	GameDTO weekNemoDetail(int idx);
+
+	GameDTO nemoDetail(int idx);
+
+	int insertNemo(HashMap<String, String> params);
+
+	int updateNemo(HashMap<String, String> params);
+	
 }

@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -10,15 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dto.GameDTO;
 import com.spring.main.service.GameService;
 
 @Controller
@@ -31,16 +26,6 @@ public class GameController {
 	public String gameMain(Model model) {
 		logger.info("게임 메인 페이지");
 		return "game/gameMainPage";
-	}
-	@RequestMapping(value = "/nemoLogic", method = RequestMethod.GET)
-	public String nemoLogic(Model model) {
-		logger.info("네모 로직 페이지");
-		return "game/nemoTest";
-	}
-	@RequestMapping(value = "/nemoEx", method = RequestMethod.GET)
-	public String nemoEx(Model model) {
-		logger.info("성남님이 준 네모로직");
-		return "game/nemoEx";
 	}
 	@RequestMapping(value = "/gameWeek", method = RequestMethod.GET)
 	public ModelAndView weekGame() {
@@ -102,5 +87,35 @@ public class GameController {
 		params.put("resultTime",min+":"+sec+"."+mill);
 		logger.info(params.get("quiz_timer"));
 		return service.submitQuiz(params, session);
+	}
+	@RequestMapping(value = "/nemoWeekDetail", method = RequestMethod.GET)
+	public ModelAndView nemoWeekDetail(@RequestParam int idx) {
+		logger.info("{}회차 네모로직 상세 페이지",idx);
+		return service.nemoWeekDetail(idx);
+	}
+	@RequestMapping(value = "/nemoDetail", method = RequestMethod.GET)
+	public ModelAndView nemoDetail(@RequestParam int idx) {
+		logger.info("네모로직 {}번 문제 상세 페이지",idx);
+		return service.nemoDetail(idx);
+	}
+	@RequestMapping(value = "/insertNemoForm", method = RequestMethod.GET)
+	public String insertNemoForm(Model medel) {
+		logger.info("네모로직 문제등록 페이지");
+		return "game/insertNemoForm";
+	}
+	@RequestMapping(value = "/nemoMake", method = RequestMethod.POST)
+	public ModelAndView nemoMake(@RequestParam HashMap<String, String> params) {
+		logger.info("네모로직 문제등록 : {}",params);
+		return service.nemoMake(params);
+	}
+	@RequestMapping(value = "/nemoUpdateForm", method = RequestMethod.GET)
+	public ModelAndView nemoUpdateForm(@RequestParam int idx) {
+		logger.info("네모로직 {}번 문제 수정 폼으로",idx);
+		return service.nemoUpdateForm(idx);
+	}
+	@RequestMapping(value = "/updateNemo", method = RequestMethod.POST)
+	public ModelAndView updateNemo(@RequestParam HashMap<String, String> params) {
+		logger.info("네모로직 수정사항 저장 : {}",params);
+		return service.updateNemo(params);
 	}
 }

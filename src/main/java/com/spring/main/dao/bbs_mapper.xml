@@ -113,5 +113,26 @@
 		(SELECT ROW_NUMBER() over(ORDER BY b.reco_count DESC) AS rnum, bi.bbs_idx, bi.newFileName, bi.oriFileName FROM bbs_img bi, bbs b WHERE b.bbs_idx = bi.bbs_idx AND b.type= 'gal') 
 		WHERE rnum BETWEEN 1 AND 3
 	</select>
+	
+	<select id="searchBbs" resultType="board">
+		SELECT b.bbs_idx, b.bbs_subject, b.bbs_content, b.reco_count, b.views, b.category_name,bi.newfilename, bi.oriFileName FROM 
+		(SELECT ROW_NUMBER()OVER(ORDER BY b.bbs_idx DESC) AS rnum,b.bbs_idx, b.bbs_subject, b.bbs_content, b.reco_count, b.views, b.category_name 
+		FROM bbs b WHERE b.bbs_subject LIKE #{param2} OR b.bbs_content LIKE #{param2} )  b, bbs_img bi
+		WHERE rnum BETWEEN #{param3} AND #{param4} AND b.bbs_idx=bi.bbs_idx(+)
+		<if test="!param1.equals('ALL')">
+			AND CATEGORY_NAME= #{param1}
+		</if>
+
+	</select>
+	
+	<select id="maxPage" resultType="double">
+		SELECT COUNT(bbs_idx) FROM
+		(SELECT ROW_NUMBER() OVER(ORDER BY bbs_idx DESC) AS rnum,bbs_idx, bbs_subject, bbs_content, reco_count, views, category_name 
+		FROM bbs WHERE bbs_subject LIKE #{param2} OR bbs_content LIKE #{param2}) WHERE rnum BETWEEN #{param3} AND #{param4}
+		<if test="!param1.equals('ALL')">
+			AND CATEGORY_NAME= #{param1}
+		</if>		
+	</select>
+	
 
 </mapper>

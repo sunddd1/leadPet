@@ -23,6 +23,7 @@
 	
 	<context:component-scan base-package="com.spring.main" />
 	
-	
+	<!-- 인터럽트 사용 설정 -->
+	<beans:import resource="classpath:config/interceptor.xml"/>
 	
 </beans:beans>

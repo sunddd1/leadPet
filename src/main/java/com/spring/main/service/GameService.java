@@ -48,6 +48,7 @@ public class GameService {
 		ModelAndView mav = new ModelAndView();
 		//idx=week_quiz_idx
 		ArrayList<GameDTO> quizDetailList = dao.quizWeekDetail(idx);
+		logger.info("list_size : {}",quizDetailList.size());
 		mav.addObject("qWeekDetail", quizDetailList);
 		mav.addObject("week_quiz_idx", idx);
 		mav.setViewName("game/quizWeekDetail");
@@ -176,6 +177,102 @@ public class GameService {
 		mav.addObject("score", score);
 		mav.addObject("resultTime", params.get("resultTime"));
 		mav.setViewName("game/quizResultPage");
+		return mav;
+	}
+	
+	public ModelAndView nemoWeekDetail(int idx) {
+		ModelAndView mav = new ModelAndView();
+		
+		//idx=week_nemo_idx
+		GameDTO dto = dao.weekNemoDetail(idx);
+		
+		//문제(숫자) 뽑기
+		ArrayList<String> qList = new ArrayList<String>();
+		String nemoNum = dto.getNemo_question();
+		logger.info("전체 문제 : {}",nemoNum);
+		//split 사용법 : 문자열배열 = 대상문자열.split("기준문자");
+		String[] array = nemoNum.split(",");
+		for(int i=0;i<array.length;i++) {
+			//logger.info("추출 : {}",array[i]);
+			qList.add(array[i]);
+		}
+		logger.info("qList size : {}",qList.size());
+		
+		mav.addObject("nemoDetail", dto);
+		mav.addObject("qList", qList);
+		mav.addObject("aList", dto.getNemo_answer());
+		mav.setViewName("game/nemoWeekDetail");
+		return mav;
+	}
+	
+	public ModelAndView nemoDetail(int idx) {
+		ModelAndView mav = new ModelAndView();
+		//idx=nemo_idx
+		GameDTO dto = dao.nemoDetail(idx);
+		
+		//문제(숫자) 뽑기
+		ArrayList<String> qList = new ArrayList<String>();
+		String nemoNum = dto.getNemo_question();
+		logger.info("전체 문제 : {}",nemoNum);
+		//split 사용법 : 문자열배열 = 대상문자열.split("기준문자");
+		String[] array = nemoNum.split(",");
+		for(int i=0;i<array.length;i++) {
+			//logger.info("추출 : {}",array[i]);
+			qList.add(array[i]);
+		}
+		logger.info("qList size : {}",qList.size());
+		
+		mav.addObject("nemoDetail", dto);
+		mav.addObject("qList", qList);
+		mav.addObject("aList", dto.getNemo_answer());
+		mav.setViewName("game/perNemoDetail");
+		return mav;
+	}
+
+	public ModelAndView nemoMake(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		String page = "redirext:/insertNemoForm";
+		int success = dao.insertNemo(params);
+		if(success>0) {
+			logger.info("퀴즈 등록 완료!");
+			page = "redirect:/gameQueList";
+			mav.setViewName(page);
+		}
+		return mav;
+	}
+
+	public ModelAndView nemoUpdateForm(int idx) {
+		ModelAndView mav = new ModelAndView();
+		//idx=nemo_idx
+		GameDTO dto = dao.nemoDetail(idx);
+		
+		//문제(숫자) 뽑기
+		ArrayList<String> qList = new ArrayList<String>();
+		String nemoNum = dto.getNemo_question();
+		logger.info("전체 문제 : {}",nemoNum);
+		//split 사용법 : 문자열배열 = 대상문자열.split("기준문자");
+		String[] array = nemoNum.split(",");
+		for(int i=0;i<array.length;i++) {
+			//logger.info("추출 : {}",array[i]);
+			qList.add(array[i]);
+		}
+		logger.info("qList size : {}",qList.size());
+		
+		mav.addObject("nemoDetail", dto);
+		mav.addObject("qList", qList);
+		mav.addObject("aList", dto.getNemo_answer());
+		mav.setViewName("game/nemoUpdateForm");
+		return mav;
+	}
+
+	public ModelAndView updateNemo(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		int success = dao.updateNemo(params);
+		if(success>0) {
+			mav.setViewName("redirect:/nemoDetail?idx="+params.get("nemo_idx"));
+		} else {
+			mav.setViewName("redirect:/nemoUpdateForm?idx="+params.get("nemo_idx"));
+		}
 		return mav;
 	}
 }
