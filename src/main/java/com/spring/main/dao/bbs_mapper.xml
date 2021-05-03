@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="writeForm" resultType="pet">
-		SELECT m.name,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
+		SELECT m.nickname,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
 	</select>
 	
 	<insert id="write" 
@@ -76,7 +76,7 @@
 	
 	<select id="replyList" resultType="reply">
 		SELECT r.reply_idx,r.reply_content,r.reg_date,m.nickname FROM reply r, member m WHERE  r.id = m.id AND bbs_idx = #{param2} AND reply_blind='N'
-		ORDER BY bbs_idx ASC
+		ORDER BY reply_idx ASC
 	</select>
 	
 	<insert id="replyWrite" parameterType="reply">

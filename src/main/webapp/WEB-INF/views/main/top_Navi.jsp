@@ -90,7 +90,7 @@
 				<th onclick="location.href='./admin'">동반입장 식당 소개</th>
 				<th onclick="location.href='./admin'">목줄 프리 공원</th>			
 				<c:if test="${sessionScope.isMaganer eq null}">
-					<th onclick="location.href='./admin'">마이페이지</th>
+					<th onclick="location.href='./member-detail?id=${sessionScope.loginId}'">마이페이지</th>
 				</c:if>
 				<c:if test="${sessionScope.isMaganer ne null}">
 					<th onclick="location.href='./admin'">관리자페이지</th>	

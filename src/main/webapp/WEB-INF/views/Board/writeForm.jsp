@@ -40,7 +40,7 @@
 	<table>
 		<tr>
 			<th>작성자</th>
-			<td colspan="3"><input type="text" name="nickname" value="${dto.name}" readonly/></td>
+			<td colspan="3"><input type="text" name="nickname" value="${dto.nickname}" readonly/></td>
 			<c:if test="${dto.dog_cat ne null}">
 				<td colspan="2">
 					<input type="text" name="dog_cat" value="${dto.dog_cat}" readonly/></td>
