@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="writeForm" resultType="pet">
-		SELECT m.name,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
+		SELECT m.nickname,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
 	</select>
 	
 	<insert id="write" 
@@ -31,8 +31,8 @@
 		keyProperty="bbs_idx"
 		keyColumn="bbs_idx"
 		parameterType="board">
-	INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views)
-		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0)	
+		INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views,type,category_name)
+		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'tip',#{category_name})	
 	</insert>
 
 	<insert id="writeFile">
@@ -76,11 +76,31 @@
 	
 	<select id="replyList" resultType="reply">
 		SELECT r.reply_idx,r.reply_content,r.reg_date,m.nickname FROM reply r, member m WHERE  r.id = m.id AND bbs_idx = #{param2} AND reply_blind='N'
+		ORDER BY reply_idx ASC
 	</select>
 	
 	<insert id="replyWrite" parameterType="reply">
 		INSERT INTO reply(reply_idx,reply_content,reply_blind,id,bbs_idx) VALUES(reply_seq.NEXTVAL,#{reply_content},'N',#{id},#{bbs_idx})
 	</insert>
+	
+	<select id="replyUpdateForm" parameterType="map" resultType="reply">
+		SELECT r.reply_idx,r.reply_content,r.reg_date,m.nickname FROM reply r, member m WHERE  r.id = m.id AND reply_idx = #{reply_idx}
+	</select>
+	
+	<update id="replyUpdate" parameterType="reply">
+		UPDATE reply SET reply_content = #{reply_content} WHERE reply_idx=#{reply_idx}
+	</update>
+	
+	<update id="replyDel">
+		UPDATE reply SET reply_blind = 'Y' WHERE reply_idx=#{param1}
+	</update>
+	
+	<select id="BoardUpdateForm" resultType="board">
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.reco_count,b.nickname,b.pet_idx,b.category_name,p.kind,p.bday,p.pet_name,p.kg
+		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx) pet_newfilename
+		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{bbs_idx}
+	</select>
+	
 
 	<select id="bbsTop5" resultType="board">
 		SELECT bbs_idx, bbs_subject, bbs_content, nickName,reco_count FROM 
