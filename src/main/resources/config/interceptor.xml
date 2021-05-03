@@ -5,6 +5,32 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<!-- 
+	모든 uri를 등록하기에는 너무 많아서 
+	제외할 uri를 지정했음.  -> 제외할것도 너무 많음,  등록방식 토의 필요.
+	 -->
+<!--
+ 	<mvc:interceptors>
+		<mvc:interceptor>
+			모든 요청에 대해 인터럽트
+			<mvc:mapping path="/*"/>
+			
+			
+			제외하고 싶을 때
+			<mvc:exclude-mapping path="/login-form"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/home"/>
+			
+			
+			아래 클래스로 이동시켜라
+			<bean class="com.spring.main.service.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+-->
+
+
+
+	<!-- example -->
 	<!-- 인터셉터 그룹 -->
 <!-- 	<mvc:interceptors>
 		단일 인터셉터
@@ -30,5 +56,7 @@
 			<bean class="com.spring.main.service.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors> -->
+
+
 
 </beans>
