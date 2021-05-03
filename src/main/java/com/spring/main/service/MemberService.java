@@ -67,48 +67,7 @@ public class MemberService {
 		return result;
 	}
 
-	public String noteList(ArrayList<Message> message,Model model) {
-		logger.info("받은 쪽지 읽기 시작");
-		String loginId = "wwww";
-        message = dao.MessageList(loginId);
-        model.addAttribute("messageList", message);
-        logger.info("받은 쪽지 읽기 종료");
-        return "Note/noteList";
-	}
-
-	public String delMessage(int note_idx) {
-		String loginId = "wwww";
-		logger.info(note_idx+"번 삭제("+loginId+")");
-		dao.delMessage(note_idx);
-		return "redirect:/noteList";
-	}
-
-	public String noteSend(String content) {
-		logger.info("쪽지 전송중..");
-		String loginId="wwww";
-		dao.noteSend(loginId,content);
-		logger.info("쪽지 전송 완료");
-		return "redirect:/sendList";
-	}
-
-	public String sendList(ArrayList<Message> sendList, Model model) {
-		logger.info("보낸 쪽지 읽기 시작");
-		String loginId = "test1122";
-		sendList = dao.sendList(loginId);
-        model.addAttribute("sendList", sendList);
-        logger.info("보낸 쪽지 읽기 종료");
-        return "Note/sendList";
-	}
-
-	public String detailNoteList(ArrayList<Message> detailList,int note_idx,Model model) {
-		logger.info("쪽지 상세보기");
-		String loginId = "wwww";
-		detailList = dao.detailList(loginId,note_idx);
-		logger.info(note_idx+"번 읽음 처리");
-		dao.checked(note_idx);
-		model.addAttribute("detailList", detailList);
-		return "Note/Message";
-	}
+	
 
 	public MemberDTO getMember(String id) {
 		logger.info(id);
@@ -139,17 +98,7 @@ public class MemberService {
 		return null;
 	}
 
-//	@Transactional
-//	public ModelAndView detail(String bbs_idx) {				
-//		dao.upHit(bbs_idx);//조회수 올리기		
-//		BoardDTO dto = dao.detail(bbs_idx);//상세정보 가져오기
-//		ArrayList<PhotoBean> fileList = dao.fileList(bbs_idx);//해당 글의 파일 리스트
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("dto", dto);
-//		mav.addObject("fileList", fileList);
-//		mav.setViewName("detail");		
-//		return mav;
-//	}
+	
 
 	public boolean updateChangeDate(String id) {
 		logger.info("멤버 탈퇴일 최신으로 변경");
