@@ -31,8 +31,8 @@ public class PetService {
 	
 	public void list(Model model) {
 		logger.info("리스트 보이기 처리");
-		
-		ArrayList<PetDTO>list = dao.list();
+		String loginId = "test1122";
+		ArrayList<PetDTO>list = dao.list(loginId);
 		
 		model.addAttribute("list", list);
 	}

@@ -36,5 +36,8 @@ public interface MemberDAO {
 
 	int update(MemberDTO member);
 
+
+	void deleteWriteList(String loginId, int bbs_idx);
+
 	
 }

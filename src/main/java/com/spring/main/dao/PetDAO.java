@@ -6,7 +6,7 @@ import com.spring.main.dto.PetDTO;
 
 public interface PetDAO {
 	
-	ArrayList<PetDTO> list();
+	ArrayList<PetDTO> list(String loginId);
 
 	int write(PetDTO dto);
 

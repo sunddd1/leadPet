@@ -8,7 +8,7 @@
 <mapper namespace="com.spring.main.dao.PetDAO">
 	<!-- 반려동물 목록 -->
 	<select id="list"  resultType="com.spring.main.dto.PetDTO">
-		SELECT kind,bday,pet_name,kg FROM pet ORDER BY pet_idx DESC
+		SELECT kind,bday,pet_name,kg FROM pet WHERE id=#{param1} ORDER BY pet_idx DESC
 	</select>
 	
 	<!-- 

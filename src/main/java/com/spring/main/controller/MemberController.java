@@ -93,9 +93,9 @@ public class MemberController {
 
 		//내가 쓴 글 목록 
 		@RequestMapping(value="/writeList")
-	    public ModelAndView writeList(@RequestParam String id){
+	    public ModelAndView writeList(){
 	        logger.info("내가 쓴 글 목록 요청");
-			return memberService.writeList(id);
+			return memberService.writeList();
 		}
 		
 		
@@ -107,6 +107,12 @@ public class MemberController {
 			return memberService.detailWriteList(bbs_idx);
 		}
 		
+		//작성글 삭제 
+		@RequestMapping(value = "/deleteWriteList")
+		public String deleteWriteList(@RequestParam int bbs_idx) {	
+			logger.info("작성글 삭제 요청");
+			return memberService.deleteWriteList(bbs_idx);
+		}
 
 		@RequestMapping("/member-detail")
 		public ModelAndView detail(@RequestParam String id) {

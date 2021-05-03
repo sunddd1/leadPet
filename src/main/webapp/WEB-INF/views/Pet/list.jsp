@@ -24,23 +24,23 @@
 	<table>
 		<thead>
 			<tr>
-				<td>번호</td>
-				<td>제목</td>
-				<td>작성자</td>
-				<td>작성일</td>
-				<td>조회수</td>
+				<td>품종</td>
+				<td>생년월일</td>
+				<td>이름</td>
+				<td>체중</td>
+				<td>수정</td>
 				<td>삭제</td>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${list}" var="dto">
 			<tr>
-				<td>${dto.idx}</td>
-				<td><a href="./detail/${dto.idx}">${dto.subject}</a></td>
-				<td>${dto.user_name}</td>
-				<td>${dto.reg_date}</td>
-				<td>${dto.bHit}</td>
-				<td><a href="./delete/${dto.idx}">삭제</a></td>
+				<td>${dto.kind}</td>
+				<td>${dto.bday}</td>
+				<td>${dto.pet_name}</td>
+				<td>${dto.kg}</td>
+				<td><a href="./updatePet/${dto.pet_idx}">수정</a></td>
+				<td><a href="./deletePet/${dto.pet_idx}">삭제</a></td>
 			</tr>
 		</c:forEach>		
 		</tbody>
