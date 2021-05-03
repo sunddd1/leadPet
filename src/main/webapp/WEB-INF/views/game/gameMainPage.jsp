@@ -2,18 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
-<%@ include file="/WEB-INF/views/main/side_myNavi.jsp" %>    
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>GameMainPage</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
-			#side_Navi{
-				display: block;
-			}
 			#side_Navi,#conBody{
 				display: inline-block;
+			}
+			#conBody{
+				margin: 5% 20%;
 			}
 			#game{
 				background-color: white;
@@ -21,7 +21,6 @@
 				width: 65%;
 				height: 65%;
 				padding: 2%;
-				margin-left: 15%;
 			}
 			.flexBox {
 			   display: inline-flex;

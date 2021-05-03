@@ -13,7 +13,7 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin-left: 8%;
+				margin: 5% 18%;
 				width: 50%;
 			}
 			h2{
