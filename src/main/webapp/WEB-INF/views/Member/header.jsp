@@ -34,32 +34,56 @@ h1 > a {
 	<!-- <div class="container"> -->
 		<header>
 			<h1>반려 헬스 케어</h1>
-			
-			<%-- <div class="notlogin">
+			<div class="notlogin">
 			<!-- login false -->
-			<c:if test="${}">
+			<c:if test="${sessionScope.loginId==null}">
 				<a class="menu" href="./registForm">[회원가입]</a>
 				<a class="menu" href="./login-form">[로그인]</a>
 			</c:if>
-			</div>--%>
+			</div>
 			<!-- login true -->
-			<%-- <c:if test="${}"> --%>
-				<!-- 새로운 쪽지 있을 경우 -->
-				<c:if test="${!notiCheck}">			
-				<a class="menu" href="./noteList">[<i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지]</a>
-				</c:if>
-				<!-- 새로운 쪽지 없을 경우 -->
-				<c:if test="${notiCheck}">			
-				<a class="menu" href="./noteList">[<i class="fa fa-bell-o" style="font-size:14px">쪽지</i>]</a>
-				</c:if>
+			<c:if test="${sessionScope.loginId!=null}">
+			<div id="message">
+				
+			</div>
+				
 				<a class="menu" href="./logout">[로그아웃]</a>
-				<c:set var="myId" value="${sessionScope.myId}"></c:set>
-					<c:if test="${!empty myId}">
-					<p><strong id="nickname">회원${messageList.note.id}</strong>님, 반가워요.</p>
+					<c:if test="${sessionScope.loginId!=null}">
+					<p><strong id="nickname">${sessionScope.loginId}</strong>님, 반가워요.</p>
 					</c:if>
-			<%-- </c:if> --%>
+			</c:if>
 			
 		</header>
 		<hr>
 </body>
+<script>
+	
+	
+	$(document).ready(function(){
+		$.ajax({
+			type:'get'
+			,url:'notiCheck'
+			,data:{
+				"id":"${sessionScope.loginId}"
+			}
+			,dataType:'JSON'
+		,success:function(data){
+			console.log(data.success);
+			if(data.success>0){
+				$('#message').append('<a class="menu" href="./noteList">[<i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지]</a>');	
+			}else{
+				$('#message').append('<a class="menu" href="./noteList">[<i class="fa fa-bell-o" style="font-size:14px">쪽지</i>]</a>');
+			}
+		}
+		,error:function(e){
+			console.log(e);
+		}
+	});	
+		
+	});
+	
+	$(document).load(function(){
+		console.log();
+	});
+</script>
 </html>

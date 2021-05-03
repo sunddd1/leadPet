@@ -38,7 +38,7 @@
 		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx} 
 	</update>
 	
-	<select id="selectFalseCount" resultType="com.spring.main.dto.NoteDTO">
-		select note_idx,id,content,reg_date,checked from note where receiving_id = #{param1} and del='N' and checked='N' order by note_idx desc
+	<select id="notiCheck" resultType="int">
+		select count(*) from note where receiving_id = #{param1} and del='N' and checked='N'
 	</select>
 </mapper>

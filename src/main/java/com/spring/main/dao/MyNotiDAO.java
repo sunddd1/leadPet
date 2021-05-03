@@ -21,16 +21,8 @@ public interface MyNotiDAO {
 
 	ArrayList<Message> sendList(String loginId);
 	
-//	List<NoteDTO> getMyNotiList(String id);
-//
-//	int selectById(int note_idx);
-//
-//	void update(int noti);
-//
 	String selectFalseCount(String loginId);
-//
-//	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception;
-//	
-//	
-	
+
+	int notiCheck(String loginId);
+
 }
