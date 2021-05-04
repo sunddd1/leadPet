@@ -6,33 +6,44 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>NemoLogic</title>
+		<title>WeeklyNemoDetail</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#side_Navi,#conBody{
 				display: inline-block;
 			}
 			#conBody{
-				margin:0% 9%;
-				width: 55%;
-			}	
+				margin: 5% 22%;
+				width: 50%;
+			}
 			#toGameWeek{
 				float: right;
-				margin: 3% 22%;
+				padding: 1%;
 			}
 			#nemoDiv{
-				padding-top: 9%;
+				padding-top: 6%;
 			}
 			#nemoTable{
 				border: 5px double grey;
 				border-collapse: collapse;
 			}
-			th,td{
+			#nemoTable th, #nemoTable td{
 				border: 1px solid black;
 				border-collapse: collapse;
 				width: 70px;
 				height: 70px;
 				font-size: 12px;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			#subjectSpace{
 				padding-top: 3%;
@@ -42,7 +53,12 @@
 	<body>
 		<div id="conBody">
 			<div id="toGameWeek">
-				<button onclick="location.href='./gameWeek'">목록으로</button>
+				<c:if test="${lastNemo == null}">
+					<button onclick="location.href='./gameWeek'">목록으로</button>				
+				</c:if>
+				<c:if test="${lastNemo != null}">
+					<button onclick="location.href='./gameMain'">목록으로</button>				
+				</c:if>
 			</div>
 			<div id="nemoDiv">
 				<table id="nemoTable">

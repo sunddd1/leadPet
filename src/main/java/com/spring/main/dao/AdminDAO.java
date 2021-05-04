@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.SchedulerDTO;
+import com.spring.main.dto.VaccinDTO;
+import com.spring.main.dto.Vaccin_schedulerDTO;
 
 public interface AdminDAO {
 
@@ -82,6 +85,8 @@ public interface AdminDAO {
 	ArrayList<AdminDTO> blindYList();
 
 	int blindY(int idx);
+	
+	int procY(int rep_idx, String loginId);
 
 	int blindN(int idx);
 
@@ -97,6 +102,24 @@ public interface AdminDAO {
 
 //	ArrayList<AdminDTO> typeReportList(String type);
 
+//////////////
+	ArrayList<VaccinDTO> vaccList();
+	
+	int regVacc(VaccinDTO dto);
+	
+	VaccinDTO regVaccDetail(String vacc_idx);
+	
+	int updateRegVacc(VaccinDTO dto);
+	
+	int deleteVacc(String vacc_idx);
+	
+	ArrayList<VaccinDTO> VaccSearch(String keyword);
+	
+	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
+	
+	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
+
+	
 	
 
 

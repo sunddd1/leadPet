@@ -29,11 +29,11 @@
 	<body>
 		<h3>반려동물 등록</h3>
 		<hr/>
-		<form action="petPlus" method="post">
+		<form action="petPlus?id=${sessionScope.loginId}" method="post">
 			<table>
 				<tr >
 					<td colspan="2">
-						<input type="text" id="photo" placeholder="프로필 사진 등록(최대 10MB)" value="${fileList.newFileName}"/>
+						<input type="text" id="photo" placeholder="프로필 사진 등록(최대 10MB)" value="${photoList.newFileName}"/>
 						<input type="button" value="파일 업로드" onclick="fileUp()"/>
 					</td>
 					
@@ -91,6 +91,7 @@
 	$("#plus").click(function(){
 		
         $("form").submit(); 
+        //location.href='./petPlus?id=${sessionScope.loginId}';
 	});
 	
 	function fileUp() {

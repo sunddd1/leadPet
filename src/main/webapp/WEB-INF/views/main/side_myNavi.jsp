@@ -20,19 +20,19 @@
 				<th onclick="location.href='./vaccList'">회원정보</th>
 			</tr>
 			<tr>
-				<th onclick="location.href='./withdrawal'">회원탈퇴</th>
+				<th onclick="location.href='./withdrawal?id=${sessionScope.loginId}'">회원탈퇴</th>
 			</tr>		
 			<tr>
 				<th onclick="location.href='./#'">관심 유저 목록</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./listPet'">반려동물</th>
+				<th onclick="location.href='./listPet?id=${sessionScope.loginId}'">반려동물</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./sendList'">보낸 쪽지함</th>
+				<th onclick="location.href='./sendList?id=${sessionScope.loginId}'">보낸 쪽지함</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./noteList'">받은 쪽지함</th>
+				<th onclick="location.href='./noteList?id=${sessionScope.loginId}'">받은 쪽지함</th>
 			</tr>	
 			<tr>
 				<th onclick="location.href='./writeList?id=${sessionScope.loginId}'">작성한 글</th>

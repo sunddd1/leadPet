@@ -69,7 +69,7 @@
 		UPDATE nemo SET nemo_subject=#{nemo_subject}, nemo_question=#{nemo_question}, nemo_answer=#{nemo_answer} WHERE nemo_idx=#{nemo_idx}
 	</update>
 	
-	<!-- 게임 화면 페이지 : 상식퀴즈 풀기 / 네모로직 풀기 -->
+	<!-- 게임 화면 페이지 : 상식퀴즈 풀기-->
 	<select id="getThisWeekQuiz" resultType="game">
 		SELECT w.week_quiz_idx, w.quiz_update_date, q.quiz_idx, q.quiz_question, q.ex1, q.ex2, q.ex3, q.ex4, q.quiz_answer 
     		FROM quiz_week w, quiz q WHERE quiz_blind = 'N' AND (
@@ -86,16 +86,59 @@
 			) AND week_quiz_idx=(SELECT MAX(week_quiz_idx)FROM quiz_week)
 	</select>
 	<select id="ifExist" resultType="game">
-		SELECT * FROM quiz_test WHERE id=#{param1} AND week_quiz_idx=#{param2} AND if_submit='N'
+		SELECT * FROM quiz_test WHERE id=#{param1} AND week_quiz_idx=#{param2}
 	</select>
 	<insert id="initialQuizData">
 		INSERT INTO quiz_test(quiz_score,quiz_timer,id,week_quiz_idx,if_submit)
 			VALUES(0,0,#{param1},#{param2},'N')
 	</insert>
 	<select id="matchQue" parameterType="game" resultType="String">
-		SELECT quiz_question FROM quiz WHERE quiz_idx=#{quiz_idx} AND quiz_question=#{quiz_question} AND quiz_answer=#{quiz_answer}
+		SELECT quiz_question FROM quiz WHERE quiz_idx=#{quiz_idx} 
+			AND quiz_question=#{quiz_question} AND quiz_answer=#{quiz_answer}
 	</select>
 	<update id="recordScore">
-		UPDATE quiz_test SET quiz_score=#{param1}, quiz_timer=#{param2}, if_submit='Y' WHERE id=#{param3} AND week_quiz_idx=#{param4}
+		UPDATE quiz_test SET quiz_score=#{param1}, quiz_timer=#{param2}, if_submit='Y' 
+			WHERE id=#{param3} AND week_quiz_idx=#{param4}
 	</update>
+	
+	<!-- 게임 화면 페이지 : 네모로직 풀기-->
+	<select id="getThisWeekNemo" resultType="game">
+		SELECT w.week_nemo_idx, w.nemo_update_date, n.nemo_idx, n.nemo_subject, n.nemo_question, n.nemo_answer 
+    		FROM nemo_week w, nemo n WHERE w.nemo_idx = n.nemo_idx 
+    		AND week_nemo_idx=(SELECT MAX(week_nemo_idx)FROM nemo_week)
+	</select>
+	<select id="ifExistNemo" resultType="game">
+		SELECT * FROM nemo_test WHERE id=#{param1} AND week_nemo_idx=#{param2}
+	</select>
+	<insert id="initialNemoData">
+		INSERT INTO nemo_test(nemo_success,nemo_timer,id,week_nemo_idx,if_submit)
+			VALUES('N',0,#{param1},#{param2},'N')
+	</insert>
+	<update id="recordNemo" parameterType="hashMap">
+		UPDATE nemo_test SET nemo_success=#{nemo_success}, 
+			nemo_timer=#{nemo_timer}, if_submit='Y' WHERE id= #{id}
+	</update>
+	
+	<!-- 지난주 퀴즈 / 지난주 로직 -->
+	<select id="getLastWeekQuiz" resultType="game">
+		SELECT w.week_quiz_idx, w.quiz_update_date, q.quiz_idx, q.quiz_question, q.ex1, q.ex2, q.ex3, q.ex4, q.quiz_answer 
+    		FROM quiz_week w, quiz q WHERE quiz_blind = 'N' AND (
+    			q.quiz_question = w.quiz_first 
+			    OR q.quiz_question = w.quiz_second 
+			    OR q.quiz_question = w.quiz_third 
+			    OR q.quiz_question = w.quiz_fourth
+			    OR q.quiz_question = w.quiz_fifth
+			    OR q.quiz_question = w.quiz_sixth
+			    OR q.quiz_question = w.quiz_seventh
+			    OR q.quiz_question = w.quiz_eighth
+			    OR q.quiz_question = w.quiz_ninth
+			    OR q.quiz_question = w.quiz_tenth
+			) AND week_quiz_idx=((SELECT MAX(week_quiz_idx)FROM quiz_week)-1)
+	</select>
+	<select id="getLastWeekNemo" resultType="game">
+		SELECT w.week_nemo_idx, w.nemo_update_date, n.nemo_idx, n.nemo_subject, n.nemo_question, n.nemo_answer 
+    		FROM nemo_week w, nemo n WHERE w.nemo_idx = n.nemo_idx 
+    		AND week_nemo_idx=((SELECT MAX(week_nemo_idx)FROM nemo_week)-1)
+	</select>
+	
 </mapper>

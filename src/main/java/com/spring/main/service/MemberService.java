@@ -75,10 +75,9 @@ public class MemberService {
 		return dao.getMember(id);
 	}
 
-	public ModelAndView writeList() {
+	public ModelAndView writeList(String id) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("목록 불러오는 중");
-		String id = "test1122";
 		logger.info("요청 유저 닉네임 : "+id);
 		String page = "home";
 		ArrayList<BoardDTO> dto = dao.writeList(id);

@@ -14,7 +14,7 @@
 			}
 			#conBody{
 				margin: 5% 18%;
-				width: 50%;
+				width: 60%;
 			}
 			h2{
 				text-align: center;
@@ -31,21 +31,30 @@
 			#nemoTitle,#nemo{
 				display: none;
 			}
-			th,td{
+			#quizTable th, #quizTable td, #nemoTable th, #nemoTable td{
 				text-align: center;
 				border: 2px solid darkgrey;
 				border-collapse: collapse;
 				padding: 2%;
+				min-width: 100px;
 			}
 			#quizTable, #nemoTable{
 				width: 100%;
 				margin-top: 2%;
 			}
-			th,td{
-				min-width: 100px;
-			}
-			th{
+			#quizTable th, #nemoTable th{
 				border-bottom: 3px double darkgrey;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			a:link, a:visited, a:active{
 				color:darkslategrey;

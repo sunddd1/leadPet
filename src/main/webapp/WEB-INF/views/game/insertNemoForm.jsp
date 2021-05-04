@@ -13,19 +13,30 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 0% 0% 7%;
-				width: 50%;
+				margin: 4% 12%;
+				width: 40%;
 			}
 			#nemoTable{
 				border: 5px double grey;
 				border-collapse: collapse;
 			}
-			th,td{
+			#nemoTable th, #nemoTable td{
 				border: 1px solid black;
 				border-collapse: collapse;
-				font-size: 12px;
 				min-width: 90px;
 				height: 70px;
+				font-size: 12px;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			.block{
 				background-color: white;
@@ -46,7 +57,7 @@
 			}
 			#btn{
 				padding: 1%;
-				margin: 2% 0% 0% 48%;
+				margin: 3% 0% 0% 80%;
 			}
 		</style>
 	</head>

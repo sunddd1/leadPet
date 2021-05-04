@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.AdminService;
 
 import oracle.sql.DATE;
@@ -426,7 +429,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/type", method = RequestMethod.GET)
-	public String type(
+	public HashMap<String, Object> type(
 			Model model, 
 			HttpSession session,
 			@RequestParam(value="type") String type
@@ -436,33 +439,31 @@ public class AdminController {
 //		String page ="admin/adminList";
 //		if(loginId != null) {
 			logger.info("선택된 타입:"+type);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			ArrayList<AdminDTO> list = null;
 			if(type.equals("tip")) {
-				ArrayList<AdminDTO> list =	service.tipReportList();
+				list =	service.tipReportList();
 				logger.info("팁 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("gal")){
-				ArrayList<AdminDTO> list =	service.galReportList();
+				list =	service.galReportList();
 				logger.info("갤러리 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("fed")){
-				ArrayList<AdminDTO> list =	service.fedReportList();
+				list =	service.fedReportList();
 				logger.info("사료 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("res")){
-				ArrayList<AdminDTO> list =	service.resReportList();
+				list =	service.resReportList();
 				logger.info("식당 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("run")){
-				ArrayList<AdminDTO> list =	service.runReportList();
+				list =	service.runReportList();
 				logger.info("산책 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}
 //		ArrayList<AdminDTO> list =	service.typeReportList(type);
 //		logger.info("신고 수"+list.size());
 //		model.addAttribute("reportList", list);
 //			page="admin/adminList";
 //		}
-		return "true";
+			map.put("reportList", list);
+			return map;
 	}
 	
 	@RequestMapping(value = "/reportSearch", method = RequestMethod.POST)
@@ -547,7 +548,11 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
-	public int blindY(Model model, HttpSession session,@RequestParam(value="idx") int idx) {
+	public int blindY(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="idx") int idx
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
@@ -556,6 +561,22 @@ public class AdminController {
 //			page="admin/adminList";
 //		}
 		return success;
+	}
+	
+	@RequestMapping(value = "/procY", method = RequestMethod.GET)
+	public String procY(
+			Model model, 
+			HttpSession session,
+			@RequestParam int rep_idx
+			) {
+		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			service.procY(rep_idx,loginId);
+//			page="admin/adminList";
+//		}
+		return "admin/reportList";
 	}
 	
 	@ResponseBody
@@ -604,4 +625,43 @@ public class AdminController {
 //		}
 		return "admin/blindYList";
 	}
+	
+	////////regVaccForm
+	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
+	public ModelAndView vaccList(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return service.vaccList(session);
+	}
+	@RequestMapping(value = "/regVaccForm", method = RequestMethod.GET)
+	public String regVaccForm(HttpSession session) {
+		logger.info("백신 리스트 불러오기");
+		return "./admin/regVaccForm";
+	}
+	
+	@RequestMapping(value = "/regVacc", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> regVacc(HttpSession session,@ModelAttribute VaccinDTO dto) {
+		logger.info("dto 확인 : "+dto.getVacc_name()+"/"+dto.getContent()+"/"+dto.getCycle()+"/"+dto.getVacc_cnt()+"/"+dto.getDog_cat() );
+		return service.regVacc(dto);
+	}
+	
+	@RequestMapping(value = "/regVaccDetail", method = RequestMethod.GET)
+	public ModelAndView regVaccDetail(HttpSession session,@RequestParam String vacc_idx) {
+		logger.info("백신 상세보기 "+vacc_idx);
+		return service.regVaccDetail(vacc_idx);
+	}
+	
+	@RequestMapping(value = "/deleteVacc", method = RequestMethod.GET)
+	public ModelAndView deleteVacc(HttpSession session,@RequestParam String vacc_idx) {
+		logger.info("백신 삭제요청 "+vacc_idx);
+		return service.deleteVacc(vacc_idx);
+	}
+	
+	@RequestMapping(value = "/VaccSearch", method = RequestMethod.GET)
+	public ModelAndView VaccSearch(HttpSession session,@RequestParam String keyword) {
+		logger.info("백신 검색요청 "+keyword);
+		return service.VaccSearch(keyword);
+	}
+	
+	
+	
 }
