@@ -82,5 +82,17 @@
 	<update id="deleteWriteList">
 		UPDATE bbs SET mod_del = 'Y' WHERE nickname=(select nickname from member where id=#{param1}) and bbs_idx=#{param2}
 	</update>
+	
+	<!-- 관심 유저 등록 -->
+	<insert id="addInterestId">
+		INSERT interest(id, add_id)
+		VALUES(#{param1}, #{param2})
+	</insert>
 
+	<!-- 관심 유저 삭제 -->
+	<delete id="deleteInterestId">
+		DELETE FROM interest
+		WHERE
+			id=#{param1} AND add_id=#{param2}
+	</delete>
 </mapper>

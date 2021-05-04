@@ -145,4 +145,16 @@ public class MemberService {
 		member.setGrade(grade);
 		dao.update(member);
 	}
+	
+	public void addInterestId(String myId, String friendId) {
+		logger.info("addInterestId 호출");
+		
+		dao.addInterestId(myId, friendId);
+	}
+	
+	public void deleteInterestId(String myId, String friendId) {
+		logger.info("deleteInterestId 호출");
+		
+		dao.deleteInterestId(myId, friendId);
+	}
 }
