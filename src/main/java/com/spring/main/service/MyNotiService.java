@@ -19,18 +19,16 @@ public class MyNotiService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	
-	public String noteList(ArrayList<Message> message,Model model) {
+	public String noteList(ArrayList<Message> message,Model model, String id) {
 		logger.info("받은 쪽지 읽기 시작");
-		String loginId = "wwww";
-        message = dao.MessageList(loginId);
+        message = dao.MessageList(id);
         model.addAttribute("messageList", message);
         logger.info("받은 쪽지 읽기 종료");
         return "Note/MyNoti";
 	}
 
-	public String delMessage(int note_idx, boolean notiCheck) {
-		String loginId = "wwww";
-		logger.info(note_idx+"번 삭제("+loginId+")");
+	public String delMessage(int note_idx, boolean notiCheck,String id) {
+		logger.info(note_idx+"번 삭제("+id+")");
 		dao.delMessage(note_idx);
 		return "redirect:/noteList";
 	}
@@ -43,10 +41,9 @@ public class MyNotiService {
 		return "redirect:/sendList";
 	}
 
-	public String sendList(ArrayList<Message> sendList, Model model) {
+	public String sendList(ArrayList<Message> sendList, Model model, String id) {
 		logger.info("보낸 쪽지 읽기 시작");
-		String loginId = "test1122";
-		sendList = dao.sendList(loginId);
+		sendList = dao.sendList(id);
         model.addAttribute("sendList", sendList);
         logger.info("보낸 쪽지 읽기 종료");
         return "Note/sendList";

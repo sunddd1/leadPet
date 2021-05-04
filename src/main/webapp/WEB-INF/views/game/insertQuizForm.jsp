@@ -6,46 +6,57 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>InsertQuizPage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
 			#side_Navi,#conBody{
 				display: inline-block;
 			}
 			#conBody{
-				margin-left: 10%;
-				width: 50%;
-				border: 1px solid;
+				margin: 5% 18%;
+				width: 60%;
 			}
 			h2{
 				text-align: center;
 			}
 			#queDetail{
-				padding: 3% 20%;
+				padding-top: 1%;
 			}
 			#quizTable{
 				border: 3px solid;
-				padding: 10% 12%;
+				padding: 5%;
 				width: 100%;
 			}
-			th,td{
-				text-align: left;
-				padding-top: 1%;
-			}
-			th{
+			#quizTable th{
+				text-align: center;
 				padding: 2%;
 				border: 3px double darkgrey;
 			}
-			td{
-				text-align: center;
+			#quizTable td{
+				text-align: left;
 				padding-top: 3%;
+				margin: 1%;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			#inputQ{
 				width: 100%;
 				height: 100px;
 				background-color: #ECF0F1;
 			}
-			#answer,#inputEx1,#inputEx2,#inputEx3,#inputEx4{
+			#answer{
+				width: 50%;
+			}
+			#inputEx1,#inputEx2,#inputEx3,#inputEx4{
 				width: 22%;
 			}
 		</style>
@@ -57,7 +68,7 @@
 			</div>
 			<div id="queDetail">
 				<form action="./insertQuiz" method="post">			
-					<table id=#quizTable>
+					<table id=quizTable>
 						<tr>
 							<th>
 								[ 문제 ]<hr/>
@@ -74,7 +85,8 @@
 						</tr>
 						<tr>
 							<td>
-								정답 : <input type="text" name="quiz_answer" id="answer"/>
+								정답 :&nbsp;&nbsp; 
+								<input type="text" name="quiz_answer" id="answer"/>
 								<input type="button" onclick="saveQuiz()" value="등록하기"/>
 							</td>
 						</tr>
