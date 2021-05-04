@@ -11,7 +11,7 @@
 	</select> -->
 	
 	<select id="adminList" resultType="admin">
-		SELECT * FROM admin WHERE admin_id='admin' ORDER BY reg_date DESC
+		SELECT * FROM admin WHERE admin_id!='admin' ORDER BY reg_date DESC
 	</select>
 	
 	<update id="change">
@@ -81,7 +81,7 @@
 	</select>
 	 
 	 <select id="detailMember" resultType="member">
-	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade FROM member WHERE id=#{param1}
+	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade, black_cnt FROM member WHERE id=#{param1}
 	 </select>
 	 
 	 <select id="detailPet" resultType="pet">
@@ -96,17 +96,29 @@
 	 	SELECT black FROM member WHERE id=#{param1}
 	 </select>
 	 
+	 <select id="blackDate" resultType="int">
+	 	SELECT black_day FROM black_day WHERE black_cnt=#{param1}
+	 </select>
+	 
 	 <update id="memberBlackY">
-	 	UPDATE member SET black='Y' WHERE id=#{param1}
+	 	UPDATE member SET black='Y', black_cnt=black_cnt+1, black_date=#{param2} WHERE id=#{param1}
 	 </update>
 	 
 	 <update id="memberBlackN">
-	 	UPDATE member SET black='N' WHERE id=#{param1}
+	 	UPDATE member SET black='N', black_cnt=black_cnt-1  WHERE id=#{param1}
 	 </update>
 	 
-<!-- 	 <insert id="insertBlack">
-	 	INSERT INTO blackList(black_idx, id, admin_id, reg_date, black_cnt) VALUES(seq_blackList.NEXTVAL, #{param1}, , SYSDATE, black_cnt+1)
-	 </insert> -->
+	 <insert id="insertBlack">
+	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, 'admin')
+	 </insert> 
+	 
+	 <select id="loop_free" resultType="String">
+	 	SELECT id FROM member WHERE <![CDATA[black_date < #{param1}]]> AND black='Y' AND <![CDATA[black_cnt<3]]>
+	 </select>
+	 
+	 <update id="freedom">
+	 	UPDATE member SET black='N' WHERE id=#{param1}
+	 </update>
 	 
 	 <select id="reportList" resultType="report">
 	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date

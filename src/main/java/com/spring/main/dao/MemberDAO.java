@@ -16,7 +16,7 @@ public interface MemberDAO {
 	int withdraw(String loginId);
 
 	
-	BoardDTO writeList(String loginId);
+	ArrayList<BoardDTO> writeList(String loginId);
 
 
 	void upHit(int bbs_idx);
@@ -35,6 +35,9 @@ public interface MemberDAO {
 
 
 	int update(MemberDTO member);
+
+
+	void deleteWriteList(String loginId, int bbs_idx);
 
 	
 }

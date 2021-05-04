@@ -62,19 +62,25 @@
 
 	<!-- 작성글 목록 -->
 	<select id="writeList" resultType="board">
-		select * from bbs where nickname = #{param1}  
+		select * from bbs where nickname = (select nickname from member where id=#{param1}) and mod_del='N'
+		
 	</select>
 	
 	<!-- 글 상세보기 -->
 	<select id="detail" resultType="board">
 		SELECT 
-			idx,subject,content,user_name,reg_date,bHit		
-		FROM bbs_kdj WHERE idx=#{param1}
+			*		
+		FROM bbs WHERE bbs_idx=#{param1}
 	</select>
 	
 	<!-- 글 상세보기의 파일 목록  -->
 	<select id="fileList" resultType="board">
 		SELECT  * FROM bbs_img WHERE bbs_idx=#{param1}
 	</select>
+	
+	<!-- 작성글 삭제 -->
+	<update id="deleteWriteList">
+		UPDATE bbs SET mod_del = 'Y' WHERE nickname=(select nickname from member where id=#{param1}) and bbs_idx=#{param2}
+	</update>
 
 </mapper>

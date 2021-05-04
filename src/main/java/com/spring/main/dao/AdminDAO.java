@@ -1,5 +1,6 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,7 +45,7 @@ public interface AdminDAO {
 
 	String toggleMemberDisable(String id);
 
-	int memberBlackY(String id);
+	int memberBlackY(String id, Date black_date);
 
 	int memberBlackN(String id);
 
@@ -87,6 +88,12 @@ public interface AdminDAO {
 	ArrayList<AdminDTO> blindNSearch(HashMap<String, String> params);
 
 	ArrayList<AdminDTO> blindYSearch(HashMap<String, String> params);
+
+	int blackDate(int black);
+
+	ArrayList<String> loop_free(String string);
+
+	void freedom(String string);
 
 //	ArrayList<AdminDTO> typeReportList(String type);
 

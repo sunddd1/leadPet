@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>WeeklyGameList</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
 			#conBody{
-				margin: 5% 25%;
+				margin: 5% 18%;
+				width: 50%;
 			}
 			h2{
 				text-align: center;
@@ -26,11 +31,11 @@
 			#nemoTitle,#nemo{
 				display: none;
 			}
-			table{
+			#quizTable, #nemoTable{
 				width: 100%;
-				margin: 2%;
+				margin-top: 2%;
 			}
-			table,th,td{
+			#quizTable,#nemoTable,th,td{
 				text-align: center;
 				border: 2px solid darkgrey;
 				border-collapse: collapse;
@@ -58,7 +63,7 @@
 			</div>	
 			<div id="padding">
 				<div id="quiz">			
-					<table>
+					<table id="quizTable">
 						<tr>
 							<th>회차</th><th>등록일</th>
 						</tr>
@@ -71,7 +76,7 @@
 					</table>
 				</div>
 				<div id="nemo">			
-					<table>
+					<table id="nemoTable">
 						<tr>
 							<th>회차</th><th>등록일</th>
 						</tr>

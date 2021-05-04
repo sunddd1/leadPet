@@ -67,7 +67,9 @@
 				</tr>
 				<tr>
 					<th>블랙 횟수</th>
-					<td>0</td>
+					<td>
+						${dto.black_cnt}
+					</td>
 					<!-- <input type="text" name="black_cnt" value="0" readonly="readonly"/> -->
 				</tr>
 				<tr>
@@ -86,14 +88,16 @@
 					<th>등급</th>
 					<td>${dto.grade}</td>
 				</tr>
-			<td colspan="2">
-				<c:if test="${dto.black == 'y' || dto.black == 'Y'}">
-					<button value="${dto.id }" onclick='toggleDisable(this)'>블랙 해제</button>
-				</c:if>
-				<c:if test="${dto.black == 'n' || dto.black == 'N'}">
-					<button value="${dto.id }" onclick='toggleDisable(this)'>블랙 추가</button>
-				</c:if>
-			</td>
+				<tr>
+				<td colspan="2">
+					<c:if test="${dto.black == 'y' || dto.black == 'Y'}">
+						<button value="${dto.id }" onclick='toggleDisable(this)'>블랙 해제</button>
+					</c:if>
+					<c:if test="${dto.black == 'n' || dto.black == 'N'}">
+						<button value="${dto.id }" onclick='toggleDisable(this)'>블랙 추가</button>
+					</c:if>
+				</td>
+			</tr>
 			</table>
 		</div>
 	</body>
@@ -102,22 +106,25 @@
 		
 		var button = $(buttonObj);
 		var flag = $("#"+buttonObj.value);
-	
+		var black = '${dto.black_cnt}';
+		
 		console.log(button);
 		console.log(flag);
 		
 		$.ajax({
 			type:'GET'
 			,url:'toggleMemberDisable'
-			,data:{'id' : buttonObj.value}
+			,data:{'id' : buttonObj.value, 'black' : black}
 			,dataType:'text'
 			,success:function(data) {
 				if(data == "Y") {
-					flag.html("Y");
-					button.html("블랙 추가");
+					/* flag.html("Y");
+					button.html("블랙 추가"); */
+					location.reload();
 				}else {
-					flag.html("N");
-					button.html("블랙 해제");
+					/* flag.html("N");
+					button.html("블랙 해제"); */
+					location.reload();
 				}
 			},error:function(e) {
 				console.log(e);

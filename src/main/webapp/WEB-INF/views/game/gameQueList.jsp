@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>        
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>GameQuestionList</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
 			#conBody{
-				margin: 5% 20%;
+				margin: 5% 18%;
+				width: 50%;
 			}
 			h2{
 				text-align: center;
@@ -18,7 +23,6 @@
 				float: right;
 			}
 			#padding{
-				padding: 2%;
 				width: 100%;
 			}
 			#quizTitle,#quiz{
@@ -27,13 +31,13 @@
 			#nemoTitle,#nemo{
 				display: none;
 			}
-			table,th,td{
+			th,td{
 				text-align: center;
 				border: 2px solid darkgrey;
 				border-collapse: collapse;
 				padding: 2%;
 			}
-			table{
+			#quizTable, #nemoTable{
 				width: 100%;
 				margin-top: 2%;
 			}
@@ -66,7 +70,7 @@
 			<div id="padding">
 				<div id="quiz">
 					<button id="quizInsert" onclick="location.href='./insertQuizForm'">상식퀴즈 게임등록</button>			
-					<table>
+					<table id="quizTable">
 						<tr>
 							<th>퀴즈번호</th><th>문제</th><th>블라인드</th>
 						</tr>
@@ -80,8 +84,8 @@
 					</table>
 				</div>
 				<div id="nemo">
-					<button id="nemoInsert">네모로직 게임등록</button>			
-					<table>
+					<button id="nemoInsert" onclick="location.href='./insertNemoForm'">네모로직 게임등록</button>			
+					<table id="nemoTable">
 						<tr>
 							<th>네모로직 문제번호</th><th>네모로직 제목</th>
 						</tr>
