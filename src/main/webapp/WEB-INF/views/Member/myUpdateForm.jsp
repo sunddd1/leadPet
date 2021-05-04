@@ -10,7 +10,11 @@
 	<title>회원가입</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-		table, th, td {
+		#updateTable{
+			width: 60%;
+			margin-left: 20%;
+		}
+		#updateTable, #updateTable th, #updateTable td {
 			border : 1px solid black;
 		}
 	</style>
@@ -18,8 +22,8 @@
 	
 	
 	<body>
-		<form id="registForm" action="member-update" method="post">
-			<table>			
+		<form id="updateForm" action="member-update" method="post">
+			<table id="updateTable">			
 				<tr>
 					<th colspan="2">
 						<h2>회원 정보 수정</h2>
@@ -191,7 +195,7 @@
 	// 등록 버튼
 	function update() {
 		if(isAllValid()) {
-			$('#registForm').submit();
+			$('#updateTable').submit();
 		}
 	}
 	

@@ -1,27 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>    
+<%@ include file="/WEB-INF/views/main/side_myNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>QuizPlayingPage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
-			#conBody{
-				margin: 5% 15%;
+			#side_Navi,form{
+				display: inline-block;
+			}
+			form{
+				margin: 0% 8%;
+				width: 55%;
 			}
 			h2{
 				text-align: center;
 			}
 			#queList{
-				padding-top: 3%;
+				padding-top: 0%;
 			}
-			table{
+			#quizTable{
 				border: 3px solid darkgrey;
 				padding: 3%;
 				width: 100%;
-				
 			}
 			#timeWatch{
 				float: right;
@@ -58,7 +62,7 @@
 					<input type="hidden" name="week_quiz_idx" value="${week_quiz_idx}"/>
 				</div>
 				<div id="queList">			
-					<table>
+					<table id="quizTable">
 						<tr>
 							<td id="timeWatch">
 								<span id="postTestMin">00</span><!-- 분 -->

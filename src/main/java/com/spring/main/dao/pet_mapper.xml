@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
+<mapper namespace="com.spring.main.dao.PetDAO">
+	<!-- 반려동물 목록 -->
+	<select id="list"  resultType="com.spring.main.dto.PetDTO">
+		SELECT kind,bday,pet_name,kg FROM pet WHERE id=#{param1} ORDER BY pet_idx DESC
+	</select>
+	
+	<!-- 
+		insert 후 등록된 글의 idx를 가져오기 
+		useGeneratedKeys="true" -> insert 후 키 가져오기 설정
+		keyProperty="idx"-> 어떤 필드에 담을 것인가?(dto의)
+		keyColumn="idx" -> 어떤 컬럼을 가져올 것인가?(table의)
+	-->
+	<insert id="write" 
+		useGeneratedKeys="true"
+		keyProperty="idx"
+		keyColumn="idx"
+		parameterType="pet">
+		INSERT INTO pet(pet_idx,pet_name,bday,dog_cat,kind,kg)
+			VALUES(pet_seq.NEXTVAL,#{pet_name},#{bday},#{dog_cat},#{dog_cat},#{kind},#{kg})
+	</insert>
+	
+	<insert id="writeFile">
+		INSERT INTO pet_img(fileIdx,newFileName,oriFileName,idx)
+			VALUES(pet_img_seq.NEXTVAL,#{param1},#{param2},#{param3})
+	</insert>
+	
+	<!-- 파일 리스트 -->
+	<select id="fileList" resultType="photos">
+		SELECT  * FROM pet_img WHERE pet_idx=#{param1}
+	</select>
+</mapper>

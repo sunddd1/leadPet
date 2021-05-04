@@ -8,14 +8,22 @@
 	<title>Insert title here</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-		table, th, td {
+		#changeTable{
+			width: 60%;
+			margin-left: 20%;
+		}
+		#changeTable, #changeTable th, #changeTable td {
 			border : 1px solid black;
 		}
+		
 	</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
 		<form id="changeForm" action="change-pw" method="post">
-			<table>
+			<table id="changeTable">
 				<tr>
 					<th>
 						<label>아이디</label>

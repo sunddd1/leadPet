@@ -155,4 +155,11 @@ public class BoardController {
 
 		return service.mainTop(type);
 	}
+	
+	@RequestMapping(value = "/searchBbs", method = RequestMethod.GET)
+	public ModelAndView searchBbs(@RequestParam String category,@RequestParam String keyword) {
+		logger.info("검색요청 : {} / {} " ,category,keyword);
+		return service.searchBbs(category,keyword);
+	}
+
 }
