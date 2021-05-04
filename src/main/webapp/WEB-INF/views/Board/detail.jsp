@@ -19,9 +19,9 @@
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
                 <!-- 임시 닉네임 지정 세션으,로 변경해야함  -->
-                <c:if test="${dto.nickname eq '멍뭉'}">
+                <c:if test="${dto.nickname eq 'withdrawal'}">
 	                <td>
-	                	<button onclick="location.href='BoardUpdate?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
+	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
 	                </td>
                 </c:if>
             </tr>
@@ -49,7 +49,7 @@
             </tr>
 			<tr>
 				<th>내용</th>
-				<td>${dto.bbs_content }</td>
+				<td id="bbs_content">${dto.bbs_content }</td>
 			</tr>
 		</table>
 		
@@ -74,6 +74,9 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			$("#bbs_content a").find("b").remove();
+			$("#editable a").removeAttr('onclick');
+			$()
 			replyList();
 			recoConfirm();
 		});

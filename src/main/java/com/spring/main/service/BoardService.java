@@ -1,6 +1,6 @@
 package com.spring.main.service;
 
-import java.io.Console;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,6 +102,7 @@ public class BoardService {
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		if(dao.write(dto)>0) {
 			logger.info("idx : "+dto.getBbs_idx());
+			logger.info("fileList.size : " , fileList.size());
 			if(fileList.size()>0) {
 				/*
 				 * for(String key : fileList.keySet()) {
@@ -111,14 +112,14 @@ public class BoardService {
 				for(String key : fileList.keySet()) {
 					keyArr.add(key);
 				}
-					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
-					logger.info("keyArray0.. {}",keyArr.get(0));
-					//	keyArr.get() -> newfilename 			
-					if(fileList.size()>1) { 
-						for (int i = 1; i < fileList.size(); i++) {
-							dao.writeContentFile(keyArr.get(i),fileList.get(keyArr.get(i)),dto.getBbs_idx()); 
-						}
+				dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
+				logger.info("keyArray0.. {}",keyArr.get(0));
+				//	keyArr.get() -> newfilename 			
+				if(fileList.size()>1) { 
+					for (int i = 1; i < fileList.size(); i++) {
+						dao.writeContentFile(keyArr.get(i),fileList.get(keyArr.get(i)),dto.getBbs_idx()); 
 					}
+				}
 			}
 			page="/Board/Experience";
 		}else {
@@ -148,6 +149,8 @@ public class BoardService {
 			if(fileList.get(newfileName)!=null) {
 				fileList.remove(newfileName);
 				logger.info("삭제 후 남은 이미지 갯수 : " + fileList.size());
+				dao.deletefile(newfileName);
+				dao.deleteContentFile(newfileName);
 			}
 			session.setAttribute("fileList", fileList);
 		} catch (Exception e) {
@@ -171,6 +174,62 @@ public class BoardService {
 		mav.setViewName("Board/detail");		
 		return mav;
 	}
+	
+	public ModelAndView BoardUpdateForm(String bbs_idx) {
+		BoardDTO dto = dao.BoardUpdateForm(bbs_idx);
+		logger.info("{}",dto);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("Board/BoardUpdateForm");		
+		return mav;
+	}
+	
+	@Transactional
+	public ModelAndView BoardUpdate(HashMap<String, String> params, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String page="redirect:/BoardUpdateForm";
+		BoardDTO dto = new BoardDTO();
+		dto.setBbs_idx(Integer.parseInt(params.get("bbs_idx")));
+		dto.setBbs_subject(params.get("bbs_subject"));
+		dto.setBbs_content(params.get("bbs_content"));
+		dto.setNickname(params.get("nickname"));
+		dto.setCategory_name(params.get("category_name"));
+		
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+		
+		if(dao.BoardUpdate(dto)>0) {
+			logger.info("idx : "+dto.getBbs_idx());
+			if(fileList.size()>0) {
+				/*
+				 * for(String key : fileList.keySet()) {
+				 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
+				 */
+				ArrayList<String> keyArr = new ArrayList<String>();
+				for(String key : fileList.keySet()) {
+					keyArr.add(key);
+				}
+					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
+					logger.info("keyArray0.. {}",keyArr.get(0));
+					//	keyArr.get() -> newfilename 			
+					if(fileList.size()>1) { 
+						for (int i = 1; i < fileList.size(); i++) {
+							dao.writeContentFile(keyArr.get(i),fileList.get(keyArr.get(i)),dto.getBbs_idx()); 
+						}
+					}
+			}
+			page="redirect:/BoardList";
+			
+		}else {
+			for(String newFileName : fileList.keySet()) {
+				File file = new File(root+"Boardupload/"+newFileName);
+				file.delete();
+			}
+		}
+		session.removeAttribute("fileList");
+		mav.setViewName(page);	
+		return mav;
+	}
+	
 
 	public Boolean recoConfirm(String id, String bbs_idx) {
 		boolean success = false;
@@ -222,15 +281,6 @@ public class BoardService {
 		logger.info("댓글 작성 요청 : "+reply);
 		int success = dao.replyWrite(reply);
 		return success;
-	}
-
-	public ModelAndView BoardUpdateForm(String bbs_idx) {
-		BoardDTO dto = dao.BoardUpdateForm(bbs_idx);
-		logger.info("{}",dto);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("dto", dto);
-		mav.setViewName("Board/BoardUpdateForm");		
-		return mav;
 	}
 
 	public HashMap<String, Object> replyUpdateForm(HashMap<String, Object> map) {
@@ -287,6 +337,7 @@ public class BoardService {
 		mav.setViewName("main/result");
 		return mav;
 	}
+
 	
 	
 

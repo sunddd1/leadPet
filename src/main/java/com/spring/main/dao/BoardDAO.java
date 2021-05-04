@@ -60,6 +60,12 @@ public interface BoardDAO {
 
 	double maxPage(String category, String keyword, int start, int end);
 
+	int BoardUpdate(BoardDTO dto);
+
+	void deletefile(String newfileName);
+
+	void deleteContentFile(String newfileName);
+
 
 
 }
