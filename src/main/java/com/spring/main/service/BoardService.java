@@ -113,11 +113,12 @@ public class BoardService {
 				}
 					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
 					logger.info("keyArray0.. {}",keyArr.get(0));
-					logger.info("keyArr.size() : " ,keyArr.size());
-					/*
-					 * if(fileList.size()>1) { for(String key : fileList.keySet()) { dao. } }
-					 */
-				
+					//	keyArr.get() -> newfilename 			
+					if(fileList.size()>1) { 
+						for (int i = 1; i < fileList.size(); i++) {
+							dao.writeContentFile(keyArr.get(i),fileList.get(keyArr.get(i)),dto.getBbs_idx()); 
+						}
+					}
 			}
 			page="/Board/Experience";
 		}else {

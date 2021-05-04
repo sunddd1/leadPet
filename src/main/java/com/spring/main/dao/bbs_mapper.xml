@@ -40,6 +40,11 @@
 			VALUES(#{param1},#{param2},#{param3})
 	</insert>
 	
+	<insert id="writeContentFile">
+		INSERT INTO bbs_content_img(content_newfileName,content_oriFileName,bbs_idx)
+			VALUES(#{param1},#{param2},#{param3})
+	</insert>
+	
 	<update id="upViews">
 		UPDATE bbs SET views = views+1 WHERE bbs_idx=#{param1}
 	</update>
