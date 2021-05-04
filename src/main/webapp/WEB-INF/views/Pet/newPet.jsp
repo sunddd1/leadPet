@@ -14,20 +14,15 @@
 			}
 			
 			input[type='text']{
-			width:100%;
+			width:40%;
 			}
 			
 			table{
 			width:100%;
 			}
 			
-			#editable{
-				width:98%;
-				height:500px;
-				border:1px solid gray;
-				text-align:left;
-				overflow:auto;
-				margin:5px;
+			#photo{
+				
 			}
 		</style>
 	</head>
@@ -36,44 +31,65 @@
 		<hr/>
 		<form action="petPlus" method="post">
 			<table>
-				<tr>
-					<th>제목</th>
-					<td><input type="text" name="subject" value=""/></td>
+				<tr >
+					<td colspan="2">
+						<input type="text" id="photo" placeholder="프로필 사진 등록(최대 10MB)" value="${fileList.newFileName}"/>
+						<input type="button" value="파일 업로드" onclick="fileUp()"/>
+					</td>
+					
 				</tr>
 				<tr>
-					<th>작성자</th>
-					<td><input type="text" name="user_name" value=""/></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>
-						<!-- div에 있는 녀석은 서버로 보낼 수 없다. -->
-						<div id="editable" contenteditable="true"></div>
-						<input type="hidden" id="content" name="content" value=""/>
+					<td colspan="2">이름<br/>
+						<input type="text" name="pet_name" value=""/>
 					</td>
 				</tr>
 				<tr>
-					<th>파일 첨부</th>
-					<td>
-					<input type="button" value="파일 업로드" onclick="fileUp()"/>
+				</tr>
+				<tr>
+					<td colspan="2">생년월일 <br/>
+					 	<select name="birth1">
+					       <%for(int i=2021; i>=1930; i--){ %>
+					       <option value="<%=i %>"><%=i %></option>
+					       <%} %>
+					     </select>년&nbsp;
+					     <select name="birth2">
+					       <%for(int i=1; i<=12; i++){ %>
+					       <option value="<%=i %>"><%=i %></option>
+					       <%} %>
+					     </select>월
+					     <select name="birth3">
+					       <%for(int i=1; i<=31; i++){ %>
+					       <option value="<%=i %>"><%=i %></option>
+					       <%} %>
+					     </select>일<br><br>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input id="save" type="button" value="글 작성"/></td>
+					<td colspan="2">
+					<input type="radio" name="dog_cat" value="dog" id="dog" checked/>강아지
+					<input type="radio" name="dog_cat" value="cat" id="cat" />고양이
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">품종<br/>
+						<input type="text" name="kind" value=""/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">체중<br/>
+						<input type="text" name="kg" value=""/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input id="plus" type="button" value="추가"/></td>
 				</tr>
 			</table>
 		</form>
 	</body>
 	<script>
 	
-	$("#save").click(function(){
-		//editable에 있는 내용을 content의 value에 넣기 
-        /* var val = $('#editable').val();
-		console.log(val);
-        $('#content').html(val); */
-        $("#editable a").find("b").remove();
-        $("#editable a").removeAttr('onclick');
-        $("#content").val($("#editable").html()); 
+	$("#plus").click(function(){
+		
         $("form").submit(); 
 	});
 	

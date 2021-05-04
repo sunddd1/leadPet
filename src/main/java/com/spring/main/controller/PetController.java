@@ -37,6 +37,7 @@ public class PetController {
 		return "Pet/newPet";
 	}
 	
+	
 	@RequestMapping(value = "/uploadFormPet", method = RequestMethod.GET)
 	public String uploadForm( Model model) {
 		logger.info("사진 올리기 폼 요청");
@@ -54,7 +55,8 @@ public class PetController {
 	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
 	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session) {
 		logger.info("반려동물 등록 : "+params);
-		return service.write(params,session);
+		String id = "test123";
+		return service.write(params,session,id);
 	}
 	
 }

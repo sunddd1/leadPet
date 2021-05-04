@@ -10,7 +10,7 @@ public class PetDTO {
 	private int pet_idx;
 	private String dog_cat;
 	private String kind;
-	private Date bday;
+	private String bday;
 	private String kg;
 	private String id;
 	private String delegate;
@@ -35,11 +35,11 @@ public class PetDTO {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	public Date getBday() {
+	public String getBday() {
 		return bday;
 	}
-	public void setBday(Date bday) {
-		this.bday = bday;
+	public void setBday(String string) {
+		this.bday = string;
 	}
 	public String getKg() {
 		return kg;
