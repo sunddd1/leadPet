@@ -41,16 +41,16 @@ public class MyNotiController {
 	
 		//받은 쪽지 목록 
 		@RequestMapping(value="/noteList")
-	    public String noteList(ArrayList<Message> message, Model model){
+	    public String noteList(ArrayList<Message> message, Model model,@RequestParam String id){
 	        logger.info("받은 쪽지 목록 요청");
-			return service.noteList(message,model);
+			return service.noteList(message,model,id);
 		}
 		
 		//보낸 쪽지 목록 
 		@RequestMapping(value="/sendList")
-	    public String sendList(ArrayList<Message> sendList, Model model){
+	    public String sendList(ArrayList<Message> sendList, Model model,@RequestParam String id){
 	        logger.info("보낸 쪽지 목록 요청");
-			return service.sendList(sendList,model);
+			return service.sendList(sendList,model,id);
 		}
 		
 		//받은 쪽지 상세보기  
@@ -70,10 +70,10 @@ public class MyNotiController {
 
 		//받은 쪽지 삭제 요청 
 		@RequestMapping(value="/delMessageList")
-	    public String delMessageList(@RequestParam int note_idx){
+	    public String delMessageList(@RequestParam int note_idx,@RequestParam String id){
 	        logger.info("받은 쪽지 삭제");
 	        boolean notiCheck = service.isNotiCheck(note_idx);
-			return service.delMessage(note_idx,notiCheck);
+			return service.delMessage(note_idx,notiCheck,id);
 		}
 		
 		//새로운 쪽지 확인(header)  

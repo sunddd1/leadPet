@@ -19,7 +19,7 @@
 <body>
 
 	<b>반려동물 목록</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<button onclick="location.href='writeForm'">반려동물 등록</button>
+	<button onclick="location.href='./newPet?id=${sessionScope.loginId}'">반려동물 등록</button>
 	<hr/>
 	<table>
 		<thead>
@@ -39,8 +39,8 @@
 				<td>${dto.bday}</td>
 				<td>${dto.pet_name}</td>
 				<td>${dto.kg}</td>
-				<td><a href="./updatePet/${dto.pet_idx}">수정</a></td>
-				<td><a href="./deletePet/${dto.pet_idx}">삭제</a></td>
+				<td><a href="./updatePet?pet_idx=${dto.pet_idx}">수정</a></td>
+				<td><a href="./deletePet?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}">삭제</a></td>
 			</tr>
 		</c:forEach>		
 		</tbody>
