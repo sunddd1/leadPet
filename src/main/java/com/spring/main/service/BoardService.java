@@ -102,7 +102,7 @@ public class BoardService {
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		if(dao.write(dto)>0) {
 			logger.info("idx : "+dto.getBbs_idx());
-			logger.info("fileList.size : " , fileList.size());
+			logger.info("fileList.size : " + fileList.size());
 			if(fileList.size()>0) {
 				/*
 				 * for(String key : fileList.keySet()) {
@@ -111,6 +111,7 @@ public class BoardService {
 				ArrayList<String> keyArr = new ArrayList<String>();
 				for(String key : fileList.keySet()) {
 					keyArr.add(key);
+					logger.info(keyArr.get(0));
 				}
 				dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
 				logger.info("keyArray0.. {}",keyArr.get(0));
@@ -207,6 +208,7 @@ public class BoardService {
 				ArrayList<String> keyArr = new ArrayList<String>();
 				for(String key : fileList.keySet()) {
 					keyArr.add(key);
+					logger.info(keyArr.get(0));
 				}
 					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
 					logger.info("keyArray0.. {}",keyArr.get(0));
