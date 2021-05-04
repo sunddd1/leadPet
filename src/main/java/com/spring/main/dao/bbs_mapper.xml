@@ -51,7 +51,7 @@
 	
 	<select id="boardDetail" resultType="board">
 		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.reco_count,b.nickname,b.pet_idx,b.category_name,p.kind,p.bday,p.pet_name,p.kg
-		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx WHERE p.pet_idx=b.pet_idx) pet_newfilename
+		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx) pet_newfilename
 		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{param1}
 	</select>
 	
