@@ -13,7 +13,7 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 18%;
+				margin: 5% 22%;
 				width: 50%;
 			}
 			h2{
@@ -35,11 +35,22 @@
 				width: 100%;
 				margin-top: 2%;
 			}
-			#quizTable,#nemoTable,th,td{
+			#quizTable, #nemoTable, #quizTable th, #quizTable td, #nemoTable th, #nemoTable td{
 				text-align: center;
 				border: 2px solid darkgrey;
 				border-collapse: collapse;
 				padding: 2%;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			a:link, a:visited, a:active{
 				color:darkslategrey;

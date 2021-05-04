@@ -13,8 +13,8 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin-left: 8%;
-				width: 55%;
+				margin: 5% 18%;
+				width: 60%;
 			}
 			h2{
 				text-align: center;
@@ -30,16 +30,25 @@
 			#btn{
 				float: right;
 			}
-			th,td{
+			#quizTable th{
 				text-align: left;
-				padding-top: 1%;
-			}
-			th{
 				padding: 2%;
 				border: 3px double darkgrey;
 			}
-			td{
-				padding-top: 3%;
+			#quizTable td{
+				text-align: left;
+				padding-top: 5%;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			p{
 				color: red;

@@ -2,30 +2,29 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>    
-<%@ include file="/WEB-INF/views/main/side_myNavi.jsp" %>    
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>   
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>QuizPlayingPage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
-			#side_Navi,form{
+			#side_Navi,#conBody{
 				display: inline-block;
 			}
-			form{
-				margin: 0% 8%;
-				width: 55%;
+			#conBody{
+				margin: 5% 20%;
 			}
 			h2{
 				text-align: center;
 			}
 			#queList{
-				padding-top: 0%;
+				padding-top: 3%;
 			}
 			#quizTable{
 				border: 3px solid darkgrey;
 				padding: 3%;
-				width: 100%;
+				width: 115%;
 			}
 			#timeWatch{
 				float: right;
@@ -45,12 +44,23 @@
 				padding: 1%;
 				margin: 3% 0% 0% 45%;
 			}
-			th,td{
+			#quizTable th, #quizTable td{
 				text-align: left;
 				padding-top: 1%;
 			}
-			th{
+			#quizTable th{
 				padding-top: 3%;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 		</style>
 	</head>
@@ -118,7 +128,7 @@
 				var newTime = new Date(nowTime - stTime) //(nowTime - stTime)을 new Date()에 넣는다
 				var min = newTime.getMinutes() //분
 				var sec = newTime.getSeconds() //초
-				var milisec = Math.floor(newTime.getMilliseconds() / 10) //밀리초
+				var milisec = Math.floor(newTime.getMilliseconds()/10) //밀리초
 				document.getElementById('postTestMin').innerText = addZero(min)
 				document.getElementById('postTestSec').innerText = addZero(sec)
 				document.getElementById('postTestMilisec').innerText = addZero(milisec)

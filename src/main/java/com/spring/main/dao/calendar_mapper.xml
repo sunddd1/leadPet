@@ -122,31 +122,6 @@
 	     AND vs.id = #{param3}         
 	</select>
 	
-	<!-- 어드민으로 넘어갈거  -->
-	<select id="vaccList" resultType="vaccin">
-		SELECT * FROM vaccin ORDER BY vacc_idx DESC
-	</select>
 	
-	<insert id="regVacc" parameterType="vaccin">
-		INSERT INTO vaccin (vacc_idx, vacc_name, content, cycle, vacc_cnt, dog_cat)
-			VALUES (vacc_idx_seq.NEXTVAL, #{vacc_name},#{content},#{cycle},#{vacc_cnt},#{dog_cat})
-	</insert>
-
-	<select id="regVaccDetail" resultType="vaccin">
-		SELECT * FROM vaccin WHERE vacc_idx=#{param1}
-	</select>
-	
-	<update id="updateRegVacc" parameterType="vaccin">
-		UPDATE vaccin SET content=#{content}, vacc_name=#{vacc_name},cycle=#{cycle},vacc_cnt=#{vacc_cnt}, dog_cat=#{dog_cat}
-		 WHERE vacc_idx=#{vacc_idx}
-	</update>
-	
-	<delete id="deleteVacc">
-		DELETE FROM vaccin WHERE vacc_idx = #{param1}
-	</delete>
-
-	<select id="VaccSearch" resultType="vaccin">
-		SELECT * FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
-	</select>
 
  </mapper>

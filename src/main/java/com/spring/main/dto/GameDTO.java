@@ -49,6 +49,17 @@ public class GameDTO {
 		/*private int week_quiz_idx;//위에서 선언*/
 		private String if_submit;
 		
+		//nemo Test Table
+		private String nemo_success;
+		private int nemo_timer;
+		private Date nemo_success_date;
+		/*
+		private String id;
+		private int week_nemo_idx;
+		private String if_submit;
+		//위에서 선언
+		*/
+		
 		public int getQuiz_score() {
 			return quiz_score;
 		}
@@ -234,6 +245,24 @@ public class GameDTO {
 		}
 		public void setNemo_update_date(Date nemo_update_date) {
 			this.nemo_update_date = nemo_update_date;
+		}
+		public String getNemo_success() {
+			return nemo_success;
+		}
+		public void setNemo_success(String nemo_success) {
+			this.nemo_success = nemo_success;
+		}
+		public int getNemo_timer() {
+			return nemo_timer;
+		}
+		public void setNemo_timer(int nemo_timer) {
+			this.nemo_timer = nemo_timer;
+		}
+		public Date getNemo_success_date() {
+			return nemo_success_date;
+		}
+		public void setNemo_success_date(Date nemo_success_date) {
+			this.nemo_success_date = nemo_success_date;
 		}
 		
 }
