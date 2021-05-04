@@ -53,24 +53,6 @@ public interface CalendarDAO {
 	int upCnt(String vac_idx);
 
 	int schExecuted(String vac_idx, String id);
-
-	//////////////
-	ArrayList<VaccinDTO> vaccList();
-
-	int regVacc(VaccinDTO dto);
-
-	VaccinDTO regVaccDetail(String vacc_idx);
-
+	
 	int addSche(SchedulerDTO dto);
-
-	int updateRegVacc(VaccinDTO dto);
-
-	int deleteVacc(String vacc_idx);
-
-	ArrayList<VaccinDTO> VaccSearch(String keyword);
-
-	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
-
-	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
-
 }

@@ -1,10 +1,14 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.SchedulerDTO;
+import com.spring.main.dto.VaccinDTO;
+import com.spring.main.dto.Vaccin_schedulerDTO;
 
 public interface AdminDAO {
 
@@ -44,7 +48,7 @@ public interface AdminDAO {
 
 	String toggleMemberDisable(String id);
 
-	int memberBlackY(String id);
+	int memberBlackY(String id, Date black_date);
 
 	int memberBlackN(String id);
 
@@ -88,8 +92,30 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> blindYSearch(HashMap<String, String> params);
 
+	int blackDate(int black);
+
+	ArrayList<String> loop_free(String string);
+
+	void freedom(String string);
+
 //	ArrayList<AdminDTO> typeReportList(String type);
 
+//////////////
+	ArrayList<VaccinDTO> vaccList();
+	
+	int regVacc(VaccinDTO dto);
+	
+	VaccinDTO regVaccDetail(String vacc_idx);
+	
+	int updateRegVacc(VaccinDTO dto);
+	
+	int deleteVacc(String vacc_idx);
+	
+	ArrayList<VaccinDTO> VaccSearch(String keyword);
+	
+	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
+	
+	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
 	
 
 

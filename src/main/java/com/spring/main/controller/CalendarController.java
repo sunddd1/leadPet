@@ -166,39 +166,5 @@ public class CalendarController {
 	}
 	
 
-	////////regVaccForm
-	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
-	public ModelAndView vaccList(HttpSession session) {
-		logger.info("백신 리스트 불러오기");
-		return service.vaccList(session);
-	}
-	@RequestMapping(value = "/regVaccForm", method = RequestMethod.GET)
-	public String regVaccForm(HttpSession session) {
-		logger.info("백신 리스트 불러오기");
-		return "./admin/regVaccForm";
-	}
-	
-	@RequestMapping(value = "/regVacc", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, Object> regVacc(HttpSession session,@ModelAttribute VaccinDTO dto) {
-		logger.info("dto 확인 : "+dto.getVacc_name()+"/"+dto.getContent()+"/"+dto.getCycle()+"/"+dto.getVacc_cnt()+"/"+dto.getDog_cat() );
-		return service.regVacc(dto);
-	}
-	
-	@RequestMapping(value = "/regVaccDetail", method = RequestMethod.GET)
-	public ModelAndView regVaccDetail(HttpSession session,@RequestParam String vacc_idx) {
-		logger.info("백신 상세보기 "+vacc_idx);
-		return service.regVaccDetail(vacc_idx);
-	}
-	
-	@RequestMapping(value = "/deleteVacc", method = RequestMethod.GET)
-	public ModelAndView deleteVacc(HttpSession session,@RequestParam String vacc_idx) {
-		logger.info("백신 삭제요청 "+vacc_idx);
-		return service.deleteVacc(vacc_idx);
-	}
-	
-	@RequestMapping(value = "/VaccSearch", method = RequestMethod.GET)
-	public ModelAndView VaccSearch(HttpSession session,@RequestParam String keyword) {
-		logger.info("백신 검색요청 "+keyword);
-		return service.VaccSearch(keyword);
-	}
+
 }

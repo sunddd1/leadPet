@@ -33,120 +33,99 @@ public class MemberDTO {
 	private int point;
 	private String nickname;
 	private String grade;
-	
-	//blackDTO
 	private int black_cnt;
-
+	private Date black_date;
+	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public int getAge() {
 		return age;
 	}
-
 	public void setAge(int age) {
 		this.age = age;
 	}
-
 	public String getGender() {
 		return gender;
 	}
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Date getReg_date() {
 		return reg_date;
 	}
-
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-
 	public String getWithdraw() {
 		return withdraw;
 	}
-
 	public void setWithdraw(String withdraw) {
 		this.withdraw = withdraw;
 	}
-
 	public String getBlack() {
 		return black;
 	}
-
 	public void setBlack(String black) {
 		this.black = black;
 	}
-
 	public Date getChange_date() {
 		return change_date;
 	}
-
 	public void setChange_date(Date change_date) {
 		this.change_date = change_date;
 	}
-
 	public int getPoint() {
 		return point;
 	}
-
 	public void setPoint(int point) {
 		this.point = point;
 	}
-
 	public String getNickname() {
 		return nickname;
 	}
-
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-
 	public String getGrade() {
 		return grade;
 	}
-
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-
 	public int getBlack_cnt() {
 		return black_cnt;
 	}
-
 	public void setBlack_cnt(int black_cnt) {
 		this.black_cnt = black_cnt;
 	}
+	public Date getBlack_date() {
+		return black_date;
+	}
+	public void setBlack_date(Date black_date) {
+		this.black_date = black_date;
+	}
+	
 	
 }
