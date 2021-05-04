@@ -54,6 +54,8 @@ public interface BoardDAO {
 
 	int replyDel(String reply_idx);
 
+
+	void writeContentFile(String string, String string2, int bbs_idx);
 	ArrayList<BoardDAO> searchBbs(String category, String keyword, int start, int end);
 
 	double maxPage(String category, String keyword, int start, int end);
