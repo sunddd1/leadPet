@@ -97,15 +97,7 @@
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
     <div id="search">
         <form action="finishListSearch" method="POST">
-        <select id="type">
-	    	<option value="">타입</option>
-	    	<option value="tip">팁</option>
-	    	<option value="gal">갤러리</option>
-	    	<option value="fed">사료</option>
-	    	<option value="run">산책</option>
-	    	<option value="res">식당</option>
-	    </select>
-            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
+            <input type="text" value="${params.keyword}" name="keyword" placeholder="아이디를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>
@@ -121,11 +113,10 @@
                 <th>신고 당한 글</th>
                 <th>유형</th>
                 <th>처리자</th>
-                <th>신고일</th>
+                <th>처리일</th>
             </tr>
             <c:forEach items="${finishList}" var="report">
 	            <tr>
-	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>
 		                <a href="detailMember?id=${report.id}" 
 		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
@@ -135,7 +126,7 @@
 	                <td>${report.field}</td>
 	                <td>${report.type}</td>
 	                <td>${report.admin_id}</td>
-	                <td>${report.reg_date}</td>
+	                <td>${report.proc_date}</td>
                 </tr>
             </c:forEach>
         </table>

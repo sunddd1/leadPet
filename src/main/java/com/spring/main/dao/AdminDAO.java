@@ -85,6 +85,8 @@ public interface AdminDAO {
 	ArrayList<AdminDTO> blindYList();
 
 	int blindY(int idx);
+	
+	int procY(int rep_idx, String loginId);
 
 	int blindN(int idx);
 
@@ -116,6 +118,8 @@ public interface AdminDAO {
 	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
 	
 	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
+
+	
 	
 
 
