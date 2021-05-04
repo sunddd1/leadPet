@@ -4,14 +4,18 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.VaccinDTO;
 
 @Service
 public class AdminService {
@@ -224,6 +228,62 @@ public class AdminService {
 //		logger.info("타입 신고 서비스 요청");
 //		return dao.typeReportList(type);
 //	}
+
+/////////////////
+	public ModelAndView vaccList(HttpSession session) {
+	ModelAndView mav = new ModelAndView();
+	ArrayList<VaccinDTO> list = dao.vaccList();
+	
+	mav.addObject("list", list);
+	mav.setViewName("admin/vaccinList");
+	return mav;
+	}
+	
+	public HashMap<String, Object> regVacc(VaccinDTO dto) {
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	int suc =0;
+	if(dto.getVacc_idx()>0) {
+	suc = dao.updateRegVacc(dto);
+	}else {
+	suc = dao.regVacc(dto);			
+	}
+	
+	map.put("suc", suc);
+	return map;
+	}
+	
+	public ModelAndView regVaccDetail(String vacc_idx) {
+	ModelAndView mav = new ModelAndView();
+	VaccinDTO vacc = dao.regVaccDetail(vacc_idx);
+	vacc.setType(vacc.getVacc_name().substring(vacc.getVacc_name().indexOf("(")+1, vacc.getVacc_name().lastIndexOf(")")));
+	vacc.setVacc_name(vacc.getVacc_name().substring(0, vacc.getVacc_name().indexOf("(")));
+	mav.addObject("vacc", vacc);
+	mav.setViewName("admin/regVaccForm");
+	return mav;
+	}
+	
+	public ModelAndView deleteVacc(String vacc_idx) {
+	ModelAndView mav = new ModelAndView();
+	int suc= dao.deleteVacc(vacc_idx);
+	logger.info("삭제여부 : "+suc);
+	mav.setViewName("redirect:./vaccList");
+	return mav;
+	}
+	
+	public ModelAndView VaccSearch(String keyword) {
+	ModelAndView mav = new ModelAndView();
+	if(keyword.equals("")) {
+	mav.setViewName("redirect:./vaccList");
+	return mav;
+	}
+	keyword = "%"+keyword+"%";
+	ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
+	mav.addObject("list", result);
+	logger.info("result : "+result);
+	mav.setViewName("admin/vaccinList");
+	//mav.setViewName("redirect:./vaccList?result="+result);
+	return mav;
+	}
 
 
 	
