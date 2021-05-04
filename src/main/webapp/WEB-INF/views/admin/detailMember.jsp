@@ -67,7 +67,14 @@
 				</tr>
 				<tr>
 					<th>블랙 횟수</th>
-					<td>0</td>
+					<td>
+						<c:if test="${dto.black_cnt == null}">
+							0
+						</c:if>
+						<c:if test="${dto.black_cnt != null}">
+							${dto.black_cnt}
+						</c:if>
+					</td>
 					<!-- <input type="text" name="black_cnt" value="0" readonly="readonly"/> -->
 				</tr>
 				<tr>
@@ -102,7 +109,8 @@
 		
 		var button = $(buttonObj);
 		var flag = $("#"+buttonObj.value);
-	
+		var black = 
+		
 		console.log(button);
 		console.log(flag);
 		
