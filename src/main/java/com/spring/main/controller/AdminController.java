@@ -426,7 +426,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/type", method = RequestMethod.GET)
-	public String type(
+	public HashMap<String, Object> type(
 			Model model, 
 			HttpSession session,
 			@RequestParam(value="type") String type
@@ -436,33 +436,31 @@ public class AdminController {
 //		String page ="admin/adminList";
 //		if(loginId != null) {
 			logger.info("선택된 타입:"+type);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			ArrayList<AdminDTO> list = null;
 			if(type.equals("tip")) {
-				ArrayList<AdminDTO> list =	service.tipReportList();
+				list =	service.tipReportList();
 				logger.info("팁 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("gal")){
-				ArrayList<AdminDTO> list =	service.galReportList();
+				list =	service.galReportList();
 				logger.info("갤러리 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("fed")){
-				ArrayList<AdminDTO> list =	service.fedReportList();
+				list =	service.fedReportList();
 				logger.info("사료 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("res")){
-				ArrayList<AdminDTO> list =	service.resReportList();
+				list =	service.resReportList();
 				logger.info("식당 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}else if(type.equals("run")){
-				ArrayList<AdminDTO> list =	service.runReportList();
+				list =	service.runReportList();
 				logger.info("산책 신고 수"+list.size());
-				model.addAttribute("reportList", list);
 			}
 //		ArrayList<AdminDTO> list =	service.typeReportList(type);
 //		logger.info("신고 수"+list.size());
 //		model.addAttribute("reportList", list);
 //			page="admin/adminList";
 //		}
-		return "true";
+			map.put("reportList", list);
+			return map;
 	}
 	
 	@RequestMapping(value = "/reportSearch", method = RequestMethod.POST)

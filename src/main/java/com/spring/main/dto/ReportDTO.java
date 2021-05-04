@@ -11,7 +11,7 @@ public class ReportDTO {
 	private int field;
 	private String reason;
 	private String proc_ex;
-	private Date reg_date;
+	private String reg_date;
 	private String id;
 	private String type;
 	private String admin_id;
@@ -41,10 +41,10 @@ public class ReportDTO {
 	public void setProc_ex(String proc_ex) {
 		this.proc_ex = proc_ex;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 	public String getId() {

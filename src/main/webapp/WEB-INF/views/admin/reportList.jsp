@@ -92,16 +92,16 @@
         <input type="radio" id="r2" name="radio" value="finish" OnClick="window.location.href='finishList'"/>처리
     </div>
     <div class="table">
-        <table>
+        <table id="report">
             <tr>
                <th>신고자</th>
-                <th>신고 당한 글</th>
+                <th>신고 글 번호</th>
+                <th>사유</th>
                 <th>신고일</th>
                 <th>처리유무</th>
             </tr>
             <c:forEach items="${reportList}" var="report">
 	            <tr>
-	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>
 		                <a href="detailMember?id=${report.id}" 
 		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
@@ -110,7 +110,7 @@
 	                </td>
 	                <td><a href="#">${report.field}</a></td>
 	                <td>${report.reason}</td>
-	                <td>${report.reg_date}</td>
+	                <td>${report.reg_date.substring(0,10)}</td>
 	                <td>${report.proc_ex}</td> 
                 </tr>
             </c:forEach>
@@ -124,6 +124,11 @@
 		window.close();
 	}
 	
+	function detail(id){
+		window.open('detailMember?id='+id, 'detailMember', 'width=800, height=600, top=100, left=400');
+	}
+	
+	
 	$('#type').change(function(){
 		var type = $(this).val();
 		console.log(type);
@@ -131,9 +136,26 @@
 			type:'GET' 
 			,url:'type'
 			,data:{"type": type}
-			,dataType: 'text' 
+			,dataType: 'json' 
 			,success: function(data){
 				console.log(data);
+				var list = data.reportList;
+			 	$("#report").html('');
+				for(var i=0;i<list.length;i++){
+					var content = '';
+					if(i==0){
+						content += '<tr> <th>신고자</th> <th>신고 글 번호</th><th>사유</th><th>신고일</th><th>처리유무</th></tr>';
+					}
+					content += '<tr>';
+					content += '<td onclick=detail("'+list[i].id+'")>';
+					content += list[i].id+'</td>';
+					content += '<td>'+list[i].field+'</td>';
+					content += '<td>'+list[i].reason+'</td>';
+					content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
+					content += '<td>'+list[i].proc_ex+'</td>';
+					content += '</tr>';
+					$("#report").append(content);
+				}
 			}
 			,error: function(e){
 				console.log(e);
