@@ -132,35 +132,39 @@
 	$('#type').change(function(){
 		var type = $(this).val();
 		console.log(type);
-		$.ajax({ 
-			type:'GET' 
-			,url:'type'
-			,data:{"type": type}
-			,dataType: 'json' 
-			,success: function(data){
-				console.log(data);
-				var list = data.reportList;
-			 	$("#report").html('');
-				for(var i=0;i<list.length;i++){
-					var content = '';
-					if(i==0){
-						content += '<tr> <th>신고자</th> <th>신고 글 번호</th><th>사유</th><th>신고일</th><th>처리유무</th></tr>';
+		if(type!=''){			
+			$.ajax({ 
+				type:'GET' 
+				,url:'type'
+				,data:{"type": type}
+				,dataType: 'json' 
+				,success: function(data){
+					console.log(data);
+					var list = data.reportList;
+					console.log("11"+$("#report tr").eq(0).html());
+					var first = $("#report tr").eq(0).html();
+				 	$("#report").html('');
+					$("#report").append('<tr>'+first+'</tr>');
+					for(var i=0;i<list.length;i++){
+						var content = '';
+						content += '<tr>';
+						content += '<td onclick=detail("'+list[i].id+'")>';
+						content += list[i].id+'</td>';
+						content += '<td>'+list[i].field+'</td>';
+						content += '<td>'+list[i].reason+'</td>';
+						content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
+						content += '<td>'+list[i].proc_ex+'</td>';
+						content += '</tr>';
+						$("#report").append(content);
 					}
-					content += '<tr>';
-					content += '<td onclick=detail("'+list[i].id+'")>';
-					content += list[i].id+'</td>';
-					content += '<td>'+list[i].field+'</td>';
-					content += '<td>'+list[i].reason+'</td>';
-					content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
-					content += '<td>'+list[i].proc_ex+'</td>';
-					content += '</tr>';
-					$("#report").append(content);
 				}
-			}
-			,error: function(e){
-				console.log(e);
-			}
-		});
+				,error: function(e){
+					console.log(e);
+				}
+			});
+		}else{
+			location.href='./reportList';
+		}
 	});
 	
 	
