@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,9 +109,9 @@ public class AdminService {
 		return dao.toggleMemberDisable(id);
 	}
 
-	public int memberBlackY(String id) {
+	public int memberBlackY(String id, Date black_date) {
 		logger.info("블랙 요청");
-		return dao.memberBlackY(id);
+		return dao.memberBlackY(id,black_date);
 	}
 
 	public int memberBlackN(String id) {
@@ -211,6 +212,12 @@ public class AdminService {
 	public ArrayList<AdminDTO> blindYSearch(HashMap<String, String> params) {
 		logger.info("블라인드 Y 닉네임 검색 서비스 도착");
 		return dao.blindYSearch(params);
+	}
+
+	public int blackDate(int black) {
+		logger.info("블랙 날짜 서비스 도착");
+		return dao.blackDate(black);
+		
 	}
 
 //	public ArrayList<AdminDTO> typeReportList(String type) {

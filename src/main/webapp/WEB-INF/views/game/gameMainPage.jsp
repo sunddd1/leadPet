@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>    
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>GameMainPage</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
+			#conBody{
+				margin: 5% 20%;
+			}
 			#game{
 				background-color: white;
 				border: 3px solid grey;
-				width: 50%;
+				width: 65%;
 				height: 65%;
 				padding: 2%;
-				margin: 2% 20%;
 			}
 			.flexBox {
 			   display: inline-flex;

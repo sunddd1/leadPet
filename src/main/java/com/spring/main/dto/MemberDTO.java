@@ -33,6 +33,8 @@ public class MemberDTO {
 	private int point;
 	private String nickname;
 	private String grade;
+	private int black_cnt;
+	private Date black_date;
 	
 	public String getId() {
 		return id;
@@ -112,4 +114,18 @@ public class MemberDTO {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	public int getBlack_cnt() {
+		return black_cnt;
+	}
+	public void setBlack_cnt(int black_cnt) {
+		this.black_cnt = black_cnt;
+	}
+	public Date getBlack_date() {
+		return black_date;
+	}
+	public void setBlack_date(Date black_date) {
+		this.black_date = black_date;
+	}
+	
+	
 }

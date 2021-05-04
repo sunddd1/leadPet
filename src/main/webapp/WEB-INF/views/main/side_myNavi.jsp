@@ -8,6 +8,10 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+			#side_Navi{
+				position: absolute;
+				top: 30%;
+			}
 		</style>
 	</head>
 	<body>
@@ -16,22 +20,22 @@
 				<th onclick="location.href='./vaccList'">회원정보</th>
 			</tr>
 			<tr>
-				<th onclick="location.href='./#'">회원탈퇴</th>
+				<th onclick="location.href='./withdrawal'">회원탈퇴</th>
 			</tr>		
 			<tr>
 				<th onclick="location.href='./#'">관심 유저 목록</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./#'">반려동물</th>
+				<th onclick="location.href='./listPet'">반려동물</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./#'">보낸 쪽지함</th>
+				<th onclick="location.href='./sendList'">보낸 쪽지함</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./#'">받은 쪽지함</th>
+				<th onclick="location.href='./noteList'">받은 쪽지함</th>
 			</tr>	
 			<tr>
-				<th onclick="location.href='./#'">작성한 글</th>
+				<th onclick="location.href='./writeList?id=${sessionScope.loginId}'">작성한 글</th>
 			</tr>	
 			<tr>
 				<th id="calendar" onclick="location.href='./calendar'">달력</th>

@@ -75,15 +75,15 @@ public class MemberService {
 		return dao.getMember(id);
 	}
 
-	public ModelAndView writeList( String id) {
+	public ModelAndView writeList() {
 		ModelAndView mav = new ModelAndView();
 		logger.info("목록 불러오는 중");
+		String id = "test1122";
 		logger.info("요청 유저 닉네임 : "+id);
 		String page = "home";
-		BoardDTO dto = dao.writeList(id);
-		logger.info("들어옴? ::"+dto.getBbs_idx());
-		
-		if(dto != null) {
+		ArrayList<BoardDTO> dto = dao.writeList(id);
+		logger.info("작성글 크기 :"+dto.size());
+		if(dto.size()>0) {
 			page="Member/writeList";
 			mav.addObject("write", dto);
 		}
@@ -113,6 +113,13 @@ public class MemberService {
 		member.setPassword(encoder.encode(member.getPassword()));
 		
 		return dao.update(member);
+	}
+
+	public String deleteWriteList(int bbs_idx) {
+		String loginId="test1122";
+		logger.info(bbs_idx+"번 삭제("+loginId+")");
+		dao.deleteWriteList(loginId,bbs_idx);
+		return "redirect:/writeList";
 	}
 	
 	

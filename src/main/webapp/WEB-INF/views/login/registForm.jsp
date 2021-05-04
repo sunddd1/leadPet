@@ -9,7 +9,11 @@
 	<title>회원가입</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-		table, th, td {
+		#registTable{
+				width: 60%;
+				margin-left: 20%;
+		}	
+		#registTable, #registTable td, #registTable th {
 			border : 1px solid black;
 		}
 	</style>
@@ -17,8 +21,11 @@
 	
 	
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
 		<form id="registForm" action="regist" method="post">
-			<table>
+			<table id="registTable">
 				<tr>
 					<th colspan="2">
 						<h2>회원가입</h2>

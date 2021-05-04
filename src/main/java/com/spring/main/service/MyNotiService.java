@@ -1,7 +1,7 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.spring.main.dao.MyNotiDAO;
-import com.spring.main.dto.MyNotiDTO;
-import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
 @Service
@@ -27,7 +25,7 @@ public class MyNotiService {
         message = dao.MessageList(loginId);
         model.addAttribute("messageList", message);
         logger.info("받은 쪽지 읽기 종료");
-        return "Note/noteList";
+        return "Note/MyNoti";
 	}
 
 	public String delMessage(int note_idx, boolean notiCheck) {
@@ -75,10 +73,15 @@ public class MyNotiService {
 		
 	}
 
-	public String newNoti(Model model) {
-		
-		return null;
+	public HashMap<String, Object> notiCheck(String id) {
+		int success = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		success = dao.notiCheck(id);
+		logger.info("success:"+success);
+		map.put("success", success);
+		return map;
 	}
+
 
 	
 

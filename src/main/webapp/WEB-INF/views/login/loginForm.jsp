@@ -9,11 +9,17 @@
 	<title>로그인</title>
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
-	
+		#loginTable{
+				width: 60%;
+				margin-left: 20%;
+		}
 	</style>
 	</head>
 	<body>
-		<table>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
+		<table id="loginTable">
 			<tr>
 				<td>
 					<h3>leadPet</h3>
@@ -35,7 +41,7 @@
 					</form>
 				</td>
 			<tr>
-				<td colspan="3" align="right" style="color: lightgray">
+				<td colspan="3" style="color: lightgray">
 					<a href="find-id-form">아이디 찾기</a>
 					/
 					<a href="change-pw-form">비밀번호 변경 </a> -->

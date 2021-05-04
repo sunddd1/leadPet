@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/game/include.jsp" %>    
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>WeeklyQuizDetail</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
 			#conBody{
-				margin: 5% 15%;
+				margin-left: 8%;
+				width: 55%;
 			}
 			h2{
 				text-align: center;
@@ -17,11 +22,10 @@
 			#queList{
 				padding-top: 3%;
 			}
-			table{
+			#quizTable{
 				border: 3px solid darkgrey;
 				padding: 3%;
 				width: 100%;
-				
 			}
 			#toGameWeek{
 				float: right;
@@ -49,7 +53,7 @@
 				<button onclick="location.href='./gameWeek'">목록으로</button>
 			</div>
 			<div id="queList">			
-				<table>
+				<table id="quizTable">
 					<c:forEach items="${qWeekDetail}" var="list">
 						<tr>
 							<th>Q. ${list.quiz_question}</th>			
