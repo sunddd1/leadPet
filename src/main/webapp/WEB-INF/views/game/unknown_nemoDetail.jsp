@@ -1,49 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>           
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>NemoDetail</title>
+		<title>???이건뭐지</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 5% 22%;
-				width: 50%;
+				margin: 5% 30%;
 			}
-			#btn{
+			#toGameWeek{
 				float: right;
-				padding: 1%;
-			}
-			#nemoDiv{
-				padding-top: 6%;
 			}
 			#nemoTable{
+				padding-top: 5%;
+			}
+			table{
 				border: 5px double grey;
 				border-collapse: collapse;
 			}
-			#nemoTable th, #nemoTable td{
+			th,td{
 				border: 1px solid black;
 				border-collapse: collapse;
 				width: 70px;
 				height: 70px;
 				font-size: 12px;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 			#subjectSpace{
 				padding-top: 2%;
@@ -52,12 +34,11 @@
 	</head>
 	<body>
 		<div id="conBody">
-			<div id="btn">
-				<button onclick="location.href='./nemoUpdateForm?idx=${nemoDetail.nemo_idx}'">수정하기</button>
-				<button onclick="location.href='./gameQueList'">목록으로</button>
+			<div id="toGameWeek">
+				<button onclick="location.href='./gameWeek'">목록으로</button>
 			</div>
-			<div id="nemoDiv">
-				<table id="nemoTable">
+			<div id="nemoTable">
+				<table>
 					<tr>
 						<th colspan="11" id="subjectSpace">
 							<h2>네모 제목 : ${nemoDetail.nemo_subject}</h2>
@@ -231,5 +212,7 @@
 				}
 			}
 		}
+		
+
 	</script>
 </html>

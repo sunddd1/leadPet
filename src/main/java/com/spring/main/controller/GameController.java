@@ -73,7 +73,7 @@ public class GameController {
 		return service.updateQuiz(params);
 	}
 	@RequestMapping(value = "/quizPlaying", method = RequestMethod.GET)
-	public ModelAndView quizPlaying(Model model, HttpSession session) {
+	public ModelAndView quizPlaying(HttpSession session) {
 		logger.info("상식퀴즈 게임 화면 : 가장 최근 등록된 회차 상식퀴즈 리스트 불러오기");
 		return service.getThisWeekQuiz(session);
 	}
@@ -117,5 +117,31 @@ public class GameController {
 	public ModelAndView updateNemo(@RequestParam HashMap<String, String> params) {
 		logger.info("네모로직 수정사항 저장 : {}",params);
 		return service.updateNemo(params);
+	}
+	@RequestMapping(value = "/nemoPlaying", method = RequestMethod.GET)
+	public ModelAndView nemoPlaying(HttpSession session) {
+		logger.info("네모로직 게임 화면 : 가장 최근 등록된 회차 네모로직 리스트 불러오기");
+		return service.getThisWeekNemo(session);
+	}
+	@RequestMapping(value = "/submitNemo", method = RequestMethod.POST)
+	public ModelAndView submitNemo(@RequestParam HashMap<String, String> params, HttpSession session) {
+		logger.info("네모로직 답안 제출(hashMap) : {}",params);
+		int min = Integer.parseInt(params.get("nemo_timer").substring(0, 2));
+		int sec = Integer.parseInt(params.get("nemo_timer").substring(3, 5));
+		int mill = Integer.parseInt(params.get("nemo_timer").substring(6, 8));
+		params.put("nemo_timer", Integer.toString((min*100*60+sec*100+mill)));
+		params.put("resultTime",min+":"+sec+"."+mill);
+		logger.info(params.get("nemo_timer"));
+		return service.submitNemo(params, session);
+	}
+	@RequestMapping(value = "/lastQuizAnswer", method = RequestMethod.GET)
+	public ModelAndView lastQuizAnswer() {
+		logger.info("지난 상식 퀴즈 내역");
+		return service.lastQuizAnswer();
+	}
+	@RequestMapping(value = "/lastNemoAnswer", method = RequestMethod.GET)
+	public ModelAndView lastNemoAnswer() {
+		logger.info("지난 네모로직 내역");
+		return service.lastNemoAnswer();
 	}
 }

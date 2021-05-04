@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>QuizResultPage</title>
+		<title>NemoResultPage</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
 			#side_Navi,#conBody{
@@ -33,10 +33,13 @@
 				font-size: x-large;
 			}
 			#resultTable td{
-				text-align: left;
+				text-align: center;
 				padding: 3%;
 				font-size: large;
 				font-weight: 600;
+			}
+			#if_success{
+				color: red;
 			}
 			#side_Navi th{
 				border: 1px solid;
@@ -54,22 +57,29 @@
 	<body>
 		<div id="conBody">
 			<div  id="title">
-				<h2>상식퀴즈 게임결과</h2>
+				<h2>네모로직 게임결과</h2>
 			</div>
 			<div id="result">			
 				<table id="resultTable">
 					<tr>
-						<th>${loginId} 님 상식퀴즈 게임 결과</th>
+						<th>${loginId} 님 네모로직 게임 결과</th>
 					</tr>
 					<tr>
-						<td>점수 : ${score} / 10</td>
+						<td id="if_success">
+							<c:if test="${nemo_success == 'Y'}">
+								정답! 답안과 일치합니다.							
+							</c:if>
+							<c:if test="${nemo_success == 'N'}">
+								불일치합니다. 다음 기회에 다시 도전해주세요!						
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td>걸린 시간 : ${resultTime}</td>
 					</tr>
 					<tr>
 						<th>
-							<button onclick="location.href='./quizRanking'">랭킹보기</button>&nbsp;&nbsp;
+							<button onclick="location.href='./nemoRanking'">랭킹보기</button>&nbsp;&nbsp;
 							<button onclick="location.href='./gameMain'">목록으로</button>
 						</th>	
 					</tr>
