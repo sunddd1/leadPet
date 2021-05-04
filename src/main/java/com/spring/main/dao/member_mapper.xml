@@ -54,6 +54,7 @@
 			<if test="gender != null">gender=#{gender},</if>
 			<if test="email != null">email=#{email},</if>
 			<if test="nickname != null">nickname=#{nickname}</if>
+			<if test="grade != null">grade=#{grade}</if>
 		</set>
 		WHERE
 			id=#{id}		
