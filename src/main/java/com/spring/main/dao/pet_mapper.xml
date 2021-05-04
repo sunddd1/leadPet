@@ -8,7 +8,7 @@
 <mapper namespace="com.spring.main.dao.PetDAO">
 	<!-- 반려동물 목록 -->
 	<select id="list"  resultType="com.spring.main.dto.PetDTO">
-		SELECT kind,bday,pet_name,kg FROM pet WHERE id=#{param1} ORDER BY pet_idx DESC
+		SELECT kind,bday,pet_name,kg,pet_idx FROM pet WHERE id=#{param1} ORDER BY pet_idx DESC
 	</select>
 	
 	<!-- 
@@ -19,20 +19,30 @@
 	-->
 	<insert id="write" 
 		useGeneratedKeys="true"
-		keyProperty="idx"
-		keyColumn="idx"
+		keyProperty="pet_idx"
+		keyColumn="pet_idx"
 		parameterType="pet">
 		INSERT INTO pet(pet_idx,pet_name,bday,dog_cat,kind,kg,id)
 			VALUES(pet_seq.NEXTVAL,#{pet_name},#{bday},#{dog_cat},#{kind},#{kg},#{id})
 	</insert>
 	
 	<insert id="writeFile">
-		INSERT INTO pet_img(fileIdx,newFileName,oriFileName,idx)
-			VALUES(pet_img_seq.NEXTVAL,#{param1},#{param2},#{param3})
+		INSERT INTO pet_img(photo_idx,newFileName,oriFileName,reg_date,pet_idx)
+			VALUES(pet_img_seq.NEXTVAL,#{param3},#{param2},SYSDATE,#{param1})
 	</insert>
 	
 	<!-- 파일 리스트 -->
-	<select id="fileList" resultType="photos">
+	<select id="photoList" resultType="photos">
 		SELECT  * FROM pet_img WHERE pet_idx=#{param1}
 	</select>
+	
+	<delete id="deletePet">          
+		DELETE FROM pet WHERE pet_idx=#{param1} 
+	</delete>
+	
+<!-- 	<insert id="upload">
+		INSERT INTO pet_img(photo_idx,newFileName,oriFileName,reg_date,pet_idx)
+			VALUES(pet_img_seq.NEXTVAL,#{newFileName},#{oriFileName},SYSDATE,(select pet_idx from pet where ))
+	</insert> -->
+	
 </mapper>

@@ -1,38 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>     
-<html>
+<%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
+<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>         <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>QuizUpdatePage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
+			#side_Navi,#conBody{
+				display: inline-block;
+			}
 			#conBody{
-				margin: 5% 20%;
+				margin: 5% 18%;
+				width: 60%;
 			}
 			h2{
 				text-align: center;
 			}
 			#queDetail{
-				padding-top: 3%;
+				padding-top: 1%;
 			}
-			table{
+			#quizTable{
 				border: 3px solid;
 				padding: 5%;
 				width: 100%;
 			}
-			th,td{
+			#quizTable th{
 				text-align: left;
-				padding-top: 1%;
-			}
-			th{
 				padding: 2%;
 				border: 3px double darkgrey;
 			}
-			td{
-				text-align: center;
+			#quizTable td{
+				text-align: left;
 				padding-top: 3%;
+			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
 			}
 			span{
 				color: red;
@@ -45,7 +57,10 @@
 				background-color: #F3F3F3;
 				font-size: 16px;
 			}
-			#answer,#inputEx1,#inputEx2,#inputEx3,#inputEx4{
+			#answer{
+				width: 50%;
+			}
+			#inputEx1,#inputEx2,#inputEx3,#inputEx4{
 				width: 20%;
 			}
 		</style>
@@ -57,7 +72,7 @@
 			</div>
 			<div id="queDetail">
 				<form action="./updateQuiz?idx=${quiz_idx}" method="post">			
-					<table>
+					<table id="quizTable">
 						<tr>
 							<th>
 								[ 문제 ]<hr/>

@@ -6,15 +6,15 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>WeeklyQuizDetail</title>
+		<title>LastQuizPage</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
 			#side_Navi,#conBody{
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 15%;
-				width: 65%;
+				margin: 5% 20%;
+				width: 55%;
 			}
 			h2{
 				text-align: center;
@@ -62,12 +62,7 @@
 				<h2>${week_quiz_idx}회차 상식퀴즈</h2>
 			</div>
 			<div id="toGameWeek">
-				<c:if test="${lastQuiz == null}">
-					<button onclick="location.href='./gameWeek'">목록으로</button>				
-				</c:if>
-				<c:if test="${lastQuiz != null}">
-					<button onclick="location.href='./gameMain'">목록으로</button>				
-				</c:if>
+				<button onclick="location.href='./gameWeek'">목록으로</button>
 			</div>
 			<div id="queList">			
 				<table id="quizTable">

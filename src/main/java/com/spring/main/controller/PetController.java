@@ -24,39 +24,47 @@ public class PetController {
 	
 	//반려동물 목록
 	@RequestMapping(value = "/listPet", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model,@RequestParam String id) {
 		logger.info("반려동물 목록");
-		service.list(model);
+		service.list(model,id);
 		return "Pet/list";
 	}
 	
 	//반려동물 등록 페이지 요청  
 	@RequestMapping("/newPet")
-	public String newPet() {
-		logger.info("반려동물 등록 페이지 요청");
+	public String newPet(@RequestParam String id) {
+		logger.info("반려동물 등록 페이지 요청 ID :"+id);
 		return "Pet/newPet";
 	}
 	
-	
+	//사진 업로드 창 
 	@RequestMapping(value = "/uploadFormPet", method = RequestMethod.GET)
-	public String uploadForm( Model model) {
+	public String uploadForm(HttpSession session) {
 		logger.info("사진 올리기 폼 요청");
+		HashMap<String, String> photoList = new HashMap<String,String>();
+		session.setAttribute("photoList", photoList);
 		return "Pet/uploadFormPet";
 	}
 	
+	//사진 업로드 
 	@RequestMapping(value = "/uploadPet", method = RequestMethod.POST)
-	public ModelAndView upload(MultipartFile file, HttpSession session) {
-		logger.info("업로드 요청");
-		logger.info(""+file);
+	public ModelAndView upload(MultipartFile file, HttpSession session) {		
+		logger.info("업로드 요청");			
 		return service.fileUpload(file,session);
 	}
 	
 	//반려동물 등록
 	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
-	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session) {
-		logger.info("반려동물 등록 : "+params);
-		String id = "test123";
+	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id) {
+		logger.info("반려동물 등록 신청 ID : "+id);
 		return service.write(params,session,id);
+	}
+	
+	//반려동물 삭제 요청 
+	@RequestMapping(value="/deletePet")
+    public String deletePet(@RequestParam int pet_idx,@RequestParam String id){
+        logger.info("반려동물 삭제");
+		return service.deletePet(pet_idx);
 	}
 	
 }

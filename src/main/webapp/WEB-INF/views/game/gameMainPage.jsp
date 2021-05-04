@@ -15,10 +15,21 @@
 			#conBody{
 				margin: 5% 20%;
 			}
+			#side_Navi th{
+				border: 1px solid;
+	      	 	padding: 5px 10px;
+	       	 	border-collapse: collapse;
+			}
+			#side_Navi{
+				white-space: nowrap;
+				border: 1px solid;
+				border-collapse: collapse;
+				padding: 0;
+			}
 			#game{
 				background-color: white;
 				border: 3px solid grey;
-				width: 65%;
+				width: 90%;
 				height: 65%;
 				padding: 2%;
 			}
