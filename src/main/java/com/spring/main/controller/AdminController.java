@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.AdminService;
+
+import oracle.sql.DATE;
 
 @Controller
 public class AdminController {
@@ -331,27 +336,35 @@ public class AdminController {
 		return "admin/detailPet";
 	}
 	
-	@ResponseBody
+	
+	@Transactional
 	@RequestMapping(value = "/toggleMemberDisable", method = RequestMethod.GET)
-	public String toggleMemberDisable(
+	public @ResponseBody String toggleMemberDisable(
 			Model model, 
 			HttpSession session,
-			@RequestParam(value="id") String id
+			@RequestParam(value="id") String id,
+			@RequestParam(value="black") int black
 			) {
-//		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("블랙 요청");
-		if(service.toggleMemberDisable(id).equals("N")) {
-			service.memberBlackY(id);
-			service.insertBlack(id);
-			return "Y";
-		}else {
-			service.memberBlackN(id);
-			return "N";
-		}
-//			page="admin/adminList";
+			logger.info("블랙 요청");
+			if(service.toggleMemberDisable(id).equals("N")) {
+				black = black+1;
+				int cnt = service.blackDate(black);
+				cnt = cnt*24*60*60*1000;
+				java.util.Date date = new java.util.Date();
+				java.sql.Date black_date = new java.sql.Date(date.getTime()+cnt);
+				logger.info("black_date"+black_date+"/"+date+"/"+cnt);
+				service.memberBlackY(id,black_date);
+//				service.insertBlack(id);
+				return "Y";
+			}else {
+//				service.memberBlackN(id);
+				return "N";
+			}
+	//		page="admin/adminList";
 //		}
 	}
 	

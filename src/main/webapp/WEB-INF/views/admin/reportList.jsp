@@ -109,6 +109,7 @@
 		                </a>
 	                </td>
 	                <td><a href="#">${report.field}</a></td>
+	                <td>${report.reason}</td>
 	                <td>${report.reg_date}</td>
 	                <td>${report.proc_ex}</td> 
                 </tr>
