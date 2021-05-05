@@ -627,6 +627,36 @@ public class AdminController {
 		return "admin/blindYList";
 	}
 	
+	@RequestMapping(value = "/pointList", method = RequestMethod.GET)
+	public String pointList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			ArrayList<MemberDTO> list = service.pointList();
+			model.addAttribute("pointList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/pointList";
+	}
+	
+	@RequestMapping(value = "/pointListSearch", method = RequestMethod.POST)
+	public String pointListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.pointListSearch(params);
+		model.addAttribute("pointList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/pointList";
+	}
+	
 	////////regVaccForm
 	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
 	public ModelAndView vaccList(HttpSession session) {

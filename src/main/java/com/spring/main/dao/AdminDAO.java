@@ -100,6 +100,10 @@ public interface AdminDAO {
 
 	void freedom(String string);
 
+	ArrayList<MemberDTO> pointList();
+
+	ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params);
+	
 //	ArrayList<AdminDTO> typeReportList(String type);
 
 //////////////
@@ -121,6 +125,8 @@ public interface AdminDAO {
 
 
 	int vaccCount(String keyword);
+
+	
 
 	
 

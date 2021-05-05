@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -92,37 +93,25 @@
 <button onclick="location.href='blindNList'">블라인드 리스트</button>
 <button onclick="location.href='pointList'">포인트 내역 리스트</button>
     <div id="search">
-        <form action="search" method="GET">
-            <select id="select" name="search">
-                <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-                <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
-            </select>
-            <input type="text" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+        <form action="pointListSearch" method="POST">
+            <input type="text" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
             <input type="submit" value="검색">
         </form>
-    </div>
-    <div id="insert">
-    	<button onclick="adminInsert()">관리자 등록</button>
     </div>
     <div class="table">
         <table>
             <tr>
                 <th>아이디</th>
-                <th>비밀번호</th>
-                <th>닉네임</th>
-                <th>관리자 등록일</th>
-                <th></th>
+                <th>포인트</th>
+                <th>획득처</th>
+                <th>날짜</th>
             </tr>
-            <c:forEach items="${adminList}" var="admin">
+            <c:forEach items="${pointList}" var="point">
 	            <tr>
-	                <td id="id">${admin.admin_id}</td>
-	                <td>${admin.password}</td>
-	                <td>${admin.nickname}</td>
-	                <td>${admin.reg_date}</td> 
-					<td>
-						<button value="${admin.admin_id}" onclick='changePass(this)'>비밀번호 수정</button>
-						<button onclick="location.href='adminDelete?id=${admin.admin_id}'">삭제</button>
-	                </td>
+	                <td>${point.id}</td>
+	                <td id="td">${point.pm_point}</td>
+	                <td>${point.gain}</td>
+	                <td>${point.reg_date}</td> 
                 </tr>
             </c:forEach>
         </table>
@@ -135,17 +124,21 @@ if(msg != ""){
 	window.close();
 }
 
-	var oriWindow;
-	
-function changePass(buttonObj){
-	var button = $(buttonObj);
-	var flag = $("#"+buttonObj.value);
-	oriWindow = buttonObj.value;
-	 window.open('changePass?id='+oriWindow,'Change Password','width=500, height=300, top=300, left=900')
+var text ='${point.pm_point}';
+var findPlus = "+";
+
+
+
+if(text.indexOf(findPlus)) {
+
+$('#td').html('+'+text);
+
 }
 
-function adminInsert(){
-	window.open('adminInsert','Insert Admin','width=500, height=400, top=300, left=900')
+else {
+
+	$('#td').html('-'+text);
+
 }
 </script>
 </html>
