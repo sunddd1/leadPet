@@ -234,6 +234,17 @@ public class AdminService {
 //		logger.info("타입 신고 서비스 요청");
 //		return dao.typeReportList(type);
 //	}
+	
+	public ArrayList<MemberDTO> pointList() {
+		logger.info("포인트 내역 서비스 도착");
+		return dao.pointList();
+	}
+	
+	public ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params) {
+		logger.info("포인트 검색 서비스 도착");
+		return dao.pointListSearch(params);
+	}
+
 
 /////////////////
 	public ModelAndView vaccList(HttpSession session) {
@@ -301,6 +312,9 @@ public class AdminService {
 	
 		return map;
 	}
+
+	
+
 
 	
 

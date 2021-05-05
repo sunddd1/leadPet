@@ -17,13 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.PetDAO;
 import com.spring.main.dto.PetDTO;
-import com.spring.main.dto.Pet_imgDTO;
+import com.spring.main.dto.VaccinDTO;
 
 @Service
 public class PetService {
@@ -36,6 +35,23 @@ public class PetService {
 		ArrayList<PetDTO>list = dao.list(id);
 		
 		model.addAttribute("list", list);
+	}
+	
+	//반려동물 등록 페이지 요청
+	public ModelAndView newPet(String id) {
+		logger.info("등록 페이지");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<VaccinDTO>dog =dao.vac_dog();//강아지 접종 목록
+		ArrayList<VaccinDTO>cat = dao.vac_cat();//고양이 접종 목록
+		logger.info("고양이 접종 리스트 :"+cat.size());
+		logger.info("강아지 접종 리스트 :"+dog.size());
+		mav.addObject("dog", dog);
+		mav.addObject("cat", cat);
+//		ArrayList<VaccinDTO>vac = dao.vac();// 접종 목록
+//		logger.info("백신리스트:"+vac.size());
+		mav.setViewName("Pet/newPet");
+//		mav.addObject("vac", vac);
+		return mav;
 	}
 	
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
@@ -58,11 +74,6 @@ public class PetService {
 			photoList.put(newfileName, orifileName);
 			logger.info("현재 저장된 파일 수 :"+photoList.size());
 			session.setAttribute("photoList", photoList);
-//			Pet_imgDTO imgDTO = new Pet_imgDTO();
-//			imgDTO.setOriFileName(orifileName);
-//			imgDTO.setNewFileName(newfileName);
-//			logger.info("imgDTO : "+imgDTO.getOriFileName()+imgDTO.getNewFileName()+imgDTO.getPet_idx());
-//			dao.upload(imgDTO);
 			mav.addObject("path","/photoPet/"+newfileName);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -72,56 +83,8 @@ public class PetService {
 		return mav;
 	}
 	
-//	//파일 업로드 
-//	public ModelAndView fileUpload(MultipartFile file, HttpSession session,HashMap<String, String> params) {
-//		ModelAndView mav = new ModelAndView();
-//		/*file upload 시작*/
-//		//1.경로설정 
-//		File dir = new File(root+"uploadPet/");
-//		
-//		//2.경로 없으면 생성
-//		if(!dir.exists()) {
-//			logger.info("폴더 없음, 생성");
-//			dir.mkdir();
-//		}
-//		
-//		//3.파일명 추출
-//		String fileName = file.getOriginalFilename();
-//		//4.새파일명 생성(현재시간을 밀리세컨드로 환산한 이름)
-//		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
-//		logger.info(fileName+"=>"+newFileName);
-//		
-//		/*파일 저장*/
-//		try {
-//			//java.nio 활용(java 7 부터 적용 됨)
-//			logger.info("1");
-//			byte[]bytes = file.getBytes();//MultipartFile 에서 바이너리 데이터를 추출 
-//			Path filePath = Paths.get(root+"uploadPet/"+newFileName);//저장할 경로를 지정
-//			Files.write(filePath,bytes);//파일 저장
-//			logger.info("2");
-//			//session에 파일 저장 
-//			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-//			fileList.put(newFileName, fileName);
-//			logger.info("현재 저장된 파일 수 :"+fileList.size());
-//			
-//			//DTO에 담았을때 
-////			Pet_imgDTO dto = new Pet_imgDTO();
-////			dto.setOriFileName(fileName);
-////			dto.setNewFileName(newFileName);
-//			
-//			
-//			
-//			session.setAttribute("fileList", fileList);
-//			mav.addObject("path","/photo/"+newFileName); //경로 
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		 
-//		mav.setViewName("Pet/uploadFormPet");
-//		return mav;
-//	}
-	
+		
+
 	//반려동물 등록
 	@Transactional
 	public ModelAndView write(HashMap<String, String> params, HttpSession session, String id) {
@@ -129,7 +92,7 @@ public class PetService {
 		String page="redirect:/newPet";	//실패시 등록페이지 	
 		String bday = params.get("birth1")+"/"+params.get("birth2")+"/"+params.get("birth3");//년/월/일 =bday 
 		logger.info("bday:"+bday);
-		PetDTO dto = new PetDTO();//dto 에 추가 
+		PetDTO dto = new PetDTO();//dto 에 추가 (반려동물 정보) 
 		dto.setId(id);
 		dto.setKg(params.get("kg"));
 		dto.setKind(params.get("kind"));
@@ -142,27 +105,36 @@ public class PetService {
 		
 		if(dao.write(dto)>0) {//등록 성공시 
 			logger.info("idx : "+dto.getPet_idx());
-			if(photoList.size()>0) {//fileList 데이터 존재 확인 
+			if(photoList.size()>0) {//PhotoList 데이터 존재 확인 
 				logger.info("photo_size :"+photoList.size());
 			}
 			if(dto!=null) {
 				logger.info("여기까지 됐나 dto :"+dto.getPet_idx());
-				//업로드한 파일 존재 > 파일 내용 DB 에 추가 
-				//photo_idx, oriFileName, newFileName,reg_date pet_idx
-//				Pet_imgDTO imgDTO = new Pet_imgDTO();
-//				imgDTO.setNewFileName(fileList.keySet());
-//				String newFileName = fileList.get(newFileName);
-//				logger.info("newFileName:"+newFileName);
-				
+				//업로드할 파일 존재 -> DB에 추가 
 				for(String key : photoList.keySet()){
 					dao.writeFile(dto.getPet_idx(),key,photoList.get(key));
 				}
-				logger.info("DB 추가 완료");
-			
+				logger.info("DB 사진 추가 완료");
+				
+				
+				
+//				//반려동물 예방접종 여부 저장 
+//				Pet_vaccineDTO vaccDTO = new Pet_vaccineDTO();//반려동물 접종 여부 dto 
+//				//SimpleDateFormat sd = new SimpleDateFormat("yy/mm/dd");
+//				vaccDTO.setVacc_date(params.get("vacc_date"));
+//				vaccDTO.setChecked(params.get("checked"));
+//				vaccDTO.setPet_idx(dto.getPet_idx());
+//				//해당 백신의 번호 
+//				int vacc_idx = dao.getIdx(params.get("vacc_name"));
+//				vaccDTO.setVacc_idx(vacc_idx);
+//				logger.info("백신 번호 :"+vaccDTO.getVacc_idx());
+//				for(ArrayList<Pet_vaccineDTO> insert : vaccDTO) {
+//					logger.info("insert:"+insert);
+//				}
+				
 			}						
 			page="Pet/list";//성공시 반려동물 목록으로 이동
-		}else{//글쓰기 실패
-				
+		}else{//반려동물 등록 실패
 			
 		}
 		session.removeAttribute("fileList");//파일 업로드가 다 끝난다면 session 에서 삭제
@@ -177,6 +149,17 @@ public class PetService {
 		logger.info("삭제 완료..");
 		return "redirect:/listPet";
 	}
-			
+
+	public String star(int pet_idx) {
+		logger.info("대표 반려동물 선택 idx :"+pet_idx);
+		dao.star(pet_idx);
+		return "Pet/list";
+	}
+
+	public ModelAndView updatePet(int pet_idx) {
+		logger.info("반려동물 업데이트 :"+pet_idx);
+		return null;
+	}
+	
 
 }

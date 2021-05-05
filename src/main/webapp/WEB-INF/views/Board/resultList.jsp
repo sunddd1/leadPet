@@ -8,24 +8,25 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		
 		
 		<!-- 페이징 라이브러리(제이쿼리 플로그인이라 반드시 필요, 버전도 맞아야함.) -->
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
-			table {
-				width: 100%;
+			#rsTable  {
+				width: 60%;
 				margin-top: 10px;
 				max-width: 900px;
+				margin-left: 20%;
 			}
-			table,td{
+			#rsTable ,#rsTable td{
 				border: 1px solid;
 				border-collapse: collapse;
 				padding: 5px 10px;
 			}
-			td{
+			#rsTable td{
 				max-width:200px;
 				white-space: nowrap;
 				overflow: hidden;
@@ -35,6 +36,7 @@
 				text-align: center;
 			}
 		</style>
+		
 	</head>
 	<body>
 		
@@ -66,6 +68,7 @@
 			</tr>
 		</table>
 	</body>
+	
 	<script>
    
 	   var showPage = 1;

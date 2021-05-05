@@ -55,9 +55,9 @@ public class MyNotiController {
 		
 		//받은 쪽지 상세보기  
 		@RequestMapping(value="/detailNoteList")
-	    public String detailNoteList(ArrayList<Message> message,@RequestParam int note_idx,Model model){
+	    public ModelAndView detailNoteList(ArrayList<Message> message,@RequestParam int note_idx,Model model,@RequestParam String id){
 	        logger.info("받은 쪽지 상세보기");
-			return service.detailNoteList(message, note_idx,model);
+			return service.detailNoteList(message, note_idx,id);
 		}
 		
 		//쪽지/로그인 정보 

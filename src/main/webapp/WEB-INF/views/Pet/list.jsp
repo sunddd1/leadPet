@@ -28,6 +28,7 @@
 				<td>생년월일</td>
 				<td>이름</td>
 				<td>체중</td>
+				<td></td>
 				<td>수정</td>
 				<td>삭제</td>
 			</tr>
@@ -39,6 +40,14 @@
 				<td>${dto.bday}</td>
 				<td>${dto.pet_name}</td>
 				<td>${dto.kg}</td>
+				<td>
+					<c:if test="${dto.delegate != 'N'}">
+						<button>대표인애</button>
+					</c:if>
+					<c:if test="${dto.delegate == 'N'}">
+						<button onclick="location.href='./star?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}'">대표로 설정</button>
+					</c:if>
+				</td>
 				<td><a href="./updatePet?pet_idx=${dto.pet_idx}">수정</a></td>
 				<td><a href="./deletePet?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}">삭제</a></td>
 			</tr>
@@ -46,5 +55,9 @@
 		</tbody>
 	</table>
 </body>
-<script></script>
+<script>
+	/* function delegate() {
+		location.href='./petPlus?id=${sessionScope.loginId}';
+	} */
+</script>
 </html>
