@@ -37,6 +37,7 @@
 					<jsp:include page="./main/main_galTop3.jsp"/>
 				</th>
 				<th>
+					<jsp:include page="./main/main_gameRank.jsp"/>
 				</th>
 			</tr>
 		</table>

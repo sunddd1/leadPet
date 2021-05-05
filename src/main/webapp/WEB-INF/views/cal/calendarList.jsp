@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#draw ,#draw td,#draw th {
 				margin: 5px;
@@ -24,7 +24,7 @@
 	        #list {
 	        	width: 100%;
 	        }
-	        #list td{
+	        #list td{	        	
 	        	width: 80%;
 	        }
 		</style>
@@ -59,6 +59,8 @@
 	    		</tr>
 	    	</c:forEach>
 	    </table>
+	    <button id="prePage">이전 페이지</button>
+	    <button id="nextPage">다음 페이지</button>
 	</body>
 	<script>
     $(document).ready(function () {
@@ -131,6 +133,7 @@
 
         
 	}
+
 	function fa(e) {
 		 d.setDate(e);
 		console.log((d.getMonth()+1) +"+++"+e+"+++"+d.getDate());
@@ -161,10 +164,49 @@
 		fa(data.substring(8,10));
     	opener.setData(data);
     }
+	
     
+    var list=[];
+	var start = 0;
+	var end = 5;
+	
+		for (var i =0 ; i <$('#list tr').length ;i++) {
+	   		//$('#list tr').eq(i).css("visibility","hidden");
+	   		list[i] = $('#list tr').eq(i).html();
+	 	}    		
+		for (var i = $('#list tr').length; i >5 ; i--) {
+	   		$('#list tr').eq(i).remove();			
+		}
+		console.log(list);
 
-
-    
+	 	if(list.length<5){
+	 		$('#nextPage').css("visibility","hidden");
+	 	}
+	$('#nextPage').click(function() {
+		if(end<list.length){
+			$('#list').empty();			
+			start += 5;
+			end += 5;
+			for (var i = start; i < end; i++) {
+				var cont="<tr>"+list[i]+"</tr>"
+				$('#list').append(cont);
+			}					
+		}
+		console.log(start+"/"+end);
+	});
+	$('#prePage').click(function() {
+		if(start>4){
+			$('#list').empty();		
+			start -= 5;
+			end -= 5;
+			for (var i = start; i < end; i++) {
+				var cont="<tr>"+list[i]+"</tr>"
+				$('#list').append(cont);		
+			}			
+		}
+		console.log(start+"/"+end);
+	});
+    //visible
     function reg() {//location.href='./regScheForm'
     	window.open("./regScheForm","","width=600,height=400,left=800,top=300");
 	}

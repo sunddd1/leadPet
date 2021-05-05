@@ -231,6 +231,9 @@
 		SELECT * FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
 	</select>
 	
+	<select id="vaccCount" resultType="int">
+		SELECT COUNT(vacc_idx) FROM vaccin WHERE  vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
+	</select>
 	
 </mapper>
 

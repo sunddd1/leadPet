@@ -40,7 +40,8 @@ public class GameDTO {
 		private int week_nemo_idx;
 		/*private int nemo_idx; //위에서 선언*/
 		private Date nemo_update_date;
-		
+		private int nemo_timer;
+
 		//quiz Test Table
 		private int quiz_score;
 		private int quiz_timer;
@@ -49,6 +50,13 @@ public class GameDTO {
 		/*private int week_quiz_idx;//위에서 선언*/
 		private String if_submit;
 		
+		
+		public int getNemo_timer() {
+			return nemo_timer;
+		}
+		public void setNemo_timer(int nemo_timer) {
+			this.nemo_timer = nemo_timer;
+		}
 		public int getQuiz_score() {
 			return quiz_score;
 		}

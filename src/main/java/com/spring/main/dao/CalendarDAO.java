@@ -55,4 +55,7 @@ public interface CalendarDAO {
 	int schExecuted(String vac_idx, String id);
 	
 	int addSche(SchedulerDTO dto);
+
+	Object paging(int start, int end);
+
 }

@@ -273,20 +273,41 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView searchBbs(String category, String keyword) {
+	public HashMap<String, Object> searchBbs(String category, String keyword,int page, int pagePerCnt) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		keyword =  "%"+keyword+"%";
-		int currPage = 1;
-		int start = 1+ (currPage-1) *12;
-		int end = start + 11;
-		int maxPage = (int) Math.ceil(dao.maxPage(category,keyword,start,end)/12);
-		ModelAndView mav = new ModelAndView();
-		logger.info("키워드 : "+ keyword +"//"+ maxPage);
+		int allCnt = 0;
+		if(category.equals("ALL")) {
+			allCnt= dao.allCount(keyword);
+		}else {
+			allCnt = dao.anCount(keyword,category);
+		}
+		
+		System.out.println(page+"/"+pagePerCnt+"/"+allCnt);
+		int range = allCnt%pagePerCnt >0 ? ((int)Math.floor(allCnt/pagePerCnt))+1 : allCnt/pagePerCnt;
+		System.out.println("range : " + range);
+		
+		page = page>range? range:page;
+		System.out.println("page = "+page+category);
+		page = page==0 ? page=1:page  ;
+		System.out.println("page1 = "+page);
+		
+		int end = page * pagePerCnt;
+		System.out.println("end = "+page+"*"+pagePerCnt);
+		
+		int start = end-pagePerCnt+1;
+		System.out.println("start = "+end+"-"+pagePerCnt+"+1");
+		logger.info("키워드 : "+ keyword +"//" +start+"//"+end+"//"+range);
 		ArrayList<BoardDAO> list = dao.searchBbs(category,keyword,start,end);
-		logger.info("list : "+list);
-		mav.addObject("list", list);
-		mav.setViewName("main/result");
-		return mav;
+		
+		logger.info("list : "+list.size());
+		map.put("list",list);
+		map.put("range",range);
+		map.put("currPage",page);
+		return map;
 	}
+
 	
 	
 

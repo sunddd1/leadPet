@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -637,11 +638,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/VaccSearch", method = RequestMethod.GET)
-	public ModelAndView VaccSearch(HttpSession session,@RequestParam String keyword) {
+	public @ResponseBody HashMap<String, Object> VaccSearch(HttpSession session,@RequestParam int pagePerCnt, @RequestParam int page,@RequestParam String keyword) {
 		logger.info("백신 검색요청 "+keyword);
-		return service.VaccSearch(keyword);
+		return service.VaccSearch(page,pagePerCnt,keyword);
 	}
 	
-	
+	@RequestMapping(value = "/reqVaccSearch", method = RequestMethod.GET)
+	public ModelAndView reqVaccSearch(@RequestParam String keyword) {
+		logger.info("검색요청 : {} ",keyword );
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vaCkeyword", keyword);
+		mav.setViewName("admin/vaccinList");
+		return mav;
+	}
 	
 }

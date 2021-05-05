@@ -42,5 +42,9 @@ public interface GameDAO {
 	int insertNemo(HashMap<String, String> params);
 
 	int updateNemo(HashMap<String, String> params);
+
+	ArrayList<GameDTO> quizRank();
+
+	ArrayList<GameDTO> nemoRank();
 	
 }

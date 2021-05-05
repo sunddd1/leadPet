@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
@@ -270,19 +271,22 @@ public class AdminService {
 	return mav;
 	}
 	
-	public ModelAndView VaccSearch(String keyword) {
-	ModelAndView mav = new ModelAndView();
-	if(keyword.equals("")) {
-	mav.setViewName("redirect:./vaccList");
-	return mav;
-	}
-	keyword = "%"+keyword+"%";
-	ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
-	mav.addObject("list", result);
-	logger.info("result : "+result);
-	mav.setViewName("admin/vaccinList");
-	//mav.setViewName("redirect:./vaccList?result="+result);
-	return mav;
+	public @ResponseBody HashMap<String, Object> VaccSearch(int page, int pagePerCnt,String keyword) {
+		keyword = "%"+keyword+"%";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.vaccCount(keyword);
+		
+		int range = allCnt%pagePerCnt >0 ? ((int)Math.floor(allCnt/pagePerCnt))+1 : allCnt/pagePerCnt;
+		page = page>range? range:page;
+		
+		ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
+		logger.info("result : "+result.size());
+		
+		map.put("list", result);
+		map.put("range",range);
+		map.put("currPage",page);
+	
+		return map;
 	}
 
 

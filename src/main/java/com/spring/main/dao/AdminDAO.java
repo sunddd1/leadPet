@@ -116,6 +116,8 @@ public interface AdminDAO {
 	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
 	
 	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
+
+	int vaccCount(String keyword);
 	
 
 
