@@ -24,4 +24,8 @@ public interface PetDAO {
 
 	int getIdx(String string);
 
+	ArrayList<VaccinDTO> vac();
+
+	void star(int pet_idx);
+
 }

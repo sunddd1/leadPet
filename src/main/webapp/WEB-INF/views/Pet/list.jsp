@@ -41,11 +41,11 @@
 				<td>${dto.pet_name}</td>
 				<td>${dto.kg}</td>
 				<td>
-					<c:if test="${dto.delegate == 'Y'}">
-						<input type="button" value="대표로 설정"/>
+					<c:if test="${dto.delegate != 'N'}">
+						<button>대표인애</button>
 					</c:if>
 					<c:if test="${dto.delegate == 'N'}">
-						<input type="button" value="대표로 설정"/>
+						<button onclick="location.href='./star?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}'">대표로 설정</button>
 					</c:if>
 				</td>
 				<td><a href="./updatePet?pet_idx=${dto.pet_idx}">수정</a></td>
@@ -55,5 +55,9 @@
 		</tbody>
 	</table>
 </body>
-<script></script>
+<script>
+	/* function delegate() {
+		location.href='./petPlus?id=${sessionScope.loginId}';
+	} */
+</script>
 </html>

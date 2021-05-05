@@ -47,8 +47,17 @@
 		SELECT*FROM vaccin WHERE dog_cat = 'dog'
 	</select>
 	
+	<select id="vac" resultType="vaccin">
+		SELECT*FROM vaccin WHERE dog_cat = 'dog' OR dog_cat='cat'
+	</select>
+	
 	<!-- 백신 idx -->
 	<select id="getIdx" resultType="int">
 		SELECT vacc_idx FROM vaccin WHERE vacc_name=#{param1}
 	</select>
+	
+	<!-- 대표 반려동물 설정 -->
+	<update id="star">
+		UPDATE pet SET delegate = 'Y' WHERE pet_idx=#{param1}
+	</update>
 </mapper>

@@ -27,13 +27,12 @@
 		</style>
 	</head>
 	<body>
-		<h3>반려동물 등록</h3>
+		<h3>반려동물 수정</h3>
 		<hr/>
-		<form action="petPlus?id=${sessionScope.loginId}" method="post">
+		<form action="update?id=${sessionScope.loginId}" method="post">
 		<div>
 		<table>
 			<thead>
-			
 				<tr >
 					<td colspan="2">
 						<input type="text" id="photo" placeholder="프로필 사진 등록(최대 10MB)" value="${photoList.newFileName}"/>
@@ -110,7 +109,7 @@
 								<option value="Y" selected>접종 완료</option>
 								<option value="N">미접종</option>
 							</select>
-							<input type="text" name="vacc_date" value=""/>
+							<input type="text" name="vacc_date" value="${dog.vacc_date}"/>
 						</td>
 					</tr>
 					</c:forEach>
@@ -126,7 +125,7 @@
 								<option value="Y" selected>접종 완료</option>
 								<option value="N">미접종</option>
 							</select>
-							<input type="text" name="vacc_date" value=""/>
+							<input type="text" name="vacc_date" value="${cat.vacc_date}"/>
 						</td>
 					</tr>
 					</c:forEach>

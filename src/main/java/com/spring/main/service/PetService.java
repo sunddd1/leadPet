@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -19,18 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.PetDAO;
-import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.PetDTO;
-import com.spring.main.dto.Pet_imgDTO;
-import com.spring.main.dto.Pet_vaccineDTO;
 import com.spring.main.dto.VaccinDTO;
-
-import oracle.jdbc.driver.Message;
 
 @Service
 public class PetService {
@@ -55,7 +47,10 @@ public class PetService {
 		logger.info("강아지 접종 리스트 :"+dog.size());
 		mav.addObject("dog", dog);
 		mav.addObject("cat", cat);
+//		ArrayList<VaccinDTO>vac = dao.vac();// 접종 목록
+//		logger.info("백신리스트:"+vac.size());
 		mav.setViewName("Pet/newPet");
+//		mav.addObject("vac", vac);
 		return mav;
 	}
 	
@@ -121,16 +116,18 @@ public class PetService {
 				}
 				logger.info("DB 사진 추가 완료");
 				
-				//반려동물 예방접종 여부 저장 
-				Pet_vaccineDTO vaccDTO = new Pet_vaccineDTO();//반려동물 접종 여부 dto 
-				//SimpleDateFormat sd = new SimpleDateFormat("yy/mm/dd");
-				vaccDTO.setVacc_date(params.get("vacc_date"));
-				vaccDTO.setChecked(params.get("checked"));
-				vaccDTO.setPet_idx(dto.getPet_idx());
-				//해당 백신의 번호 
-				int vacc_idx = dao.getIdx(params.get("vacc_name"));
-				vaccDTO.setVacc_idx(vacc_idx);
-				logger.info("백신 이름 :{}, 백신 번호 :{}"+vaccDTO.getVacc_idx());
+				
+				
+//				//반려동물 예방접종 여부 저장 
+//				Pet_vaccineDTO vaccDTO = new Pet_vaccineDTO();//반려동물 접종 여부 dto 
+//				//SimpleDateFormat sd = new SimpleDateFormat("yy/mm/dd");
+//				vaccDTO.setVacc_date(params.get("vacc_date"));
+//				vaccDTO.setChecked(params.get("checked"));
+//				vaccDTO.setPet_idx(dto.getPet_idx());
+//				//해당 백신의 번호 
+//				int vacc_idx = dao.getIdx(params.get("vacc_name"));
+//				vaccDTO.setVacc_idx(vacc_idx);
+//				logger.info("백신 번호 :"+vaccDTO.getVacc_idx());
 //				for(ArrayList<Pet_vaccineDTO> insert : vaccDTO) {
 //					logger.info("insert:"+insert);
 //				}
@@ -138,7 +135,6 @@ public class PetService {
 			}						
 			page="Pet/list";//성공시 반려동물 목록으로 이동
 		}else{//반려동물 등록 실패
-				
 			
 		}
 		session.removeAttribute("fileList");//파일 업로드가 다 끝난다면 session 에서 삭제
@@ -153,29 +149,17 @@ public class PetService {
 		logger.info("삭제 완료..");
 		return "redirect:/listPet";
 	}
+
+	public String star(int pet_idx) {
+		logger.info("대표 반려동물 선택 idx :"+pet_idx);
+		dao.star(pet_idx);
+		return "Pet/list";
+	}
+
+	public ModelAndView updatePet(int pet_idx) {
+		logger.info("반려동물 업데이트 :"+pet_idx);
+		return null;
+	}
 	
-	
-	
-//	@Transactional
-//	public ModelAndView BoardDetail(String bbs_idx) {
-//		dao.upViews(bbs_idx);
-//		logger.info("조회수 +1");
-//		BoardDTO dto = dao.boardDetail(bbs_idx);
-//		logger.info("{}",dto);
-//		logger.info("{}",dto.getPet_newfilename());
-//		logger.info("{}",dto.getKg());
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("dto", dto);
-//		mav.setViewName("Board/detail");		
-//		return mav;
-//	}
-	
-//	public String sendList(ArrayList<Message> sendList, Model model, String id) {
-//		logger.info("보낸 쪽지 읽기 시작");
-//		sendList = dao.sendList(id);
-//        model.addAttribute("sendList", sendList);
-//        logger.info("보낸 쪽지 읽기 종료");
-//        return "Note/sendList";
-//	}	
 
 }
