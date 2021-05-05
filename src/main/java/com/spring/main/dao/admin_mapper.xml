@@ -109,7 +109,7 @@
 	 </update>
 	 
 	 <insert id="insertBlack">
-	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, 'admin')
+	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
 	 </insert> 
 	 
 	 <select id="loop_free" resultType="String">
@@ -121,11 +121,11 @@
 	 </update>
 	 
 	 <select id="reportList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date
+	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="finishList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY reg_date DESC
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY proc_date
 	 </select>
 	 
 	 <select id="replyList" resultType="report">
@@ -192,6 +192,10 @@
 		UPDATE bbs SET bbs_blind='Y' WHERE bbs_idx=#{param1}
 	</update>
 	
+	<update id="procY">
+		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE rep_idx=#{param1}
+	</update>
+	
 	<update id="blindN">
 		UPDATE bbs SET bbs_blind='N' WHERE bbs_idx=#{param1}
 	</update>
@@ -202,6 +206,14 @@
 	
 	 <select id="blindYSearch" parameterType="hashMap" resultType="board">
 		SELECT * FROM bbs	WHERE nickname LIKE '%'||#{keyword}||'%' AND bbs_blind='Y'
+	</select>
+	
+	<select id="pointList" resultType="point">
+		SELECT * FROM point_history ORDER BY reg_date DESC
+	</select>
+	
+	<select id="pointListSearch" parameterType="hashMap" resultType="point">
+		SELECT * FROM point_history WHERE id LIKE '%'||#{keyword}||'%' ORDER BY reg_date DESC
 	</select>
 	
 	<!-- 어드민으로 넘어갈거  -->
@@ -228,9 +240,15 @@
 	</delete>
 
 	<select id="VaccSearch" resultType="vaccin">
-		SELECT * FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
+		SELECT vacc_idx, vacc_name, content,cycle, vacc_cnt, dog_cat FROM
+		 (SELECT ROW_NUMBER() OVER(ORDER BY vacc_idx DESC) AS rnum,vacc_idx, vacc_name, content,cycle, vacc_cnt, dog_cat 
+		 FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}))
+		WHERE rnum BETWEEN #{param2} AND #{param3}
 	</select>
 	
+	<select id="vaccCount" resultType="int">
+		SELECT COUNT(vacc_idx) FROM vaccin WHERE  vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
+	</select>
 	
 </mapper>
 

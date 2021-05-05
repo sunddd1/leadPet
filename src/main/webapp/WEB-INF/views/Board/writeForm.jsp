@@ -91,8 +91,8 @@
 
 $("#save").click(function(){
 	//editable 에 있는 내용을 content  의  value 에 넣기
-	$("#editable a").find("b").remove();
-	$("#editable a").removeAttr('onclick');
+	/* $("#editable a").find("b").remove(); */
+	/* $("#editable a").removeAttr('onclick'); */
 	$("#bbs_content").val($("#editable").html());
 	$("form").submit();
 });

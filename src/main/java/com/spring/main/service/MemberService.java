@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -97,8 +98,6 @@ public class MemberService {
 		return null;
 	}
 
-	
-
 	public boolean updateChangeDate(String id) {
 		logger.info("멤버 탈퇴일 최신으로 변경");
 		
@@ -121,5 +120,40 @@ public class MemberService {
 		return "redirect:/writeList";
 	}
 	
+	@Transactional
+	public void updateGrade(String id) {
+		logger.info("등급 업데이트");
+		
+		MemberDTO member = dao.getMember(id);
+		
+		int point = member.getPoint();
+		String grade = null;
+		
+		if(point < 200) {
+			grade = "브론즈";
+		} else if(point < 400) {
+			grade = "실버";
+		} else if(point < 600) {
+			grade = "골드";
+		} else if(point < 800) {
+			grade = "플레티넘";
+		} else if(point < 1000) {
+			grade = "다이아몬드";
+		}
+		
+		member.setGrade(grade);
+		dao.update(member);
+	}
 	
+	public void addInterestId(String myId, String friendId) {
+		logger.info("addInterestId 호출");
+		
+		dao.addInterestId(myId, friendId);
+	}
+	
+	public void deleteInterestId(String myId, String friendId) {
+		logger.info("deleteInterestId 호출");
+		
+		dao.deleteInterestId(myId, friendId);
+	}
 }

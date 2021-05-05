@@ -50,7 +50,7 @@
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
-					<th>삭제</th>
+<!-- 					<th>삭제</th> -->
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -127,13 +127,13 @@
 			for(var i=0; i<list.length; i++){
 					content +="<tr>"
 					content +="<td>"+list[i].bbs_idx+"</td>"
-					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' alt='photo/"+list[i].oriFileName+" ' width='300px' 'height='398px'/></a></td>" 
+					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='300px' 'height='398px'/></a></td>" 
 					content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
 					content +="<td>"+list[i].nickname+"</td>"
 					//java에서 가끔 날짜가 mileseconds로 나올경우...
 					var date = new Date(list[i].reg_date);
 					content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-					content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>"
+					/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
 				content +="</tr>"
 			}
 			$("#list").empty();

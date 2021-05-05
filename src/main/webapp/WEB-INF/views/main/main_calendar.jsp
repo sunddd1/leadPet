@@ -33,8 +33,18 @@
     </style>
 </head>
 <body>
+	<table>
+		<tr>
+			<th>
 	<p id="today"></p>
-	<table id="cal">
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<table id="cal">
+				</table>
+			</th>
+		</tr>
 	</table>
 </body>
 <script>

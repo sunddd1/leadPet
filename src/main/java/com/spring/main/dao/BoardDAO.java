@@ -58,7 +58,19 @@ public interface BoardDAO {
 	void writeContentFile(String string, String string2, int bbs_idx);
 	ArrayList<BoardDAO> searchBbs(String category, String keyword, int start, int end);
 
-	double maxPage(String category, String keyword, int start, int end);
+	int allCount(String keyword);
+
+	int anCount(String keyword, String category);
+
+
+
+
+
+	int BoardUpdate(BoardDTO dto);
+
+	void deletefile(String newfileName);
+
+	void deleteContentFile(String newfileName);
 
 
 

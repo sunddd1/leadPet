@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
@@ -202,6 +203,11 @@ public class AdminService {
 		logger.info("블라인드 Y처리 서비스 도착");
 		return dao.blindY(idx);
 	}
+	
+	public int procY(int rep_idx, String loginId) {
+		logger.info("처리유무 Y처리 서비스 도착");
+		return dao.procY(rep_idx,loginId);
+	}
 
 	public int blindN(int idx) {
 		logger.info("블라인드 N처리 서비스 도착");
@@ -228,6 +234,17 @@ public class AdminService {
 //		logger.info("타입 신고 서비스 요청");
 //		return dao.typeReportList(type);
 //	}
+	
+	public ArrayList<MemberDTO> pointList() {
+		logger.info("포인트 내역 서비스 도착");
+		return dao.pointList();
+	}
+	
+	public ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params) {
+		logger.info("포인트 검색 서비스 도착");
+		return dao.pointListSearch(params);
+	}
+
 
 /////////////////
 	public ModelAndView vaccList(HttpSession session) {
@@ -270,20 +287,36 @@ public class AdminService {
 	return mav;
 	}
 	
-	public ModelAndView VaccSearch(String keyword) {
-	ModelAndView mav = new ModelAndView();
-	if(keyword.equals("")) {
-	mav.setViewName("redirect:./vaccList");
-	return mav;
+	public @ResponseBody HashMap<String, Object> VaccSearch(int page, int pagePerCnt,String keyword) {
+		keyword = "%"+keyword+"%";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.vaccCount(keyword);
+		
+		int range = allCnt%pagePerCnt >0 ? ((int)Math.floor(allCnt/pagePerCnt))+1 : allCnt/pagePerCnt;
+		page = page>range? range:page;
+		
+		int end = page * pagePerCnt;
+		System.out.println("end = "+page+"*"+pagePerCnt);
+		
+		int start = end-pagePerCnt+1;
+		System.out.println("start = "+end+"-"+pagePerCnt+"+1");
+		logger.info("키워드 : "+ keyword +"//" +start+"//"+end+"//"+range);
+		
+		
+		ArrayList<VaccinDTO> result = dao.VaccSearch(keyword,start,end);
+		logger.info("result : "+result.size());
+		
+		map.put("list", result);
+		map.put("range",range);
+		map.put("currPage",page);
+	
+		return map;
 	}
-	keyword = "%"+keyword+"%";
-	ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
-	mav.addObject("list", result);
-	logger.info("result : "+result);
-	mav.setViewName("admin/vaccinList");
-	//mav.setViewName("redirect:./vaccList?result="+result);
-	return mav;
-	}
+
+	
+
+
+	
 
 
 	

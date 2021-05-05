@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -77,67 +78,67 @@
 		font-weight: 600;
 		color: red;
 	}
-	h4{
+	#insert{
 		position: relative;
-		left: 20%;
-		float: left;
-		z-index: 5;
-		color: white;
-		font-size: 25px;
-		margin-top: 5px;
-	}
-	#radio{
-		position: relative;
-		left: 70%
+		left: 80%
 	}
 </style>
 <body>
+<jsp:include page="../main/top_Navi.jsp"/>
+<jsp:include page="../main/side_adminNavi.jsp"/>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
-<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
+<button onclick="location.href='memberList'">회원관리 리스트</button>
+<button onclick="location.href='reportList'">글 신고 리스트</button>
+<button onclick="location.href='replyList'">댓글 신고 리스트</button>
+<button onclick="location.href='blindNList'">블라인드 리스트</button>
+<button onclick="location.href='pointList'">포인트 내역 리스트</button>
     <div id="search">
-        <form action="finishListSearch" method="POST">
-            <input type="text" value="${params.keyword}" name="keyword" placeholder="아이디를 입력하세요">
+        <form action="pointListSearch" method="POST">
+            <input type="text" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
             <input type="submit" value="검색">
         </form>
-    </div>
-    <div id="radio">
-    	
-        <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='reportList'"/>미처리
-        <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishList'"/>처리
     </div>
     <div class="table">
         <table>
             <tr>
-               <th>신고자</th>
-                <th>신고 당한 글</th>
-                <th>유형</th>
-                <th>처리자</th>
-                <th>처리일</th>
+                <th>아이디</th>
+                <th>포인트</th>
+                <th>획득처</th>
+                <th>날짜</th>
             </tr>
-            <c:forEach items="${finishList}" var="report">
+            <c:forEach items="${pointList}" var="point">
 	            <tr>
-	                <td>
-		                <a href="detailMember?id=${report.id}" 
-		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
-		               	 	${report.id}
-		                </a>
-	                </td>
-	                <td>${report.field}</td>
-	                <td>${report.type}</td>
-	                <td>${report.admin_id}</td>
-	                <td>${report.proc_date}</td>
+	                <td>${point.id}</td>
+	                <td id="td">${point.pm_point}</td>
+	                <td>${point.gain}</td>
+	                <td>${point.reg_date}</td> 
                 </tr>
             </c:forEach>
         </table>
     </div>
 </body>
 <script>
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-		window.close();
-	}
-	
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+	window.close();
+}
+
+var text ='${point.pm_point}';
+var findPlus = "+";
+
+
+
+if(text.indexOf(findPlus)) {
+
+$('#td').html('+'+text);
+
+}
+
+else {
+
+	$('#td').html('-'+text);
+
+}
 </script>
 </html>

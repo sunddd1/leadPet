@@ -17,6 +17,18 @@ public class PetDTO {
 	private String pet_name;
 	private String nickname;
 	
+	//pet_img
+	private String newFileName;
+	
+	public String getNewFileName() {
+		return newFileName;
+	}
+	public void setNewFileName(String newFileName) {
+		this.newFileName = newFileName;
+	}
+	
+	
+	
 	public int getPet_idx() {
 		return pet_idx;
 	}

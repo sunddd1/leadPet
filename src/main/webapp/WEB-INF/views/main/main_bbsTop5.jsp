@@ -11,6 +11,9 @@
 			#bbsTop5{
 				width: 100%;
 				text-align: left;
+				border: 1px solid;
+				padding : 10px;
+				box-shadow: 0 4px 4px -4px black;		
 			}
 		</style>
 	</head>

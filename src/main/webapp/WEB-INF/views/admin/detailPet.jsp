@@ -31,7 +31,9 @@
 			    <input type="radio" id="r2" name="radio" value="pet" checked="checked" OnClick="window.location.href='detailPet'"/>반려동물
 		<c:forEach items="${petList}" var="pet">
 				<tr>
-					<td rowspan="4"></td>
+					<td rowspan="4">
+						${pet.newFileName}
+					</td>
 					<td>${pet.pet_name}</td>
 				</tr>
 				<tr>
