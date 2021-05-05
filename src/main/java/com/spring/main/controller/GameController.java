@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.HttpComponentsAsyncClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -143,5 +145,15 @@ public class GameController {
 	public ModelAndView lastNemoAnswer() {
 		logger.info("지난 네모로직 내역");
 		return service.lastNemoAnswer();
+	}
+	@RequestMapping(value = "/quizRanking", method = RequestMethod.GET)
+	public ModelAndView quizRanking(HttpSession session) {
+		logger.info("상식 퀴즈 랭킹보기");
+		return service.quizRanking(session);
+	}
+	@RequestMapping(value = "/nemoRanking", method = RequestMethod.GET)
+	public ModelAndView nemoRanking(HttpSession session) {
+		logger.info("네모 로직 랭킹보기");
+		return service.nemoRanking(session);
 	}
 }

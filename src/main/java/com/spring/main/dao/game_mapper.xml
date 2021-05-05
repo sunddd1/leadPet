@@ -119,7 +119,7 @@
 			nemo_timer=#{nemo_timer}, if_submit='Y' WHERE id= #{id}
 	</update>
 	
-	<!-- 지난주 퀴즈 / 지난주 로직 -->
+	<!-- 지난주 퀴즈 / 로직 보기-->
 	<select id="getLastWeekQuiz" resultType="game">
 		SELECT w.week_quiz_idx, w.quiz_update_date, q.quiz_idx, q.quiz_question, q.ex1, q.ex2, q.ex3, q.ex4, q.quiz_answer 
     		FROM quiz_week w, quiz q WHERE quiz_blind = 'N' AND (
@@ -139,6 +139,22 @@
 		SELECT w.week_nemo_idx, w.nemo_update_date, n.nemo_idx, n.nemo_subject, n.nemo_question, n.nemo_answer 
     		FROM nemo_week w, nemo n WHERE w.nemo_idx = n.nemo_idx 
     		AND week_nemo_idx=((SELECT MAX(week_nemo_idx)FROM nemo_week)-1)
+	</select>
+	<!-- 랭킹보기 관련 기능 -->
+	<!-- 마이바티스 부등호 관련 오류 시 관련 관련 행을 모두 <![CDATA[ * ]]> 안에 넣어준다 : <![CDATA[WHERE ROWNUM < 11]]> -->
+	<select id="getQuizRanking" resultType="game">
+		SELECT ROWNUM, quiz_score, quiz_timer, quiz_success_date, id FROM (
+			SELECT * FROM quiz_test WHERE week_quiz_idx = (
+				SELECT MAX(week_quiz_idx) FROM quiz_week
+			) AND if_submit='Y' ORDER BY quiz_score DESC, quiz_timer, quiz_success_date
+		) 
+	</select>
+	<select id="getNemoRanking" resultType="game">
+		SELECT ROWNUM, nemo_success, nemo_timer, nemo_success_date, id FROM (
+			SELECT * FROM nemo_test WHERE nemo_success='Y' AND week_nemo_idx = (
+				SELECT MAX(week_nemo_idx) FROM nemo_week
+			) AND if_submit='Y' ORDER BY nemo_timer, nemo_success_date
+		) 
 	</select>
 	
 </mapper>

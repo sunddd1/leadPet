@@ -56,5 +56,11 @@ public interface GameDAO {
 	ArrayList<GameDTO> getLastWeekQuiz();
 
 	GameDTO getLastWeekNemo();
+
+	ArrayList<GameDTO> getQuizRanking();
+
+	ArrayList<GameDTO> getNemoRanking();
+
+	GameDTO logUserInfo(String loginId);
 	
 }

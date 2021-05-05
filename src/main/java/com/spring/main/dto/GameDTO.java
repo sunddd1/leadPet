@@ -60,6 +60,15 @@ public class GameDTO {
 		//위에서 선언
 		*/
 		
+		//계산을 위한 컬럼
+		private int ROWNUM;
+		
+		public int getROWNUM() {
+			return ROWNUM;
+		}
+		public void setROWNUM(int rOWNUM) {
+			ROWNUM = rOWNUM;
+		}
 		public int getQuiz_score() {
 			return quiz_score;
 		}

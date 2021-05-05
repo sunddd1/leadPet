@@ -371,5 +371,41 @@ public class GameService {
 		mav.setViewName("game/nemoWeekDetail");
 		return mav;
 	}
+
+	public ModelAndView quizRanking(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId == null) {
+			loginId = "hello";
+		}
+		ArrayList<GameDTO> ranking = dao.getQuizRanking();
+		String page = "redirect:/gameMain";
+		if(ranking != null) {
+			logger.info(ranking.size()+"개");
+			mav.addObject("quizRanking", ranking);
+			mav.addObject("loginId", loginId);
+			page = "game/quizRanking";
+		}
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView nemoRanking(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId == null) {
+			loginId = "hello";
+		}
+		ArrayList<GameDTO> ranking = dao.getNemoRanking();
+		String page = "redirect:/gameMain";
+		if(ranking != null) {
+			logger.info(ranking.size()+"개");
+			mav.addObject("nemoRanking", ranking);
+			mav.addObject("loginId", loginId);
+			page = "game/nemoRanking";
+		}
+		mav.setViewName(page);
+		return mav;
+	}
 	
 }
