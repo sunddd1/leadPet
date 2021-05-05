@@ -203,6 +203,11 @@ public class AdminService {
 		logger.info("블라인드 Y처리 서비스 도착");
 		return dao.blindY(idx);
 	}
+	
+	public int procY(int rep_idx, String loginId) {
+		logger.info("처리유무 Y처리 서비스 도착");
+		return dao.procY(rep_idx,loginId);
+	}
 
 	public int blindN(int idx) {
 		logger.info("블라인드 N처리 서비스 도착");
@@ -288,6 +293,8 @@ public class AdminService {
 	
 		return map;
 	}
+
+	
 
 
 	

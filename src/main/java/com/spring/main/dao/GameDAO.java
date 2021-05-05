@@ -43,8 +43,24 @@ public interface GameDAO {
 
 	int updateNemo(HashMap<String, String> params);
 
+
 	ArrayList<GameDTO> quizRank();
 
 	ArrayList<GameDTO> nemoRank();
+
+	ArrayList<GameDTO> getThisWeekNemo();
+
+	GameDTO ifExistNemo(String loginId, int nemoIdx);
+
+	int initialNemoData(String loginId, int nemoWeekIdx);
+
+	int recordNemo(String string, String string2, String loginId, String string3);
+
+	int recordNemo(HashMap<String, String> params);
+
+	ArrayList<GameDTO> getLastWeekQuiz();
+
+	GameDTO getLastWeekNemo();
+
 	
 }

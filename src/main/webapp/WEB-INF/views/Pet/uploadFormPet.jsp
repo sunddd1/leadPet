@@ -16,10 +16,7 @@
 		var path = "${path}";
 		if(path!=''){
 			console.log(path);
-			 var elem = opener.document.getElementById("editable");
-	         var content = "<a href='#' id='${path}' onclick='del(this)'>";
-	         content+="<img id='abc' src='${path}' width='250'/><b>X</b></a><br/>";
-	         elem.innerHTML += content;
+			 
 	         self.close();
 		}
 		function fileView(elem){

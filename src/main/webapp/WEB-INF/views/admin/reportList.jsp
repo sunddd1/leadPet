@@ -99,6 +99,7 @@
                 <th>사유</th>
                 <th>신고일</th>
                 <th>처리유무</th>
+                <th></th>
             </tr>
             <c:forEach items="${reportList}" var="report">
 	            <tr>
@@ -112,6 +113,7 @@
 	                <td>${report.reason}</td>
 	                <td>${report.reg_date.substring(0,10)}</td>
 	                <td>${report.proc_ex}</td> 
+	                <td><a href="procY?rep_idx=${report.rep_idx}">처리하기</a></td>
                 </tr>
             </c:forEach>
         </table>
@@ -140,6 +142,8 @@
 				,dataType: 'json' 
 				,success: function(data){
 					console.log(data);
+					var proc = '처리하기';
+					var rep_idx = 'report.rep_idx';
 					var list = data.reportList;
 					console.log("11"+$("#report tr").eq(0).html());
 					var first = $("#report tr").eq(0).html();
@@ -150,10 +154,11 @@
 						content += '<tr>';
 						content += '<td onclick=detail("'+list[i].id+'")>';
 						content += list[i].id+'</td>';
-						content += '<td>'+list[i].field+'</td>';
+						content += '<td><a href="#">'+list[i].field+'</a></td>';
 						content += '<td>'+list[i].reason+'</td>';
 						content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
 						content += '<td>'+list[i].proc_ex+'</td>';
+						content +='<td><a href="procY?rep_idx='+rep_idx+'">'+proc+'</a></td>';
 						content += '</tr>';
 						$("#report").append(content);
 					}

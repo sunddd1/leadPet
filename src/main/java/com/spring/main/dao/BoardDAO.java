@@ -66,6 +66,12 @@ public interface BoardDAO {
 
 
 
+	int BoardUpdate(BoardDTO dto);
+
+	void deletefile(String newfileName);
+
+	void deleteContentFile(String newfileName);
+
 
 
 }

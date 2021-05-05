@@ -109,7 +109,7 @@
 	 </update>
 	 
 	 <insert id="insertBlack">
-	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, 'admin')
+	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
 	 </insert> 
 	 
 	 <select id="loop_free" resultType="String">
@@ -121,11 +121,11 @@
 	 </update>
 	 
 	 <select id="reportList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date
+	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="finishList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY reg_date DESC
+	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY proc_date
 	 </select>
 	 
 	 <select id="replyList" resultType="report">
@@ -190,6 +190,10 @@
 	
 	<update id="blindY">
 		UPDATE bbs SET bbs_blind='Y' WHERE bbs_idx=#{param1}
+	</update>
+	
+	<update id="procY">
+		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE rep_idx=#{param1}
 	</update>
 	
 	<update id="blindN">

@@ -549,7 +549,11 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
-	public int blindY(Model model, HttpSession session,@RequestParam(value="idx") int idx) {
+	public int blindY(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value="idx") int idx
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
@@ -558,6 +562,22 @@ public class AdminController {
 //			page="admin/adminList";
 //		}
 		return success;
+	}
+	
+	@RequestMapping(value = "/procY", method = RequestMethod.GET)
+	public String procY(
+			Model model, 
+			HttpSession session,
+			@RequestParam int rep_idx
+			) {
+		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			service.procY(rep_idx,loginId);
+//			page="admin/adminList";
+//		}
+		return "admin/reportList";
 	}
 	
 	@ResponseBody
