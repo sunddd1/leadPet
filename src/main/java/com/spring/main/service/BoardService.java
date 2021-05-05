@@ -269,11 +269,14 @@ public class BoardService {
 		return success;
 	}
 
-	public HashMap<String, Object> replyList(String id, String bbs_idx) {
+	public HashMap<String, Object> replyList(String endNum, String bbs_idx) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.info("댓글 리스트 요청" + id+"/"+bbs_idx);
-		ArrayList<ReplyDTO> list = dao.replyList(id,bbs_idx);
+		logger.info("댓글 리스트 요청" + endNum+"/"+bbs_idx);
+		Integer.parseInt(endNum);
+		ArrayList<ReplyDTO> list = dao.replyList(endNum,bbs_idx);
+		logger.info("리스트 크기 : " + list.size());
 		map.put("replyList", list);
+		map.put("reply_size", list.size());
 		return map;
 	}
 

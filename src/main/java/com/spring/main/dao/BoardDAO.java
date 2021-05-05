@@ -41,7 +41,7 @@ public interface BoardDAO {
 
 	int recoMinus(String bbs_idx);
 
-	ArrayList<ReplyDTO> replyList(String id, String bbs_idx);
+	ArrayList<ReplyDTO> replyList(String endNum, String bbs_idx);
 
 	int replyWrite(ReplyDTO reply);
 
@@ -61,9 +61,6 @@ public interface BoardDAO {
 	int allCount(String keyword);
 
 	int anCount(String keyword, String category);
-
-
-
 
 
 	int BoardUpdate(BoardDTO dto);

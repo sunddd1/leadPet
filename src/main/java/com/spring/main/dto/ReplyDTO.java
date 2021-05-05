@@ -13,6 +13,7 @@ public class ReplyDTO {
 	private String id;
 	private int bbs_idx;
 	private String nickname;
+	private int endNum;
 	
 	public int getReply_idx() {
 		return reply_idx;
@@ -55,6 +56,12 @@ public class ReplyDTO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
 	}
 	
 	
