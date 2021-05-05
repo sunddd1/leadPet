@@ -113,7 +113,7 @@ public interface AdminDAO {
 	
 	int deleteVacc(String vacc_idx);
 	
-	ArrayList<VaccinDTO> VaccSearch(String keyword);
+	ArrayList<VaccinDTO> VaccSearch(String keyword, int start, int end);
 	
 	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
 	
