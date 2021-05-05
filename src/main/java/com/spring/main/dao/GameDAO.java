@@ -43,6 +43,11 @@ public interface GameDAO {
 
 	int updateNemo(HashMap<String, String> params);
 
+
+	ArrayList<GameDTO> quizRank();
+
+	ArrayList<GameDTO> nemoRank();
+
 	ArrayList<GameDTO> getThisWeekNemo();
 
 	GameDTO ifExistNemo(String loginId, int nemoIdx);

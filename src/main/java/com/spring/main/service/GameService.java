@@ -276,6 +276,16 @@ public class GameService {
 		return mav;
 	}
 
+
+	public HashMap<String, Object> mainRank() {
+		HashMap<String, Object> list = new HashMap<String, Object>();
+		ArrayList<GameDTO> quiz = dao.quizRank();
+		list.put("quiz", quiz);
+		quiz = dao.nemoRank();
+		list.put("nemo", quiz);
+		return list;
+	}
+
 	public ModelAndView getThisWeekNemo(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<GameDTO> ThisWeekNemo = dao.getThisWeekNemo();

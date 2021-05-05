@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.GameService;
@@ -120,6 +121,13 @@ public class GameController {
 		logger.info("네모로직 수정사항 저장 : {}",params);
 		return service.updateNemo(params);
 	}
+
+	@RequestMapping(value = "/mainRank", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> mainRank() {
+		logger.info("랭킹요청");
+		return service.mainRank();
+	}
+	
 	@RequestMapping(value = "/nemoPlaying", method = RequestMethod.GET)
 	public ModelAndView nemoPlaying(HttpSession session) {
 		logger.info("네모로직 게임 화면 : 가장 최근 등록된 회차 네모로직 리스트 불러오기");
@@ -146,6 +154,7 @@ public class GameController {
 		logger.info("지난 네모로직 내역");
 		return service.lastNemoAnswer();
 	}
+
 	@RequestMapping(value = "/quizRanking", method = RequestMethod.GET)
 	public ModelAndView quizRanking(HttpSession session) {
 		logger.info("상식 퀴즈 랭킹보기");
@@ -156,4 +165,5 @@ public class GameController {
 		logger.info("네모 로직 랭킹보기");
 		return service.nemoRanking(session);
 	}
+
 }

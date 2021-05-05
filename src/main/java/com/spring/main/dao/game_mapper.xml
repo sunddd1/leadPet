@@ -6,6 +6,7 @@
 
 <!-- 누가 이 XML을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.GameDAO">
+
 	 <!-- 각 문제 리스트 관련 -->
 	<select id="quizList"  resultType="game">
 		SELECT * FROM quiz WHERE quiz_blind= 'N' ORDER BY quiz_idx
@@ -157,4 +158,18 @@
 		) 
 	</select>
 	
+   	<!-- 메인에서 랭킹 부르기 -->
+      <select id="quizRank" resultType="game">
+      SELECT quiz_score, quiz_timer,quiz_success_date, id , week_quiz_idx, if_submit FROM (SELECT ROW_NUMBER() OVER(ORDER BY quiz_score DESC ,quiz_timer ASC) AS rnum,
+      quiz_score, quiz_timer,quiz_success_date, id , week_quiz_idx, if_submit
+      FROM quiz_test  WHERE if_submit='Y') WHERE rnum BETWEEN 1 AND 10 AND week_quiz_idx=(SELECT MAX(week_quiz_idx) FROM quiz_week) ORDER BY quiz_score DESC ,quiz_timer ASC
+   </select>
+   
+   <select id="nemoRank" resultType="game">
+      SELECT  nemo_timer, id FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY nemo_timer ASC)AS rnum, nemo_timer, id 
+      FROM nemo_test WHERE nemo_success='Y' AND week_nemo_idx=(SELECT MAX(week_nemo_idx) FROM nemo_week))
+      WHERE rnum BETWEEN 1 AND 10
+   </select>
+  
 </mapper>

@@ -40,7 +40,7 @@ public class GameDTO {
 		private int week_nemo_idx;
 		/*private int nemo_idx; //위에서 선언*/
 		private Date nemo_update_date;
-		
+
 		//quiz Test Table
 		private int quiz_score;
 		private int quiz_timer;
@@ -49,6 +49,9 @@ public class GameDTO {
 		/*private int week_quiz_idx;//위에서 선언*/
 		private String if_submit;
 		
+
+		
+
 		//nemo Test Table
 		private String nemo_success;
 		private int nemo_timer;
@@ -60,6 +63,7 @@ public class GameDTO {
 		//위에서 선언
 		*/
 		
+<<<<<<< HEAD
 		//계산을 위한 컬럼
 		private int ROWNUM;
 		
@@ -69,6 +73,9 @@ public class GameDTO {
 		public void setROWNUM(int rOWNUM) {
 			ROWNUM = rOWNUM;
 		}
+=======
+
+>>>>>>> c2438a35c3c073067268eef685c68639cedfe5c2
 		public int getQuiz_score() {
 			return quiz_score;
 		}

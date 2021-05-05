@@ -6,7 +6,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
 		#topNavi .firstBar{
 			border-color: white;
@@ -55,17 +54,17 @@
 				<th class="firstBar"></th>
 				<td class="firstBar" id="right">
 					<select>
-						<option value="ALL">전체</option>
-						<option value="living">리빙</option>
-						<option value="play">놀이</option>
-						<option value="food">사료간식영양제</option>
-						<option value="park">공원</option>
-						<option value="restaurant">식당</option>
-						<option value="medical">의료</option>
+						<option value="ALL"<c:if test="${category eq 'ALL' }"> selected</c:if>>전체</option>
+						<option value="living"<c:if test="${category eq 'living' }"> selected</c:if>>리빙</option>
+						<option value="play"<c:if test="${category eq 'play' }"> selected</c:if>>놀이</option>
+						<option value="food"<c:if test="${category eq 'food' }"> selected</c:if>>사료간식영양제</option>
+						<option value="park"<c:if test="${category eq 'park' }"> selected</c:if>>공원</option>
+						<option value="restaurant"<c:if test="${category eq 'restaurant' }"> selected</c:if>>식당</option>
+						<option value="medical"<c:if test="${category eq 'medical' }"> selected</c:if>>의료</option>
 					</select>
 				</td>
 				<th class="firstBar" colspan="2">
-					<input id="searchBar" type="text"/>
+					<input id="searchBar" type="text" value="${keyword }"/>
 				</th>
 				<td class="firstBar">
 					<button id="topSearchBtn">SEARCH</button>
@@ -109,7 +108,7 @@
 			var keyword = $('#searchBar').val();
 			console.log("검색 요청" + category+"/"+keyword);
 			if(keyword!=""){
-				location.href="./searchBbs?category="+category+"&keyword="+keyword;
+				location.href="./topsearch?category="+category+"&keyword="+keyword;
 			}
 			/* $.ajax({
 				type:'get'

@@ -10,10 +10,10 @@
 		<style>
 			#main{
 				border: 3px solid red;
-				width: 100%;
+				width: 80%;
+				margin-left:10%;
 			}
 			#main th{
-				border: 3px solid green;
 			}
 
 		</style>
@@ -37,6 +37,7 @@
 					<jsp:include page="./main/main_galTop3.jsp"/>
 				</th>
 				<th>
+					<jsp:include page="./main/main_gameRank.jsp"/>
 				</th>
 			</tr>
 		</table>
