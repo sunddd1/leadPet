@@ -29,7 +29,10 @@
 		<table id="game">
 			<tr>
 				<td>
-					<table id="quizRank">			
+					<table id="quizRank">		
+						<tr>
+							<th colspan="4" style="border-color: white;">퀴즈 랭킹</th>
+						</tr>	
 						<tr class="tit">
 							<th>랭킹</th>
 							<th>아이디</th>
@@ -40,6 +43,9 @@
 				</td>
 				<td>
 					<table id="nemoRank">	
+						<tr>
+							<th colspan="3" style="border-color: white;">네모 랭킹</th>
+						</tr>	
 						<tr class="tit">
 							<th>랭킹</th>
 							<th>아이디</th>
