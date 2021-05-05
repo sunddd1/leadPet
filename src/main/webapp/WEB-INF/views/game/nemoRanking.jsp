@@ -72,14 +72,52 @@
 						<c:if test="${ranking.id != loginId}">
 							<tr>
 								<td>${ranking.ROWNUM}</td><td>${ranking.id}</td>
-								<td>${Math.round(ranking.nemo_timer/6000)}:${Math.round(ranking.nemo_timer%6000/100)}:${ranking.nemo_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.nemo_timer < 60000}">
+										0${Math.round(ranking.nemo_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer/6000 >= 60000}">
+										${Math.round(ranking.nemo_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000/100 < 9.9}">
+										: 0${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000/100 >= 9.9}">
+										: ${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000%100 < 10}">
+										: 0${ranking.nemo_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000%100 >= 10}">
+										: ${ranking.nemo_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.nemo_success_date}</td>	
 							</tr>							
 						</c:if>
 						<c:if test="${ranking.id == loginId && ranking.ROWNUM<=10}">
 							<tr style="border: 3px solid">
 								<td>${ranking.ROWNUM}</td><td style="color: red">${ranking.id}</td>
-								<td>${Math.round(ranking.nemo_timer/6000)}:${Math.round(ranking.nemo_timer%6000/100)}:${ranking.nemo_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.nemo_timer < 60000}">
+										0${Math.round(ranking.nemo_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer/6000 >= 60000}">
+										${Math.round(ranking.nemo_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000/100 < 10}">
+										: 0${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000/100 >= 10}">
+										: ${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000%100 < 10}">
+										: 0${ranking.nemo_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000%100 >= 10}">
+										: ${ranking.nemo_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.nemo_success_date}</td>							
 							</tr>
 						</c:if>	
@@ -91,7 +129,26 @@
 							<tr><td colspan="4">●</td></tr>
 							<tr style="border: 3px solid">
 								<td>${ranking.ROWNUM}</td><td style="color: red">${ranking.id}</td>
-								<td>${Math.round(ranking.nemo_timer/6000)}:${Math.round(ranking.nemo_timer%6000/100)}:${ranking.nemo_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.nemo_timer < 60000}">
+										0${Math.round(ranking.nemo_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer/6000 >= 60000}">
+										${Math.round(ranking.nemo_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000/100 < 10}">
+										: 0${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000/100 >= 10}">
+										: ${Math.round(ranking.nemo_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.nemo_timer%6000%100 < 10}">
+										: 0${ranking.nemo_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.nemo_timer%6000%100 >= 10}">
+										: ${ranking.nemo_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.nemo_success_date}</td>							
 							</tr>
 						</c:if>
