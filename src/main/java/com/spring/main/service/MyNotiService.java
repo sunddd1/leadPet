@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MyNotiDAO;
 
@@ -49,14 +50,15 @@ public class MyNotiService {
         return "Note/sendList";
 	}
 
-	public String detailNoteList(ArrayList<Message> detailList,int note_idx,Model model) {
+	public ModelAndView detailNoteList(ArrayList<Message> detailList,int note_idx,String id) {
 		logger.info("쪽지 상세보기");
-		String loginId = "wwww";
-		detailList = dao.detailList(loginId,note_idx);
+		detailList = dao.detailList(id,note_idx);
 		logger.info(note_idx+"번 읽음 처리");
 		dao.checked(note_idx);
-		model.addAttribute("detailList", detailList);
-		return "Note/Message";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("detailList", detailList);
+		mav.setViewName("Note/Message");
+		return mav;
 	}
 	
 	//새로운 쪽지 목록 
