@@ -212,7 +212,7 @@
 		SELECT * FROM point_history ORDER BY reg_date DESC
 	</select>
 	
-	<select id="pointListSearch" parameterType="hashMap" resultType="point">
+	<select id="pointListSearch" resultType="point">
 		SELECT * FROM point_history WHERE id LIKE '%'||#{keyword}||'%' ORDER BY reg_date DESC
 	</select>
 	
