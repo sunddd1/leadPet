@@ -109,7 +109,10 @@
             <c:forEach items="${pointList}" var="point">
 	            <tr>
 	                <td>${point.id}</td>
-	                <td id="td">${point.pm_point}</td>
+	                <td id="td">
+	                	<input type="hidden" id="pm_point" value="${point.pm_point}"/>
+	                	${point.pm_point}
+	                </td>
 	                <td>${point.gain}</td>
 	                <td>${point.reg_date}</td> 
                 </tr>
@@ -118,13 +121,18 @@
     </div>
 </body>
 <script>
+/* function replace(url) {
+    url= encodeURIComponent(url);
+    return url;
+} */
+
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 	window.close();
 }
 
-var text ='${point.pm_point}';
+/* var text =$('#pm_point').val();
 var findPlus = "+";
 
 
@@ -139,6 +147,6 @@ else {
 
 	$('#td').html('-'+text);
 
-}
+} */
 </script>
 </html>
