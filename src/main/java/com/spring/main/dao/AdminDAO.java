@@ -100,6 +100,10 @@ public interface AdminDAO {
 
 	void freedom(String string);
 
+	ArrayList<MemberDTO> pointList();
+
+	ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params);
+	
 //	ArrayList<AdminDTO> typeReportList(String type);
 
 //////////////
@@ -113,13 +117,17 @@ public interface AdminDAO {
 	
 	int deleteVacc(String vacc_idx);
 	
-	ArrayList<VaccinDTO> VaccSearch(String keyword);
+	ArrayList<VaccinDTO> VaccSearch(String keyword, int start, int end);
 	
 	VaccinDTO vaccinDetailadded(int vacc_sche_idx);
 	
 	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
 
+
+	int vaccCount(String keyword);
+
 	
+
 	
 
 

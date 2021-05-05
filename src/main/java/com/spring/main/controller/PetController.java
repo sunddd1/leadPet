@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.PetService;
 
 @Controller
@@ -32,10 +34,11 @@ public class PetController {
 	
 	//반려동물 등록 페이지 요청  
 	@RequestMapping("/newPet")
-	public String newPet(@RequestParam String id) {
+	public ModelAndView newPet(@RequestParam String id) {
 		logger.info("반려동물 등록 페이지 요청 ID :"+id);
-		return "Pet/newPet";
+		return service.newPet(id);
 	}
+	
 	
 	//사진 업로드 창 
 	@RequestMapping(value = "/uploadFormPet", method = RequestMethod.GET)
@@ -55,8 +58,13 @@ public class PetController {
 	
 	//반려동물 등록
 	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
-	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id) {
+	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id,
+			@RequestParam(value="vacc_name",required = false) ArrayList<VaccinDTO> nameList) {
 		logger.info("반려동물 등록 신청 ID : "+id);
+		logger.info("백신 리쓰트 :"+nameList.size());
+		//logger.info("백신 리쓰트 :"+chkList.size());
+		//logger.info("백신 리쓰트 :"+dateList.size());
+		
 		return service.write(params,session,id);
 	}
 	
@@ -65,6 +73,19 @@ public class PetController {
     public String deletePet(@RequestParam int pet_idx,@RequestParam String id){
         logger.info("반려동물 삭제");
 		return service.deletePet(pet_idx);
+	}
+	
+	//대표 반려동물 설정
+	@RequestMapping(value="/star")
+    public String star(@RequestParam int pet_idx){
+        logger.info("반려동물 대표 설정");
+		return service.star(pet_idx);
+	}
+	
+	//반려동물 수정 
+	@RequestMapping(value = "/updatePet")
+	public ModelAndView updatePet(@RequestParam int pet_idx) {
+		return service.updatePet(pet_idx);
 	}
 	
 }

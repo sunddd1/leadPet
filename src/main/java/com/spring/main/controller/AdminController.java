@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -626,6 +627,36 @@ public class AdminController {
 		return "admin/blindYList";
 	}
 	
+	@RequestMapping(value = "/pointList", method = RequestMethod.GET)
+	public String pointList(Model model, HttpSession session) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			ArrayList<MemberDTO> list = service.pointList();
+			model.addAttribute("pointList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/pointList";
+	}
+	
+	@RequestMapping(value = "/pointListSearch", method = RequestMethod.POST)
+	public String pointListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam HashMap<String, String> params
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ArrayList<AdminDTO> list = service.pointListSearch(params);
+		model.addAttribute("pointList", list);
+//			page="admin/adminList";
+//		}
+		return "admin/pointList";
+	}
+	
 	////////regVaccForm
 	@RequestMapping(value = "/vaccList", method = RequestMethod.GET)
 	public ModelAndView vaccList(HttpSession session) {
@@ -657,11 +688,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/VaccSearch", method = RequestMethod.GET)
-	public ModelAndView VaccSearch(HttpSession session,@RequestParam String keyword) {
+	public @ResponseBody HashMap<String, Object> VaccSearch(HttpSession session,@RequestParam int pagePerCnt, @RequestParam int page,@RequestParam String keyword) {
 		logger.info("백신 검색요청 "+keyword);
-		return service.VaccSearch(keyword);
+		logger.info("백신 검색요청 페이지 "+pagePerCnt +"/"+page);
+		return service.VaccSearch(page,pagePerCnt,keyword);
 	}
 	
-	
+	@RequestMapping(value = "/reqVaccSearch", method = RequestMethod.GET)
+	public ModelAndView reqVaccSearch(@RequestParam String keyword) {
+		logger.info("검색요청 : {} ",keyword );
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vaCkeyword", keyword);
+		mav.setViewName("admin/vaccinList");
+		return mav;
+	}
 	
 }

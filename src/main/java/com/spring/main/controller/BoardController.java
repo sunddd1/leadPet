@@ -165,9 +165,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/searchBbs", method = RequestMethod.GET)
-	public ModelAndView searchBbs(@RequestParam String category,@RequestParam String keyword) {
-		logger.info("검색요청 : {} / {} " ,category,keyword);
-		return service.searchBbs(category,keyword);
+	public @ResponseBody HashMap<String, Object> searchBbs(@RequestParam String category,@RequestParam String keyword
+			, @RequestParam int page ,@RequestParam int pagePerCnt) {
+		logger.info("검색요청 : {} / {} " ,category,keyword+"//"+page+"//"+pagePerCnt );
+		return service.searchBbs(category,keyword,page,pagePerCnt);
 	}
-
+	@RequestMapping(value = "/topsearch", method = RequestMethod.GET)
+	public ModelAndView topsearch(@RequestParam String category,@RequestParam String keyword) {
+		logger.info("검색요청 : {} / {} " ,category,keyword );
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("category", category);
+		mav.addObject("keyword", keyword);
+		mav.setViewName("Board/resultList");
+		return mav;
+	}
 }

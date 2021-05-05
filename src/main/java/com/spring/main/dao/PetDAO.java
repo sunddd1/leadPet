@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.spring.main.dto.PetDTO;
 import com.spring.main.dto.Pet_imgDTO;
+import com.spring.main.dto.VaccinDTO;
 
 public interface PetDAO {
 	
@@ -16,5 +17,15 @@ public interface PetDAO {
 	void deletePet(int pet_idx);
 
 	void upload(Pet_imgDTO imgDTO);
+
+	ArrayList<VaccinDTO> vac_cat();
+
+	ArrayList<VaccinDTO> vac_dog();
+
+	int getIdx(String string);
+
+	ArrayList<VaccinDTO> vac();
+
+	void star(int pet_idx);
 
 }
