@@ -59,8 +59,8 @@
 	    		</tr>
 	    	</c:forEach>
 	    </table>
-	    <button id="prePage">이전 페이지</button>
-	    <button id="nextPage">다음 페이지</button>
+	    <button id="prePage" style="visibility: hidden;">이전 페이지</button>
+	    <button id="nextPage" style="visibility: hidden;">다음 페이지</button>
 	</body>
 	<script>
     $(document).ready(function () {
@@ -129,9 +129,11 @@
         }
 
         console.log(year+"년/"+month + "월/" + date + "일/" );
-       $('#draw').append(str);
-
-        
+        $('#draw').append(str);
+		
+       if($('#list tr').length>5){
+    	   $('#nextPage').css("visibility","visible");
+       }
 	}
 
 	function fa(e) {
@@ -183,6 +185,7 @@
 	 		$('#nextPage').css("visibility","hidden");
 	 	}
 	$('#nextPage').click(function() {
+		$('#prePage').css("visibility","visible");
 		if(end<list.length){
 			$('#list').empty();			
 			start += 5;
@@ -192,9 +195,14 @@
 				$('#list').append(cont);
 			}					
 		}
+		if(end>list.length){
+	 		$('#nextPage').css("visibility","hidden");
+		}
 		console.log(start+"/"+end);
 	});
 	$('#prePage').click(function() {
+
+ 		$('#nextPage').css("visibility","visible");
 		if(start>4){
 			$('#list').empty();		
 			start -= 5;
@@ -203,6 +211,9 @@
 				var cont="<tr>"+list[i]+"</tr>"
 				$('#list').append(cont);		
 			}			
+		}
+		if(start<5){
+	 		$('#prePage').css("visibility","hidden");			
 		}
 		console.log(start+"/"+end);
 	});
