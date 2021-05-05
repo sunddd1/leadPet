@@ -276,6 +276,16 @@ public class GameService {
 		return mav;
 	}
 
+
+	public HashMap<String, Object> mainRank() {
+		HashMap<String, Object> list = new HashMap<String, Object>();
+		ArrayList<GameDTO> quiz = dao.quizRank();
+		list.put("quiz", quiz);
+		quiz = dao.nemoRank();
+		list.put("nemo", quiz);
+		return list;
+	}
+
 	public ModelAndView getThisWeekNemo(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<GameDTO> ThisWeekNemo = dao.getThisWeekNemo();
@@ -369,6 +379,42 @@ public class GameService {
 		mav.addObject("aList", dto.getNemo_answer());
 		mav.addObject("lastNemo", dto.getWeek_nemo_idx());
 		mav.setViewName("game/nemoWeekDetail");
+		return mav;
+	}
+
+	public ModelAndView quizRanking(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId == null) {
+			loginId = "hello";
+		}
+		ArrayList<GameDTO> ranking = dao.getQuizRanking();
+		String page = "redirect:/gameMain";
+		if(ranking != null) {
+			logger.info(ranking.size()+"개");
+			mav.addObject("quizRanking", ranking);
+			mav.addObject("loginId", loginId);
+			page = "game/quizRanking";
+		}
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView nemoRanking(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId == null) {
+			loginId = "hello";
+		}
+		ArrayList<GameDTO> ranking = dao.getNemoRanking();
+		String page = "redirect:/gameMain";
+		if(ranking != null) {
+			logger.info(ranking.size()+"개");
+			mav.addObject("nemoRanking", ranking);
+			mav.addObject("loginId", loginId);
+			page = "game/nemoRanking";
+		}
+		mav.setViewName(page);
 		return mav;
 	}
 	

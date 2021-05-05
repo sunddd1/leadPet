@@ -119,7 +119,9 @@ public interface AdminDAO {
 	
 	ArrayList<Vaccin_schedulerDTO> popup(HashMap<String, Object> map);
 
-	
+
+	int vaccCount(String keyword);
+
 	
 
 

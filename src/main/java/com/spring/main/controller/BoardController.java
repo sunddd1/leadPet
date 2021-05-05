@@ -139,13 +139,21 @@ public class BoardController {
 	}
 	
 
-	@RequestMapping(value = "/BoardUpdate", method = RequestMethod.GET)
-	public ModelAndView BoardUpdate(Model model, HttpSession session,@RequestParam String bbs_idx) {
+	@RequestMapping(value = "/BoardUpdateForm", method = RequestMethod.GET)
+	public ModelAndView BoardUpdateForm(Model model, HttpSession session,@RequestParam String bbs_idx) {
 		logger.info("댕냥노하우 / 경험기 게시판 수정하기 폼 이동 : ");
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
 		return service.BoardUpdateForm(bbs_idx);
 	}
+	
+	@RequestMapping(value = "/BoardUpdate", method = RequestMethod.POST)
+	public ModelAndView BoardUpdate(@RequestParam HashMap<String, String> params, HttpSession session) {
+		logger.info("댕냥노하우 / 경험기 게시판 수정 : " +params);
+		return service.BoardUpdate(params,session);
+	}
+	
+	
 	
 
 	//메인으로 가야할까galTop3
@@ -157,9 +165,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/searchBbs", method = RequestMethod.GET)
-	public ModelAndView searchBbs(@RequestParam String category,@RequestParam String keyword) {
-		logger.info("검색요청 : {} / {} " ,category,keyword);
-		return service.searchBbs(category,keyword);
+	public @ResponseBody HashMap<String, Object> searchBbs(@RequestParam String category,@RequestParam String keyword
+			, @RequestParam int page ,@RequestParam int pagePerCnt) {
+		logger.info("검색요청 : {} / {} " ,category,keyword+"//"+page+"//"+pagePerCnt );
+		return service.searchBbs(category,keyword,page,pagePerCnt);
 	}
-
+	@RequestMapping(value = "/topsearch", method = RequestMethod.GET)
+	public ModelAndView topsearch(@RequestParam String category,@RequestParam String keyword) {
+		logger.info("검색요청 : {} / {} " ,category,keyword );
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("category", category);
+		mav.addObject("keyword", keyword);
+		mav.setViewName("Board/resultList");
+		return mav;
+	}
 }

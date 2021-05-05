@@ -39,5 +39,11 @@ public interface MemberDAO {
 
 	void deleteWriteList(String loginId, int bbs_idx);
 
+
+	int addInterestId(String myId, String friendId);
+
+
+	int deleteInterestId(String myId, String friendId);
+
 	
 }

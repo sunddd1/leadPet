@@ -66,7 +66,7 @@
 					<button onclick="location.href='./gameWeek'">목록으로</button>				
 				</c:if>
 				<c:if test="${lastQuiz != null}">
-					<button onclick="location.href='./gameMain'">목록으로</button>				
+					<button onclick="location.href='./gameMain'">메인으로</button>				
 				</c:if>
 			</div>
 			<div id="queList">			
