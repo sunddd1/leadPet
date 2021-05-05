@@ -240,7 +240,10 @@
 	</delete>
 
 	<select id="VaccSearch" resultType="vaccin">
-		SELECT * FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}) ORDER BY vacc_idx DESC
+		SELECT vacc_idx, vacc_name, content,cycle, vacc_cnt, dog_cat FROM
+		 (SELECT ROW_NUMBER() OVER(ORDER BY vacc_idx DESC) AS rnum,vacc_idx, vacc_name, content,cycle, vacc_cnt, dog_cat 
+		 FROM vaccin WHERE vacc_name LIKE LOWER(#{param1}) or vacc_name LIKE UPPER(#{param1}))
+		WHERE rnum BETWEEN #{param2} AND #{param3}
 	</select>
 	
 	<select id="vaccCount" resultType="int">

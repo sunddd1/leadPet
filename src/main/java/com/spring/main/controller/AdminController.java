@@ -690,6 +690,7 @@ public class AdminController {
 	@RequestMapping(value = "/VaccSearch", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> VaccSearch(HttpSession session,@RequestParam int pagePerCnt, @RequestParam int page,@RequestParam String keyword) {
 		logger.info("백신 검색요청 "+keyword);
+		logger.info("백신 검색요청 페이지 "+pagePerCnt +"/"+page);
 		return service.VaccSearch(page,pagePerCnt,keyword);
 	}
 	

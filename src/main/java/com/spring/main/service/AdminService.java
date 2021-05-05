@@ -295,7 +295,15 @@ public class AdminService {
 		int range = allCnt%pagePerCnt >0 ? ((int)Math.floor(allCnt/pagePerCnt))+1 : allCnt/pagePerCnt;
 		page = page>range? range:page;
 		
-		ArrayList<VaccinDTO> result = dao.VaccSearch(keyword);
+		int end = page * pagePerCnt;
+		System.out.println("end = "+page+"*"+pagePerCnt);
+		
+		int start = end-pagePerCnt+1;
+		System.out.println("start = "+end+"-"+pagePerCnt+"+1");
+		logger.info("키워드 : "+ keyword +"//" +start+"//"+end+"//"+range);
+		
+		
+		ArrayList<VaccinDTO> result = dao.VaccSearch(keyword,start,end);
 		logger.info("result : "+result.size());
 		
 		map.put("list", result);
