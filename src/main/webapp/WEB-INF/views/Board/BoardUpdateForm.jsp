@@ -124,8 +124,10 @@ function del(elem){
 			console.log(e);
 		}
 	});
-	
 }
+
+//여기서 이미지 아이디를 var 담아줘
+//세션에 넣고 보내야됨 근데 페이
 
 
 

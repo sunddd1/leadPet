@@ -73,6 +73,9 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
+	
+		var endNum = 5;
+		
 		$(document).ready(function(){
 			$("#bbs_content a").find("b").remove();
 			$("#editable a").removeAttr('onclick');
@@ -189,7 +192,8 @@
 		function replyList(){
 			var replyContent ={}
 			replyContent.bbs_idx = '${dto.bbs_idx}';
-			replyContent.id = 'test1122';
+			replyContent.endNum = endNum;
+			console.log(replyContent)
 			$.ajax({
 				type:'POST'
 				,url:'replyList'

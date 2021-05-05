@@ -146,14 +146,12 @@ public class BoardService {
 			}else {
 				logger.info("이미 삭제된파일");
 			}
-			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-			if(fileList.get(newfileName)!=null) {
-				fileList.remove(newfileName);
-				logger.info("삭제 후 남은 이미지 갯수 : " + fileList.size());
+			
+			//"fileList" , flieList <- 
+			if(newfileName !=null) {
 				dao.deletefile(newfileName);
 				dao.deleteContentFile(newfileName);
 			}
-			session.setAttribute("fileList", fileList);
 		} catch (Exception e) {
 			success=0;
 		}finally {
