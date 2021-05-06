@@ -10,10 +10,6 @@
 		SELECT admin_id FROM admin WHERE admin_id=#{param1}
 	</select> -->
 	
-	<select id="adminList" resultType="admin">
-		SELECT * FROM admin WHERE admin_id!='admin' ORDER BY reg_date DESC
-	</select>
-	
 	<update id="change">
 		UPDATE admin SET password=#{param1} WHERE admin_id=#{param2}  
 	</update>
@@ -216,9 +212,29 @@
 		SELECT * FROM point_history WHERE id LIKE '%'||#{keyword}||'%' ORDER BY reg_date DESC
 	</select>
 	
+	<!-- 페이징 -->
 	
 	
+	<select id="adminCount" resultType="Integer">
+		SELECT COUNT(admin_id) FROM admin 
+		<where>
+			<if test="search == 'id'"> admin_id LIKE LOWER(#{param2}) or admin_id LIKE UPPER(#{param2})</if>
+			<if test="search == 'nickname'"> nicakname LIKE LOWER(#{param2}) or nicakname LIKE UPPER(#{param2})</if>
+		</where>
+		 ORDER BY reg_date DESC
+	</select>
 	
+	<select id="adminList" resultType="admin">
+	SELECT admin_id,password,nickname,reg_date, rnum 
+	FROM (
+	SELECT admin_id,password,nickname,reg_date, ROW_NUMBER() OVER(ORDER BY idx DESC) 
+	AS rnum FROM admin
+	) 
+	WHERE rnum BETWEEN #{param1} AND #{param2} AND admin_id!='admin'
+	</select>
+	<!-- <select id="adminList" resultType="admin">
+		SELECT * FROM admin WHERE admin_id!='admin' ORDER BY reg_date DESC
+	</select> -->
 	
 	
 	

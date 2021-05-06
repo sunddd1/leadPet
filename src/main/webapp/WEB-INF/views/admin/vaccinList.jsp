@@ -82,6 +82,7 @@
 				if(keyword==''){
 					 keyword = $('#VaccSearch').val();
 				}
+				
 				console.log(" keyword : "+keyword);
 		      $.ajax({
 		         url:'VaccSearch',

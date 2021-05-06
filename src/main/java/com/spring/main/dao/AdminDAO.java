@@ -14,7 +14,7 @@ public interface AdminDAO {
 
 //	Object adminCheck(String loginId);
 
-	ArrayList<AdminDTO> adminList();
+	ArrayList<AdminDTO> adminList(int start, int end);
 
 	int change(String newPass, String id);
 
@@ -125,6 +125,8 @@ public interface AdminDAO {
 
 
 	int vaccCount(String keyword);
+
+	int adminCount(String search, String keyword);
 
 	
 

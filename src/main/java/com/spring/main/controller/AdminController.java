@@ -1,7 +1,5 @@
 package com.spring.main.controller;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,28 +24,40 @@ import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.AdminService;
 
-import oracle.sql.DATE;
-
 @Controller
 public class AdminController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired AdminService service;
-
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(Model model, HttpSession session) {
+	public ModelAndView admin() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/adminList");
+		return mav;
+	}
+
+	@RequestMapping(value = "/adminList", method = RequestMethod.GET)
+	public HashMap<String, Object> adminList(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam(value="search") String search,
+			@RequestParam(value="keyword") String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<AdminDTO> list = service.list();
-			logger.info("관리자 수"+list.size());
-			model.addAttribute("adminList", list);
 //			page="admin/adminList";
 //		}
-		return "admin/adminList";
+		return service.list(pagePerCnt,page,search,keyword);
+		
 	}
+	
+
 	
 	@RequestMapping(value = "/changePass", method = RequestMethod.GET)
 	public String changePass(Model model, HttpSession session) {
