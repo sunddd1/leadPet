@@ -10,7 +10,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
         #cal ,#cal td {
-        	margin: 5px;
             border: 2px solid;
             border-collapse: collapse;
         }
@@ -32,7 +31,6 @@
 			border: 1px solid black;
         	width: 200px;
         	height: 300px;
-        	float: right;
         	font-size: 8pt;
         	box-shadow: 5px 5px red;
         	padding: 10px;
@@ -47,8 +45,17 @@
         	width: 60%;
 			margin: 25px;
 			margin-left : 20%;
-			padding: 50px;        	
+			padding: 50px;     
         }
+		#left{
+			float: left;
+		}
+		#left button{
+			margin-bottom: 10px;
+		}
+		.Vaccschedule{
+			color:blue;
+		}
     </style>
 </head>
 <body>	
@@ -61,11 +68,13 @@
 				<table id="calend">
 					<tr>
 						<th>
-						    <p id="today"></p>
-						    <button onclick="preMon()">이전</button>
-						    <button onclick="nextMon()">다음</button>
+							<div id="left">
+							    <button onclick="preMon()">이전</button> &nbsp;&nbsp;&nbsp;
+							    <span id="today"></span>&nbsp;&nbsp;&nbsp;
+							    <button onclick="nextMon()">다음</button>
 						    <table id="cal">
 						    </table>
+							</div>							
 						</th>
 						<th>
 							<div id="list">
@@ -174,7 +183,7 @@
 					//console.log("스게 //"+dyear+"/"+dmont+"/"+ddate);
 			    	//console.log("스게 //"+d.getMonth()+1 +"///"+dmont +"///"+ nM.getFullYear() +"///"+ dyear+"//"+Number(ddate));
 					if(d.getFullYear() == dyear && dmont==d.getMonth()+1 && (overCnt)<55){	
-						$('#'+Number(ddate)).append('<div class="schedule">'+data.vacc[i].pet_name+"/"+data.vacc[i].vacc_name+'</div>');
+						$('#'+Number(ddate)).append('<div class="Vaccschedule">'+data.vacc[i].pet_name+"/"+data.vacc[i].vacc_name+'</div>');
 					}	
 					
 

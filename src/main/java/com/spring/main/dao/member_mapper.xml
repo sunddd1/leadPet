@@ -95,4 +95,12 @@
 		WHERE
 			id=#{param1} AND add_id=#{param2}
 	</delete>
+	
+	<!-- 관심유저로 등롣되어있나 확인 -->
+	<select id="hasInterestId" resultType="int">
+		SELECT COUNT(*)
+		FROM interest
+		WHERE
+			id=#{param1} AND add_id=#{param2}
+	</select>
 </mapper>

@@ -22,10 +22,15 @@
 	        	height: 20px;
 	        }
 	        #list {
-	        	width: 100%;
-	        }
-	        #list td{	        	
 	        	width: 80%;
+	        	font-size: 8pt;
+	        }
+	        #list td{
+	    	    width: 80%;
+	        	max-width: 80%;
+	        	text-overflow: ellipsis;
+	        	overflow: hidden;
+	        	white-space: nowrap;
 	        }
 		</style>
 	</head>
