@@ -20,16 +20,37 @@ public class GameService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired GameDAO dao;
 	
-	public ModelAndView gameList() {
-		ModelAndView mav = new ModelAndView();
+	public HashMap<String, Object> gameList(int pagePerCnt, int page) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
 		ArrayList<GameDTO> qList = dao.quizList();
 		ArrayList<GameDTO> nList = dao.nemoList();
-		logger.info("quizListSize : {}",qList.size());
-		logger.info("nemoListSize : {}",nList.size());
-		mav.addObject("quizList", qList);
-		mav.addObject("nemoList", nList);
-		mav.setViewName("game/gameQueList");
-		return mav;
+		//전체 게시글 수
+		int quizAllCnt = qList.size();
+		int nemoAllCnt = nList.size();
+		//pagePerCnt 기준으로 몇 페이지나 만들 수 있는가?
+		int quizRange = quizAllCnt%pagePerCnt > 0 ? Math.round(quizAllCnt/pagePerCnt)+1 : Math.round(quizAllCnt/pagePerCnt);
+		int nemoRange = nemoAllCnt%pagePerCnt > 0 ? Math.round(nemoAllCnt/pagePerCnt)+1 : Math.round(nemoAllCnt/pagePerCnt);
+		logger.info("quizRange:{}",quizRange);
+		logger.info("nemoRange:{}",nemoRange);
+		//시작, 끝
+		int end = page * pagePerCnt;//총 몇개까지 보여줘야 하나
+		int start = end - (pagePerCnt-1);
+		logger.info("start:{}",start);
+		logger.info("end:{}",end);
+		//생성 가능한 페이지보다 현재 페이지가 클 경우... 현재 페이지를 생성 가능한 페이지로 맞춰준다
+		page = (page < quizRange && page < nemoRange)? page 
+				: (page > quizRange && page < nemoRange)? quizRange
+						: (page < quizRange && page > nemoRange)? nemoRange 
+								:  (page > quizRange && page > nemoRange && quizRange > nemoRange)? nemoRange
+										: page;		
+		
+		map.put("quizList", dao.quizListCut(start,end));
+		map.put("nemoList", dao.nemoListCut(start,end));
+		map.put("quizRange", quizRange);
+		map.put("nemoRange", nemoRange);
+		map.put("currPage", page);
+		
+		return map;
 	}
 
 	public ModelAndView gameWeek() {

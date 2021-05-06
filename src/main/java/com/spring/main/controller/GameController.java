@@ -34,9 +34,18 @@ public class GameController {
 		return service.gameWeek();
 	}
 	@RequestMapping(value = "/gameQueList", method = RequestMethod.GET)
-	public ModelAndView gameQueList() {
+	public String gameQueWeek() {
 		logger.info("문제 리스트 페이지 : 시작은 상식퀴즈");
-		return service.gameList();
+		return "game/gameQueList";
+	}
+	@RequestMapping(value = "/gameGetList", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> gameQueList(HttpSession session
+			,@RequestParam(value="pagePerCnt", defaultValue ="15") int pagePerCnt
+			,@RequestParam(value="page", defaultValue ="1") int page)
+	{
+		logger.info("리스트 가져오기(페이징하기)");
+		logger.info("받아온 파라메터 : "+pagePerCnt+"/"+page);
+		return service.gameList(pagePerCnt,page);
 	}
 	@RequestMapping(value = "/quizWeekDetail", method = RequestMethod.GET)
 	public ModelAndView quizWeekDetail(@RequestParam int idx) {
@@ -119,13 +128,11 @@ public class GameController {
 		logger.info("네모로직 수정사항 저장 : {}",params);
 		return service.updateNemo(params);
 	}
-
 	@RequestMapping(value = "/mainRank", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> mainRank() {
 		logger.info("랭킹요청");
 		return service.mainRank();
 	}
-	
 	@RequestMapping(value = "/nemoPlaying", method = RequestMethod.GET)
 	public ModelAndView nemoPlaying(HttpSession session) {
 		logger.info("네모로직 게임 화면 : 가장 최근 등록된 회차 네모로직 리스트 불러오기");
@@ -152,7 +159,6 @@ public class GameController {
 		logger.info("지난 네모로직 내역");
 		return service.lastNemoAnswer();
 	}
-
 	@RequestMapping(value = "/quizRanking", method = RequestMethod.GET)
 	public ModelAndView quizRanking(HttpSession session) {
 		logger.info("상식 퀴즈 랭킹보기");

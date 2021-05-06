@@ -72,14 +72,52 @@
 						<c:if test="${ranking.id != loginId}">
 							<tr>
 								<td>${ranking.ROWNUM}</td><td>${ranking.id}</td><td>${ranking.quiz_score}/10</td>
-								<td>${Math.round(ranking.quiz_timer/6000)}:${Math.round(ranking.quiz_timer%6000/100)}:${ranking.quiz_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.quiz_timer < 60000}">
+										0${Math.round(ranking.quiz_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer/6000 >= 60000}">
+										${Math.round(ranking.quiz_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000/100 < 10}">
+										: 0${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000/100 >= 10}">
+										: ${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000%100 < 10}">
+										: 0${ranking.quiz_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000%100 >= 10}">
+										: ${ranking.quiz_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.quiz_success_date}</td>	
 							</tr>							
 						</c:if>
 						<c:if test="${ranking.id == loginId && ranking.ROWNUM<=10}">
 							<tr style="border: 3px solid">
 								<td>${ranking.ROWNUM}</td><td style="color: red">${ranking.id}</td><td>${ranking.quiz_score}/10</td>
-								<td>${Math.round(ranking.quiz_timer/6000)}:${Math.round(ranking.quiz_timer%6000/100)}:${ranking.quiz_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.quiz_timer < 60000}">
+										0${Math.round(ranking.quiz_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer/6000 >= 60000}">
+										${Math.round(ranking.quiz_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000/100 < 1000}">
+										: 0${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000/100 >= 1000}">
+										: ${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000%100 < 10}">
+										: 0${ranking.quiz_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000%100 >= 10}">
+										: ${ranking.quiz_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.quiz_success_date}</td>							
 							</tr>
 						</c:if>	
@@ -91,7 +129,26 @@
 							<tr><td colspan="5">●</td></tr>
 							<tr style="border: 3px solid">
 								<td>${ranking.ROWNUM}</td><td style="color: red">${ranking.id}</td><td>${ranking.quiz_score}/10</td>
-								<td>${Math.round(ranking.quiz_timer/6000)}:${Math.round(ranking.quiz_timer%6000/100)}:${ranking.quiz_timer%6000%100}</td>
+								<td>
+									<c:if test="${ranking.quiz_timer < 60000}">
+										0${Math.round(ranking.quiz_timer/6000)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer/6000 >= 60000}">
+										${Math.round(ranking.quiz_timer/6000)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000/100 < 10}">
+										: 0${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000/100 >= 10}">
+										: ${Math.round(ranking.quiz_timer%6000/100)}
+									</c:if>
+									<c:if test="${ranking.quiz_timer%6000%100 < 10}">
+										: 0${ranking.quiz_timer%6000%100}
+									</c:if> 
+									<c:if test="${ranking.quiz_timer%6000%100 >= 10}">
+										: ${ranking.quiz_timer%6000%100}
+									</c:if>  
+								</td>
 								<td>${ranking.quiz_success_date}</td>							
 							</tr>
 						</c:if>

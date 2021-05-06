@@ -76,7 +76,7 @@
 						content+="<td>"+Number(i+1)+"</td>";
 						content+="<td>"+quiz[i].id +"</td>";
 						content+="<td>"+quiz[i].quiz_score+"/10" +"</td>";
-						content+="<td>"+quiz[i].quiz_timer +"</td>";
+						content+="<td>"+Math.round(quiz[i].quiz_timer/6000)+":"+Math.round(quiz[i].quiz_timer%6000/100)+":"+Math.round(quiz[i].quiz_timer%6000%100) +"</td>";
 						content+="</tr>";
 						$('#quizRank').append(content);
 					}
@@ -86,7 +86,7 @@
 						content+="<tr>";
 						content+="<td>"+Number(i+1)+"</td>";
 						content+="<td>"+nemo[i].id +"</td>";
-						content+="<td>"+nemo[i].nemo_timer +"</td>";
+						content+="<td>"+Math.round(nemo[i].nemo_timer/6000)+":"+Math.round(nemo[i].nemo_timer%6000/100)+":"+Math.round(nemo[i].nemo_timer%6000%100) +"</td>";
 						content+="</tr>";
 						$('#nemoRank').append(content);
 					}
