@@ -8,6 +8,7 @@
 		<title>백신 리스트</title>
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
 		
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 
@@ -56,10 +57,10 @@
 				<ul class="pagination" id="pagination"></ul>
 			</nav>
 		</div>
-	</body>	
-		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	</body>	
 	<script>
 		$('#searchBtn').click(function() {
 			var text = $('#VaccSearch').val();
@@ -72,16 +73,14 @@
 		   //몇개를 보여줄 것인지 / 몇페이지
 		   listCall(showPage);//시작하자마자 이 함수를 호출 (20개씩 1페이지씩 보여줘라)
 		   
-		   $("#pagePerNum").change(function(){//select box의 값을 변경 할 때 마다 실행
-			   $('#pagination').twbsPagination('destroy');//이 구문이 없으면 페이지당 갯수 조정시 페이징 변경이 일어나지 않는다
-		      listCall(showPage);
-		   });
+	
 		   
 		   function listCall(reqPage){
 				var keyword = "${keyword}";
 				if(keyword==''){
 					 keyword = $('#VaccSearch').val();
 				}
+				
 				console.log(" keyword : "+keyword);
 		      $.ajax({
 		         url:'VaccSearch',
