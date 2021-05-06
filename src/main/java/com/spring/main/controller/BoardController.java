@@ -112,9 +112,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/replyList", method = RequestMethod.POST)
-	public HashMap<String, Object> replyList(Model model, @RequestParam String id , String bbs_idx) {
-		logger.info("댓글리스트 불러오기: "+id+bbs_idx);
-		return service.replyList(id,bbs_idx);
+	public HashMap<String, Object> replyList(Model model, @RequestParam String endNum , String bbs_idx) {
+		logger.info("댓글리스트 불러오기: "+endNum+bbs_idx);
+		return service.replyList(endNum,bbs_idx);
 	}
 	
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)

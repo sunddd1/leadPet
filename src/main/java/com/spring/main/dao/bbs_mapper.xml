@@ -87,9 +87,9 @@
 		UPDATE bbs SET reco_count = reco_count-1 WHERE bbs_idx=#{param1}
 	</update>
 	
-	<select id="replyList" resultType="reply">
-		SELECT r.reply_idx,r.reply_content,r.reg_date,m.nickname FROM reply r, member m WHERE  r.id = m.id AND bbs_idx = #{param2} AND reply_blind='N'
-		ORDER BY reply_idx ASC
+	<select id="replyList"  resultType="reply">
+		 SELECT rnum,r.reply_idx,r.bbs_idx,r.reply_content,r.reg_date,m.nickname FROM (SELECT id,reply_idx,reply_content,reg_date,bbs_idx,ROW_NUMBER()OVER(ORDER BY reply_idx DESC) AS rnum FROM reply WHERE reply_blind='N' AND bbs_idx=#{param2})r JOIN member m ON r.id = m.id
+ 		 WHERE rnum BETWEEN 1 AND #{param1} ORDER BY rnum ASC
 	</select>
 	
 	<insert id="replyWrite" parameterType="reply">
