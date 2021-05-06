@@ -547,34 +547,35 @@ public class AdminController {
 		return "admin/blindYList";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
-	public int blindY(
-			Model model, 
-			HttpSession session,
-			@RequestParam(value="idx") int idx
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		int success = service.blindY(idx);
-//			page="admin/adminList";
-//		}
-		return success;
-	}
+//	@ResponseBody
+//	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
+//	public int blindY(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam(value="idx") int idx
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		int success = service.blindY(idx);
+////			page="admin/adminList";
+////		}
+//		return success;
+//	}
 	
 	@RequestMapping(value = "/procY", method = RequestMethod.GET)
 	public String procY(
 			Model model, 
 			HttpSession session,
-			@RequestParam int rep_idx
+			@RequestParam int field
 			) {
 		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			service.procY(rep_idx,loginId);
+			service.procY(field,loginId);
+			service.blindY(field);
 //			page="admin/adminList";
 //		}
 		return "admin/reportList";
