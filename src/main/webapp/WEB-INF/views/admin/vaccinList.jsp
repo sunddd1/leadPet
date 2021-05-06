@@ -5,17 +5,16 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<title>백신 리스트</title>
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
+		
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
+
 			#vacc, #vacc td, #vacc th{
 				font-size: 10pt;
-				border: 1px solid;
-				border-collapse: collapse;
+				border: 2px solid lightgray;
 				padding: 5px 10px;
 			}
 			#vacc{
@@ -37,12 +36,11 @@
 			}
 			
 			#vaccinManage{
-				background-color: coral;
+				background-color: lightpink;
 			}		
 		</style>
 	</head>
 	<body>
-		<h3>백신 게시판</h3>
 		<jsp:include page="../main/top_Navi.jsp"/>
 		<jsp:include page="../main/side_adminNavi.jsp"/>
 		<div id="vaccSearchbar">
@@ -59,7 +57,10 @@
 				<ul class="pagination" id="pagination"></ul>
 			</nav>
 		</div>
-	</body>
+		
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	</body>	
 	<script>
 		$('#searchBtn').click(function() {
 			var text = $('#VaccSearch').val();
@@ -72,16 +73,14 @@
 		   //몇개를 보여줄 것인지 / 몇페이지
 		   listCall(showPage);//시작하자마자 이 함수를 호출 (20개씩 1페이지씩 보여줘라)
 		   
-		   $("#pagePerNum").change(function(){//select box의 값을 변경 할 때 마다 실행
-			   $('#pagination').twbsPagination('destroy');//이 구문이 없으면 페이지당 갯수 조정시 페이징 변경이 일어나지 않는다
-		      listCall(showPage);
-		   });
+	
 		   
 		   function listCall(reqPage){
 				var keyword = "${keyword}";
 				if(keyword==''){
 					 keyword = $('#VaccSearch').val();
 				}
+				
 				console.log(" keyword : "+keyword);
 		      $.ajax({
 		         url:'VaccSearch',
@@ -133,8 +132,14 @@
 				content += "<tr>";
 				content += "<td>"+list[i].vacc_name +"</td>";
 				content += "<td class='vaccContent'>"+list[i].content+"</td>" ;
-				content += "<td>"+list[i].cycle+" 주 마다</td>" ;
-				content +="<td>";
+				console.log(list[i].vacc_name.indexOf('기초'));
+				if(list[i].vacc_name.indexOf('기초')>-1){
+					content += "<td>생후 "+list[i].cycle+" 주 이후</td>" ;					
+				}else{
+					content += "<td>"+list[i].cycle+" 주 마다</td>" ;					
+				}
+				content += "<td>"+list[i].vacc_cnt+" 회</td>" ;			
+				content +="<td style='width: 120px;'>";
 				content +="<button onclick='regVacc("+list[i].vacc_idx+")'>수정</botton>";
 				content +="<button style='margin: 5px;' onclick='delVacc("+list[i].vacc_idx+")'>삭제</botton>";
 				//content +="<button onclick='location.href="./deleteVacc?vacc_idx=${vacc.vacc_idx}"'> 삭제</button>";

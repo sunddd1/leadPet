@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.InterestUserDTO;
 import com.spring.main.dto.MemberDTO;
 
 public interface MemberDAO {
@@ -44,6 +45,18 @@ public interface MemberDAO {
 
 
 	int deleteInterestId(String myId, String friendId);
+
+
+	int hasInterestId(String myId, String interestId);
+
+
+	ArrayList<InterestUserDTO> getInterestUsers(String myId);
+
+
+	int getInterestUserCount(String myId);
+
+
+	ArrayList<InterestUserDTO> getInterestUserList(String myId, int start, int end);
 
 	
 }

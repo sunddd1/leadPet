@@ -3,22 +3,17 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>검색 결과 페이지</title>
 		<!-- 제이쿼리 -->
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		
-		
-		<!-- 페이징 라이브러리(제이쿼리 플로그인이라 반드시 필요, 버전도 맞아야함.) -->
-		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
 			#rsTable  {
+				border: 5px solid red;
 				width: 60%;
-				margin-top: 10px;
-				max-width: 900px;
+				min-width : 1200px;
+				margin-top: 50px;
 				margin-left: 20%;
 			}
 			#rsTable ,#rsTable td{
@@ -39,10 +34,7 @@
 		
 	</head>
 	<body>
-		
 		<jsp:include page="../main/top_Navi.jsp"/>
-		<h3>List Page</h3>
-		<div id="notRs"></div>
 		<table id="rsTable">
 			<thead>
 				<tr>
@@ -56,7 +48,7 @@
 			<tbody id="list">
 			</tbody>
 			<tr>
-				<td id="paging" colspan="6">
+				<td style="border-color: white;" id="paging" colspan="6">
 					<!-- 플러그인 사용 -->
 					<div class="container">
 						<nav aria-label="page navigation" style="text-align: center;">
@@ -69,6 +61,9 @@
 		</table>
 	</body>
 	
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<script>
    
 	   var showPage = 1;

@@ -90,7 +90,14 @@
 	</table>
 </form>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
+var msg = "${msg}";
+console.log(msg)
+if(msg!=""){
+	alert(msg);
+}
 
 $("#save").click(function(){
 	//editable 에 있는 내용을 content  의  value 에 넣기
@@ -124,8 +131,10 @@ function del(elem){
 			console.log(e);
 		}
 	});
-	
 }
+
+//여기서 이미지 아이디를 var 담아줘
+//세션에 넣고 보내야됨 근데 페이
 
 
 

@@ -85,7 +85,7 @@
 	
 	<!-- 관심 유저 등록 -->
 	<insert id="addInterestId">
-		INSERT interest(id, add_id)
+		INSERT INTO interest(id, add_id)
 		VALUES(#{param1}, #{param2})
 	</insert>
 
@@ -95,4 +95,51 @@
 		WHERE
 			id=#{param1} AND add_id=#{param2}
 	</delete>
+	
+	<!-- 관심유저로 등롣되어있나 확인 -->
+	<select id="hasInterestId" resultType="int">
+		SELECT COUNT(*)
+		FROM interest
+		WHERE
+			id=#{param1} AND add_id=#{param2}
+	</select>
+	
+	<!-- 관심유저들 가져오기 -->
+	<select id="getInterestUsers" resultType="interestUser">
+		SELECT
+			interest.id, interest.add_id, interest.reg_date, member.nickname
+		FROM
+			interest INNER JOIN member
+		ON
+			interest.add_id = member.id
+        WHERE
+            interest.id = #{param1}
+	</select>
+	
+	<!-- 관심유저 수 불러오기 -->
+	<select id="getInterestUserCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM interest
+		WHERE
+			id=#{param1}
+	</select>
+	
+	<!-- 페이징 처리된 관심유저 수 불러오기 -->
+	<select id="getInterestUserList" resultType="InterestUser">
+		SELECT 
+			id, add_id, reg_date, nickname, rnum
+		FROM(
+			SELECT 
+				interest.id, interest.add_id, interest.reg_date, member.nickname, 
+				ROW_NUMBER() OVER(ORDER BY interest.reg_date DESC) AS rnum 
+			FROM
+				interest INNER JOIN member
+			ON
+				interest.add_id = member.id
+	        WHERE
+	            interest.id = #{param1}
+		)
+		WHERE 
+			rnum BETWEEN #{param2} AND #{param3}
+	</select>
 </mapper>

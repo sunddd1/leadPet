@@ -61,6 +61,11 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
+		var msg = "${msg}";
+		console.log(msg)
+		if(msg!=""){
+			alert(msg);
+		}	
 	
 		ListAll();
 		
@@ -129,7 +134,7 @@
 					content +="<td>"+list[i].bbs_idx+"</td>"
 					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='300px' 'height='398px'/></a></td>" 
 					content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
-					content +="<td>"+list[i].nickname+"</td>"
+					content +="<td onclick='idClickPopup("+list[i].id+","+list[i].nickname+")'>"+list[i].nickname+"</td>"
 					//java에서 가끔 날짜가 mileseconds로 나올경우...
 					var date = new Date(list[i].reg_date);
 					content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"

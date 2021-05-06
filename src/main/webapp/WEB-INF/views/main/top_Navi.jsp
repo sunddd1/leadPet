@@ -5,25 +5,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
 		<style>
-		#topNavi .firstBar{
-			border-color: white;
-		}
-        #topNavi th{
-        	border: 2px solid black;
-            padding: 5px 10px;
-            white-space: nowrap;
-            border-top-color: black;
-            border-radius: 10px;
-        }
 		#topNavi{
-			width: max-content;    
-            margin-right: 15%;
-            margin-left: 15%;
+			list-style-type:none;
+			margin: 10px;
+        	white-space: nowrap;
+		}
+		#topNavi li{
+			display: inline;
+			border: 3px solid black;
+			padding: 10px;
+			border-radius: 20px;
+			font-size: 13pt;
 		}
 		#searchBar{
-			width: 100%;
+			width: 90%;
+			margin: 10px;
 		}
 		th select{
 			width: max-content;
@@ -32,26 +29,62 @@
 			text-align: right;
 		}
 		#topSearchBtn{
+			margin: 10px;
 			border-radius: 10px;
 		}
 		
 		#side_Navi,#side_Navi th{
 			border: 1px solid;
-      	 	padding: 5px 10px;
+      	 	padding: 10px 20px;
        	 	border-collapse: collapse;
 		}
 		
 		#side_Navi{
+			font-size: 12pt;
 			white-space: nowrap;
+			position: absolute;
+			top: 30%;
+			left : 3%;
 		}
+		
+		#topSch{
+			width: 100%;
+			margin-bottom: 5px;
+        	white-space: nowrap;
+        	min-width: 600px;
+		}
+		#topSch th, #topSch td{
+			widows: 100%;
+		}
+		#topBox{
+			width: 70%;
+			min-width: 1200px;
+		}
+		#mainImg{
+		 	width: 100px;
+		 	height: 100px;
+		 	float: right;
+		}
+		.loginbox{
+			width: 100px;
+		}
+		.searchBar{
+			width: 300px;
+			min-width: 300px;
+			max-width: 300px;
+		}	
 		</style>
 	</head>
 	<body>		
-	관리자 인가 ? : ${sessionScope.isMaganer} ---- ${sessionScope.loginId}
-
-		<table id="topNavi">
+		<table style="margin-top: 10px;">
 			<tr>
-				<th class="firstBar"></th>
+				<td style="width:30%;">
+					<a href="./"><img src="https://i.postimg.cc/kM0WzZwg/image.png" id="mainImg" alt="메인페이지"/></a>
+				</td>
+				<td>
+		<div id="topBox">
+		<table id="topSch">
+			<tr>
 				<td class="firstBar" id="right">
 					<select>
 						<option value="ALL"<c:if test="${category eq 'ALL' }"> selected</c:if>>전체</option>
@@ -63,44 +96,46 @@
 						<option value="medical"<c:if test="${category eq 'medical' }"> selected</c:if>>의료</option>
 					</select>
 				</td>
-				<th class="firstBar" colspan="2">
+				<th class="searchBar" colspan="2">
 					<input id="searchBar" type="text" value="${keyword }"/>
 				</th>
 				<td class="firstBar">
 					<button id="topSearchBtn">SEARCH</button>
 				</td>
 			    <c:if test="${sessionScope.loginId eq null}">
-	                <th class="firstBar" onclick="location.href='./login-form'">로그인</th>
+	                <th class="loginbox" onclick="location.href='./login-form'">로그인</th>
                 </c:if>
                 <c:if test="${sessionScope.loginId ne null}">
-	                <th class="firstBar" onclick="location.href='./logout'">로그아웃</th>
+	                <th class="loginbox" onclick="location.href='./logout'">로그아웃</th>
                 </c:if>
                 <c:if test="${sessionScope.loginId eq null}">
-	                <th class="firstBar" onclick="location.href='./registForm'">회원가입</th>
+	                <th class="loginbox" onclick="location.href='./registForm'">회원가입</th>
                 </c:if>
                 <c:if test="${sessionScope.loginId ne null}">
-	                <th class="firstBar" onclick="location.href='./noteList'">쪽지함</th>
+	                <th class="loginbox" onclick="location.href='./noteList'">쪽지함</th>
                 </c:if>
 			</tr>
-			<tr>
-				<th onclick="location.href='./BoardList'">댕냥노하우/경험기</th>
-				<th onclick="location.href='./admin'">갤러리</th>
-				<th onclick="location.href='./admin'">사료,간식,영양제 추천</th>
-				<th onclick="location.href='./admin'">동반입장 식당 소개</th>
-				<th onclick="location.href='./admin'">목줄 프리 공원</th>			
+		</table>
+		<ul id="topNavi">
+				<li onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
+				<li onclick="location.href='./admin'">갤러리</li>
+				<li onclick="location.href='./admin'">사료,간식,영양제 추천</li>
+				<li onclick="location.href='./admin'">동반입장 식당 소개</li>
+				<li onclick="location.href='./admin'">목줄 프리 공원</li>			
 				<c:if test="${sessionScope.isMaganer eq null}">
-					<th onclick="location.href='./member-detail?id=${sessionScope.loginId}'">마이페이지</th>
+					<li id="myNavi" onclick="location.href='./member-detail?id=${sessionScope.loginId}'">마이페이지</li>
 				</c:if>
 				<c:if test="${sessionScope.isMaganer ne null}">
-					<th onclick="location.href='./admin'">관리자페이지</th>	
+					<li id="adNavi" onclick="location.href='./admin'">관리자페이지</li>	
 				</c:if>			
-				<th onclick="location.href='./gameMain'">미니게임</th>
-                <th style="border-color: white;"></th>
-                <th style="border-color: white;"></th>
-                <th style="border-color: white;"></th>
-                <th style="border-color: white;"></th>
+				<li onclick="location.href='./gameMain'">미니게임</li>
+		</ul>
+		</div>
+				</td>
 			</tr>
 		</table>
+		
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	</body>
 	<script>
 		$('#topSearchBtn').click(function() {

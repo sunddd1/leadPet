@@ -11,6 +11,7 @@ public class BoardDTO {
 	private Date reg_date;
 	private String mod_del;
 	private String bbs_blind;
+	private String type;
 	private int reco_count;
 	private int views;
 	private String type_name;
@@ -152,6 +153,12 @@ public class BoardDTO {
 	}
 	public void setPet_newfilename(String pet_newfilename) {
 		this.pet_newfilename = pet_newfilename;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

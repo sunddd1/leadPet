@@ -22,8 +22,21 @@
                 <c:if test="${dto.nickname eq 'withdrawal'}">
 	                <td>
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
+	                	<button onclick="location.href='BoardDel?bbs_idx=${dto.bbs_idx}' ">삭제하기</button>
 	                </td>
                 </c:if>
+                <!-- withdrawal 로그인 세션처리로 -->
+                <c:if test="${dto.nickname ne 'withdrawal'}">
+	                <td>
+			            <form action="BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
+							<input type="text" name="id" onclick='idClickPopup()' value="test1122">
+							<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
+							<input type="text" name="type" value="${dto.type }">
+						</form>
+	                	<button onclick="BoardreportForm()">신고하기</button>
+	                </td>
+                </c:if>
+                
             </tr>
 			<tr>
 				<th>제목</th>
@@ -69,10 +82,14 @@
 			
 			</tbody>
 		</table>
-		<div style="border: 2px solid black; text-align: center;" onclick="moreReply(10);" >더보기</div>
+		<div id="moreReply" style="border: 2px solid black; text-align: center;" onclick="moreReply();" >더보기</div>
+	
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
+	
+		var endNum = 5;
+		
 		$(document).ready(function(){
 			$("#bbs_content a").find("b").remove();
 			$("#editable a").removeAttr('onclick');
@@ -189,7 +206,8 @@
 		function replyList(){
 			var replyContent ={}
 			replyContent.bbs_idx = '${dto.bbs_idx}';
-			replyContent.id = 'test1122';
+			replyContent.endNum = endNum;
+			console.log(replyContent)
 			$.ajax({
 				type:'POST'
 				,url:'replyList'
@@ -204,6 +222,7 @@
 								replyDraw += "<tr><td>댓글이 없습니다.</td></tr>"
 								$("#replyList").empty();
 								$("#replyList").append(replyDraw);
+								$("#moreReply").remove();
 							}else{
 								replyListDraw(data.replyList);
 							}
@@ -216,9 +235,10 @@
 				}
 			})
 		}
-		
+	
 		//댓글리스트 그리기
 		function replyListDraw(list){
+			console.log(list.length)
 			var replyDraw = "";
 			for(var i =0; i<list.length; i++){
 				replyDraw +="<tr>"
@@ -230,10 +250,17 @@
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
+				if(list[i].nickname != "withdrawa"){
+				//로그인아이디
+				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
+				}
 				replyDraw +="</tr>"
 				replyDraw +="<tr>"
 				replyDraw +="<td>"+list[i].reply_content+"</td>"
 				replyDraw +="</tr>"
+				if(list.length<5){
+					$("#moreReply").remove();
+				}
 			}
 			$("#replyList").empty();
 			$("#replyList").append(replyDraw);
@@ -355,7 +382,71 @@
 				}
 			})
 		}
+		//댓글 더보기
+		function moreReply() {
+			var replyContent ={}
+			endNum = endNum +5;
+			console.log(endNum)
+			replyContent.bbs_idx = '${dto.bbs_idx}';
+			replyContent.endNum = endNum;
+			console.log(replyContent)
+			$.ajax({
+				type:'POST'
+				,url:'replyList'
+				,data:replyContent
+				,dataType:'JSON'
+				,success:function(data){
+						if(data){
+							console.log(data.replyList)
+							console.log(data.replyList.length);
+							var replyDraw = ""
+							replyListDraw(data.replyList);
+							if(data.replyList.length<endNum){
+								$("#moreReply").remove();
+							}
+						
+						}else{
+							console.log("댓글리스트 불러오기 실패")
+						}
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			})
+		}
+	 	//게시판 신고하기 
+		function BoardreportForm(){
+			window.open('about:blank','boardreport','width=600, height=300');
+			document.BoardReportForm.submit();
+		} 
 		
+		//댓글 신고하기
+		function replyReport(reply_idx){
+			window.open('reply_report/'+reply_idx+'/com','replyReport','width=600, height=300');
+			
+			/* var replyContent ={}
+			replyContent.reply_idx = reply_idx;
+			//로그인아이디로 변경해야함
+			replyContent.id = 'test1122';
+			console.log(replyContent.reply_idx,replyContent.id);
+			window.open('reply_report','replyreport','width=600, height=300');
+			 $.ajax({
+				type:'POST'
+				,url:'replyReport'
+				,data:replyContent
+				,dataType:'JSON'
+				,success:function(data){
+						
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			}) */
+		} 
+		function sendMsg(msg){
+			alert(msg);
+		}
+			
 		
 	</script>
 </html>

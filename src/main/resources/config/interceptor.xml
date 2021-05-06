@@ -21,6 +21,15 @@
 			<mvc:exclude-mapping path="/login"/>
 			<mvc:exclude-mapping path="/home"/>
 			
+			<mvc:exclude-mapping path="/mainTop"/>
+			<mvc:exclude-mapping path="/topsearch"/>
+			<mvc:exclude-mapping path="/searchBbs"/>
+			<mvc:exclude-mapping path="/popup"/>
+			<mvc:exclude-mapping path="/home"/>
+			<mvc:exclude-mapping path="/home"/>
+			<mvc:exclude-mapping path="/home"/>
+			
+			
 			
 			아래 클래스로 이동시켜라
 			<bean class="com.spring.main.service.LoginInterceptor"/>

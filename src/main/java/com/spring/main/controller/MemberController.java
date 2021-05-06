@@ -1,16 +1,21 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.MemberDTO;
@@ -157,5 +162,59 @@ public class MemberController {
 			memberService.update(member);
 			
 			return "forward:/member-detail";
+		}
+		
+		@GetMapping("insert-interest-id")
+		@ResponseBody
+		public boolean insertInterestId(@RequestParam String interestId, HttpSession session) {
+			logger.info("insertInterestId 요청");
+			String myId = (String)session.getAttribute("loginId");
+			
+			if(myId == null) {
+				return false;
+			}
+			
+			return memberService.addInterestId(myId, interestId);
+		}
+		
+		@GetMapping("delete-interest-id")
+		@ResponseBody
+		public boolean deleteInterestId(@RequestParam String interestId, HttpSession session) {
+			logger.info("deleteInterestId 요청");
+			String myId = (String)session.getAttribute("loginId");
+			
+			if(myId == null) {
+				return false;
+			}
+			
+			return memberService.deleteInterestId(myId, interestId);
+		}
+		
+		@GetMapping("/has-interest-id")
+		@ResponseBody
+		public boolean hasInterestId(@RequestParam String interestId, HttpSession session) {
+			logger.info("hasInterestId 요청");
+			String myId = (String)session.getAttribute("loginId");
+			
+			if(myId == null) {
+				return false;
+			}
+			
+			return memberService.hasInterestId(myId, interestId);
+		}
+		
+		@GetMapping("/interest-users/{myId}/{cntPerPage}/{page}")
+		@ResponseBody
+		public HashMap<String, Object> interestUserList(@PathVariable String myId, @PathVariable int cntPerPage, @PathVariable int page) {
+			logger.info("cntPerPage : {}, page : {}", cntPerPage, page);
+			
+			return memberService.getInterestUsers(myId, cntPerPage, page);
+		}
+		
+		@GetMapping("/interest-list-form")
+		public String interestListForm() {
+			logger.info("interestListForm 호출");
+			
+			return "Member/interestList";
 		}
 }

@@ -18,6 +18,7 @@
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
 		<jsp:include page="../main/side_myNavi.jsp"/>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		
 		<table id="loginTable">
 			<tr>
@@ -29,7 +30,10 @@
 				<td>
 					<form id="loginForm" action="login" method="post">
 						<div>
-							<label>아이디 test123</label
+							<label>아이디 
+							<!-- 임시 테스트용 -->
+							<a href="javascript:void(0)" onclick="idClickPopup('withdrawal', 'withdrawal')">test123</a>
+							</label
 							><br/>
 							<input type="text" id="id" name="id" value="${id}" />
 						</div>

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>백신 상세창</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
 			table,td{
@@ -19,6 +19,10 @@
 			th,td,input{			
 				font-size: 8pt;
 			}
+			input[type='text']{
+				margin: 10px;
+				border: 0px solid;
+			}
 		</style>
 	</head>
 	<body>
@@ -30,7 +34,7 @@
 				</tr>
 				<tr>	
 					<th>${vacc.vacc_name }</th>
-					<th colspan="2">주기 : ${vacc.cycle }</th>
+					<th colspan="2">주기 : ${vacc.cycle } 주 마다</th>
 				</tr>
 				<tr>	
 					<th>접종날짜 설정</th>
