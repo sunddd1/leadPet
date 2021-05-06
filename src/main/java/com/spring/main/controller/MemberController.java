@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -198,5 +201,20 @@ public class MemberController {
 			}
 			
 			return memberService.hasInterestId(myId, interestId);
+		}
+		
+		@GetMapping("/interest-users/{myId}/{cntPerPage}/{page}")
+		@ResponseBody
+		public HashMap<String, Object> interestUserList(@PathVariable String myId, @PathVariable int cntPerPage, @PathVariable int page) {
+			logger.info("cntPerPage : {}, page : {}", cntPerPage, page);
+			
+			return memberService.getInterestUsers(myId, cntPerPage, page);
+		}
+		
+		@GetMapping("/interest-list-form")
+		public String interestListForm() {
+			logger.info("interestListForm 호출");
+			
+			return "Member/interestList";
 		}
 }
