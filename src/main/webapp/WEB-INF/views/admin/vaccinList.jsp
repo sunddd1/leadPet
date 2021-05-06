@@ -8,6 +8,7 @@
 		<title>백신 리스트</title>
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
 		
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 
@@ -56,10 +57,10 @@
 				<ul class="pagination" id="pagination"></ul>
 			</nav>
 		</div>
-	</body>	
-		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	</body>	
 	<script>
 		$('#searchBtn').click(function() {
 			var text = $('#VaccSearch').val();
@@ -79,6 +80,7 @@
 				if(keyword==''){
 					 keyword = $('#VaccSearch').val();
 				}
+				
 				console.log(" keyword : "+keyword);
 		      $.ajax({
 		         url:'VaccSearch',
