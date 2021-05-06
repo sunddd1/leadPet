@@ -145,15 +145,29 @@ public class MemberService {
 		dao.update(member);
 	}
 	
-	public void addInterestId(String myId, String friendId) {
+	public boolean addInterestId(String myId, String friendId) {
 		logger.info("addInterestId 호출");
 		
-		dao.addInterestId(myId, friendId);
+		if(myId.equals(friendId)) {
+			return false;
+		}
+		
+		return dao.addInterestId(myId, friendId) > 0;
 	}
 	
-	public void deleteInterestId(String myId, String friendId) {
+	public boolean deleteInterestId(String myId, String friendId) {
 		logger.info("deleteInterestId 호출");
 		
-		dao.deleteInterestId(myId, friendId);
+		if(myId.equals(friendId)) {
+			return false;
+		}
+		
+		return dao.deleteInterestId(myId, friendId) > 0;
+	}
+
+	public boolean hasInterestId(String myId, String interestId) {
+		logger.info("hasInterestId 호출");
+		
+		return dao.hasInterestId(myId, interestId) > 0;
 	}
 }

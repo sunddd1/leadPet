@@ -45,5 +45,8 @@ public interface MemberDAO {
 
 	int deleteInterestId(String myId, String friendId);
 
+
+	int hasInterestId(String myId, String interestId);
+
 	
 }
