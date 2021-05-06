@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.PetDTO;
 import com.spring.main.dto.ReplyDTO;
+import com.spring.main.dto.ReportDTO;
 import com.spring.main.dto.bbs_imgDTO;
 
 public interface BoardDAO {
@@ -69,6 +70,24 @@ public interface BoardDAO {
 
 	void deleteContentFile(String newfileName);
 
+	String reportSearch(ReportDTO dto);
 
+	int boardreport(ReportDTO dto);
+
+	int replyReport(HashMap<String, String> map);
+
+	String replyReportSearch(HashMap<String, String> map);
+
+	String boardReportSearch(String bbs_idx);
+
+	int boardDel(String bbs_idx);
+
+	int pointPlus(String id);
+
+	int pointMinus(String id);
+
+	int pointHistory(String id);
+
+	int pointmHistory(String id);
 
 }
