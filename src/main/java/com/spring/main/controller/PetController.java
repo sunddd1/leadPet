@@ -10,15 +10,22 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.main.dto.PetDTO;
 import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.PetService;
 
@@ -37,9 +44,9 @@ public class PetController {
 	
 	//반려동물 등록 페이지 요청  
 	@RequestMapping("/newPet")
-	public ModelAndView newPet(@RequestParam String id) {
+	public String newPet(@RequestParam String id) {
 		logger.info("반려동물 등록 페이지 요청 ID :"+id);
-		return service.newPet(id);
+		return "Pet/newPet";
 	}
 	
 	
@@ -71,21 +78,25 @@ public class PetController {
 //		return service.write(params,session,id);
 //	}
 	
-	//반려동물 등록 
-	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
+	//반려동물 백신 리스트 
+	@RequestMapping(value = "/petVaccList", method = RequestMethod.POST)
 	@ResponseBody 
-	public List<Map> petPlus(@RequestParam(value = "valueArr[]")List<String>valueArr,@RequestParam String id) {		
+	public List<Map> petPlus(String chk) {		
 		logger.info("반려동물 등록 요청");		
-		List<String> list = valueArr;
-		logger.info("valueArr :"+valueArr.size());
-		List<Map>searchList = service.selectSearchListArr(list);
-		
-		for(int i=0; i<searchList.size();i++) {
-			logger.info("확인:"+searchList.get(i));
-		}
-		
-		return searchList;
+//		List<String> list = valueArr;                                   
+//		logger.info("valueArr :"+valueArr.size());
+	
+		return service.vaccList(chk);
 	}
+	
+ 	//반려동물 등록
+ 	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
+	public ModelAndView write(PetDTO dto, HttpSession session) throws Exception {
+ 		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
+ 		
+ 		return null;
+ 	}
+
 	
 	//반려동물 삭제 요청 
 	@RequestMapping(value="/deletePet")
