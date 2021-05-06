@@ -19,6 +19,10 @@
 			th,td,input{			
 				font-size: 8pt;
 			}
+			input[type='text']{
+				margin: 10px;
+				border: 0px solid;
+			}
 		</style>
 	</head>
 	<body>
@@ -30,7 +34,7 @@
 				</tr>
 				<tr>	
 					<th>${vacc.vacc_name }</th>
-					<th colspan="2">주기 : ${vacc.cycle }</th>
+					<th colspan="2">주기 : ${vacc.cycle } 주 마다</th>
 				</tr>
 				<tr>	
 					<th>접종날짜 설정</th>

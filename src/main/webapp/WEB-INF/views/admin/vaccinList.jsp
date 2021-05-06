@@ -133,7 +133,13 @@
 				content += "<tr>";
 				content += "<td>"+list[i].vacc_name +"</td>";
 				content += "<td class='vaccContent'>"+list[i].content+"</td>" ;
-				content += "<td>"+list[i].cycle+" 주 마다</td>" ;
+				console.log(list[i].vacc_name.indexOf('기초'));
+				if(list[i].vacc_name.indexOf('기초')>-1){
+					content += "<td>생후 "+list[i].cycle+" 주 이후</td>" ;					
+				}else{
+					content += "<td>"+list[i].cycle+" 주 마다</td>" ;					
+				}
+				content += "<td>"+list[i].vacc_cnt+" 회</td>" ;			
 				content +="<td>";
 				content +="<button onclick='regVacc("+list[i].vacc_idx+")'>수정</botton>";
 				content +="<button style='margin: 5px;' onclick='delVacc("+list[i].vacc_idx+")'>삭제</botton>";
