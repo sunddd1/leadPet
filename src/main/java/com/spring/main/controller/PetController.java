@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,16 +59,32 @@ public class PetController {
 		return service.fileUpload(file,session);
 	}
 	
-	//반려동물 등록
+//	//반려동물 등록
+//	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
+//	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id,
+//			@RequestParam(value="vacc_name",required = false) ArrayList<VaccinDTO> nameList) {
+//		logger.info("반려동물 등록 신청 ID : "+id);
+//		logger.info("백신 리쓰트 :"+nameList.size());
+//		//logger.info("백신 리쓰트 :"+chkList.size());
+//		//logger.info("백신 리쓰트 :"+dateList.size());
+//		
+//		return service.write(params,session,id);
+//	}
+	
+	//반려동물 등록 
 	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
-	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id,
-			@RequestParam(value="vacc_name",required = false) ArrayList<VaccinDTO> nameList) {
-		logger.info("반려동물 등록 신청 ID : "+id);
-		logger.info("백신 리쓰트 :"+nameList.size());
-		//logger.info("백신 리쓰트 :"+chkList.size());
-		//logger.info("백신 리쓰트 :"+dateList.size());
+	@ResponseBody 
+	public List<Map> petPlus(@RequestParam(value = "valueArr[]")List<String>valueArr,@RequestParam String id) {		
+		logger.info("반려동물 등록 요청");		
+		List<String> list = valueArr;
+		logger.info("valueArr :"+valueArr.size());
+		List<Map>searchList = service.selectSearchListArr(list);
 		
-		return service.write(params,session,id);
+		for(int i=0; i<searchList.size();i++) {
+			logger.info("확인:"+searchList.get(i));
+		}
+		
+		return searchList;
 	}
 	
 	//반려동물 삭제 요청 

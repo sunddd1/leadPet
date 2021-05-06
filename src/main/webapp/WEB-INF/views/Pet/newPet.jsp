@@ -69,8 +69,8 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-					<input type="radio" name="dog_cat" value="dog" id="dog" onchange="setDisplay()" checked/>강아지
-					<input type="radio" name="dog_cat" value="cat" id="cat" onchange="setDisplay()"/>고양이
+					<input type="radio" name="dog_cat" value="dog" id="dog" checked/>강아지
+					<input type="radio" name="dog_cat" value="cat" id="cat" />고양이
 					</td>
 				</tr>
 				<tr>
@@ -87,6 +87,9 @@
 					<td colspan="2">예방접종<br/></td>
 				</tr>
 				</thead>
+				<tbody class="selected">
+					
+				</tbody>
 				<%-- 
 				<tbody>
 				<c:forEach var="vac" items="${vac}">
@@ -100,7 +103,7 @@
 				</c:forEach>
 				</tbody>
 				 --%>
-				<!-- 강아지 선택 -->
+				<%-- <!-- 강아지 선택 -->
 				<tbody id="vac_dog">
 					<c:forEach var = "dog" items="${dog}">
 					<tr>
@@ -130,7 +133,7 @@
 						</td>
 					</tr>
 					</c:forEach>
-				</tbody>
+				</tbody> --%>
 				<tr>
 					<td colspan="2"><input id="plus" type="button" value="추가"/></td>
 				</tr>
@@ -139,35 +142,61 @@
 		</form>
 	</body>
 	<script>
-	if($('input:radio[id=cat]').is(':checked')){
-		$('#vac_dog').hide();
-         $('#vac_cat').show();
-    }else{
-    	 $('#vac_cat').hide();
-         $('#vac_dog').show();
-    }
 	
-	//강아지/고양이 선택에 따라 접종리스트 다르게 보여주기 
-	 function setDisplay(){
-		if($('input:radio[id=cat]').is(':checked')){
-			$('#vac_dog').hide();
-	         $('#vac_cat').show();
-	    }else{
-	    	 $('#vac_cat').hide();
-	         $('#vac_dog').show();
-	    }
-	}
-
-	/* function setDisplay(){
-		var sel = $('input:radio[name=dog_cat]:checked').val();
-		//$('#input:redio[name=dog_cat]:input[value=dog]').attr('checked',true);
-		if(sel == 'cat'){
+	$(document).ready(function(){
+		
+		var checkArr = [];//ArrayList 값 받을 변수 
+		//개/고양이 선택시 
+		$("input:radio").on('click',function(){
+			var sel = $('input:radio[name=dog_cat]:checked').val();//선택 값 
 			console.log(sel);
+			$this = $(this);
 			
-		}
-	}; */
-	
-	
+			//checked 일 때 
+			if($this.prop('checked')){
+				$this.addClass("selected");
+				checkArr.push($this.val());
+			}else{
+				$this.removeClass("selected");
+				checkArr.pop($this.val());
+			}
+			
+					console.log(checkArr);
+			$.ajax({
+				url : 'newPet',
+				type : 'POST',
+				dataType : 'JSON',
+				data : {
+					valueArr : checkArr
+				},
+				success : function(data) {
+					//var result = data.json;
+					
+					/* $.each(result,functon(idx,val){
+						console.log(idx+""+val.title);
+					}); */
+				},
+				error:function(e){
+					console.log(e);
+				}
+			})
+		}); 
+		
+		/* //값 입력 후 
+		//값을 가져온다. 
+		var vacc_name = $("#vacc_name").val();
+		
+		//name이 같은 값들을 배열에 담는다.
+		var vaccList = [];
+		vacc_name.each(function(i) {
+			vaccList.push($(this).val());
+		});
+		console.log(vaccList);
+		 */
+		
+		
+	});
+
 	$("#plus").click(function(){
 		
         $("form").submit(); 
@@ -177,6 +206,9 @@
 	function fileUp() {
 		window.open('uploadFormPet','file upload','width=400,height=100');
 	};
+	
+	
+	
 	
 	
 	

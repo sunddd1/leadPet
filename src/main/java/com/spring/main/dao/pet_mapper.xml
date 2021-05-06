@@ -39,12 +39,12 @@
 
 	<!-- 고양이 접종 목록 -->
 	<select id="vac_cat" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = 'cat'
+		SELECT*FROM vaccin WHERE dog_cat = '고양이'
 	</select>
 	
 	<!-- 강아지 접종 목록 -->
 	<select id="vac_dog" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = 'dog'
+		SELECT*FROM vaccin WHERE dog_cat = '강아지'
 	</select>
 	
 	<select id="vac" resultType="vaccin">
