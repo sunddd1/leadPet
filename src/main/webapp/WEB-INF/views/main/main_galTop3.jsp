@@ -5,17 +5,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
-			#bbsTop5{
-				width: 100%;
-				text-align: left;
+			#galTop3{
+				float: right;
+				margin-right: 150px;
 			}
 		</style>
 	</head>
 	<body>
-		<h2>베스트 포토 탑 3</h2>
 		<table id="galTop3">
 		</table>
 	</body>
@@ -35,10 +32,11 @@
 				var list = data.list;
 				for (var i = 0; i < list.length; i++) {					
 					var content="";
+					content+="<tr><td><h2>베스트 포토 탑 3</h2></td></tr>";
 					content+="<tr onclick='console.log("+list[i].bbs_idx+")'>";
 					
-					content+="<td id='photo"+i+"'>";
-					content+="<img src=/photo/"+list[i].newFileName+" alt="+list[i].oriFileName+"/>";
+					content+="<td id='photo"+i+"' onclick='boardDetail("+list[i].bbs_idx+")'>";
+					content+="<img src=/photo/"+list[i].newFileName+" alt="+list[i].oriFileName+" width='300px' 'height='398px'/>";
 					content+="</td>";
 					
 					content+="</tr>";
@@ -54,6 +52,9 @@
 		imgMove();
 	});
 	
+	function boardDetail(idx) {
+		location.href="./BoardDetail?bbs_idx="+idx;
+	}
 	function imgMove() {
 			console.log("이미지 움직이기");
 			var i = 1;

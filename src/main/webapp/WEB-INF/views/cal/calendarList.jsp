@@ -32,6 +32,9 @@
 	        	overflow: hidden;
 	        	white-space: nowrap;
 	        }
+	        #btn{
+	        	margin-left: 30px;
+	        }
 		</style>
 	</head>
 	<body>		

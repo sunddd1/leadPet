@@ -5,9 +5,7 @@
 <html>
 
 <head>
-    <title> 날짜 입력 </title>
     <meta charset='utf-8'>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
         #cal ,#cal td {
         	margin: 5px;
@@ -29,11 +27,14 @@
         .schedule{
         	font-size: 6pt;
         }
-
+		#mainCal{
+			float: right;
+			margin: 50px;
+		}
     </style>
 </head>
 <body>
-	<table>
+	<table id="mainCal">
 		<tr>
 			<th>
 	<p id="today"></p>

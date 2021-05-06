@@ -7,9 +7,8 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
-			#side_Navi{
-				position: absolute;
-				top: 30%;
+			#adNavi{
+				background-color: lightgray;
 			}
 		</style>
 	</head>

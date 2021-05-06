@@ -7,7 +7,6 @@
 <head>
     <title> 날짜 입력 </title>
     <meta charset='utf-8'>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
         #cal ,#cal td {
             border: 2px solid;
