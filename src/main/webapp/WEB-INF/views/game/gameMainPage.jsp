@@ -89,17 +89,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- 
-			상단에 include file="/WEB-INF/views/include.jsp"
-			혹은
-			jsp에서 <jsp:include page="${request.contextPath}/newItem"></jsp:include> 로 보내고
-			controller에서
-			@RequestMapping(method = RequestMethod.GET, value = "newItem")
-			public String newItem(Model model) {
-			    return "shared/items/NewItem";
-			}
-			로 받는다
-		 -->		
 	</body>
 	<script></script>
 </html>

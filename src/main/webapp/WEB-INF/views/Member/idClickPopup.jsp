@@ -6,20 +6,21 @@
 		<title>회원탈퇴</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#interestTable, #interestTable td {
+			#interestPopupTable, #interestPopupTable td {
 				board : 1px solid black;
 			}
-			#interestTable {
+			#interestPopupTable {
 				background-color: white;
 				position: absolute;
 				top: 200px;
   				left: 200px;
+  				z-index: 6;
 			}
 			
 		</style>
 	</head>
 	<body>
-	<div id="interestTable" style="display: none">
+	<div id="interestPopupTable" style="display: none">
 		<table>
 			<tr>
 				<td><a id="written" href="#">작성 글 보기</a></td>
@@ -38,7 +39,6 @@
 		
 		var xPoint = 0;
 		var yPoint = 0;
-
 		
 		$(document).mousemove(function(e) {
 	    		xPoint = e.pageX;
@@ -47,7 +47,7 @@
 		);
 		
 		$(document).click(function(e) {
-				var $table = $("#interestTable");
+				var $table = $("#interestPopupTable");
 	
 				var left = $table.position().left;
 				var top = $table.position().top;
@@ -63,20 +63,35 @@
 	    	}
 		);
 
-		function idClickPopup(idTag) {
-			interestTag(idTag);
+		function idClickPopup(nickname) {
+			console.log("nickname : " + nickname);
 			
-			var $table = $("#interestTable");
+			var $table = $("#interestPopupTable");
 	    	$table.css({"display": ""});
 			$table.css({"left": xPoint, "top": yPoint});
 			
-			console.log($("#written"));
-			
-			$("#written").attr("href", "./writeList?id=" + idTag);
-			
-			// 추가해야함.
-			/* $("#pet").attr("href", "./?id=" + idTag);
-			$("#note").attr("href", "./?id=" + idTag); */
+			// interestPopupTable안의 href 설정은 아래 함수에서 처리함.
+			findIdByNickname(nickname);
+		}
+		
+		// nickname으로 id 찾기
+		function findIdByNickname(nickname) {
+			$.ajax({
+				type:'GET'
+				,url:'find-id-by-nickname'
+				,data:{'nickname' : nickname}
+				,success:function(result) {
+					var id = result;
+					
+					$("#written").attr("href", "./writeList?id=" + id);
+					interestTag(id);
+					$("#pet").attr("href", "./listPet?id=" + id);
+					$("#note").attr("href", "./borderlist");
+					
+				},error:function(e) {
+					console.log("비동기 에러");
+				}
+			})
 		}
 		
 		// 관심유저 등록/취소  글자 결정.
@@ -144,5 +159,8 @@
 				}
 			})
 		}
+		
+		
+		
 	</script>
 </html>

@@ -29,9 +29,24 @@ public class AdminService {
 //		return dao.adminCheck(loginId);
 //	}
 	
-	public ArrayList<AdminDTO> list() {
+	public HashMap<String, Object> list(int pagePerCnt, int page, String search, String keyword) {
 		logger.info("관리자 리스트 서비스 도착");
-		return dao.adminList();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.adminCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.adminList(start,end,search,keyword));
+		
+		return map;
 	}
 
 	public int change(String newPass, String id) {
@@ -199,14 +214,14 @@ public class AdminService {
 		return dao.blindYList();
 	}
 
-	public int blindY(int idx) {
+	public int blindY(int field) {
 		logger.info("블라인드 Y처리 서비스 도착");
-		return dao.blindY(idx);
+		return dao.blindY(field);
 	}
 	
-	public int procY(int rep_idx, String loginId) {
+	public int procY(int field, String loginId) {
 		logger.info("처리유무 Y처리 서비스 도착");
-		return dao.procY(rep_idx,loginId);
+		return dao.procY(field,loginId);
 	}
 
 	public int blindN(int idx) {
@@ -311,6 +326,10 @@ public class AdminService {
 		map.put("currPage",page);
 	
 		return map;
+	}
+
+	public int allCount() {
+		return 0;
 	}
 
 	

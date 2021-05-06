@@ -67,5 +67,23 @@ public interface GameDAO {
 	ArrayList<GameDTO> getNemoRanking();
 
 	GameDTO logUserInfo(String loginId);
-	
+
+	int makeWeekQuiz(HashMap<Object, Object> numMap);
+
+	int makeWeekNemo(int idxNum);
+
+	GameDTO searchExist(int idxNum);
+
+	int upPointTen(String id);
+
+	int upPointTwen(String id);
+
+	ArrayList<GameDTO> quizListCut(int start, int end);
+
+	ArrayList<GameDTO> nemoListCut(int start, int end);
+
+	ArrayList<GameDTO> weekQuizCut(int start, int end);
+
+	ArrayList<GameDTO> weekNemoCut(int start, int end);
+
 }

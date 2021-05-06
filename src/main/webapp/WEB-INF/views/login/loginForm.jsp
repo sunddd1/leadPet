@@ -32,7 +32,7 @@
 						<div>
 							<label>아이디 
 							<!-- 임시 테스트용 -->
-							<a href="javascript:void(0)" onclick="idClickPopup('withdrawal')">test123</a>
+							<a href="javascript:void(0)" onclick="idClickPopup('withdrawal', 'withdrawal')">test123</a>
 							</label
 							><br/>
 							<input type="text" id="id" name="id" value="${id}" />

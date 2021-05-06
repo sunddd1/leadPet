@@ -14,6 +14,17 @@
 	<select id="nemoList"  resultType="game">
 		SELECT * FROM nemo ORDER BY nemo_idx
 	</select>
+	<select id="quizListCut"  resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY quiz_idx) AS rnum, QUIZ_IDX, QUIZ_QUESTION, EX1, EX2, EX3, EX4
+			, QUIZ_ANSWER, QUIZ_BLIND FROM quiz WHERE quiz_blind= 'N'
+			) WHERE rnum BETWEEN #{param1} AND #{param2} 
+	</select>
+	<select id="nemoListCut"  resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY nemo_idx) AS rnum, NEMO_IDX, NEMO_SUBJECT, NEMO_QUESTION, NEMO_ANSWER 
+			FROM nemo) WHERE rnum BETWEEN #{param1} AND #{param2} 
+	</select>
 	<select id="perQuizDetail" parameterType="Integer" resultType="game">
 		SELECT * FROM quiz WHERE quiz_idx = #{param1}
 	</select>
@@ -22,11 +33,24 @@
 	</select>
 	
 	<!-- 주차 별 문제 리스트 관련 -->
-	<select id="qWeekList"  resultType="game">
+	<select id="qWeekList" resultType="game">
 		SELECT * FROM quiz_week ORDER BY week_quiz_idx DESC
 	</select>
-	<select id="nWeekList"  resultType="game">
+	<select id="nWeekList" resultType="game">
 		SELECT * FROM nemo_week ORDER BY week_nemo_idx DESC
+	</select>
+	<select id="weekQuizCut" resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY week_quiz_idx) AS rnum
+			, WEEK_QUIZ_IDX, QUIZ_FIRST, QUIZ_SECOND, QUIZ_THIRD, QUIZ_FOURTH, QUIZ_FIFTH
+			, QUIZ_SIXTH, QUIZ_SEVENTH, QUIZ_EIGHTH, QUIZ_NINTH, QUIZ_TENTH, QUIZ_UPDATE_DATE 
+			FROM quiz_week) WHERE rnum BETWEEN #{param1} AND #{param2} 
+	</select>
+	<select id="weekNemoCut" resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY week_nemo_idx) AS rnum
+			, WEEK_NEMO_IDX, NEMO_IDX, NEMO_UPDATE_DATE FROM nemo_week
+			) WHERE rnum BETWEEN #{param1} AND #{param2} 
 	</select>
 	<!-- 조건에 quiz_blind = 'N' 걸지 말지 정하기 : 일단 이후 주차에 넣을 때는 뺴고 넣어야 함-->
 	<select id="quizWeekDetail" parameterType="Integer" resultType="game">
@@ -171,5 +195,36 @@
       FROM nemo_test WHERE nemo_success='Y' AND week_nemo_idx=(SELECT MAX(week_nemo_idx) FROM nemo_week))
       WHERE rnum BETWEEN 1 AND 10
    </select>
+  
+  <!-- 월요일 00시 주차별 문제 만들기 -->
+  <insert id="makeWeekQuiz" parameterType="hashMap">
+  	INSERT INTO quiz_week(week_quiz_idx,quiz_first,quiz_second,quiz_third,quiz_fourth,quiz_fifth
+  	,quiz_sixth,quiz_seventh,quiz_eighth,quiz_ninth,quiz_tenth)VALUES(seq_quiz_week.NEXTVAL
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param1} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param2} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param3} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param4} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param5} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param6} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param7} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param8} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param9} AND quiz_blind='N')
+    ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param10} AND quiz_blind='N')
+    )
+  </insert>
+  <select id="searchExist" parameterType="Integer" resultType="game">
+  	SELECT * FROM nemo_week WHERE nemo_idx = #{param1}
+  </select>
+  <insert id="makeWeekNemo" parameterType="Integer">
+  	INSERT INTO nemo_week(week_nemo_idx,nemo_idx)VALUES(seq_nemo_week.NEXTVAL,#{param1})
+  </insert>
+  
+  <!-- 지난주 랭킹에 따른 포인트 적립 -->
+  <update id="upPointTen" parameterType="String">
+  	UPDATE member SET point = point+10 WHERE id=#{param1}
+  </update>
+  <update id="upPointTwen" parameterType="String">
+  	UPDATE member SET point = point+20 WHERE id=#{param1}
+  </update>
   
 </mapper>

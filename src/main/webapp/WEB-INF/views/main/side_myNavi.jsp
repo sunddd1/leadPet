@@ -5,24 +5,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
 		<style>
-			#side_Navi{
-				position: absolute;
-				top: 30%;
+			#myNavi{
+				background-color: lightgray;
 			}
 		</style>
 	</head>
 	<body>
 		<table id="side_Navi">
 			<tr>
-				<th onclick="location.href='./vaccList'">회원정보</th>
+				<th onclick="location.href='./member-detail?id=${sessionScope.loginId}'">회원정보</th>
 			</tr>
 			<tr>
 				<th onclick="location.href='./withdrawal?id=${sessionScope.loginId}'">회원탈퇴</th>
 			</tr>		
 			<tr>
-				<th onclick="location.href='./#'">관심 유저 목록</th>
+				<th onclick="location.href='./interest-list-form'">관심 유저 목록</th>
 			</tr>		
 			<tr>
 				<th onclick="location.href='./listPet?id=${sessionScope.loginId}'">반려동물</th>

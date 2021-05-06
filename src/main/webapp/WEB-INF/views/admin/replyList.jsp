@@ -120,7 +120,6 @@
             </tr>
             <c:forEach items="${replyList}" var="report">
 	            <tr>
-	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>
 		                <a href="detailMember?id=${report.id}" 
 		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">

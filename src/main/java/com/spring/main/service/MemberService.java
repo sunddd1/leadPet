@@ -2,9 +2,7 @@ package com.spring.main.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.InterestUserDTO;
 import com.spring.main.dto.MemberDTO;
-
-import oracle.jdbc.driver.Message;
 @Service
 public class MemberService {
 	@Autowired MemberDAO dao;
@@ -169,5 +165,34 @@ public class MemberService {
 		logger.info("hasInterestId 호출");
 		
 		return dao.hasInterestId(myId, interestId) > 0;
+	}
+
+	public HashMap<String, Object> getInterestUsers(String myId, int cntPerPage, int page) {
+		logger.info("getInterestUsers 호출");
+		
+		int allCnt = dao.getInterestUserCount(myId);
+		int range = allCnt % cntPerPage > 0 ? Math.round(allCnt/cntPerPage)+1 : Math.round(allCnt/cntPerPage);
+		
+		page = page>range ? range : page;
+		
+		// 시작, 끝
+		int end = page * cntPerPage;
+		int start = end - cntPerPage + 1;
+		
+		logger.info("start : {} end : {}", start, end);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", dao.getInterestUserList(myId, start, end));
+			
+		map.put("range", range);
+		map.put("curPage", page);
+		
+		return map;
+	}
+
+	public String findIdByNickname(String nickname) {
+		logger.info("findIdByNickname 호출");
+		
+		return dao.findIdByNickname(nickname);
 	}
 }

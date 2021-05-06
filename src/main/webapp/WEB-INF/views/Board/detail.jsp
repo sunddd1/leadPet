@@ -49,6 +49,7 @@
 	                <td>
 			            <form action="BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
 							<input type="text" name="id" value="${sessionScope.loginId}">
+							<input type="text" name="id" onclick='idClickPopup()' value="${sessionScope.loginId}">
 							<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
 							<input type="text" name="type" value="${dto.type }">
 						</form>

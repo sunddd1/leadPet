@@ -5,28 +5,30 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
 			#bbsTop5{
 				width: 100%;
-				text-align: left;
 				border: 1px solid;
 				padding : 10px;
 				box-shadow: 0 4px 4px -4px black;		
 			}
+			#bbsTop5 th{
+				text-align:center; 
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		</style>
 	</head>
 	<body>
+		<h2>베스트 게시물 탑 5</h2>
 		<table id="bbsTop5">
 			<tr>
-				<td colspan="2">
-					<h2>베스트 게시물 탑 5</h2>
-				</td>
+				<th>제목</th>
+				<th>작성자</th>
 			</tr>
 			<tr>
-				<td>제목</td>
-				<td>작성자</td>
+				<td colspan="2"><hr/></td>
 			</tr>
 		</table>
 	</body>
@@ -46,14 +48,14 @@
 				for (var i = 0; i < list.length; i++) {					
 					var content="";
 					content+="<tr onclick='console.log("+list[i].bbs_idx+")'>";
-					
-					content+="<td>";
+					// ./BoardDetail?bbs_idx="+list[i].bbs_idx+
+					content+="<th onclick='boardDetail("+list[i].bbs_idx+")'>";
 					content+=list[i].bbs_subject;
-					content+="</td>";
+					content+="</th>";
 					
-					content+="<td>";
+					content+="<th>";
 					content+=list[i].nickname;
-					content+="</td>";
+					content+="</th>";
 					
 					content+="</tr>";
 					$('#bbsTop5').append(content);
@@ -65,5 +67,9 @@
 		});
 		
 	});
+	
+	function boardDetail(idx) {
+		location.href="./BoardDetail?bbs_idx="+idx;
+	}
 	</script>
 </html>

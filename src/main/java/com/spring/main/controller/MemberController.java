@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -137,7 +140,7 @@ public class MemberController {
 			String msg = "비밀번호가 일치하지 않습니다.";
 
 			// 비밀번호 확인 성공
-			if(loginService.login(id, password) != null) {
+			if(loginService.login(id, password) != LoginService.Type.NONE) {
 				mav.addObject("member", memberService.getMember(id));
 				viewName = "Member/myUpdateForm";
 				mav.setViewName(viewName);
@@ -167,7 +170,11 @@ public class MemberController {
 			logger.info("insertInterestId 요청");
 			String myId = (String)session.getAttribute("loginId");
 			
-			if(myId == null) {
+			if(interestId.trim().equals("")) {
+				return false;
+			}
+			
+			if(myId == null || myId.equals(interestId)) {
 				return false;
 			}
 			
@@ -180,10 +187,17 @@ public class MemberController {
 			logger.info("deleteInterestId 요청");
 			String myId = (String)session.getAttribute("loginId");
 			
-			if(myId == null) {
+			if(interestId.trim().equals("")) {
 				return false;
 			}
 			
+			if(myId == null || myId.equals(interestId)) {
+				return false;
+			}
+			
+			if(memberService.hasInterestId(myId, interestId)) {
+				return true;
+			}
 			return memberService.deleteInterestId(myId, interestId);
 		}
 		
@@ -193,10 +207,33 @@ public class MemberController {
 			logger.info("hasInterestId 요청");
 			String myId = (String)session.getAttribute("loginId");
 			
-			if(myId == null) {
+			if(myId == null || myId.equals(interestId)) {
 				return false;
 			}
 			
 			return memberService.hasInterestId(myId, interestId);
+		}
+		
+		@GetMapping("/interest-users/{myId}/{cntPerPage}/{page}")
+		@ResponseBody
+		public HashMap<String, Object> interestUserList(@PathVariable String myId, @PathVariable int cntPerPage, @PathVariable int page) {
+			logger.info("cntPerPage : {}, page : {}", cntPerPage, page);
+			
+			return memberService.getInterestUsers(myId, cntPerPage, page);
+		}
+		
+		@GetMapping("/interest-list-form")
+		public String interestListForm() {
+			logger.info("interestListForm 호출");
+			
+			return "Member/interestList";
+		}
+		
+		@GetMapping("/find-id-by-nickname")
+		@ResponseBody
+		public String findIdByNickname(@RequestParam String nickname) {
+			logger.info("findIdByNickname 호출");
+			System.out.println(memberService.findIdByNickname(nickname));
+			return memberService.findIdByNickname(nickname);
 		}
 }

@@ -59,6 +59,7 @@
 	</head>
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<ul class="tabs">
 			<li data-tab="dog" class='tabmenu'>강아지</li>
 			<li data-tab="cat" class='tabmenu'>고양이</li>
@@ -144,12 +145,20 @@
 			for(var i=0; i<list.length; i++){
 					content +="<table style='float:left; margin-right:5%; margin-top:1%;'>"
 					content +="<tr>"
+<<<<<<< HEAD
 					content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
 					content +="<tr><td>"+list[i].category_name+"</td>"
 					content +="<td>"+list[i].views+"</td>"
 					content +="<td>"+list[i].reco_count+"</td></tr>"
 					content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
 					content +="<td>"+list[i].nickname+"</td>"
+=======
+					content +="<td>"+list[i].bbs_idx+"</td>"
+					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='300px' 'height='398px'/></a></td>" 
+					content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
+					//content +="<td onclick='idClickPopup("+list[i].id+","+list[i].nickname+")'>"+list[i].nickname+"</td>"
+					content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
+>>>>>>> 27e86c4d4ba8388727334f4b53f4cb4a34864d69
 					//java에서 가끔 날짜가 mileseconds로 나올경우...
 					var date = new Date(list[i].reg_date);
 					content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"

@@ -22,6 +22,9 @@
 	
 	
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+	
 		<form id="updateForm" action="member-update" method="post">
 			<table id="updateTable">			
 				<tr>
