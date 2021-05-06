@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
@@ -98,6 +99,7 @@ public class BoardService {
 		dto.setBbs_subject(params.get("bbs_subject"));
 		dto.setBbs_content(params.get("bbs_content"));
 		dto.setNickname(params.get("nickname"));
+		dto.setPet_idx(Integer.parseInt(params.get("pet_idx")));
 		dto.setCategory_name(params.get("category_name"));
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
@@ -123,7 +125,7 @@ public class BoardService {
 					}
 				}
 			}
-			page="/Board/Experience";
+			page="Board/Experience";
 		}else {
 			for(String newFileName : fileList.keySet()) {
 				File file = new File(root+"Boardupload/"+newFileName);
@@ -131,7 +133,8 @@ public class BoardService {
 			}
 		}
 		session.removeAttribute("fileList");
-		mav.setViewName(page);	
+		mav.addObject("msg","글작성에 성공하였습니다.");
+		mav.setViewName(page);
 		return mav;
 	}
 

@@ -5,9 +5,28 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<style>
+			
+			#profile,#profile td,#profile th{
+					width: max-content;
+					border: 1px solid black;
+					border-collapse: collapse;
+					padding: 5px 10px;
+					text-align: center;
+					margin-left: 14%;
+					margin-top: 3%;
+			}
+			
+			#reply{
+				width: max-content;
+				margin-left: 14%;
+				margin-top: 3%;
+			}
+		</style>
 	</head>
 	<body>
-		<table>
+	<jsp:include page="../main/top_Navi.jsp"/>
+		<table id="profile">
             <tr>
                 <th>조회수 </th>
                 <td>${dto.views }</td>
@@ -18,18 +37,18 @@
                 <td></td>
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
+                <td>${dto.id }</td>
                 <!-- 임시 닉네임 지정 세션으,로 변경해야함  -->
-                <c:if test="${dto.nickname eq 'withdrawal'}">
-	                <td>
+                <c:if test="${dto.id eq sessionScope.loginId}">
+	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
 	                	<button onclick="location.href='BoardDel?bbs_idx=${dto.bbs_idx}' ">삭제하기</button>
 	                </td>
                 </c:if>
-                <!-- withdrawal 로그인 세션처리로 -->
-                <c:if test="${dto.nickname ne 'withdrawal'}">
+                <c:if test="${dto.id ne sessionScope.loginId}">
 	                <td>
 			            <form action="BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
-							<input type="text" name="id" value="test1122">
+							<input type="text" name="id" value="${sessionScope.loginId}">
 							<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
 							<input type="text" name="type" value="${dto.type }">
 						</form>
@@ -40,7 +59,7 @@
             </tr>
 			<tr>
 				<th>제목</th>
-				<td>${dto.bbs_subject }</td>
+				<td colspan="11">${dto.bbs_subject }</td>
 			</tr>
             <tr>
                 <th>닉네임</th>
@@ -62,11 +81,11 @@
             </tr>
 			<tr>
 				<th>내용</th>
-				<td id="bbs_content">${dto.bbs_content }</td>
+				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
 			</tr>
 		</table>
 		
-		<table style="border-collapse: collapse;">
+		<table style="border-collapse: collapse;" id="reply">
 			<tr>
 				<td>
 					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"></textarea>
@@ -107,8 +126,7 @@
 				type:'GET'
 				,url:'recoConfirm'
 				,data:{
-					//로그인아이디로 변경해야함
-					id: 'test1122'
+					id: '${sessionScope.loginId}'
 					,bbs_idx: '${dto.bbs_idx}'
 				}
 				,dataType:'JSON'
@@ -136,8 +154,7 @@
 		function norecoButton(elem){
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
-			//로그인아이디로 변경해야함
-			recoContent.id = 'test1122';
+			recoContent.id = '${sessionScope.loginId}';
 			console.log(recoContent.bbs_idx,recoContent.id);
 			
 			$.ajax({
@@ -163,7 +180,7 @@
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
 			//로그인아이디로 변경해야함
-			recoContent.id = 'test1122';
+			recoContent.id = '${sessionScope.loginId}';
 			console.log(recoContent.bbs_idx,recoContent.id);
 			
 			$.ajax({
@@ -246,11 +263,11 @@
 				var date = new Date(list[i].reg_date);
 				replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				//로그인 아이디라면
-				if(list[i].nickname== "withdrawal"){
+				if(list[i].nickname== "${sessionScope.loginId}"){
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
-				if(list[i].nickname != "withdrawa"){
+				if(list[i].nickname != "${sessionScope.loginId}"){
 				//로그인아이디
 				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
 				}
@@ -295,7 +312,7 @@
 			replyContent.reply_content = $('#reply_content').val();
 			replyContent.bbs_idx = '${dto.bbs_idx}';
 			//로그인아이디로 변경해야함
-			replyContent.id = 'test1122';
+			replyContent.id = '${sessionScope.loginId}';
 			console.log(replyContent.bbs_idx,replyContent.id,replyContent.reply_content);
 			
 			$.ajax({
@@ -359,7 +376,7 @@
 			replyContent.reply_content = $('#reply_update').val();
 			replyContent.reply_idx = reply_idx;
 			//로그인아이디로 변경해야함
-			replyContent.id = 'test1122';
+			replyContent.id = '${sessionScope.loginId}';
 			console.log(replyContent.reply_content,replyContent.reply_idx,replyContent.id);
 
 			$.ajax({
@@ -424,24 +441,6 @@
 		function replyReport(reply_idx){
 			window.open('reply_report/'+reply_idx+'/com','replyReport','width=600, height=300');
 			
-			/* var replyContent ={}
-			replyContent.reply_idx = reply_idx;
-			//로그인아이디로 변경해야함
-			replyContent.id = 'test1122';
-			console.log(replyContent.reply_idx,replyContent.id);
-			window.open('reply_report','replyreport','width=600, height=300');
-			 $.ajax({
-				type:'POST'
-				,url:'replyReport'
-				,data:replyContent
-				,dataType:'JSON'
-				,success:function(data){
-						
-				}
-				,error:function(e){
-					console.log(e);
-				}
-			}) */
 		} 
 		function sendMsg(msg){
 			alert(msg);

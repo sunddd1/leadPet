@@ -25,8 +25,9 @@ public class BoardDTO {
 	private Date bday;
 	private String name;
 	private String pet_name;
-	private int kg;
+	private String kg;
 	private String pet_newfilename;
+	private String id;
 	
 	public int getBbs_idx() {
 		return bbs_idx;
@@ -136,12 +137,6 @@ public class BoardDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getKg() {
-		return kg;
-	}
-	public void setKg(int kg) {
-		this.kg = kg;
-	}
 	public String getPet_name() {
 		return pet_name;
 	}
@@ -159,6 +154,18 @@ public class BoardDTO {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getKg() {
+		return kg;
+	}
+	public void setKg(String kg) {
+		this.kg = kg;
 	}
 	
 }

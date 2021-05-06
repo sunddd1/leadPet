@@ -5,6 +5,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<style>
+			table,td, th{
+				border: 1px solid black;
+				border-collapse: collapse;
+				padding: 5px 10px;
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 	
@@ -18,8 +26,8 @@
 			<tr>
 				<td>신고사유</td>
 				
-				<td>	<input name="reply_idx" value="${reply_idx}" style="display: none"/></td>
-				<td><input name="type" value="${type}"  style="display: none" /></td>
+				<td style="display: none"><input name="reply_idx" value="${reply_idx}" style="display: none"/></td>
+				<td style="display: none" ><input name="type" value="${type}"  style="display: none" /></td>
 				<td>
 					<textarea name="reason" rows="10" cols="50" style="resize: none;"></textarea>
 				</td>

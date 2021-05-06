@@ -34,6 +34,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../main/top_Navi.jsp"/>
 <h3>글쓰기</h3>
 <hr/>
 <form action="write" method="post">
@@ -44,6 +45,7 @@
 			<c:if test="${dto.dog_cat ne null}">
 				<td colspan="2">
 					<input type="text" name="dog_cat" value="${dto.dog_cat}" readonly/></td>
+					<input type="text" name="pet_idx" value="${dto.pet_idx}" style="display: none"/>
 				</td>
 			</c:if>
 		</tr>
@@ -82,7 +84,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6"><input id="save" type="button" value="글작성"/></td>
+			<td colspan="6">
+				<input id="save" type="button" value="글작성"/>
+				<input id="cancle" type="button" value="취소" onclick="location.href='BoardList'" style="margin-left: 50px"/>
+			</td>
 		</tr>	
 	</table>
 </form>
