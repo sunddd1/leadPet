@@ -14,6 +14,17 @@
 	<select id="nemoList"  resultType="game">
 		SELECT * FROM nemo ORDER BY nemo_idx
 	</select>
+	<select id="quizListCut"  resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY quiz_idx) AS rnum, QUIZ_IDX, QUIZ_QUESTION, EX1, EX2, EX3, EX4
+			, QUIZ_ANSWER, QUIZ_BLIND FROM quiz WHERE quiz_blind= 'N'
+			) WHERE rnum BETWEEN #{param1} AND #{param2} 
+	</select>
+	<select id="nemoListCut"  resultType="game">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY nemo_idx) AS rnum, NEMO_IDX, NEMO_SUBJECT, NEMO_QUESTION, NEMO_ANSWER FROM nemo
+			) WHERE rnum BETWEEN #{param1} AND #{param2} 
+	</select>
 	<select id="perQuizDetail" parameterType="Integer" resultType="game">
 		SELECT * FROM quiz WHERE quiz_idx = #{param1}
 	</select>

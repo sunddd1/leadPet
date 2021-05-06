@@ -34,8 +34,16 @@ public class GameController {
 		return service.gameWeek();
 	}
 	@RequestMapping(value = "/gameQueList", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> gameQueList(HttpSession session,@RequestParam int pagePerCnt,@RequestParam int page) {
+	public String gameQueWeek() {
 		logger.info("문제 리스트 페이지 : 시작은 상식퀴즈");
+		return "game/gameQueList";
+	}
+	@RequestMapping(value = "/gameGetList", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> gameQueList(HttpSession session
+			,@RequestParam(value="pagePerCnt", defaultValue ="15") int pagePerCnt
+			,@RequestParam(value="page", defaultValue ="1") int page)
+	{
+		logger.info("리스트 가져오기(페이징하기)");
 		logger.info("받아온 파라메터 : "+pagePerCnt+"/"+page);
 		return service.gameList(pagePerCnt,page);
 	}

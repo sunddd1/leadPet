@@ -7,7 +7,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GameQuestionList</title>
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
 			#side_Navi,#conBody{
 				display: inline-block;
@@ -73,8 +77,8 @@
 				<h2 >네모로직</h2>
 			</div>	
 			<div id="selec">
-				상식퀴즈<input type="radio" name="toggle" value="상식퀴즈" checked="checked"/>
-				네모로직<input type="radio" name="toggle" value="네모로직"/>
+				상식퀴즈&nbsp;&nbsp;<input type="radio" id="quizId" name="toggle" value="상식퀴즈" checked="checked"/>
+				네모로직&nbsp;&nbsp;<input type="radio" id="nemoId" name="toggle" value="네모로직"/>
 			</div>	
 			<div id="padding">
 				<div id="quiz">
@@ -98,6 +102,11 @@
 					</table>
 				</div>
 			</div>
+			<div class="container">
+			<nav aria-label="page navigation" style="text-align: center;">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>
+		</div>
 		</div>	
 	</body>
 	<script>
@@ -112,7 +121,7 @@
 		   
 		   function listCall(reqPage){
 		      $.ajax({
-		         url:'gameQueList',
+		         url:'gameGetList',
 		         Type:'GET',
 		         data:{
 		        	"pagePerCnt":15
@@ -124,7 +133,8 @@
 		            console.log(data.currPage);
 		            console.log(data.quizRange);
 		            console.log(data.nemoRange);
-		            if($('input[type="radio"]').checked.val() == "상식퀴즈"){
+		            console.log($('input[checked="checked"]').val());
+		            if($('input[checked="checked"]').val() == "상식퀴즈"){
 						showPage = data.currPage;
 				   		listPrint(data.quizList);
 				   		$('#pagination').twbsPagination({
@@ -137,7 +147,7 @@
 				            	listCall(page);
 				            }
 				    	});
-			  		} else if($('input[type="radio"]').checked.val() == "네모로직"){
+			  		}else if($('input[checked="checked"]').val() == "네모로직"){
 				      	showPage = data.currPage;
 			           	listPrint(data.nemoList);
 			           	$('#pagination').twbsPagination({
@@ -167,19 +177,19 @@
 				content += "<td><a href='./quizDetail?idx="+list[i].quiz_idx+"'>"+list[i].quiz_question+"</a></td>" ;
 				content += "<td><a href='./quizBlind?idx="+list[i].quiz_idx+"' style='color: #1B4F72; font-family: cursive;'>Blind</a></td>" ;
 				content +="<tr>";
-		    }
-		    $("#quizList").empty();
-		    $("#quizList").append(content);
-		    
-		    content="";
+			}		    	
+	 		$("#quizList").empty();
+			$("#quizList").append(content);
+			    
+			content="";
 			for(var i=0;i<list.length;i++){
 				content += "<tr>";
-				content += "<td>"+list[i].quiz_idx +"</td>";
+				content += "<td>"+list[i].nemo_idx +"</td>";
 				content += "<td><a href='./nemoDetail?idx="+list[i].nemo_idx+"'>"+list[i].nemo_subject+"</a></td>" ;
 				content +="<tr>";
-		    }
-		    $("#nemoList").empty();
-		    $("#nemoList").append(content);
+			}
+			$("#nemoList").empty();
+			$("#nemoList").append(content);		    	
 		}
 		 
 		 $('input[type="radio"]').click(function(){
@@ -188,11 +198,19 @@
 					$('#quizTitle').css({"display":"inline"});
 					$('#nemo').css({"display":"none"});
 					$('#nemoTitle').css({"display":"none"});
+					
+					$('#quizId').attr({'checked':true});
+					$('#nemoId').attr({'checked':false});
+					listCall(showPage);
 				} else if($(this).val() == "네모로직"){
 					$('#quiz').css({"display":"none"});
 					$('#quizTitle').css({"display":"none"});
 					$('#nemo').css({"display":"inline"});
 					$('#nemoTitle').css({"display":"inline"});
+					
+					$('#quizId').attr({'checked':false});
+					$('#nemoId').attr({'checked':true});
+					listCall(showPage);
 				}
 			});
 	</script>
