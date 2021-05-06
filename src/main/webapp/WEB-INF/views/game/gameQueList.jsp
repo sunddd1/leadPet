@@ -7,18 +7,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GameQuestionList</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
 			#side_Navi,#conBody{
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 18%;
-				width: 60%;
+				margin-top: 5%;
+				margin-left: 17%;
+				width: 70%;
 			}
 			h2{
 				text-align: center;
@@ -66,6 +63,9 @@
 				font-size: 15px;
 				font-weight: 600;
 			}
+			.container{
+				margin-left: 15%;
+			}
 		</style>
 	</head>
 	<body>
@@ -87,8 +87,7 @@
 						<tr>
 							<th>퀴즈번호</th><th>문제</th><th>블라인드</th>
 						</tr>
-						<tbody id="quizList">
-						</tbody>
+						<tbody id="quizList"></tbody>
 					</table>
 				</div>
 				<div id="nemo">
@@ -97,18 +96,20 @@
 						<tr>
 							<th>네모로직 문제번호</th><th>네모로직 제목</th>
 						</tr>
-						<tbody id="nemoList">
-						</tbody>
+						<tbody id="nemoList"></tbody>
 					</table>
 				</div>
 			</div>
-			<div class="container">
+		</div>	
+		<div class="container">
 			<nav aria-label="page navigation" style="text-align: center;">
 				<ul class="pagination" id="pagination"></ul>
 			</nav>
 		</div>
-		</div>	
 	</body>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<script>
 		 var showPage = 1;
 		 //몇개를 보여줄 것인지 / 몇페이지
@@ -124,7 +125,7 @@
 		         url:'gameGetList',
 		         Type:'GET',
 		         data:{
-		        	"pagePerCnt":15
+		        	"pagePerCnt":10
 		        	,"page":reqPage
 		         },
 		         dataType:'JSON',

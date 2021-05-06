@@ -29,18 +29,27 @@ public class GameController {
 		return "game/gameMainPage";
 	}
 	@RequestMapping(value = "/gameWeek", method = RequestMethod.GET)
-	public ModelAndView weekGame() {
+	public String weekGame() {
 		logger.info("게임 회차 페이지");
-		return service.gameWeek();
+		return "game/gameWeek";
+	}
+	@RequestMapping(value = "/gameGetWeek", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> gameGetWeek(HttpSession session
+			,@RequestParam(value="pagePerCnt", defaultValue ="10") int pagePerCnt
+			,@RequestParam(value="page", defaultValue ="1") int page)
+	{
+		logger.info("주차별 리스트 가져오기(페이징하기)");
+		logger.info("받아온 파라메터 : "+pagePerCnt+"/"+page);
+		return service.gameWeek(pagePerCnt, page);
 	}
 	@RequestMapping(value = "/gameQueList", method = RequestMethod.GET)
-	public String gameQueWeek() {
+	public String gameQueList() {
 		logger.info("문제 리스트 페이지 : 시작은 상식퀴즈");
 		return "game/gameQueList";
 	}
 	@RequestMapping(value = "/gameGetList", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> gameQueList(HttpSession session
-			,@RequestParam(value="pagePerCnt", defaultValue ="15") int pagePerCnt
+	public @ResponseBody HashMap<String, Object> gameGetList(HttpSession session
+			,@RequestParam(value="pagePerCnt", defaultValue ="10") int pagePerCnt
 			,@RequestParam(value="page", defaultValue ="1") int page)
 	{
 		logger.info("리스트 가져오기(페이징하기)");

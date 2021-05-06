@@ -82,4 +82,8 @@ public interface GameDAO {
 
 	ArrayList<GameDTO> nemoListCut(int start, int end);
 
+	ArrayList<GameDTO> weekQuizCut(int start, int end);
+
+	ArrayList<GameDTO> weekNemoCut(int start, int end);
+
 }
