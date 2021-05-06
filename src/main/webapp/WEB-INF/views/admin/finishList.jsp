@@ -92,6 +92,8 @@
 	}
 </style>
 <body>
+<jsp:include page="../main/top_Navi.jsp"/>
+<jsp:include page="../main/side_adminNavi.jsp"/>
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
