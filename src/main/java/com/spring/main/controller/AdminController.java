@@ -32,25 +32,31 @@ public class AdminController {
 	@Autowired AdminService service;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView admin() {
+	public ModelAndView admin(@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
 		mav.setViewName("admin/adminList");
 		return mav;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/adminList", method = RequestMethod.GET)
 	public HashMap<String, Object> adminList(
 			Model model, 
 			HttpSession session,
 			@RequestParam int pagePerCnt, 
 			@RequestParam int page,
-			@RequestParam(value="search") String search,
-			@RequestParam(value="keyword") String keyword
+			@RequestParam String search,
+			@RequestParam String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
+		logger.info(search+"/"+keyword);
 //			page="admin/adminList";
 //		}
 		return service.list(pagePerCnt,page,search,keyword);

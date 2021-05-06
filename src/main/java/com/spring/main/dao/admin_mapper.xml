@@ -216,22 +216,29 @@
 	
 	
 	<select id="adminCount" resultType="Integer">
-		SELECT COUNT(admin_id) FROM admin 
+		SELECT COUNT(admin_id) FROM (
+		SELECT admin_id FROM admin 
 		<where>
-			<if test="search == 'id'"> admin_id LIKE LOWER(#{param2}) or admin_id LIKE UPPER(#{param2})</if>
-			<if test="search == 'nickname'"> nicakname LIKE LOWER(#{param2}) or nicakname LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'id'"> admin_id LIKE LOWER(#{param2}) or admin_id LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
 		</where>
-		 ORDER BY reg_date DESC
+		)
+		WHERE admin_id != 'admin'
 	</select>
 	
 	<select id="adminList" resultType="admin">
 	SELECT admin_id,password,nickname,reg_date, rnum 
 	FROM (
-	SELECT admin_id,password,nickname,reg_date, ROW_NUMBER() OVER(ORDER BY idx DESC) 
+	SELECT admin_id,password,nickname,reg_date, ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
 	AS rnum FROM admin
+	 <where>
+			<if test="param3 == 'id'"> admin_id LIKE LOWER(#{param4}) or admin_id LIKE UPPER(#{param4})</if>
+			<if test="param3 == 'nickname'"> nickname LIKE LOWER(#{param4}) or nickname LIKE UPPER(#{param4})</if>
+	</where>
 	) 
 	WHERE rnum BETWEEN #{param1} AND #{param2} AND admin_id!='admin'
 	</select>
+	
 	<!-- <select id="adminList" resultType="admin">
 		SELECT * FROM admin WHERE admin_id!='admin' ORDER BY reg_date DESC
 	</select> -->

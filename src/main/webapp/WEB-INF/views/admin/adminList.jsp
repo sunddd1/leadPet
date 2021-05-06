@@ -6,6 +6,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 		<title>관리자 목록</title>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
@@ -15,7 +16,7 @@
     a{
         text-decoration: none;
     }
-    #search{
+    #search2{
         text-align: center;
         margin-top: 7%;
     }
@@ -27,7 +28,7 @@
         height: 30px;
         width: 70px;
     }
-    table {
+    #adminTable {
         border-collapse: separate;
         border-spacing: 0;
         text-align: center;
@@ -36,7 +37,7 @@
         border-left: 1px solid #ccc;
         margin : auto;
     }
-    th {
+    #adminTable th {
         width: 120px;
         padding: 10px;
         font-weight: bold;
@@ -47,8 +48,8 @@
         border-left: 1px solid #fff;
         background: #eee;
     }
-    td {
-        width: 150px;
+    #adminTable td {
+        width: 200px;
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
@@ -57,26 +58,6 @@
     .table{
         margin-top: 10px;
     }
-    .pageArea{
-		width:800px;
-		text-align: center;
-		margin: 10px;
-		margin-top: 50px;
-		position: relative;
-		float: left;
-		left: 30%
-	}
-	.pageArea span{
-		font-size: 18px;
-		border : 1px solid lightgray;
-		padding: 2px 10px;		
-		margin: 5px;		
-		color : white;
-	}
-	#page{
-		font-weight: 600;
-		color: red;
-	}
 	#insert{
 		position: relative;
 		left: 80%
@@ -91,21 +72,19 @@
 <button onclick="location.href='replyList'">댓글 신고 리스트</button>
 <button onclick="location.href='blindNList'">블라인드 리스트</button>
 <button onclick="location.href='pointList'">포인트 내역 리스트</button>
-    <div id="search">
-        <form action="search" method="GET">
-            <select id="select" name="search">
-                <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-                <option ${(search == "nickname")? "selected" : ""} value="nickname">닉네임</option>
+    <div id="search2">
+            <select id="adSearch" name="search">
+                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
+                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
             </select>
             <input type="text" id="adminSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
-        </form>
+            <button id="searchBtn">검색</button>
     </div>
     <div id="insert">
     	<button onclick="adminInsert()">관리자 등록</button>
     </div>
     <div class="table">
-        <table>
+        <table id="adminTable">
             <thead>
 				<tr>
 					<th>아이디</th>
@@ -147,16 +126,22 @@
 				
         </table>
     </div>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+    <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </body>
-		<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <script>
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 	window.close();
 }
+
+$('#searchBtn').click(function() {
+	var text = $('#adminSearch').val();
+	var adSearch = $('#adSearch').val();
+	console.log(text+"/"+adSearch);
+	location.href="./admin?keyword="+text+"&search="+adSearch;
+});
 	
 	var showPage = 1;//현재 페이지
 	
@@ -169,9 +154,10 @@ if(msg != ""){
 		if(keyword==''){
 			 keyword = $('#adminSearch').val();
 		}
-		if(keyword==''){
-			 keyword = $('#select').val();
+		if(search==''){
+			search = $('#adSearch').val();
 		}
+		console.log(search);
 		console.log(" keyword : "+keyword);
 			$.ajax({
 				url:'adminList',
@@ -210,6 +196,7 @@ if(msg != ""){
 			content +="<td>"+list[i].nickname+"</td>"
 			//java에서 가끔 날짜가 millisecond로 나올때가 있다.
 			var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 			content +="<td>"
 			content += "<button value='"+list[i].admin_id+"'onclick='changePass(this)'>비밀번호 수정</button>"
 			content += "<button onclick="

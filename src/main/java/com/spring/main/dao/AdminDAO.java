@@ -14,7 +14,7 @@ public interface AdminDAO {
 
 //	Object adminCheck(String loginId);
 
-	ArrayList<AdminDTO> adminList(int start, int end);
+	ArrayList<AdminDTO> adminList(int start, int end, String search, String keyword);
 
 	int change(String newPass, String id);
 
