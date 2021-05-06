@@ -79,11 +79,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/BoardDel", method = RequestMethod.GET)
-	public ModelAndView BoardDel(Model model) {
+	public ModelAndView BoardDel(Model model, @RequestParam String bbs_idx) {
 		logger.info("댕냥노하우 / 경험기 게시판 삭제 : ");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/Board/Experience");
-		return mav;
+		return service.boardDel(bbs_idx);
 	}
 
 	
@@ -136,6 +134,34 @@ public class BoardController {
 	public int replyDel(Model model,@PathVariable String reply_idx) {
 		logger.info("블라인드 할 댓근  : "+reply_idx);
 		return service.replyDel(reply_idx);
+	}
+	
+	@RequestMapping(value = "/reply_report/{reply_idx}/{com}", method = RequestMethod.GET)
+	public ModelAndView reply_report(Model model,@PathVariable String reply_idx,@PathVariable String com) {	
+		ModelAndView mav = new ModelAndView();
+		logger.info("댓글신고 폼이동");
+		mav.addObject("reply_idx",reply_idx);
+		mav.addObject("type",com);
+		mav.setViewName("Board/reply_report");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/replyReport", method = RequestMethod.POST)
+	public ModelAndView replyReport(Model model,@RequestParam HashMap<String, String> map) {	
+		logger.info("댓글신고 이동" + map);
+		return service.replyReport(map) ;
+	}
+	
+	@RequestMapping(value = "/BoardReportForm", method = RequestMethod.POST)
+	public ModelAndView BoardReportForm(Model model,@RequestParam HashMap<String, String> map) {
+		logger.info("댕냥노하우 / 경험기 게시판 신고하기 폼 이동 " + map);
+		return service.BoardReportForm(map);
+	}
+	
+	@RequestMapping(value = "/BoardReport", method = RequestMethod.POST)
+	public ModelAndView BoardReport(Model model,@RequestParam HashMap<String, String> map) {
+		logger.info("댕냥노하우 / 경험기 게시판 신고 " +map);
+		return service.BoardReport(map);
 	}
 	
 

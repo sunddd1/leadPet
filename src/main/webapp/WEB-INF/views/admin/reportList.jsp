@@ -115,7 +115,7 @@
 	                <td>${report.reason}</td>
 	                <td>${report.reg_date.substring(0,10)}</td>
 	                <td>${report.proc_ex}</td> 
-	                <td><a href="procY?rep_idx=${report.rep_idx}">처리하기</a></td>
+	                <td><a href="procY?field=${report.field}">처리하기</a></td>
                 </tr>
             </c:forEach>
         </table>

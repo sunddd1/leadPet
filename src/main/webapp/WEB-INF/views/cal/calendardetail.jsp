@@ -24,11 +24,12 @@
 			textarea {	
 				font-size: 8pt;
 				resize: vertical;
-				width: 100%;
+				width: 99%;
 				height: 100px;
 				border: 0px solid;
 			}
 			input[type='text'],input[type='number']{
+				margin: 10px;
 				border: 0px solid;
 			}
 		</style>
@@ -42,7 +43,7 @@
 				</tr>
 				<tr>					
 					<th><input type="text" class="fix"   id="subject"  placeholder="제목을 넣어주세요"  <c:if test="${sche ne null}"> readonly="readonly"  value="${sche.subject }"</c:if>/></th>
-					<th colspan="2">주기 : <input type="number"class="fix"  id="cycle"  <c:if test="${sche ne null}"> readonly="readonly" value="${sche.cycle }"</c:if>value="0" /> (주)</th>
+					<th colspan="2">주기 : <input type="number"class="fix"  id="cycle"  <c:if test="${sche ne null}"> readonly="readonly" value="${sche.cycle }"</c:if>value="0" /> 주 마다</th>
 				</tr>
 				<tr>	
 					<th>날짜 설정</th>

@@ -16,8 +16,6 @@
 				height: 90%;
 				padding: 10px;
 			}
-			tr{
-			}
 			th,td,input,select{			
 				font-size: 8pt;
 			}
@@ -30,6 +28,7 @@
 			}
 			
 			input[type='text']{
+				margin: 10px;
 				border: 1px solid;
 				width: 100px;
 			}

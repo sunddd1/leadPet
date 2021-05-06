@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<!-- 제이쿼리 -->
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    

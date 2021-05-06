@@ -84,9 +84,9 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> blindYList();
 
-	int blindY(int idx);
+	int blindY(int field);
 	
-	int procY(int rep_idx, String loginId);
+	int procY(int field, String loginId);
 
 	int blindN(int idx);
 

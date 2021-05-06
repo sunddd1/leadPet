@@ -193,7 +193,7 @@
 	</update>
 	
 	<update id="procY">
-		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE rep_idx=#{param1}
+		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE field=#{param1}
 	</update>
 	
 	<update id="blindN">
@@ -215,6 +215,14 @@
 	<select id="pointListSearch" resultType="point">
 		SELECT * FROM point_history WHERE id LIKE '%'||#{keyword}||'%' ORDER BY reg_date DESC
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<!-- 어드민으로 넘어갈거  -->
 	<select id="vaccList" resultType="vaccin">

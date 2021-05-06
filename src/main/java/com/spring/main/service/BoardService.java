@@ -24,6 +24,7 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.PetDTO;
 import com.spring.main.dto.ReplyDTO;
+import com.spring.main.dto.ReportDTO;
 import com.spring.main.dto.bbs_imgDTO;
 
 
@@ -186,7 +187,8 @@ public class BoardService {
 	@Transactional
 	public ModelAndView BoardUpdate(HashMap<String, String> params, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String page="redirect:/BoardUpdateForm";
+		String page="Board/Experience";
+		String msg = "";
 		BoardDTO dto = new BoardDTO();
 		dto.setBbs_idx(Integer.parseInt(params.get("bbs_idx")));
 		dto.setBbs_subject(params.get("bbs_subject"));
@@ -196,18 +198,21 @@ public class BoardService {
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		
-		if(dao.BoardUpdate(dto)>0) {
-			logger.info("idx : "+dto.getBbs_idx());
-			if(fileList.size()>0) {
-				/*
-				 * for(String key : fileList.keySet()) {
-				 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
-				 */
-				ArrayList<String> keyArr = new ArrayList<String>();
-				for(String key : fileList.keySet()) {
-					keyArr.add(key);
-					logger.info(keyArr.get(0));
-				}
+		String reportSearch =  dao.boardReportSearch(params.get("bbs_idx"));
+		logger.info(reportSearch);
+		if(reportSearch.equals("N")) {	
+			if(dao.BoardUpdate(dto)>0) {
+				logger.info("idx : "+dto.getBbs_idx());
+				if(fileList.size()>0) {
+					/*
+					 * for(String key : fileList.keySet()) {
+					 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
+					 */
+					ArrayList<String> keyArr = new ArrayList<String>();
+					for(String key : fileList.keySet()) {
+						keyArr.add(key);
+						logger.info(keyArr.get(0));
+					}
 					dao.writeFile(keyArr.get(0),fileList.get(keyArr.get(0)),dto.getBbs_idx());
 					logger.info("keyArray0.. {}",keyArr.get(0));
 					//	keyArr.get() -> newfilename 			
@@ -216,17 +221,21 @@ public class BoardService {
 							dao.writeContentFile(keyArr.get(i),fileList.get(keyArr.get(i)),dto.getBbs_idx()); 
 						}
 					}
+				}
+				page="Board/Experience";
+				
+			}else {
+				for(String newFileName : fileList.keySet()) {
+					File file = new File(root+"Boardupload/"+newFileName);
+					file.delete();
+				}
 			}
-			page="redirect:/BoardList";
-			
+			session.removeAttribute("fileList");
 		}else {
-			for(String newFileName : fileList.keySet()) {
-				File file = new File(root+"Boardupload/"+newFileName);
-				file.delete();
-			}
+			msg="수정 할 수 없는 게시글 입니다.";
 		}
-		session.removeAttribute("fileList");
-		mav.setViewName(page);	
+		mav.addObject("msg",msg);
+		mav.setViewName(page);
 		return mav;
 	}
 	
@@ -249,7 +258,11 @@ public class BoardService {
 		logger.info("추천테이블 데이터 추가 : " + add);
 		if(add>0) {
 			int plus = dao.recoPlus(bbs_idx);
-			logger.info("추천갯수 +1 : " + plus);
+			int pointplus = dao.pointPlus(id);
+			if(pointplus>0) {
+				dao.pointHistory(id);
+			}
+			logger.info("추천갯수 +1 : " + plus + "포인트 +1 : " + pointplus);
 			success = true;
 		}
 		return success;
@@ -262,7 +275,11 @@ public class BoardService {
 		logger.info("추천테이블 데이터 삭제 : " + delete);
 		if(delete>0) {
 			int minus = dao.recoMinus(bbs_idx);
-			logger.info("추천갯수 -1 : " + minus);
+			int pointminus = dao.pointMinus(id);
+			if(pointminus>0) {
+				dao.pointmHistory(id);
+			}
+			logger.info("추천갯수 -1 : " + minus + "포인트 -1 : " + pointminus);
 			//셀렉트로 조회수 추천갯수 조회 후 map에 담아서 넣어서 보낸다.
 			success = true;
 		}
@@ -308,6 +325,36 @@ public class BoardService {
 		logger.info("블라인드 처리하기");
 		success = dao.replyDel(reply_idx);
 		return success;
+	}
+	
+	public ModelAndView BoardReportForm(HashMap<String, String> map) {
+		logger.info("게시판 신고 폼 이동 : " + map);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("map",map);
+		mav.setViewName("Board/board_report");
+		return mav;
+	}
+	
+	public ModelAndView BoardReport(HashMap<String, String> map) {
+		logger.info("게시판 신고 : " +map);
+		ModelAndView mav = new ModelAndView();
+		ReportDTO dto = new ReportDTO();
+		dto.setId(map.get("loginId"));
+		dto.setField(Integer.parseInt(map.get("bbs_idx")));
+		dto.setType(map.get("type"));
+		dto.setReason(map.get("reason"));
+		String reportSearch =  dao.reportSearch(dto);
+		logger.info("신고 조회 결과 : "+reportSearch);
+		logger.info(dto.getId());
+		if(reportSearch==null) {
+			dao.boardreport(dto);
+			mav.addObject("msg","신고 처리 되었습니다");
+			mav.setViewName("Board/board_report");
+		}else {
+			mav.addObject("msg","이미 신고한 게시물입니다.");
+			mav.setViewName("Board/board_report");
+		}
+		return mav;
 	}
 
 
@@ -360,6 +407,43 @@ public class BoardService {
 		map.put("currPage",page);
 		return map;
 	}
+
+	public ModelAndView replyReport(HashMap<String, String> map) {
+		String msg="이미 신고한 댓글입니다";
+		ModelAndView mav = new ModelAndView();
+		logger.info("댓글 신고하기");
+		String reportSearch = dao.replyReportSearch(map);
+		logger.info("신고 기록 확인 : " + reportSearch);
+		if(reportSearch == null) {
+			dao.replyReport(map);
+			msg="신고에 성공하였습니다.";
+		}else {
+			msg="이미 신고된 댓글입니다.";
+		}
+		mav.addObject("msg",msg);
+		mav.setViewName("Board/reply_report");
+		return mav;
+	}
+
+	public ModelAndView boardDel(String bbs_idx) {
+		logger.info("게시물 수정 및 삭제 가능 여부 확인" );
+		ModelAndView mav = new ModelAndView();
+		String reportSearch =  dao.boardReportSearch(bbs_idx);
+		String msg = "";
+		logger.info("게시물 블라인드 여부" + reportSearch);
+		if(reportSearch.equals("N")) {
+			dao.boardDel(bbs_idx);
+			msg="게시물이 삭제되었습니다.";
+			mav.addObject("msg",msg);
+		}else {
+			msg="삭제 할 수 없는 게시물 입니다.";
+			mav.addObject("msg",msg);
+		}
+		mav.setViewName("Board/Experience");
+		return mav;
+	}
+
+
 
 	
 	
