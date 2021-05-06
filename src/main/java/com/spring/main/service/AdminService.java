@@ -199,14 +199,14 @@ public class AdminService {
 		return dao.blindYList();
 	}
 
-	public int blindY(int idx) {
+	public int blindY(int field) {
 		logger.info("블라인드 Y처리 서비스 도착");
-		return dao.blindY(idx);
+		return dao.blindY(field);
 	}
 	
-	public int procY(int rep_idx, String loginId) {
+	public int procY(int field, String loginId) {
 		logger.info("처리유무 Y처리 서비스 도착");
-		return dao.procY(rep_idx,loginId);
+		return dao.procY(field,loginId);
 	}
 
 	public int blindN(int idx) {
