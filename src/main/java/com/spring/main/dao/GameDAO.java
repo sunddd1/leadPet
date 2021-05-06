@@ -78,4 +78,8 @@ public interface GameDAO {
 
 	int upPointTwen(String id);
 
+	ArrayList<GameDTO> quizListCut(int start, int end);
+
+	ArrayList<GameDTO> nemoListCut(int start, int end);
+
 }
