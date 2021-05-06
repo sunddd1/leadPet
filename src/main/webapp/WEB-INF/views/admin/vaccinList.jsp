@@ -5,17 +5,15 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<title>백신 리스트</title>
 		<!-- 부트 스트랩, 반응형 디자인을 위한 CSS/js 라이브러리 -->
+		
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
+
 			#vacc, #vacc td, #vacc th{
 				font-size: 10pt;
-				border: 1px solid;
-				border-collapse: collapse;
+				border: 2px solid lightgray;
 				padding: 5px 10px;
 			}
 			#vacc{
@@ -37,12 +35,11 @@
 			}
 			
 			#vaccinManage{
-				background-color: coral;
+				background-color: lightpink;
 			}		
 		</style>
 	</head>
 	<body>
-		<h3>백신 게시판</h3>
 		<jsp:include page="../main/top_Navi.jsp"/>
 		<jsp:include page="../main/side_adminNavi.jsp"/>
 		<div id="vaccSearchbar">
@@ -59,7 +56,10 @@
 				<ul class="pagination" id="pagination"></ul>
 			</nav>
 		</div>
-	</body>
+	</body>	
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<script>
 		$('#searchBtn').click(function() {
 			var text = $('#VaccSearch').val();
@@ -141,7 +141,7 @@
 					content += "<td>"+list[i].cycle+" 주 마다</td>" ;					
 				}
 				content += "<td>"+list[i].vacc_cnt+" 회</td>" ;			
-				content +="<td>";
+				content +="<td style='width: 120px;'>";
 				content +="<button onclick='regVacc("+list[i].vacc_idx+")'>수정</botton>";
 				content +="<button style='margin: 5px;' onclick='delVacc("+list[i].vacc_idx+")'>삭제</botton>";
 				//content +="<button onclick='location.href="./deleteVacc?vacc_idx=${vacc.vacc_idx}"'> 삭제</button>";
