@@ -72,10 +72,7 @@
 		   //몇개를 보여줄 것인지 / 몇페이지
 		   listCall(showPage);//시작하자마자 이 함수를 호출 (20개씩 1페이지씩 보여줘라)
 		   
-		   $("#pagePerNum").change(function(){//select box의 값을 변경 할 때 마다 실행
-			   $('#pagination').twbsPagination('destroy');//이 구문이 없으면 페이지당 갯수 조정시 페이징 변경이 일어나지 않는다
-		      listCall(showPage);
-		   });
+	
 		   
 		   function listCall(reqPage){
 				var keyword = "${keyword}";
