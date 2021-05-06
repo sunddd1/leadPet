@@ -22,8 +22,21 @@
                 <c:if test="${dto.nickname eq 'withdrawal'}">
 	                <td>
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
+	                	<button onclick="location.href='BoardDel?bbs_idx=${dto.bbs_idx}' ">삭제하기</button>
 	                </td>
                 </c:if>
+                <!-- withdrawal 로그인 세션처리로 -->
+                <c:if test="${dto.nickname ne 'withdrawal'}">
+	                <td>
+			            <form action="BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
+							<input type="text" name="id" value="test1122">
+							<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
+							<input type="text" name="type" value="${dto.type }">
+						</form>
+	                	<button onclick="BoardreportForm()">신고하기</button>
+	                </td>
+                </c:if>
+                
             </tr>
 			<tr>
 				<th>제목</th>
@@ -70,6 +83,7 @@
 			</tbody>
 		</table>
 		<div id="moreReply" style="border: 2px solid black; text-align: center;" onclick="moreReply();" >더보기</div>
+	
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
@@ -221,7 +235,7 @@
 				}
 			})
 		}
-		
+	
 		//댓글리스트 그리기
 		function replyListDraw(list){
 			console.log(list.length)
@@ -235,6 +249,10 @@
 				if(list[i].nickname== "withdrawal"){
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
+				}
+				if(list[i].nickname != "withdrawa"){
+				//로그인아이디
+				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
 				}
 				replyDraw +="</tr>"
 				replyDraw +="<tr>"
@@ -364,7 +382,7 @@
 				}
 			})
 		}
-		
+		//댓글 더보기
 		function moreReply() {
 			var replyContent ={}
 			endNum = endNum +5;
@@ -386,11 +404,7 @@
 							if(data.replyList.length<endNum){
 								$("#moreReply").remove();
 							}
-							/* if(data.replyList.length==5){
-								replyListDraw(data.replyList);
-							}else{
-								$("#moreReply").remove();
-							} */
+						
 						}else{
 							console.log("댓글리스트 불러오기 실패")
 						}
@@ -400,6 +414,39 @@
 				}
 			})
 		}
+	 	//게시판 신고하기 
+		function BoardreportForm(){
+			window.open('about:blank','boardreport','width=600, height=300');
+			document.BoardReportForm.submit();
+		} 
+		
+		//댓글 신고하기
+		function replyReport(reply_idx){
+			window.open('reply_report/'+reply_idx+'/com','replyReport','width=600, height=300');
+			
+			/* var replyContent ={}
+			replyContent.reply_idx = reply_idx;
+			//로그인아이디로 변경해야함
+			replyContent.id = 'test1122';
+			console.log(replyContent.reply_idx,replyContent.id);
+			window.open('reply_report','replyreport','width=600, height=300');
+			 $.ajax({
+				type:'POST'
+				,url:'replyReport'
+				,data:replyContent
+				,dataType:'JSON'
+				,success:function(data){
+						
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			}) */
+		} 
+		function sendMsg(msg){
+			alert(msg);
+		}
+			
 		
 	</script>
 </html>
