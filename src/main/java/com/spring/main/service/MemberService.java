@@ -189,4 +189,10 @@ public class MemberService {
 		
 		return map;
 	}
+
+	public String findIdByNickname(String nickname) {
+		logger.info("findIdByNickname 호출");
+		
+		return dao.findIdByNickname(nickname);
+	}
 }

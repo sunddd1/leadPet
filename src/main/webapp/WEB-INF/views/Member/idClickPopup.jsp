@@ -39,7 +39,6 @@
 		
 		var xPoint = 0;
 		var yPoint = 0;
-
 		
 		$(document).mousemove(function(e) {
 	    		xPoint = e.pageX;
@@ -64,21 +63,35 @@
 	    	}
 		);
 
-		function idClickPopup(id, nickname) {
-			console.log("id : "+id + ", nickname : " + nickname);
+		function idClickPopup(nickname) {
+			console.log("nickname : " + nickname);
 			
 			var $table = $("#interestPopupTable");
 	    	$table.css({"display": ""});
 			$table.css({"left": xPoint, "top": yPoint});
 			
-			//console.log($("#written"));
-			
-			$("#written").attr("href", "./writeList?id=" + id);
-			interestTag(id);
-			
-			// 추가해야함.
-			/* $("#pet").attr("href", "./?id=" + nickname);
-			$("#note").attr("href", "./?id=" + nickname); */
+			// interestPopupTable안의 href 설정은 아래 함수에서 처리함.
+			findIdByNickname(nickname);
+		}
+		
+		// nickname으로 id 찾기
+		function findIdByNickname(nickname) {
+			$.ajax({
+				type:'GET'
+				,url:'find-id-by-nickname'
+				,data:{'nickname' : nickname}
+				,success:function(result) {
+					var id = result;
+					
+					$("#written").attr("href", "./writeList?id=" + id);
+					interestTag(id);
+					$("#pet").attr("href", "./listPet?id=" + id);
+					$("#note").attr("href", "./borderlist");
+					
+				},error:function(e) {
+					console.log("비동기 에러");
+				}
+			})
 		}
 		
 		// 관심유저 등록/취소  글자 결정.
@@ -146,5 +159,8 @@
 				}
 			})
 		}
+		
+		
+		
 	</script>
 </html>
