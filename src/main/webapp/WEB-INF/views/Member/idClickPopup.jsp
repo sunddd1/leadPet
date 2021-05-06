@@ -6,20 +6,21 @@
 		<title>회원탈퇴</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#interestTable, #interestTable td {
+			#interestPopupTable, #interestPopupTable td {
 				board : 1px solid black;
 			}
-			#interestTable {
+			#interestPopupTable {
 				background-color: white;
 				position: absolute;
 				top: 200px;
   				left: 200px;
+  				z-index: 6;
 			}
 			
 		</style>
 	</head>
 	<body>
-	<div id="interestTable" style="display: none">
+	<div id="interestPopupTable" style="display: none">
 		<table>
 			<tr>
 				<td><a id="written" href="#">작성 글 보기</a></td>
@@ -47,7 +48,7 @@
 		);
 		
 		$(document).click(function(e) {
-				var $table = $("#interestTable");
+				var $table = $("#interestPopupTable");
 	
 				var left = $table.position().left;
 				var top = $table.position().top;
@@ -63,20 +64,21 @@
 	    	}
 		);
 
-		function idClickPopup(idTag) {
-			interestTag(idTag);
+		function idClickPopup(id, nickname) {
+			console.log("id : "+id + ", nickname : " + nickname);
 			
-			var $table = $("#interestTable");
+			var $table = $("#interestPopupTable");
 	    	$table.css({"display": ""});
 			$table.css({"left": xPoint, "top": yPoint});
 			
-			console.log($("#written"));
+			//console.log($("#written"));
 			
-			$("#written").attr("href", "./writeList?id=" + idTag);
+			$("#written").attr("href", "./writeList?id=" + id);
+			interestTag(id);
 			
 			// 추가해야함.
-			/* $("#pet").attr("href", "./?id=" + idTag);
-			$("#note").attr("href", "./?id=" + idTag); */
+			/* $("#pet").attr("href", "./?id=" + nickname);
+			$("#note").attr("href", "./?id=" + nickname); */
 		}
 		
 		// 관심유저 등록/취소  글자 결정.

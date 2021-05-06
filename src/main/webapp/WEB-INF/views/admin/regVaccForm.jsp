@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>백신 등록 창</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
 			table,td{
@@ -39,7 +39,6 @@
 		</style>
 	</head>
 	<body>
-		<h3>백신등록 폼 </h3>
 			<table>
 				<tr>
 					<td colspan="4"><textarea class="fix"    id="content">${vacc.content }</textarea></td>

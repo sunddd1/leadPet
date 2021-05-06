@@ -5,11 +5,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
 		<style>
-			#side_Navi{
-				position: absolute;
-				top: 30%;
+			#myNavi{
+				background-color: lightgray;
 			}
 		</style>
 	</head>

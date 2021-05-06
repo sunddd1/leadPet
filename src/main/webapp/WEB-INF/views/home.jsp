@@ -5,24 +5,20 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<title>리드펫</title>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#main{
-				border: 3px solid red;
 				width: 80%;
-				margin-left:10%;
+				margin-top: 50px;
+				margin-bottom: 50px;
+				min-width: 1200px;
 			}
-			#main th{
-			}
-
 		</style>
 	</head>
 	<body>
-		<h3>4조</h3>
 		<jsp:include page="./main/top_Navi.jsp"/>
-		<jsp:include page="./cal/popup.jsp"/>
-		
+		<jsp:include page="./cal/popup.jsp"/>		
 		<table id="main">
 			<tr>
 				<th>
@@ -42,6 +38,7 @@
 			</tr>
 		</table>
 		
+		<jsp:include page="./main/footerjsp.jsp"/>
 	</body>
 	<script>
 	</script>
