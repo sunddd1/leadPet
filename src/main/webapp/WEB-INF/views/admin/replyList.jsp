@@ -94,8 +94,10 @@
 	            <tr>
                <th>신고자</th>
                 <th>신고 당한 글</th>
+                <th>사유</th>
                 <th>신고일</th>
                 <th>처리유무</th>
+                <th></th>
             </tr>
 	        </thead>
 	        <tbody id="list">
@@ -118,6 +120,17 @@
 	                <td>${report.proc_ex}</td> 
                 </tr>
             </c:forEach> --%>
+            
+            <tr>
+					<td id="paging" colspan="6">
+						<div class="container">
+							<nav aria-label="page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination"></ul>
+							</nav>
+						</div>
+					</td>
+				</tr>
+				
         </table>
     </div>
      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -144,11 +157,11 @@
 		function listCall(reqPage){
 			var keyword = "${keyword}";
 			if(keyword==''){
-				 keyword = $('#finSearch').val();
+				 keyword = $('#repSearch').val();
 			}
 			console.log(" keyword : "+keyword);
 				$.ajax({
-					url:'finishListSearch',
+					url:'replyListSearch',
 					type:'GET',
 					data:{"keyword":keyword, "pagePerCnt": 15, "page":reqPage},
 					dataType:'JSON',
@@ -181,10 +194,13 @@
 				content += '<tr>';
 				content += '<td onclick=detail("'+list[i].id+'")>';
 				content += list[i].id+'</td>';
-				content += '<td><a href="#">'+list[i].field+'</a></td>';
+				content += '<td onclick=detailReply("'+list[i].field+'")>';
+				content += list[i].field+'</td>';
 				content += '<td>'+list[i].reason+'</td>';
-				content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
+				var date = new Date(list[i].reg_date);
+				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				content += '<td>'+list[i].proc_ex+'</td>';
+				content +='<td><a href="replyprocY?field='+list[i].field+'">처리하기</a></td>';
 				content += '</tr>';
 			}
 			$("#list").empty();//리스트를 비우고 그 위에 리스트 추가
@@ -194,5 +210,8 @@
 			function detail(id){
 			window.open('detailMember?id='+id, 'detailMember', 'width=800, height=600, top=100, left=400');
 		}
+			function detailReply(field){
+				window.open('detailReply?field='+field, 'detailReply', 'width=800, height=600, top=100, left=400');
+			}
 </script>
 </html>

@@ -84,13 +84,8 @@
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
     <div id="search2">
-        <form action="memberSearch" method="POST">
-            <select id="select" name="search">
-                <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
-            </select>
-            <input type="text" value="${params.keyword}" name="keyword" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
-        </form>
+        <input type="text" id="finishrepSearch" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
+            <button id="searchBtn">검색</button>
     </div>
     <div id="radio">
         <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='replyList'"/>미처리
@@ -98,13 +93,20 @@
     </div>
     <div class="table">
         <table id="finishReplyTable">
-            <tr>
-               <th>신고자</th>
-                <th>신고 당한 글</th>
+        <thead>
+	            <tr>
+	               <th>신고자</th>
+                <th>신고 당한 글 번호</th>
                 <th>신고일</th>
                 <th>처리유무</th>
             </tr>
-            <c:forEach items="${finishReplyList}" var="report">
+	        </thead>
+	        <tbody id="list">
+				<!-- 불러온 데이터 뿌리는 영역 -->
+			</tbody>
+			
+			
+            <%-- <c:forEach items="${finishReplyList}" var="report">
 	            <tr>
 	            <td><input type="hidden" id="idx" value="${report.rep_idx}"/></td>
 	                <td>
@@ -117,7 +119,18 @@
 	                <td>${report.reg_date}</td>
 	                <td>${report.proc_ex}</td> 
                 </tr>
-            </c:forEach>
+            </c:forEach> --%>
+            
+            <tr>
+					<td id="paging" colspan="6">
+						<div class="container">
+							<nav aria-label="page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination"></ul>
+							</nav>
+						</div>
+					</td>
+				</tr>
+            
         </table>
     </div>
      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -130,5 +143,73 @@
 		window.close();
 	}
 	
+	$('#searchBtn').click(function() {
+		var finishrepSearch = $('#finishrepSearch').val();
+		console.log(text+"/"+finishrepSearch);
+		location.href="./finishReplyList?keyword="+finishrepSearch;
+	});
+		
+		var showPage = 1;//현재 페이지
+		
+		//몇개를 보여줄 것인지/몇페이지
+		listCall(showPage);//시작하자마자 이 함수를 호출
+	
+		function listCall(reqPage){
+			var keyword = "${keyword}";
+			if(keyword==''){
+				 keyword = $('#finishrepSearch').val();
+			}
+			console.log(" keyword : "+keyword);
+				$.ajax({
+					url:'finishReplyListSearch',
+					type:'GET',
+					data:{"keyword":keyword, "pagePerCnt": 15, "page":reqPage},
+					dataType:'JSON',
+					success:function(data){
+						console.log(data);
+						showPage = data.currPage;
+						listPrint(data.list);
+						/*  pagePrint(data.range);  */
+						//플러그인 사용
+						$("#pagination").twbsPagination({
+							startPage:data.currPage,//시작 페이지
+							totalPages:data.range,//생성 가능 최대 페이지
+							visiblePages:5,//5개씩 보여주겠다.(1~5)
+							onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+								console.log(evt);
+								console.log(page);
+								listCall(page);
+							}
+						});
+					},
+					error:function(error){
+						console.log(error);
+					}
+				});
+			}
+		
+		function listPrint(list){
+			var content="";
+			for(var i=0;i<list.length;i++){
+				content += '<tr>';
+				content += '<td onclick=detail("'+list[i].id+'")>';
+				content += list[i].id+'</td>';
+				content += '<td onclick=detailReply("'+list[i].field+'")>';
+				content += list[i].field+'</td>';
+				var date = new Date(list[i].reg_date);
+				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				content += '<td>'+list[i].proc_ex+'</td>';
+				content += '</tr>';
+			}
+			$("#list").empty();//리스트를 비우고 그 위에 리스트 추가
+			$("#list").append(content);
+		}
+		
+			function detail(id){
+			window.open('detailMember?id='+id, 'detailMember', 'width=800, height=600, top=100, left=400');
+		}
+			function detailReply(field){
+				window.open('detailReply?field='+field, 'detailReply', 'width=800, height=600, top=100, left=400');
+			}
 </script>
 </html>
