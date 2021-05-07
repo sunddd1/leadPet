@@ -244,31 +244,83 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/blackList", method = RequestMethod.GET)
-	public String blackList(Model model, HttpSession session) {
+	public ModelAndView blackList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.blackList();
-			logger.info("블랙 회원 수"+list.size());
-			model.addAttribute("blackList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/blackList");
 //			page="admin/adminList";
 //		}
-		return "admin/blackList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blackListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> blackListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.blackList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/withdrawList", method = RequestMethod.GET)
-	public String withdrawList(Model model, HttpSession session) {
+	public ModelAndView withdrawList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.withdrawList();
-			logger.info("탈퇴 회원 수"+list.size());
-			model.addAttribute("withdrawList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/withdrawList");
 //			page="admin/adminList";
 //		}
-		return "admin/withdrawList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/withdrawListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> withdrawListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.withdrawList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)
