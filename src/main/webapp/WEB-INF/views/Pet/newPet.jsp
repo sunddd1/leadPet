@@ -27,6 +27,7 @@
 		</style>
 	</head>
 	<body>
+		
 		<h3>반려동물 등록</h3>
 		<hr/>
 		<div>
@@ -152,7 +153,7 @@
 	<script>
 	
 	$(document).ready(function(){
-		 
+		
 		//개/고양이 선택시 
 		$("input:radio").on('click',function(){
 			var sel = $('input:radio[name=dog_cat]:checked').val();//선택 값 
@@ -195,23 +196,14 @@
 			});
 		}); 
 		
-		/* //값 입력 후 
-		//값을 가져온다. 
-		var vacc_name = $("#vacc_name").val();
 		
-		//name이 같은 값들을 배열에 담는다.
-		var vaccList = [];
-		vacc_name.each(function(i) {
-			vaccList.push($(this).val());
-		});
-		console.log(vaccList);
-		 */
 		
 	});
 	
 	$("#plus").click(function(){
 		
-		
+		var id = '${sessionScope.loginId}';
+		console.log(id);
 		var bday = $('#birth1').val()+"-"+$('#birth2').val()+"-"+$('#birth3').val();
 		//사진,이름,무게,품종 
 		var reqData = new FormData();	
@@ -225,6 +217,7 @@
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
 		reqData.append("dog_cat",$('#dog_cat').val());
+		reqData.append("id",id);
 		
 		//접종 여부,날짜 
 		var vaccList = [];
