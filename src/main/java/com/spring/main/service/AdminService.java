@@ -53,7 +53,7 @@ public class AdminService {
 		logger.info("회원 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.memberCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -73,7 +73,7 @@ public class AdminService {
 		logger.info("블랙 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.blackCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -93,7 +93,7 @@ public class AdminService {
 		logger.info("탈퇴 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.withdrawCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -109,6 +109,65 @@ public class AdminService {
 		return map;
 	}
 
+	public HashMap<String, Object> reportList(int pagePerCnt, int page, String search, String keyword) {
+		logger.info("신고 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.reportCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.reportList(start,end,search,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> finishList(int pagePerCnt, int page, String keyword) {
+		logger.info("신고처리 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.finishCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.finishList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> pointList(int pagePerCnt, int page, String keyword) {
+		logger.info("포인트 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.pointCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.pointList(start,end,keyword));
+		
+		return map;
+	}
 	public int change(String newPass, String id) {
 		logger.info("비밀번호 수정 서비스 도착");
 		return dao.change(newPass,id);
@@ -187,16 +246,6 @@ public class AdminService {
 	public String insertBlack(String id) {
 		logger.info("블랙 추가 요청");
 		return dao.insertBlack(id);
-	}
-
-	public ArrayList<AdminDTO> reportList() {
-		logger.info("미처리 신고 서비스 요청");
-		return dao.reportList();
-	}
-
-	public ArrayList<AdminDTO> finishList() {
-		logger.info("처리 신고 서비스 요청");
-		return dao.finishList();
 	}
 
 	public ArrayList<AdminDTO> replyList() {
@@ -295,10 +344,6 @@ public class AdminService {
 //		return dao.typeReportList(type);
 //	}
 	
-	public ArrayList<MemberDTO> pointList() {
-		logger.info("포인트 내역 서비스 도착");
-		return dao.pointList();
-	}
 	
 	public ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params) {
 		logger.info("포인트 검색 서비스 도착");
@@ -376,6 +421,8 @@ public class AdminService {
 	public int allCount() {
 		return 0;
 	}
+
+	
 
 	
 

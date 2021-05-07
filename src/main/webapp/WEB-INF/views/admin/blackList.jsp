@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 		<title>관리자 목록</title>
-		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
@@ -114,7 +114,15 @@
 	                <td>${member.reg_date}</td> 
                 </tr>
             </c:forEach> --%>
-            
+            <tr>
+					<td id="paging" colspan="6">
+						<div class="container">
+							<nav aria-label="page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination"></ul>
+							</nav>
+						</div>
+					</td>
+				</tr>
             
         </table>
     </div>
