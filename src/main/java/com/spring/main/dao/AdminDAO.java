@@ -28,7 +28,7 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> search(HashMap<String, String> params);
 
-	ArrayList<MemberDTO> memberList();
+	ArrayList<MemberDTO> memberList(int start, int end, String search, String keyword);
 
 	ArrayList<MemberDTO> blackList();
 

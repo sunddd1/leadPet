@@ -239,7 +239,7 @@ public class AdminController {
 		logger.info(search+"/"+keyword);
 //			page="admin/adminList";
 //		}
-		return service.list(pagePerCnt,page,search,keyword);
+		return service.memberList(pagePerCnt,page,search,keyword);
 		
 	}
 	
