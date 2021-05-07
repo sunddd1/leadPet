@@ -7,7 +7,6 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#interestPopupTable, #interestPopupTable td {
-				board : 1px solid black;
 			}
 			#interestPopupTable {
 				background-color: white;
@@ -15,8 +14,12 @@
 				top: 200px;
   				left: 200px;
   				z-index: 6;
+  				border: 3px solid;
+  				border-radius: 10px
 			}
-			
+			#interestPopupTable td{
+				padding: 10px;
+			} 
 		</style>
 	</head>
 	<body>
@@ -102,10 +105,10 @@
 				,data:{'interestId' : interestId}
 				,dataType:'JSON'
 				,success:function(result) {
-					var tag = "<a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a>";
+					var tag = "<td><a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a></td>";
 					
 					if(result) {
-						tag = "<a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a>";
+						tag = "<td><a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a></td>";
 					}
 
 					$("#interestDiv").html(tag);
@@ -124,10 +127,10 @@
 				,data:{'interestId' : interestId}
 				,dataType:'JSON'
 				,success:function(result) {
-					var tag = "<a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a>";
+					var tag = "<td><a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a></td>";
 					
 					if(result) {
-						tag = "<a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a>";
+						tag = "<td><a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a></td>";
 					}
 
 					$("#interestDiv").html(tag);
