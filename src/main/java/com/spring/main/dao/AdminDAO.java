@@ -54,9 +54,9 @@ public interface AdminDAO {
 
 	String insertBlack(String id);
 
-	ArrayList<AdminDTO> reportList();
+	ArrayList<AdminDTO> reportList(int start, int end, String search, String keyword);
 
-	ArrayList<AdminDTO> finishList();
+	ArrayList<AdminDTO> finishList(int start, int end, String keyword);
 
 	ArrayList<AdminDTO> replyList();
 
@@ -98,7 +98,7 @@ public interface AdminDAO {
 
 	void freedom(String string);
 
-	ArrayList<MemberDTO> pointList();
+	ArrayList<MemberDTO> pointList(int start, int end, String keyword);
 
 	ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params);
 	
@@ -125,6 +125,18 @@ public interface AdminDAO {
 	int vaccCount(String keyword);
 
 	int adminCount(String search, String keyword);
+
+	int memberCount(String search, String keyword);
+
+	int blackCount(String search, String keyword);
+
+	int withdrawCount(String search, String keyword);
+
+	int reportCount(String search, String keyword);
+
+	int finishCount(String keyword);
+
+	int pointCount(String keyword);
 
 	
 

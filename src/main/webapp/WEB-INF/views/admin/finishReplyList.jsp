@@ -6,16 +6,20 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 		<title>관리자 목록</title>
-		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
+    #top{
+        text-align: right;
+    }
     #top{
         text-align: right;
     }
     a{
         text-decoration: none;
     }
-    #search{
+    #search2{
         text-align: center;
         margin-top: 7%;
     }
@@ -27,7 +31,7 @@
         height: 30px;
         width: 70px;
     }
-    table {
+    #finishReplyTable table {
         border-collapse: separate;
         border-spacing: 0;
         text-align: center;
@@ -36,7 +40,7 @@
         border-left: 1px solid #ccc;
         margin : auto;
     }
-    th {
+    #finishReplyTable th {
         width: 120px;
         padding: 10px;
         font-weight: bold;
@@ -47,7 +51,7 @@
         border-left: 1px solid #fff;
         background: #eee;
     }
-    td {
+    #finishReplyTable td {
         width: 150px;
         padding: 10px;
         vertical-align: top;
@@ -56,27 +60,9 @@
     }
     .table{
         margin-top: 10px;
+        margin-left: 20%;
+        width: 60%;
     }
-    .pageArea{
-		width:800px;
-		text-align: center;
-		margin: 10px;
-		margin-top: 50px;
-		position: relative;
-		float: left;
-		left: 30%
-	}
-	.pageArea span{
-		font-size: 18px;
-		border : 1px solid lightgray;
-		padding: 2px 10px;		
-		margin: 5px;		
-		color : white;
-	}
-	#page{
-		font-weight: 600;
-		color: red;
-	}
 	h4{
 		position: relative;
 		left: 20%;
@@ -88,7 +74,7 @@
 	}
 	#radio{
 		position: relative;
-		left: 70%
+		left: 70%;
 	}
 </style>
 <body>
@@ -97,7 +83,7 @@
 <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
-    <div id="search">
+    <div id="search2">
         <form action="memberSearch" method="POST">
             <select id="select" name="search">
                 <option ${(search == "id")? "selected" : ""} value="id">아이디</option>
@@ -111,7 +97,7 @@
         <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishReplyList'"/>처리
     </div>
     <div class="table">
-        <table>
+        <table id="finishReplyTable">
             <tr>
                <th>신고자</th>
                 <th>신고 당한 글</th>
@@ -134,6 +120,8 @@
             </c:forEach>
         </table>
     </div>
+     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+    <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </body>
 <script>
 	var msg = "${msg}";
