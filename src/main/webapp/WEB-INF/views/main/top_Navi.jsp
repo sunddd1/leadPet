@@ -85,15 +85,15 @@
 		}
 		#mainIMg{
 			float :right;
-			width : 150px;
+			width : 140px;
 			height : 85px;
-			background: url("./resources/mainImg.jpg")  -8px 15px ;
-			background-size: 450px 85px;
+			background: url("./resources/mainImg.jpg")  -8px  -5px ;
+			background-size: 450px 120px;
 			background-repeat: no-repeat;
 		}
 		#mainIMg:hover {		
-			background: url("./resources/mainImg.jpg") -296px 15px ;
-			background-size: 450px 85px;
+			background: url("./resources/mainImg.jpg") -296px -5px ;
+			background-size: 450px 120px;
 			background-repeat: no-repeat;
 		}
 		#topNavi li:hover {

@@ -13,7 +13,7 @@
 			margin-top : 200px;
 			width: 30%;
 			max-width : 500px;
-			min-width : 400px;
+			min-width : 450px;
 			margin-left: 35%;
 			border: 3px solid gray;
 			white-space: nowrap;
@@ -22,6 +22,7 @@
 		#loginTable td{
 			text-align: right;
 			width: 60%;
+			min-width : 250px;
 			padding: 10px;
 		}
 		#loginTable th,h3{			
@@ -29,7 +30,7 @@
 		}
 		#loginTable {
 			/* background: url("./resources/loginImg.jpg") -35px 0px; */
-			background: url("./resources/loginImg.jpg") 0px 13px;
+			background: url("./resources/loginImg.jpg") 0px -10px;
 			background-size: cover;
 			background-repeat: no-repeat;
 		}
