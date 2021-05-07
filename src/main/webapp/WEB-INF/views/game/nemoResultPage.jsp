@@ -2,19 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>    
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %> 
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>NemoResultPage</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 5% 25%;
-				width: 40%;
+				margin-left : 20%;
+				width: 60%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -26,6 +24,7 @@
 				border: 3px solid;
 				padding: 3% 15%;
 				width: 100%;
+				white-space: nowrap;
 			}
 			#resultTable th{
 				text-align: center;
@@ -40,17 +39,6 @@
 			}
 			#if_success{
 				color: red;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 		</style>
 	</head>

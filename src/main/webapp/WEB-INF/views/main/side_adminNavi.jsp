@@ -8,7 +8,9 @@
 		<title>Insert title here</title>
 		<style>
 			#adNavi{
-				background-color: lightgray;
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

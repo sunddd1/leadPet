@@ -10,6 +10,12 @@
 					width: 60%;
 					margin-left: 20%;
 			}
+			
+			#draw{
+				background-color: lightcoral;
+				color: white;				
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>

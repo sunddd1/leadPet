@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8">		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 		#topNavi{
 			list-style-type:none;
@@ -13,7 +14,7 @@
 		}
 		#topNavi li{
 			display: inline;
-			border: 3px solid black;
+			border: 2px solid black;
 			padding: 10px;
 			border-radius: 20px;
 			font-size: 13pt;
@@ -33,10 +34,12 @@
 			border-radius: 10px;
 		}
 		
-		#side_Navi,#side_Navi th{
+		#side_Navi li{
 			border: 1px solid;
       	 	padding: 10px 20px;
-       	 	border-collapse: collapse;
+      	 	border-radius: 20px;
+      	 	list-style-type:none;
+      	 	text-align: center;
 		}
 		
 		#side_Navi{
@@ -73,6 +76,13 @@
 			min-width: 300px;
 			max-width: 300px;
 		}	
+		a{
+			text-decoration: none;			
+			color : black;
+		}
+		a:hover {		
+			color: gray;
+		}
 		</style>
 	</head>
 	<body>		
@@ -117,7 +127,7 @@
 			</tr>
 		</table>
 		<ul id="topNavi">
-				<li onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
+				<li id="exBBS" onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
 				<li onclick="location.href='./admin'">갤러리</li>
 				<li onclick="location.href='./admin'">사료,간식,영양제 추천</li>
 				<li onclick="location.href='./admin'">동반입장 식당 소개</li>
