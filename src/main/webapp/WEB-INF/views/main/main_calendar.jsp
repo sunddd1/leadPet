@@ -31,6 +31,9 @@
 			float: right;
 			margin: 50px;
 		}
+		#mainCal:hover {
+			cursor: pointer;
+		}
     </style>
 </head>
 <body>

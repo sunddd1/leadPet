@@ -21,11 +21,28 @@
 		}
 		#loginTable td{
 			text-align: right;
-			width: 40%;
+			width: 60%;
 			padding: 10px;
 		}
-		#loginTable th{			
+		#loginTable th,h3{			
 			padding: 10px;
+		}
+		#loginTable {
+			/* background: url("./resources/loginImg.jpg") -35px 0px; */
+			background: url("./resources/loginImg.jpg") 0px 13px;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		label{
+		}
+		#loginTable a:hover {
+			font-weight: bold;
+			color: blue;
+		}
+		#loginTable div:hover {
+			cursor: pointer;			
+			font-weight: bold;
+			color:red;
 		}
 	</style>
 	</head>
@@ -36,9 +53,8 @@
 	<form id="loginForm" action="login" method="post">
 		<table id="loginTable">
 			<tr>
-				<th colspan="2">
-					<h3>이미지 하나 넣고 싶다 leadPet</h3>
-					<hr/>
+				<th colspan="3">
+					<h3>leadPet</h3>
 				</th>
 			</tr>
 			<tr>
@@ -48,6 +64,9 @@
 				<th style="text-align: left;">
 					<input type="text" id="id" name="id" value="${id}" />
 				</th>
+				<th>
+					<div id="login">로그인</div>
+				</th>
 			</tr>			
 			<tr>
 				<td>
@@ -56,18 +75,15 @@
 				<th style="text-align: left;">
 					<input type="password" id="password" name="password" />
 				</th>
-			</tr>
-			<tr>
 				<th colspan="2">
-					<input type="submit" value="로그인" id="login" /> &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" value="회원가입" onclick="location.href='registForm'"/>
+					<div onclick="location.href='registForm'">회원가입</div>
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" style="color: lightgray">
+				<td colspan="2" style="color: grey">
 					<a href="find-id-form">아이디 찾기</a>
 					/
-					<a href="change-pw-form">비밀번호 변경 </a> -->
+					<a href="change-pw-form">비밀번호 변경 </a> 
 				</td>
 			</tr>
 		</table>
@@ -80,7 +96,9 @@
 			alert(msg);
 			msg = '';
 		}
-
+		$('#login').click(function() {
+			$('form').submit();
+		});
 		
 	</script>
 </html>
