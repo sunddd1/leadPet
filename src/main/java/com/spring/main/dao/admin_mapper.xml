@@ -6,10 +6,6 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.AdminDAO">
-<!-- 	<select id="adminCheck" resultType="admin">
-		SELECT admin_id FROM admin WHERE admin_id=#{param1}
-	</select> -->
-	
 	<update id="change">
 		UPDATE admin SET password=#{param1} WHERE admin_id=#{param2}  
 	</update>
@@ -38,44 +34,217 @@
 		</where>
 	</select>
 	
+	<!-- 관리자 리스트 -->
+	<select id="adminList" resultType="admin">
+	SELECT admin_id,password,nickname,reg_date, rnum 
+	FROM (
+	SELECT admin_id,password,nickname,reg_date, ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
+	AS rnum FROM admin
+	 <where>
+			<if test="param3 == 'id'"> admin_id LIKE LOWER(#{param4}) or admin_id LIKE UPPER(#{param4})</if>
+			<if test="param3 == 'nickname'"> nickname LIKE LOWER(#{param4}) or nickname LIKE UPPER(#{param4})</if>
+	</where>
+	) 
+	WHERE rnum BETWEEN #{param1} AND #{param2} AND admin_id!='admin'
+	</select>
+	
+	<select id="adminCount" resultType="Integer">
+		SELECT COUNT(admin_id) FROM (
+		SELECT admin_id FROM admin 
+		<where>
+			<if test="param1 == 'id'"> admin_id LIKE LOWER(#{param2}) or admin_id LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
+		</where>
+		)
+		WHERE admin_id != 'admin'
+	</select>
+	
+	<!-- 멤버 리스트  // int start, int end, String search, String keyword) -->	
 	<select id="memberList" resultType="member">
-		SELECT * FROM member ORDER BY reg_date DESC
+		SELECT id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE 
+      <if test="param3 == 'id'"> id  LIKE #{param4}</if>
+      <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
+      ) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
 	</select>
 	
+	<select id="memberCount" resultType="Integer">
+		SELECT COUNT(id) FROM (
+		SELECT id FROM member 
+		<where>
+			<if test="param1 == 'id'"> id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
+		</where>
+		)
+	</select>
+	
+	<!-- 블랙 리스트 -->	
 	<select id="blackList" resultType="member">
-		SELECT * FROM member WHERE black='Y' AND withdraw='N' ORDER BY reg_date DESC
+		 SELECT id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE black='Y' AND withdraw='N' AND
+      <if test="param3 == 'id'"> id  LIKE #{param4}</if>
+      <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
+      ) 
+      WHERE rnum BETWEEN #{param1} AND #{param2}ORDER BY reg_date DESC
 	</select>
 	
+	<select id="blackCount" resultType="Integer">
+		SELECT COUNT(id) FROM (
+		SELECT id,withdraw,black FROM member 
+		<where>
+			<if test="param1 == 'id'"> id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
+		</where>
+		)
+		WHERE black='Y' AND withdraw='N'
+	</select>
+	
+	<!-- 탈퇴 리스트 -->
 	<select id="withdrawList" resultType="member">
-		SELECT * FROM member WHERE black='N' AND withdraw='Y' ORDER BY reg_date DESC
+		      SELECT id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE black='N' AND withdraw='Y' AND
+      <if test="param3 == 'id'"> id  LIKE #{param4}</if>
+      <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
+      ) 
+      WHERE rnum BETWEEN #{param1} AND #{param2}ORDER BY reg_date DESC
 	</select>
 	
-	<select id="memberSearch" parameterType="hashMap" resultType="member">
-		SELECT * FROM member	
+	<select id="withdrawCount" resultType="Integer">
+		SELECT COUNT(id) FROM (
+		SELECT id,withdraw,black FROM member 
 		<where>
-			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
-			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
+			<if test="param1 == 'id'"> id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2})</if>
+			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
 		</where>
+		)
+		WHERE black='N' AND withdraw='Y'
 	</select>
 	
-	<select id="blackSearch" parameterType="hashMap" resultType="member">
-		SELECT * FROM member
-		<where>
-			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
-			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
-		</where>
-		 AND black='Y'
+	<!-- 신고 리스트 -->
+	<select id="reportList" resultType="report">
+	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+      FROM report WHERE proc_ex='N' AND type != 'com' AND type=#{param3} AND id LIKE LOWER(#{param4}) or id LIKE UPPER(#{param4})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="reportCount" resultType="Integer">
+		SELECT COUNT(id) FROM report WHERE proc_ex='N' AND type != 'com' 
+       AND type=#{param1}AND id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2})
 	</select>
 	
-	<select id="withdrawSearch" parameterType="hashMap" resultType="member">
-		SELECT * FROM member	
-		<where>
-			<if test="!keyword.equals('') and search == 'id'">id LIKE '%'||#{keyword}||'%'</if>
-			<if test="!keyword.equals('') and search == 'nickname'">nickname LIKE '%'||#{keyword}||'%'</if>
-		</where>
-		AND withdraw='Y'
+	<!-- 처리완료 리스트 -->
+	<select id="finishList" resultType="report">
+	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+      FROM report WHERE proc_ex='Y' AND type != 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
+	 </select>
+	 
+	 <select id="finishCount" resultType="Integer">
+		SELECT COUNT(id) FROM report WHERE proc_ex='Y' AND type != 'com' 
+       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+	</select>
+	
+	<!-- 포인트 리스트 -->
+	<select id="pointList" resultType="point">
+	 	SELECT id, gain, reg_date, pm_point FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, gain, reg_date, pm_point
+      FROM point_history WHERE id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="pointCount" resultType="Integer">
+		SELECT COUNT(id) FROM point_history WHERE id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+	</select>
+	
+	 <!-- 신고댓글 리스트 -->
+	 <select id="replyList" resultType="report">
+	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+      FROM report WHERE proc_ex='N' AND type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="replyCount" resultType="Integer">
+		SELECT COUNT(id) FROM report WHERE proc_ex='N' AND type = 'com' 
+       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
 	</select>
 	 
+	 <!-- 신고댓글 처리 리스트 -->
+	 <select id="finishReplyList" resultType="report">
+	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+      FROM report WHERE proc_ex='Y' AND type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="finishReplyCount" resultType="Integer">
+		SELECT COUNT(id) FROM report WHERE proc_ex='Y' AND type = 'com' 
+       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+	</select>
+	
+	<!-- 블라인드N 리스트 -->
+	<select id="blindNList" resultType="board">
+	 	SELECT bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
+      AS rnum,bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name
+      FROM bbs WHERE nickname LIKE LOWER(#{param3}) or nickname LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND bbs_blind='N'  ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="blindNCount" resultType="Integer">
+		SELECT COUNT(nickname) FROM bbs WHERE bbs_blind='N' 
+       AND nickname LIKE LOWER(#{param1}) or nickname LIKE UPPER(#{param1})
+	</select>
+	
+	 <update id="blindY">
+		UPDATE bbs SET bbs_blind='Y' WHERE bbs_idx=#{param1}
+	</update>
+	
+	<update id="onlyBlindY">
+		UPDATE bbs SET bbs_blind='Y' WHERE bbs_idx=#{param1}
+	</update>
+	
+	<!-- 블라인드Y 리스트 -->
+	<select id="blindYList" resultType="board">
+	 	SELECT bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name FROM
+      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
+      AS rnum,bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name
+      FROM bbs
+      <where>
+			<if test="param3 == '.'" >bbs_blind='Y' </if>
+			<if test="param3 != '.'">bbs_blind='Y'  AND nickname LIKE LOWER(#{param3}) or nickname LIKE UPPER(#{param3})</if>
+		</where>
+		)
+      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+	 </select>
+	 
+	 <select id="blindYCount" resultType="Integer">
+		SELECT COUNT(nickname) FROM bbs WHERE 
+		<where>
+			<if test="param3 == '.'" >bbs_blind='Y' </if>
+			<if test="param3 != '.'">bbs_blind='Y'  AND nickname LIKE LOWER(#{param1}) or nickname LIKE UPPER(#{param1})</if>
+		</where>
+	</select>
+	
+	<update id="blindN">
+		UPDATE bbs SET bbs_blind='N' WHERE bbs_idx=#{param1}
+	</update>
+	
+	<update id="onlyBlindN">
+		UPDATE bbs SET bbs_blind='N' WHERE bbs_idx=#{param1}
+	</update>
+	
+	
+	<!-- 디테일 -->
 	 <select id="detailMember" resultType="member">
 	 	SELECT id,name,age,gender,email,reg_date,black,withdraw,change_date,nickname,point,grade, black_cnt FROM member WHERE id=#{param1}
 	 </select>
@@ -83,6 +252,12 @@
 	 <select id="detailPet" resultType="pet">
 	 	SELECT p.pet_idx, p.dog_cat, p.pet_name, p.bday, p.kg, pi.newFileName FROM pet p, pet_img pi WHERE p.id=#{param1} AND p.pet_idx = pi.pet_idx
 	 </select> 
+	 
+	 <select id="detailReply" resultType="reply">
+		SELECT reply_content FROM reply WHERE reply_idx=#{param1}
+	</select>
+	
+	
 	 
 	 <update id="restoreWithdraw">
 	 	UPDATE member SET withdraw='N' WHERE id=#{param1}
@@ -116,35 +291,19 @@
 	 	UPDATE member SET black='N' WHERE id=#{param1}
 	 </update>
 	 
-	 <select id="reportList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='N' AND type != 'com' ORDER BY reg_date DESC
-	 </select>
-	 
-	 <select id="finishList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='Y' AND type != 'com' ORDER BY proc_date
-	 </select>
-	 
-	 <select id="replyList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='N' AND type= 'com' ORDER BY reg_date
-	 </select>
-	 
-	  <select id="finishReplyList" resultType="report">
-	 	SELECT * FROM report WHERE proc_ex='Y' AND type = 'com' ORDER BY reg_date DESC
-	 </select>
-	 
 <!-- 	 <select id="typeReportList" resultType="report" parameterType="String">
 		SELECT * FROM report
 		<where>
-			<if test="#{type} == 'tip'">type ='tip'</if>
-			<if test="#{type} == 'gal'">type ='gal'</if>
-			<if test="#{type} == 'fed'">type ='fed'</if>
-			<if test="#{type} == 'res'">type ='res'</if>
-			<if test="#{type} == 'run'">type ='run'</if>
+			<if test="param1 == 'tip'">type ='tip'</if>
+			<if test="param1 == 'gal'">type ='gal'</if>
+			<if test="param1 == 'fed'">type ='fed'</if>
+			<if test="param1 == 'res'">type ='res'</if>
+			<if test="param1 == 'run'">type ='run'</if>
 		</where>
 		 AND proc_ex='N'
 	</select> -->
 	
-	<select id="tipReportList" resultType="report">
+	<!-- <select id="tipReportList" resultType="report">
 	 	SELECT * FROM report WHERE proc_ex='N' AND type ='tip' ORDER BY reg_date
 	 </select>
 	
@@ -162,86 +321,19 @@
 	 
 	 <select id="runReportList" resultType="report">
 	 	SELECT * FROM report WHERE proc_ex='N' AND type ='run' ORDER BY reg_date
-	 </select>
+	 </select> -->
 	 
-	 <select id="reportSearch" parameterType="hashMap" resultType="report">
-		SELECT * FROM report	WHERE id LIKE '%'||#{keyword}||'%' AND proc_ex='N'
-	</select>
-	
-	<select id="finishListSearch" parameterType="hashMap" resultType="report">
-		SELECT * FROM report	WHERE id LIKE '%'||#{keyword}||'%' AND proc_ex='Y'
-	</select>
-	
-	<select id="detailReply" resultType="reply">
-		SELECT 
-	</select>
-	
-	<select id="blindNList" resultType="board">
-		SELECT * FROM bbs WHERE bbs_blind='N' ORDER BY reg_date DESC
-	</select>
-	
-	<select id="blindYList" resultType="board">
-		SELECT * FROM bbs WHERE bbs_blind='Y' ORDER BY reg_date DESC
-	</select>
-	
-	<update id="blindY">
-		UPDATE bbs SET bbs_blind='Y' WHERE bbs_idx=#{param1}
-	</update>
-	
 	<update id="procY">
-		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE field=#{param1}
+		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE field=#{param1} AND type != 'com'
 	</update>
 	
-	<update id="blindN">
-		UPDATE bbs SET bbs_blind='N' WHERE bbs_idx=#{param1}
+	<update id="replyprocY">
+		UPDATE report SET proc_ex='Y',proc_date=SYSDATE,admin_id=#{param2} WHERE field=#{param1} AND type = 'com'
 	</update>
 	
-	 <select id="blindNSearch" parameterType="hashMap" resultType="board">
-		SELECT * FROM bbs	WHERE nickname LIKE '%'||#{keyword}||'%' AND bbs_blind='N'
-	</select>
-	
-	 <select id="blindYSearch" parameterType="hashMap" resultType="board">
-		SELECT * FROM bbs	WHERE nickname LIKE '%'||#{keyword}||'%' AND bbs_blind='Y'
-	</select>
-	
-	<select id="pointList" resultType="point">
-		SELECT * FROM point_history ORDER BY reg_date DESC
-	</select>
-	
-	<select id="pointListSearch" resultType="point">
-		SELECT * FROM point_history WHERE id LIKE '%'||#{keyword}||'%' ORDER BY reg_date DESC
-	</select>
-	
-	<!-- 페이징 -->
-	
-	
-	<select id="adminCount" resultType="Integer">
-		SELECT COUNT(admin_id) FROM (
-		SELECT admin_id FROM admin 
-		<where>
-			<if test="param1 == 'id'"> admin_id LIKE LOWER(#{param2}) or admin_id LIKE UPPER(#{param2})</if>
-			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
-		</where>
-		)
-		WHERE admin_id != 'admin'
-	</select>
-	
-	<select id="adminList" resultType="admin">
-	SELECT admin_id,password,nickname,reg_date, rnum 
-	FROM (
-	SELECT admin_id,password,nickname,reg_date, ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
-	AS rnum FROM admin
-	 <where>
-			<if test="param3 == 'id'"> admin_id LIKE LOWER(#{param4}) or admin_id LIKE UPPER(#{param4})</if>
-			<if test="param3 == 'nickname'"> nickname LIKE LOWER(#{param4}) or nickname LIKE UPPER(#{param4})</if>
-	</where>
-	) 
-	WHERE rnum BETWEEN #{param1} AND #{param2} AND admin_id!='admin'
-	</select>
-	
-	<!-- <select id="adminList" resultType="admin">
-		SELECT * FROM admin WHERE admin_id!='admin' ORDER BY reg_date DESC
-	</select> -->
+	<update id="replyblindY">
+		UPDATE reply SET reply_blind='Y' WHERE reply_idx=#{param1}
+	</update>
 	
 	
 	

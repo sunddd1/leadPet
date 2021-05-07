@@ -18,11 +18,11 @@
         	text-overflow: ellipsis;
         	overflow: hidden;
         	white-space: nowrap;
-        	width: 60px;
-        	height: 60px;
-        	max-height: 60px;
-        	max-width: 60px;
-        	min-width: 60px;
+        	width: 100px;
+        	height: 100px;
+        	max-height: 100px;
+        	max-width: 100px;
+        	min-width: 100px;
         	text-align: justify;
         }
         

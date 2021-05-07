@@ -6,12 +6,23 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
-			ul.tabs{
-				margin: 0px;
-				padding: 0px;
-				list-style: none;
+			#main{
+				border: 3px solid red;
+				width: 80%;
+				margin-left:10%;
 			}
+			#main th{
+			}
+		
+			ul.tabs{
+			width: max-content;    
+			margin-top:5%;
+            margin-right: 13%;
+            margin-left: 13%;
+			}
+			
 			ul.tabs li{
+				width: max-content;
 				background: none;
 				color: #222;
 				display: inline-block;
@@ -33,31 +44,42 @@
 			.tab-content.current{
 				display: inherit;
 			}
+			#writebutton_div{
+				text-align:right;
+				padding-right: 25%;
+			}
+			#list{
+				width: 60%;
+				margin-top:1%;
+				margin-left: 20%;
+				border: 3px solid blue;
+			}
+			#list td, #list th{
+			}
+			#list table{			
+				border: 3px solid red;
+				width: 100%;
+			}
+			#exBBS{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<ul class="tabs">
 			<li data-tab="dog" class='tabmenu'>강아지</li>
 			<li data-tab="cat" class='tabmenu'>고양이</li>
 			<li data-tab="all" class='tabmenu current'>전체보기</li>
 		</ul>
-		<button onclick="location.href='writeForm?id=test1122' ">글쓰기</button>
-			<table>
-			<thead>
-				<tr>
-					<th>글번호</th>
-					<th>사진</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-<!-- 					<th>삭제</th> -->
-				</tr>
-			</thead>
-			<tbody id="list">
-				
-			</tbody>
-			</table>
-
+		<div id = "writebutton_div">
+			<button onclick="location.href='writeForm?id=${sessionScope.loginId}' ">글쓰기</button>
+		</div>
+		<table id="list">
+		</table>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
@@ -128,19 +150,66 @@
 		function listPrint(list){
 			var content ="";
 			console.log(list);
-			
-			for(var i=0; i<list.length; i++){
-					content +="<tr>"
-					content +="<td>"+list[i].bbs_idx+"</td>"
-					content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='300px' 'height='398px'/></a></td>" 
-					content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
-					content +="<td onclick='idClickPopup("+list[i].id+","+list[i].nickname+")'>"+list[i].nickname+"</td>"
-					//java에서 가끔 날짜가 mileseconds로 나올경우...
-					var date = new Date(list[i].reg_date);
-					content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-					/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
+			content +="<tr>"			
+			for(var i=0; i<4; i++){
+				content +="<td>"
+				content +="<table>"
+				content +="<tr>"
+				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
+				content +="<tr><td>"+list[i].category_name+"</td>"
+				content +="<td>"+list[i].views+"</td>"
+				content +="<td>"+list[i].reco_count+"</td></tr>"
+				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
+				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
+				//java에서 가끔 날짜가 mileseconds로 나올경우...
+				var date = new Date(list[i].reg_date);
+				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
 				content +="</tr>"
+				content +="</table>"
+				content +="</td>"
 			}
+			content +="</tr>"		
+			content +="<tr>"			
+			for(var i=4; i<8; i++){
+				content +="<td>"
+				content +="<table>"
+				content +="<tr>"
+				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
+				content +="<tr><td>"+list[i].category_name+"</td>"
+				content +="<td>"+list[i].views+"</td>"
+				content +="<td>"+list[i].reco_count+"</td></tr>"
+				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
+				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
+				//java에서 가끔 날짜가 mileseconds로 나올경우...
+				var date = new Date(list[i].reg_date);
+				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
+				content +="</tr>"
+				content +="</table>"
+				content +="</td>"
+			}
+			content +="</tr>"
+			content +="<tr>"			
+			for(var i=8; i<12; i++){
+				content +="<td>"
+				content +="<table>"
+				content +="<tr>"
+				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
+				content +="<tr><td>"+list[i].category_name+"</td>"
+				content +="<td>"+list[i].views+"</td>"
+				content +="<td>"+list[i].reco_count+"</td></tr>"
+				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
+				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
+				//java에서 가끔 날짜가 mileseconds로 나올경우...
+				var date = new Date(list[i].reg_date);
+				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
+				content +="</tr>"
+				content +="</table>"
+				content +="</td>"				
+			}
+			content +="</tr>"
 			$("#list").empty();
 			$("#list").append(content);
 		}

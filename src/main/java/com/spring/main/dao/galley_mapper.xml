@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.spring.main.dao.GalleryDAO">
+
+	<select id="GalleryList">
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
+		FROM bbs b JOIN bbs_img bi ON bi.bbs_idx(+)=b.bbs_idx WHERE bbs_blind='N' ORDER BY bbs_idx ASC
+	</select>
+</mapper>

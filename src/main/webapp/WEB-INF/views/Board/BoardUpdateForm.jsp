@@ -34,6 +34,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../main/top_Navi.jsp"/>
 <h3>글 수정하기</h3>
 <hr/>
 <form action="BoardUpdate" method="post">
@@ -85,7 +86,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6"><input id="save" type="button" value="수정하기"/></td>
+			<td colspan="6"><input id="save" type="button" value="수정하기"/>
+			<input id="cancle" type="button" value="취소" onclick="location.href='BoardDetail?bbs_idx=${dto.bbs_idx}'" style="margin-left: 50px"/>
+			</td>
 		</tr>	
 	</table>
 </form>

@@ -12,45 +12,39 @@
 				padding: 5px 10px;
 				text-align: center;
 			}
-			#report_content{
-				width: 100%;
-			}	
 		</style>
 	</head>
 	<body>
 		<h3>게시글 신고</h3>
 		<form action="BoardReport" method="post">
-			<input id="report_bbs_idx" name="bbs_idx" value="${map.bbs_idx}" style="display: none"/>
-			<input id="report_type" name="type" value="${map.type}"  style="display: none" />
 			<table>
 				<tr>
 					<th>신고자</th>
-					<td><input id="loginId" name="loginId" value="${map.id}" readonly/></td>
+					<th><input id="loginId" name="loginId" value="${map.id}" readonly/></th>
 				</tr>
 				<tr>
 					<td>신고 사유</td>
-					<td cospan="5">
+					<td style="display: none" ><input id="report_bbs_idx" name="bbs_idx" value="${map.bbs_idx}" style="display: none"/></td>
+					<td style="display: none" ><input id="report_type" name="type" value="${map.type}"  style="display: none" /></td>
+					<td>
 						<textarea name="reason" rows="10" cols="50" style="resize: none;"></textarea>
 					</td>
 				</tr>
 			</table>
-			<input type="button" value="신고하기"/>
 		</form>
+		<input type="button" value="신고하기"/>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
+		$("input[type='button']").click(function(){
+			console.log(this);
+			$('form').submit();
+		})
 		var msg = "${msg}";
 		console.log(msg)
-		if(msg!=""){
-			alert(msg);
-			self.close();
-		}
-		
-		
-		$("input[type='button']").click(function(){
-			opener.sendMsg("신고가 되었습니다");
-			$('form').submit();
-			window.close();
-		})
+			if(msg!=""){
+				alert(msg);
+				window.close();
+			}
 	</script>
 </html>

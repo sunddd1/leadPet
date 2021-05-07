@@ -199,8 +199,7 @@ $('#searchBtn').click(function() {
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 			content +="<td>"
 			content += "<button value='"+list[i].admin_id+"'onclick='changePass(this)'>비밀번호 수정</button>"
-			content += "<button onclick="
-			content +="<button onclick='delAdmin("+list[i].admin_id+")'>삭제</botton>";
+			content +="<button onclick='delAdmin("+list[i].admin_id+")'>삭제</button>";
 			content +="</td>"
 			content +="</tr>"
 		}
@@ -212,37 +211,6 @@ $('#searchBtn').click(function() {
 			console.log("admin_id : "+admin_id);
 			location.href="adminDelete?id="+admin_id;
 		}
-	
-	/* function pagePrint(range){
-		console.log("생성가능 페이지:"+range);
-		console.log("현재 페이지:"+showPage);
-		var content="";
-		var start=1;
-		var end= range>=5?5:range;
-		//이전(5페이지가 넘어갔을 때 나타나는 녀석)
-		if(showPage>5){
-			end = Math.ceil(showPage/5)*5
-			if(end>range){
-				end = range;
-			}
-			start= end-4;
-			content +=" | <a href='#' onclick='listCall("+(start-1)+")'>이전</a> | ";
-		}
-		//1~5
-		for(var i=start;i<=end;i++){
-			if(i==showPage){
-				content += " <b style='color:red'>"+i+"</b> ";
-			}else{
-				content +=" <a href='#' onclick='listCall("+i+")'>"+i+"</a> ";
-			}
-		}
-		//다음(range가 더 있을경우 나타나는 녀석)
-		if(end<range){
-			content +=" | <a href='#' onclick='listCall("+(end+1)+")'>다음</a> |"
-		}
-		$("#paging").empty();
-		$("#paging").append(content);
-	} */
 	
 	
 	var oriWindow;

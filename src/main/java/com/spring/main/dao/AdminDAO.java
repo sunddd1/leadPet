@@ -28,11 +28,11 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> search(HashMap<String, String> params);
 
-	ArrayList<MemberDTO> memberList();
+	ArrayList<MemberDTO> memberList(int start, int end, String search, String keyword);
 
-	ArrayList<MemberDTO> blackList();
+	ArrayList<MemberDTO> blackList(int start, int end, String search, String keyword);
 
-	ArrayList<MemberDTO> withdrawList();
+	ArrayList<MemberDTO> withdrawList(int start, int end, String search, String keyword);
 
 	ArrayList<AdminDTO> memberSearch(HashMap<String, String> params);
 
@@ -54,16 +54,14 @@ public interface AdminDAO {
 
 	String insertBlack(String id);
 
-	ArrayList<AdminDTO> reportList();
+	ArrayList<AdminDTO> reportList(int start, int end, String search, String keyword);
 
-	ArrayList<AdminDTO> finishList();
+	ArrayList<AdminDTO> finishList(int start, int end, String keyword);
 
-	ArrayList<AdminDTO> replyList();
+	ArrayList<AdminDTO> replyList(int start, int end, String keyword);
 
-	ArrayList<AdminDTO> finishReplyList();
+	ArrayList<AdminDTO> finishReplyList(int start, int end, String keyword);
 	
-	
-
 	ArrayList<AdminDTO> tipReportList();
 
 	ArrayList<AdminDTO> galReportList();
@@ -78,11 +76,11 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> finishListSearch(HashMap<String, String> params);
 
-	Object detailReply(int id);
+	Object detailReply(int field);
 
-	ArrayList<AdminDTO> blindNList();
+	ArrayList<AdminDTO> blindNList(int start, int end, String keyword);
 
-	ArrayList<AdminDTO> blindYList();
+	ArrayList<AdminDTO> blindYList(int start, int end, String keyword);
 
 	int blindY(int field);
 	
@@ -100,7 +98,7 @@ public interface AdminDAO {
 
 	void freedom(String string);
 
-	ArrayList<MemberDTO> pointList();
+	ArrayList<MemberDTO> pointList(int start, int end, String keyword);
 
 	ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params);
 	
@@ -127,6 +125,34 @@ public interface AdminDAO {
 	int vaccCount(String keyword);
 
 	int adminCount(String search, String keyword);
+
+	int memberCount(String search, String keyword);
+
+	int blackCount(String search, String keyword);
+
+	int withdrawCount(String search, String keyword);
+
+	int reportCount(String search, String keyword);
+
+	int finishCount(String keyword);
+
+	int pointCount(String keyword);
+
+	int replyCount(String keyword);
+
+	int replyprocY(int field, String loginId);
+
+	int replyblindY(int field);
+
+	int finishReplyCount(String keyword);
+
+	int blindNCount(String keyword);
+
+	int onlyBlindY(int idx);
+
+	int blindYCount(String keyword);
+
+	int onlyBlindN(int idx);
 
 	
 

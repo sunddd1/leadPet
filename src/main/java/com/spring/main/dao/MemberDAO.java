@@ -58,5 +58,8 @@ public interface MemberDAO {
 
 	ArrayList<InterestUserDTO> getInterestUserList(String myId, int start, int end);
 
+
+	String findIdByNickname(String nickname);
+
 	
 }

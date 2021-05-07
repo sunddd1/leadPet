@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="writeForm" resultType="pet">
-		SELECT m.nickname,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1}
+		SELECT m.id,m.nickname,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg,p.pet_idx FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1} AND delegate='Y'
 	</select>
 	
 	<insert id="write" 
@@ -31,8 +31,8 @@
 		keyProperty="bbs_idx"
 		keyColumn="bbs_idx"
 		parameterType="board">
-		INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views,type,category_name)
-		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'tip',#{category_name})	
+		INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views,type,pet_idx,category_name)
+		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'tip',#{pet_idx},#{category_name})	
 	</insert>
 
 	<insert id="writeFile">
@@ -58,7 +58,7 @@
 	</update>
 	
 	<select id="boardDetail" resultType="board">
-		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.type,b.reco_count,b.nickname,b.pet_idx,b.category_name,p.kind,p.bday,p.pet_name,p.kg
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.type,b.reco_count,b.nickname,b.category_name,p.pet_idx,p.kind,p.bday,p.pet_name,p.kg,p.id
 		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx WHERE p.pet_idx=b.pet_idx) pet_newfilename
 		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{param1}
 	</select>

@@ -183,127 +183,205 @@ public class AdminController {
 		return success;
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String search(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//	public String search(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam HashMap<String, String> params
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		logger.info("관리자 검색 요청");
+//		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+//		ArrayList<AdminDTO> list = service.search(params);
+//		logger.info("검색된 관리자 수"+list.size());
+//		model.addAttribute("adminList", list);
+////			page="admin/adminList";
+////		}
+//		return "admin/adminList";
+//	}
+	
+	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
+	public ModelAndView memberList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("관리자 검색 요청");
-		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.search(params);
-		logger.info("검색된 관리자 수"+list.size());
-		model.addAttribute("adminList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/memberList");
 //			page="admin/adminList";
 //		}
-		return "admin/adminList";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
-	public String memberList(Model model, HttpSession session) {
+	@ResponseBody
+	@RequestMapping(value = "/memberListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> memberListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.memberList();
-			logger.info("일반 회원 수"+list.size());
-			model.addAttribute("memberList", list);
+		logger.info(search+"/"+keyword);
 //			page="admin/adminList";
 //		}
-		return "admin/memberList";
+		return service.memberList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/blackList", method = RequestMethod.GET)
-	public String blackList(Model model, HttpSession session) {
+	public ModelAndView blackList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.blackList();
-			logger.info("블랙 회원 수"+list.size());
-			model.addAttribute("blackList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/blackList");
 //			page="admin/adminList";
 //		}
-		return "admin/blackList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blackListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> blackListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.blackList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/withdrawList", method = RequestMethod.GET)
-	public String withdrawList(Model model, HttpSession session) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.withdrawList();
-			logger.info("탈퇴 회원 수"+list.size());
-			model.addAttribute("withdrawList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/withdrawList";
-	}
-	
-	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)
-	public String memberSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
+	public ModelAndView withdrawList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("회원 검색 요청");
-		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.memberSearch(params);
-		logger.info("검색된 회원 수"+list.size());
-		model.addAttribute("memberList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/withdrawList");
 //			page="admin/adminList";
 //		}
-		return "admin/memberList";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/blackSearch", method = RequestMethod.POST)
-	public String blackSearch(
+	@ResponseBody
+	@RequestMapping(value = "/withdrawListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> withdrawListSearch(
 			Model model, 
 			HttpSession session,
-			@RequestParam HashMap<String, String> params
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("블랙 회원 검색 요청");
-		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.blackSearch(params);
-		logger.info("검색된 블랙 회원 수"+list.size());
-		model.addAttribute("blackList", list);
+		logger.info(search+"/"+keyword);
 //			page="admin/adminList";
 //		}
-		return "admin/blackList";
+		return service.withdrawList(pagePerCnt,page,search,keyword);
+		
 	}
 	
-	@RequestMapping(value = "/withdrawSearch", method = RequestMethod.POST)
-	public String withdrawSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		logger.info("탈퇴 회원 검색 요청");
-		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.withdrawSearch(params);
-		logger.info("검색된 탈퇴 회원 수"+list.size());
-		model.addAttribute("withdrawList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/withdrawList";
-	}
+//	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)
+//	public String memberSearch(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam HashMap<String, String> params
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		logger.info("회원 검색 요청");
+//		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+//		ArrayList<AdminDTO> list = service.memberSearch(params);
+//		logger.info("검색된 회원 수"+list.size());
+//		model.addAttribute("memberList", list);
+////			page="admin/adminList";
+////		}
+//		return "admin/memberList";
+//	}
+//	
+//	@RequestMapping(value = "/blackSearch", method = RequestMethod.POST)
+//	public String blackSearch(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam HashMap<String, String> params
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		logger.info("블랙 회원 검색 요청");
+//		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+//		ArrayList<AdminDTO> list = service.blackSearch(params);
+//		logger.info("검색된 블랙 회원 수"+list.size());
+//		model.addAttribute("blackList", list);
+////			page="admin/adminList";
+////		}
+//		return "admin/blackList";
+//	}
+//	
+//	@RequestMapping(value = "/withdrawSearch", method = RequestMethod.POST)
+//	public String withdrawSearch(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam HashMap<String, String> params
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		logger.info("탈퇴 회원 검색 요청");
+//		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+//		ArrayList<AdminDTO> list = service.withdrawSearch(params);
+//		logger.info("검색된 탈퇴 회원 수"+list.size());
+//		model.addAttribute("withdrawList", list);
+////			page="admin/adminList";
+////		}
+//		return "admin/withdrawList";
+//	}
 	
 	@RequestMapping(value = "/detailMember", method = RequestMethod.GET)
 	public String detailMember(
@@ -327,13 +405,13 @@ public class AdminController {
 	public Integer restoreWithdraw(
 			Model model, 
 			HttpSession session,
-			@RequestParam(value="id") String id
+			@RequestParam String id
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("회원 복구 요청");
+		logger.info("회원 복구 요청:"+id);
 		int success = service.restoreWithdraw(id);
 		logger.info("복구여부 : "+success);
 //			page="admin/adminList";
@@ -389,242 +467,222 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/reportList", method = RequestMethod.GET)
-	public String reportList(Model model, HttpSession session) {
+	public ModelAndView reportList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.reportList();
-		logger.info("미처리 글 신고 수"+list.size());
-		model.addAttribute("reportList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/reportList");
 //			page="admin/adminList";
 //		}
-		return "admin/reportList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/reportListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> reportListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.reportList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/finishList", method = RequestMethod.GET)
-	public String finishList(Model model, HttpSession session) {
+	public ModelAndView finishList(
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.finishList();
-		logger.info("처리 글 신고 수"+list.size());
-		model.addAttribute("finishList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/finishList");
 //			page="admin/adminList";
 //		}
-		return "admin/finishList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/finishListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> finishListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(keyword);
+//			page="admin/adminList";
+//		}
+		return service.finishList(pagePerCnt,page,keyword);
+		
+	}
+	@RequestMapping(value = "/pointList", method = RequestMethod.GET)
+	public ModelAndView pointList(
+			@RequestParam(required = false) String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/pointList");
+//			page="admin/adminList";
+//		}
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> pointListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(keyword);
+//			page="admin/adminList";
+//		}
+		return service.pointList(pagePerCnt,page,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
-	public String replyList(Model model, HttpSession session) {
+	public ModelAndView replyList(
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.replyList();
-		logger.info("미처리 댓글 신고 수"+list.size());
-		model.addAttribute("replyList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/replyList");
 //			page="admin/adminList";
 //		}
-		return "admin/replyList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/replyListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> replyListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(keyword);
+//			page="admin/adminList";
+//		}
+		return service.replyList(pagePerCnt,page,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/finishReplyList", method = RequestMethod.GET)
-	public String finishReplyList(Model model, HttpSession session) {
+	public ModelAndView finishReplyList(
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.finishReplyList();
-		logger.info("처리 댓글 신고 수"+list.size());
-		model.addAttribute("finishReplyList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/finishReplyList");
 //			page="admin/adminList";
 //		}
-		return "admin/finishReplyList";
+		return mav;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/type", method = RequestMethod.GET)
-	public HashMap<String, Object> type(
+	@RequestMapping(value = "/finishReplyListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> finishReplyListSearch(
 			Model model, 
 			HttpSession session,
-			@RequestParam(value="type") String type
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			logger.info("선택된 타입:"+type);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			ArrayList<AdminDTO> list = null;
-			if(type.equals("tip")) {
-				list =	service.tipReportList();
-				logger.info("팁 신고 수"+list.size());
-			}else if(type.equals("gal")){
-				list =	service.galReportList();
-				logger.info("갤러리 신고 수"+list.size());
-			}else if(type.equals("fed")){
-				list =	service.fedReportList();
-				logger.info("사료 신고 수"+list.size());
-			}else if(type.equals("res")){
-				list =	service.resReportList();
-				logger.info("식당 신고 수"+list.size());
-			}else if(type.equals("run")){
-				list =	service.runReportList();
-				logger.info("산책 신고 수"+list.size());
-			}
-//		ArrayList<AdminDTO> list =	service.typeReportList(type);
-//		logger.info("신고 수"+list.size());
-//		model.addAttribute("reportList", list);
+		logger.info(keyword);
 //			page="admin/adminList";
 //		}
-			map.put("reportList", list);
-			return map;
-	}
-	
-	@RequestMapping(value = "/reportSearch", method = RequestMethod.POST)
-	public String reportSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		logger.info("검색 아이디 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.reportSearch(params);
-		logger.info("미처리 글 검색된 수"+list.size());
-		model.addAttribute("reportList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/reportList";
-	}
-	
-	@RequestMapping(value = "/finishListSearch", method = RequestMethod.GET)
-	public String finishListSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.finishListSearch(params);
-		logger.info("처리 글 검색 수"+list.size());
-		model.addAttribute("finishList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/finishList";
-	}
-	
-	@RequestMapping(value = "/detailReply", method = RequestMethod.GET)
-	public String detailReply(
-			Model model, 
-			HttpSession session,
-			@RequestParam int id
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		logger.info("신고댓글 상세보기 팝업요청");
-		model.addAttribute("dto",service.detailReply(id));
-//			page="admin/adminList";
-//		}
-		return "admin/detailReply";
+		return service.finishReplyList(pagePerCnt,page,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/blindNList", method = RequestMethod.GET)
-	public String blindNList(Model model, HttpSession session) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.blindNList();
-		model.addAttribute("blindNList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/blindNList";
-	}
-	
-	@RequestMapping(value = "/blindYList", method = RequestMethod.GET)
-	public String blindYList(Model model, HttpSession session) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.blindYList();
-		model.addAttribute("blindYList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/blindYList";
-	}
-	
-//	@ResponseBody
-//	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
-//	public int blindY(
-//			Model model, 
-//			HttpSession session,
-//			@RequestParam(value="idx") int idx
-//			) {
-////		String loginId = (String) session.getAttribute("loginId");
-////		service.adminCheck(loginId);
-////		String page ="admin/adminList";
-////		if(loginId != null) {
-//		int success = service.blindY(idx);
-////			page="admin/adminList";
-////		}
-//		return success;
-//	}
-	
-	@RequestMapping(value = "/procY", method = RequestMethod.GET)
-	public String procY(
-			Model model, 
-			HttpSession session,
-			@RequestParam int field
+	public ModelAndView blindNList(
+			@RequestParam(required = false) String keyword
 			) {
-		String loginId = (String) session.getAttribute("loginId");
+//		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			service.procY(field,loginId);
-			service.blindY(field);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/blindNList");
 //			page="admin/adminList";
 //		}
-		return "admin/reportList";
+		return mav;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/blindN", method = RequestMethod.GET)
-	public int blindN(Model model, HttpSession session,@RequestParam(value="idx") int idx) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		int success = service.blindN(idx);
-//			page="admin/adminList";
-//		}
-		return success;
-	}
-	
-	@RequestMapping(value = "/blindNSearch", method = RequestMethod.POST)
-	public String blindNSearch(
+	@RequestMapping(value = "/blindNListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> blindNListSearch(
 			Model model, 
 			HttpSession session,
-			@RequestParam HashMap<String, String> params
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.blindNSearch(params);
-		model.addAttribute("blindNList", list);
+		logger.info(keyword);
 //			page="admin/adminList";
 //		}
-		return "admin/blindNList";
+		return service.blindNList(pagePerCnt,page,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/blindYSearch", method = RequestMethod.POST)
@@ -644,34 +702,167 @@ public class AdminController {
 		return "admin/blindYList";
 	}
 	
-	@RequestMapping(value = "/pointList", method = RequestMethod.GET)
-	public String pointList(Model model, HttpSession session) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.pointList();
-			model.addAttribute("pointList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/pointList";
-	}
-	
-	@RequestMapping(value = "/pointListSearch", method = RequestMethod.POST)
-	public String pointListSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
+	@RequestMapping(value = "/blindYList", method = RequestMethod.GET)
+	public ModelAndView blindYList(
+			@RequestParam(required = false) String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.pointListSearch(params);
-		model.addAttribute("pointList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/blindYList");
 //			page="admin/adminList";
 //		}
-		return "admin/pointList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blindYListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> blindYListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("keyword:"+keyword);
+		if(keyword.equals("")) {
+			keyword =".";
+			logger.info("들어온값:"+keyword);
+		}
+//			page="admin/adminList";
+//		}
+		return service.blindYList(pagePerCnt,page,keyword);
+		
+	}
+//	@ResponseBody
+//	@RequestMapping(value = "/type", method = RequestMethod.GET)
+//	public HashMap<String, Object> type(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam String type
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//			logger.info("선택된 타입:"+type);
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			ArrayList<AdminDTO> list = null;
+//			if(type.equals("tip")) {
+//				list =	service.tipReportList();
+//				logger.info("팁 신고 수"+list.size());
+//			}else if(type.equals("gal")){
+//				list =	service.galReportList();
+//				logger.info("갤러리 신고 수"+list.size());
+//			}else if(type.equals("fed")){
+//				list =	service.fedReportList();
+//				logger.info("사료 신고 수"+list.size());
+//			}else if(type.equals("res")){
+//				list =	service.resReportList();
+//				logger.info("식당 신고 수"+list.size());
+//			}else if(type.equals("run")){
+//				list =	service.runReportList();
+//				logger.info("산책 신고 수"+list.size());
+//			}
+////		ArrayList<AdminDTO> list =	service.typeReportList(type);
+////		logger.info("신고 수"+list.size());
+////		model.addAttribute("reportList", list);
+////			page="admin/adminList";
+////		}
+//			map.put("reportList", list);
+//			return map;
+//	}
+	
+	@RequestMapping(value = "/detailReply", method = RequestMethod.GET)
+	public String detailReply(
+			Model model, 
+			HttpSession session,
+			@RequestParam int field
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info("신고댓글 상세보기 팝업요청");
+		model.addAttribute("dto",service.detailReply(field));
+//			page="admin/adminList";
+//		}
+		return "admin/detailReply";
+	}
+	
+	@RequestMapping(value = "/procY", method = RequestMethod.GET)
+	public String procY(
+			Model model, 
+			HttpSession session,
+			@RequestParam int field
+			) {
+		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			service.procY(field,loginId);
+			service.blindY(field);
+//			page="admin/adminList";
+//		}
+		return "admin/reportList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blindY", method = RequestMethod.GET)
+	public int blindY(
+			Model model, 
+			HttpSession session,
+			@RequestParam int idx
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			int success = service.onlyBlindY(idx);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blindN", method = RequestMethod.GET)
+	public int blindN(
+			Model model, 
+			HttpSession session,
+			@RequestParam int idx
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			int success = service.onlyBlindN(idx);
+//			page="admin/adminList";
+//		}
+		return success;
+	}
+	
+	@RequestMapping(value = "/replyprocY", method = RequestMethod.GET)
+	public String replyprocY(
+			Model model, 
+			HttpSession session,
+			@RequestParam int field
+			) {
+		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+			service.replyprocY(field,loginId);
+			service.replyblindY(field);
+//			page="admin/adminList";
+//		}
+		return "admin/replyList";
 	}
 	
 	////////regVaccForm

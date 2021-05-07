@@ -142,4 +142,15 @@
 		WHERE 
 			rnum BETWEEN #{param2} AND #{param3}
 	</select>
+	
+	<!-- 닉네임으로 아이디 찾기 -->
+	<select id="findIdByNickname" resultType="String">
+		SELECT
+			id
+		FROM
+			member
+		WHERE
+			nickname=#{param1}
+	</select>
+	
 </mapper>

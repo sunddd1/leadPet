@@ -10,11 +10,16 @@
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
 		#myInfoTable{
-				width: 60%;
-				margin-left: 20%;
+			width: 60%;
+			margin-left: 20%;
 		}
-		#myInfoTable, #myInfoTable td, myInfoTable th {
+		#myInfoTable, #myInfoTable td, #myInfoTable th {
 			border : 1px solid black
+		}
+		#myinfo{
+			background-color: lightcoral;
+			color: white;
+			font-weight: bold;
 		}
 	</style>
 	</head>

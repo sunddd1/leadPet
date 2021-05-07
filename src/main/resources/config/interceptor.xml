@@ -9,33 +9,39 @@
 	모든 uri를 등록하기에는 너무 많아서 
 	제외할 uri를 지정했음.  -> 제외할것도 너무 많음,  등록방식 토의 필요.
 	 -->
-<!--
+
  	<mvc:interceptors>
 		<mvc:interceptor>
-			모든 요청에 대해 인터럽트
+
 			<mvc:mapping path="/*"/>
 			
 			
-			제외하고 싶을 때
+
 			<mvc:exclude-mapping path="/login-form"/>
 			<mvc:exclude-mapping path="/login"/>
 			<mvc:exclude-mapping path="/home"/>
 			
 			<mvc:exclude-mapping path="/mainTop"/>
-			<mvc:exclude-mapping path="/topsearch"/>
-			<mvc:exclude-mapping path="/searchBbs"/>
-			<mvc:exclude-mapping path="/popup"/>
-			<mvc:exclude-mapping path="/home"/>
-			<mvc:exclude-mapping path="/home"/>
-			<mvc:exclude-mapping path="/home"/>
+			<mvc:exclude-mapping path="/topsearch*"/>
+			<mvc:exclude-mapping path="/searchBbs*"/>
+			<mvc:exclude-mapping path="/popup*"/>
+			<mvc:exclude-mapping path="/scheduler*"/>
+			<mvc:exclude-mapping path="/mainRank*"/>
+			<mvc:exclude-mapping path="/"/>
+			
+			<!--BoardList  -->
+			<mvc:exclude-mapping path="/BoardList"/>
+			<mvc:exclude-mapping path="/BoardTab/*"/>
+			<mvc:exclude-mapping path="/BoardDetail*"/>
+			<mvc:exclude-mapping path="/GalleryList"/>
+			<mvc:exclude-mapping path="/BoardList"/>
 			
 			
 			
-			아래 클래스로 이동시켜라
 			<bean class="com.spring.main.service.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
--->
+
 
 
 
