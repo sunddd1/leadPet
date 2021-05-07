@@ -169,12 +169,16 @@ public class BoardService {
 		dao.upViews(bbs_idx);
 		logger.info("조회수 +1");
 		BoardDTO dto = dao.boardDetail(bbs_idx);
-		logger.info("{}",dto);
-		logger.info("{}",dto.getPet_newfilename());
-		logger.info("{}",dto.getKg());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("dto", dto);
-		mav.setViewName("Board/detail");		
+		logger.info("{}",dto.getType());
+		if(dto.getType()=="gel") {
+			mav.addObject("dto", dto);
+			mav.setViewName("Board/GalleryDetail");
+		}
+		if(dto.getType()=="tip") {
+			mav.addObject("dto", dto);
+			mav.setViewName("Board/detail");		
+		}
 		return mav;
 	}
 	

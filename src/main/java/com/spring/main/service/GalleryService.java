@@ -1,6 +1,7 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,12 @@ public class GalleryService {
 	
 
 	public ModelAndView GalleyList() {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = dao.GalleryList();
-		logger.info("갤러리 리스트 확인 : " + list);
-		return null;
+		mav.addObject("GalleryList",list);
+		mav.setViewName("Board/GalleryList");
+		return mav;
 	}
 
 }
