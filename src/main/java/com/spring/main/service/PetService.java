@@ -56,117 +56,110 @@ public class PetService {
 		return mav;
 	}
 	
-	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+	//반려동물 등록 
+	public ModelAndView write(PetDTO dto, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		//사진 업로드 준비 
+		//경로 설정 
 		File dir = new File(root+"uploadPet/");
 		if(!dir.exists()) {
 			logger.info("폴더 없음, 생성");
 			dir.mkdir();
 		}
-		String orifileName = file.getOriginalFilename();
+		
+		//원본명 -> 새이름 
+		String orifileName = dto.getImage().getOriginalFilename();
 		String newfileName = System.currentTimeMillis()+orifileName.substring(orifileName.lastIndexOf("."));
 		logger.info(orifileName +"=>"+newfileName);
+		HashMap<String, String> photoList = (HashMap<String, String>) session.getAttribute("photoList");
 		
 		try {
-			byte[] bytes = file.getBytes();
+			byte[] bytes = dto.getImage().getBytes();
 			Path filePath = Paths.get(root+"uploadPet/"+newfileName);
 			Files.write(filePath, bytes);
-			HashMap<String, String> photoList = (HashMap<String, String>) session.getAttribute("photoList");
 			logger.info("photoList :"+session.getAttribute("photoList"));
 			photoList.put(newfileName, orifileName);
 			logger.info("현재 저장된 파일 수 :"+photoList.size());
 			session.setAttribute("photoList", photoList);
 			mav.addObject("path","/photoPet/"+newfileName);
+			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		mav.setViewName("Pet/uploadFormPet");
-		return mav;
-	}
-	
-	//반려동물 등록 
-	public ModelAndView write(PetDTO dto, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+		
 		String page="redirect:/newPet";	//실패시 등록페이지 	
 		String loginId = "test123";
 		String dog = "dog";
-		PetDTO pet = new PetDTO();
-		pet.setId(loginId);
-		pet.setDog_cat(dog);
-		pet.setBday(dto.getBday());
-		pet.setImage(dto.getImage());
-		pet.setKg(dto.getKg());
-		pet.setKind(dto.getKind());
-		pet.setPet_name(dto.getPet_name()); 
-		if(dao.write(pet)>0) {
+		
+		//insert해줄 값 
+		dto.setDog_cat(dog);
+		dto.setId(loginId);
+		if(dao.write(dto)>0) {//반려동물 등록이 됐다면 
+			logger.info("기본 정보 입력 완료");
+			//이름,품종,무게 등 저장 완료 -> 사진 저장 
+			for(String key : photoList.keySet()){
+				dao.writeFile(dto.getPet_idx(),key,photoList.get(key));
+			}
+			logger.info("DB 사진 추가 완료");
 			
-			logger.info("등록 완료");
+			//해당 반려동물(pet_idx)에 예방접종 여부, 날짜 저장 
+			//미접종 선택시 데이터 존재 X 
+			//문자열로 보내서 잘라야됨 
+			VaccinDTO vacDTO = new VaccinDTO();
+			logger.info("백신 여부 확인 :"+dto.getVaccListJson());//문자열로 보낸값이라 잘라야됨 
+			logger.info("나는 얼마나 바보같은 짓을 하고있었는가." +dto.getVaccList());
+			
+			if(dao.vacPlus(dto.getVaccList())) {
+				logger.info("접종 여부,접종 날짜 추가 완료");
+			}
+			
+			
+			
+			
+			/*
+			String vacc_date = str.substring(str.lastIndexOf(":")+2,str.length()-3);
+			String vacc_idx = str.substring(str.indexOf(":")+1,str.indexOf(","));
+			String checked = str.substring(str.indexOf("checked")+10,str.indexOf("vacc_date")-3);
+			//String checked = str.substring(str.lastIndexOf(ch))
+			logger.info("vaccList 값 들 :"+vacc_idx+"/"+vacc_date+"/"+checked);
+			vacDTO.setChecked(checked);
+			vacDTO.setVacc_date(vacc_date);
+			vacDTO.setVacc_idx(Integer.parseInt(vacc_idx));
+			vacDTO.setPet_idx(dto.getPet_idx());*/
+			
+//			ArrayList<Object> list = new ArrayList<Object>();
+//			String r = str.substring(str.indexOf("[")+1,str.indexOf("]"));
+//			boolean stop=true;
+//			while(stop) {
+//				String aaa = r.substring(str.indexOf("{")-1,str.indexOf("}"));
+//				System.out.println(aaa);
+//				list.add(aaa);
+//				r = r.substring(aaa.length()+1);
+//				if(aaa == null) {
+//					stop = false;
+//				}
+//			}
+			
+			
+			
+			
+		
+			
+//			int check = dao.vaccCheck(pet.getPet_idx(),dto.getVaccList());
+//			if(check>0) {
+//				logger.info("접종 여부, 접종날짜 저장 완료");
+//			}
 		}
 		
 		
-		session.removeAttribute("fileList");//파일 업로드가 다 끝난다면 session 에서 삭제
+		session.removeAttribute("photoList");//파일 업로드가 다 끝난다면 session 에서 삭제
 		mav.setViewName(page);	
 		return mav;
 	}
 
-//	//반려동물 등록
-//	@Transactional
-//	public ModelAndView write(HashMap<String, String> params, HttpSession session, String id, List<String> array, List<String> dateList) {
-//		ModelAndView mav = new ModelAndView();
-//		String page="redirect:/newPet";	//실패시 등록페이지 	
-//		String bday = params.get("birth1")+"/"+params.get("birth2")+"/"+params.get("birth3");//년/월/일 =bday 
-//		logger.info("bday:"+bday);
-//		PetDTO dto = new PetDTO();//dto 에 추가 (반려동물 정보) 
-//		dto.setId(id);
-//		dto.setKg(params.get("kg"));
-//		dto.setKind(params.get("kind"));
-//		dto.setPet_name(params.get("pet_name"));
-//		dto.setDog_cat(params.get("dog_cat"));
-//		dto.setBday(bday);
-//		logger.info("dto:"+dto.getBday());
-//				
-//		HashMap<String, String> photoList = (HashMap<String, String>) session.getAttribute("photoList");
-//		
-//		if(dao.write(dto)>0) {//등록 성공시 
-//			logger.info("idx : "+dto.getPet_idx());
-//			if(photoList.size()>0) {//PhotoList 데이터 존재 확인 
-//				logger.info("photo_size :"+photoList.size());
-//			}
-//			if(dto!=null) {
-//				logger.info("여기까지 됐나 dto :"+dto.getPet_idx());
-//				//업로드할 파일 존재 -> DB에 추가 
-//				for(String key : photoList.keySet()){
-//					dao.writeFile(dto.getPet_idx(),key,photoList.get(key));
-//				}
-//				logger.info("DB 사진 추가 완료");
-//				
-//				
-//				
-////				//반려동물 예방접종 여부 저장 
-////				Pet_vaccineDTO vaccDTO = new Pet_vaccineDTO();//반려동물 접종 여부 dto 
-////				//SimpleDateFormat sd = new SimpleDateFormat("yy/mm/dd");
-////				vaccDTO.setVacc_date(params.get("vacc_date"));
-////				vaccDTO.setChecked(params.get("checked"));
-////				vaccDTO.setPet_idx(dto.getPet_idx());
-////				//해당 백신의 번호 
-////				int vacc_idx = dao.getIdx(params.get("vacc_name"));
-////				vaccDTO.setVacc_idx(vacc_idx);
-////				logger.info("백신 번호 :"+vaccDTO.getVacc_idx());
-////				for(ArrayList<Pet_vaccineDTO> insert : vaccDTO) {
-////					logger.info("insert:"+insert);
-////				}
-//				
-//			}						
-//			page="Pet/list";//성공시 반려동물 목록으로 이동
-//		}else{//반려동물 등록 실패
-//			
-//		}
-//		session.removeAttribute("fileList");//파일 업로드가 다 끝난다면 session 에서 삭제
-//		mav.setViewName(page);	
-//		
-//		return mav;
-//	}
+
 
 	public String deletePet(int pet_idx) {
 		logger.info(pet_idx+"번 삭제중..");

@@ -67,8 +67,8 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-					<input type="radio" name="dog_cat" value="강아지" id="dog" checked/>강아지
-					<input type="radio" name="dog_cat" value="고양이" id="cat" />고양이
+					<input type="radio" name="dog_cat" value="강아지" id="dog_cat"/>강아지
+					<input type="radio" name="dog_cat" value="고양이" id="dog_cat" />고양이
 					</td>
 				</tr>
 				<tr>
@@ -159,7 +159,7 @@
 			console.log(sel);
 			$this = $(this);
 			
-			
+			//선택값에 따라 리스트 내용 다르게 
 			$.ajax({
 				url : 'petVaccList',
 				type : 'POST',
@@ -179,7 +179,7 @@
 										<option value="Y" >접종 완료</option>
 										<option value="N" selected>미접종</option>
 									</select>
-									<input class="vaccDate"type="text" name="vacc_date"/>
+									<input class="vaccDate"type="date" name="vacc_date"/>
 								</td>
 							</tr>
 						`;
@@ -207,10 +207,6 @@
 		console.log(vaccList);
 		 */
 		
-		//$('#dog').click();
-		/* if($('#dog_cat').val()=='강아지'){
-			checked;
-		}; */
 	});
 	
 	$("#plus").click(function(){
@@ -228,6 +224,7 @@
 		reqData.append("bday",bday);
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
+		reqData.append("dog_cat",$('#dog_cat').val());
 		
 		//접종 여부,날짜 
 		var vaccList = [];
@@ -261,7 +258,6 @@
 		});		
 		
         $("form").submit(); 
-        //location.href='./petPlus?id=${sessionScope.loginId}';
 	});
 	
 	

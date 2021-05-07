@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.main.dto.PetDTO;
@@ -49,35 +50,6 @@ public class PetController {
 		return "Pet/newPet";
 	}
 	
-	
-	//사진 업로드 창 
-	@RequestMapping(value = "/uploadFormPet", method = RequestMethod.GET)
-	public String uploadForm(HttpSession session) {
-		logger.info("사진 올리기 폼 요청");
-		HashMap<String, String> photoList = new HashMap<String,String>();
-		session.setAttribute("photoList", photoList);
-		return "Pet/uploadFormPet";
-	}
-	
-	//사진 업로드 
-	@RequestMapping(value = "/uploadPet", method = RequestMethod.POST)
-	public ModelAndView upload(MultipartFile file, HttpSession session) {		
-		logger.info("업로드 요청");			
-		return service.fileUpload(file,session);
-	}
-	
-//	//반려동물 등록
-//	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
-//	public ModelAndView write(@RequestParam HashMap<String, String> params,HttpSession session,@RequestParam String id,
-//			@RequestParam(value="vacc_name",required = false) ArrayList<VaccinDTO> nameList) {
-//		logger.info("반려동물 등록 신청 ID : "+id);
-//		logger.info("백신 리쓰트 :"+nameList.size());
-//		//logger.info("백신 리쓰트 :"+chkList.size());
-//		//logger.info("백신 리쓰트 :"+dateList.size());
-//		
-//		return service.write(params,session,id);
-//	}
-	
 	//반려동물 백신 리스트 
 	@RequestMapping(value = "/petVaccList", method = RequestMethod.POST)
 	@ResponseBody 
@@ -91,7 +63,15 @@ public class PetController {
 	public ModelAndView write(PetDTO dto, HttpSession session) throws Exception {
  		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
  		logger.info("dto 보자 :"+dto.getPet_name());
- 		
+ 		HashMap<String, String> photoList = new HashMap<String,String>();
+		session.setAttribute("photoList", photoList);
+//		String json = dto.getVaccListJson().toString();
+//		ObjectMapper mapper = new ObjectMapper();
+//		List<VaccinDTO> listVacc = mapper.readValue(json, new TypeReference<ArrayList<VaccinDTO>>() {
+//		});
+		//logger.info("찍히는 값 :"+listVacc.size());
+		logger.info("get 해보자 :"+dto.getVaccList().get(0));
+		
  		return service.write(dto,session);
  	}
 

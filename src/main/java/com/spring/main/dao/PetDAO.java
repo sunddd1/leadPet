@@ -32,4 +32,9 @@ public interface PetDAO {
 
 	List<Map> vaccList(String chk);
 
+	int vaccCheck(int pet_idx, List<VaccinDTO> list);
+
+	boolean vacPlus(List<VaccinDTO> vaccList);
+
+
 }
