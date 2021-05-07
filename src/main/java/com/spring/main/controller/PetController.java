@@ -82,10 +82,7 @@ public class PetController {
 	@RequestMapping(value = "/petVaccList", method = RequestMethod.POST)
 	@ResponseBody 
 	public List<Map> petPlus(String chk) {		
-		logger.info("반려동물 등록 요청");		
-//		List<String> list = valueArr;                                   
-//		logger.info("valueArr :"+valueArr.size());
-	
+		logger.info("반려동물 등록 요청");
 		return service.vaccList(chk);
 	}
 	
@@ -93,8 +90,9 @@ public class PetController {
  	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
 	public ModelAndView write(PetDTO dto, HttpSession session) throws Exception {
  		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
+ 		logger.info("dto 보자 :"+dto.getPet_name());
  		
- 		return null;
+ 		return service.write(dto,session);
  	}
 
 	

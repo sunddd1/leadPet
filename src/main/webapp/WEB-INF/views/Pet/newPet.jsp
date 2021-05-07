@@ -165,7 +165,6 @@
 				type : 'POST',
 				dataType : 'JSON',
 				data : {
-					//valueArr : checkArr,
 					chk : sel
 				},
 				success : function(data) {
@@ -208,14 +207,17 @@
 		console.log(vaccList);
 		 */
 		
-		$('#dog').click();
+		//$('#dog').click();
+		/* if($('#dog_cat').val()=='강아지'){
+			checked;
+		}; */
 	});
 	
 	$("#plus").click(function(){
 		
 		
 		var bday = $('#birth1').val()+"-"+$('#birth2').val()+"-"+$('#birth3').val();
-		
+		//사진,이름,무게,품종 
 		var reqData = new FormData();	
 		
 		if($("#pet_image")[0].files[0]!=null){
@@ -227,7 +229,7 @@
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
 		
-		
+		//접종 여부,날짜 
 		var vaccList = [];
 		$('.vacc__list').each(function(){
 			var checked = $(this).find('.vaccOption').val();
