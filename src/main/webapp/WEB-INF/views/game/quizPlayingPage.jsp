@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>    
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>   
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -13,7 +12,12 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 20%;
+				width: 60%;
+				min-width: 1000px;
+				max-width : 1200px;
+				margin-left: 20%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -23,7 +27,7 @@
 			}
 			#quizTable{
 				border: 3px solid darkgrey;
-				padding: 3%;
+				padding-left : 100px;
 				width: 115%;
 			}
 			#timeWatch{
@@ -50,17 +54,6 @@
 			}
 			#quizTable th{
 				padding-top: 3%;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 		</style>
 	</head>

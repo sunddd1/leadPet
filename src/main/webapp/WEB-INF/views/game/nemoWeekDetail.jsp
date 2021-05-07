@@ -2,30 +2,24 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>        
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>WeeklyNemoDetail</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
-			#conBody{
-				margin: 5% 22%;
-				width: 50%;
-			}
 			#toGameWeek{
-				float: right;
 				padding: 1%;
-			}
-			#nemoDiv{
-				padding-top: 6%;
+				text-align: center;
+				
+				margin-left : 20%;
+				width: 70%;
+				margin-top: 100px;
 			}
 			#nemoTable{
 				border: 5px double grey;
 				border-collapse: collapse;
+				margin-left: 20%;
 			}
 			#nemoTable th, #nemoTable td{
 				border: 1px solid black;
@@ -34,36 +28,29 @@
 				height: 70px;
 				font-size: 12px;
 			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
-			}
 			#subjectSpace{
 				padding-top: 3%;
+			}
+			#nemoTable button{
+				margin-right: 15px;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="conBody">
 			<div id="toGameWeek">
-				<c:if test="${lastNemo == null}">
-					<button onclick="location.href='./gameWeek'">목록으로</button>				
-				</c:if>
-				<c:if test="${lastNemo != null}">
-					<button onclick="location.href='./gameMain'">메인으로</button>				
-				</c:if>
-			</div>
-			<div id="nemoDiv">
 				<table id="nemoTable">
 					<tr>
-						<th colspan="11" id="subjectSpace">
+						<td colspan="11" style="text-align: right; border-top: 5px double white;border-right: 5px double white;border-left: 5px double white;">
+							<c:if test="${lastNemo == null}">
+								<button onclick="location.href='./gameWeek'">목록으로</button>				
+							</c:if>
+							<c:if test="${lastNemo != null}">
+								<button onclick="location.href='./gameMain'">메인으로</button>				
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="11" id="subjectSpace" style="	border-top: 5px double grey; ">
 							<h2>네모 제목 : ${nemoDetail.nemo_subject}</h2>
 						</th>
 					</tr>
@@ -213,8 +200,7 @@
 						<td class="false" id="J"></td>
 					</tr>
 				</table>
-			</div>	
-		</div>	
+			</div>
 	</body>
 	<script>
 		var aArray = [];

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -13,18 +12,12 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin: 5% 20%;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
+				width: 70%;
+				min-width: 1000px;
+				max-width : 1200px;
+				margin-left: 20%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			#game{
 				background-color: white;
@@ -37,20 +30,24 @@
 			   display: inline-flex;
 			   align-items: center;
 			   margin: 1%;
+			   width : 100%;
 			}
 			#quiz{
 				/*border: 3px solid grey;*/
 				margin-right:1%;
 				padding: 1% 5%;
 				font-family: monospace;
-				width: 80%;
+				width: 80%;				
+				text-align: center;
 			}
 			#nemo{
 				/*border: 3px solid grey;*/
 				margin-left: 1%;
-				padding: 1% 5%;
 				font-family: monospace;
 				width: 80%;
+				float: right;
+				margin-right : 50px;
+				text-align: center;
 			}
 			img{
 				width: 300px; 
@@ -75,16 +72,20 @@
 					<div id="quiz">
 						<h3>상식퀴즈</h3>
 						<img src="https://t1.daumcdn.net/cfile/tistory/99D3DB4A5D9A71821C">
-						<button onclick="location.href='./quizPlaying'">게임시작</button>
-						&nbsp;<button onclick="location.href='./quizRanking'">랭킹보기</button>
-						&nbsp;<button onclick="location.href='./lastQuizAnswer'">지난 상식퀴즈 정답</button>
+						<p>
+							<button onclick="location.href='./quizPlaying'">게임시작</button>
+							&nbsp;<button onclick="location.href='./quizRanking'">랭킹보기</button>
+							&nbsp;<button onclick="location.href='./lastQuizAnswer'">지난 상식퀴즈 정답</button>
+						</p>
 					</div>
 					<div id="nemo">
 						<h3>네모로직</h3>
 						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDQom1iYiiJqXX9rTaexFVfG_xV9PkEGpHLyF_sfUAqmqcAln6oQS1m9jEBCP3LZ6vfsA&usqp=CAU">
-						<button onclick="location.href='./nemoPlaying'">게임시작</button>
-						&nbsp;<button onclick="location.href='./nemoRanking'">랭킹보기</button>
-						&nbsp;<button onclick="location.href='./lastNemoAnswer'">지난 네모로직 정답</button>
+						<p>
+							<button onclick="location.href='./nemoPlaying'">게임시작</button>
+							&nbsp;<button onclick="location.href='./nemoRanking'">랭킹보기</button>
+							&nbsp;<button onclick="location.href='./lastNemoAnswer'">지난 네모로직 정답</button>
+						</p>
 					</div>	
 				</div>
 			</div>

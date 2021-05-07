@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8">		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 		#topNavi{
 			list-style-type:none;
