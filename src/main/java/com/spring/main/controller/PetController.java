@@ -61,15 +61,13 @@ public class PetController {
  	//반려동물 등록
  	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
 	public ModelAndView write(PetDTO dto, HttpSession session) throws Exception {
+ 		
+ 		String id = (String) session.getAttribute("loginId");
+ 		dto.setId(id);
  		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
  		logger.info("dto 보자 :"+dto.getPet_name());
  		HashMap<String, String> photoList = new HashMap<String,String>();
 		session.setAttribute("photoList", photoList);
-//		String json = dto.getVaccListJson().toString();
-//		ObjectMapper mapper = new ObjectMapper();
-//		List<VaccinDTO> listVacc = mapper.readValue(json, new TypeReference<ArrayList<VaccinDTO>>() {
-//		});
-		//logger.info("찍히는 값 :"+listVacc.size());
 		logger.info("get 해보자 :"+dto.getVaccList().get(0));
 		
  		return service.write(dto,session);
@@ -78,9 +76,10 @@ public class PetController {
 	
 	//반려동물 삭제 요청 
 	@RequestMapping(value="/deletePet")
-    public String deletePet(@RequestParam int pet_idx,@RequestParam String id){
+    public String deletePet(@RequestParam int pet_idx,HttpSession session){
         logger.info("반려동물 삭제");
-		return service.deletePet(pet_idx);
+ 		String id = (String) session.getAttribute("loginId");
+		return service.deletePet(pet_idx,id);
 	}
 	
 	//대표 반려동물 설정
@@ -90,10 +89,18 @@ public class PetController {
 		return service.star(pet_idx);
 	}
 	
+	//반려동물 수정 페이지 요청  
+	@RequestMapping("/updatePetPage")
+	public String updatePetPage(@RequestParam int pet_idx) {
+		logger.info("반려동물 수정 페이지 요청 ID :"+pet_idx);
+		return "Pet/update";
+	}
+	
 	//반려동물 수정 
 	@RequestMapping(value = "/updatePet")
-	public ModelAndView updatePet(@RequestParam int pet_idx) {
-		return service.updatePet(pet_idx);
+	public ModelAndView updatePet(@RequestParam int pet_idx,HttpSession session) {
+		String id = (String)session.getAttribute("loginId");
+		return service.updatePet(pet_idx,id);
 	}
 	
 }

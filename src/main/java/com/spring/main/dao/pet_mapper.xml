@@ -68,10 +68,12 @@
 	
 	<!-- 등록시 접종 관련 -->
 
-	<insert id="vacPlus" parameterType="java.util.List">
-		<foreach collection="list" item="item" open="(" close=")" separator=",">
-			INSERT INTO pet_vaccin(vac_idx,vacc_date,checked,vacc_idx,pet_idx) 
-				VALUES (vac_idx_seq.NEXTVAL,#{item.vacc_date},#{item.checked},#{item.vacc_idx},(SELECT MAX(pet_idx) FROM pet WHERE id='test123'))
+	<update id="vacPlus" parameterType="java.util.List">
+		INSERT INTO pet_vaccin (vac_idx, vacc_date, checked, vacc_idx, pet_idx)
+		SELECT vac_idx_seq.NEXTVAL, X.* FROM (
+		<foreach collection="vaccList" item="item" separator="UNION ALL">
+			SELECT #{item.vacc_date}, #{item.checked}, #{item.vacc_idx}, #{pet_idx} FROM DUAL
 		</foreach>
-	</insert>
+		) X
+	</update>
 </mapper>

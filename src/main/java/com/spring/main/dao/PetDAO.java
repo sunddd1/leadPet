@@ -34,7 +34,7 @@ public interface PetDAO {
 
 	int vaccCheck(int pet_idx, List<VaccinDTO> list);
 
-	boolean vacPlus(List<VaccinDTO> vaccList);
+	boolean vacPlus(PetDTO dto);
 
 
 }

@@ -68,8 +68,8 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-					<input type="radio" name="dog_cat" value="강아지" id="dog_cat"/>강아지
-					<input type="radio" name="dog_cat" value="고양이" id="dog_cat" />고양이
+					<input type="radio" name="dog_cat" value="강아지" id="dog" checked/>강아지
+					<input type="radio" name="dog_cat" value="고양이" id="cat" />고양이
 					</td>
 				</tr>
 				<tr>
@@ -195,7 +195,7 @@
 				}
 			});
 		}); 
-		
+		$("#dog").click();
 		
 		
 	});
@@ -217,7 +217,6 @@
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
 		reqData.append("dog_cat",$('#dog_cat').val());
-		reqData.append("id",id);
 		
 		//접종 여부,날짜 
 		var vaccList = [];
