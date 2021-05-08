@@ -83,13 +83,41 @@
 		a:hover {		
 			color: gray;
 		}
+		#mainIMg{
+			float :right;
+			width : 140px;
+			height : 85px;
+			background: url("./resources/mainImg.jpg")  -8px  -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#mainIMg:hover {		
+			background: url("./resources/mainImg.jpg") -296px -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#topNavi li:hover {
+			cursor: pointer;
+			background:  url("./resources/topNavi.jpg") 0px -25px ;
+			background-size: 300px 100px;
+			color :rgba(0, 0, 0, 0);
+		}
+		#topSearchBtn:hover{
+			cursor: pointer;
+		}
+		.loginbox:hover{
+			cursor: pointer;
+			color: red;
+		}
 		</style>
 	</head>
 	<body>		
 		<table style="margin-top: 10px;">
 			<tr>
 				<td style="width:30%;">
-					<a href="./"><img src="https://i.postimg.cc/kM0WzZwg/image.png" id="mainImg" alt="메인페이지"/></a>
+					<a href="./">
+						<span id="mainIMg"></span>
+					</a>
 				</td>
 				<td>
 		<div id="topBox">
