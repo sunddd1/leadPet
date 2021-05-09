@@ -2,6 +2,8 @@ package com.spring.main.dto;
 
 import java.util.List;
 
+import org.apache.ibatis.type.Alias;
+@Alias("noti")
 public class MyNotiDTO {
 	private List<NoteDTO> notiList;
 	

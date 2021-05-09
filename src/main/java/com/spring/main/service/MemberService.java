@@ -91,7 +91,9 @@ public class MemberService {
 		logger.info(bbs_idx+"번 상세보기");
 		BoardDTO dto = dao.detail(bbs_idx);//글 상세보기 
 		ArrayList<BoardDTO> fileList = dao.fileList(bbs_idx);//해당 글 파일 목록 
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("Member/writeDetail");
+		return mav;
 	}
 
 	public boolean updateChangeDate(String id) {

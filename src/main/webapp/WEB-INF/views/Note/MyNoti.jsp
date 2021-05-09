@@ -5,35 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- 알람종 -->
 </head>
 <style>
-div .paginator {
-	text-align: center; 
-}
-.table > tbody > tr > td > p {
-	padding-top: 10px;
-}
-.btn {
-	float: right;
-	margin-bottom: 20px;
-}
+	#del{
+	color : #337AB7;
+	}
+	table{
+		width : 90%;
+	}
 </style>
 <body>
 		<jsp:include page="../main/top_Navi.jsp"/>
 	<table>
 		<tr>
 			<td><jsp:include page="../main/side_myNavi.jsp"/></td>
-			<td width="70%"><!-- header -->
-		
-		<%@ include file="/WEB-INF/views/Member/header.jsp" %>
+			<td width="70%">
 		
 		<section>
-		<h3>쪽지함</h3>
+		<h3>받은 쪽지함</h3>
 		<!-- board list -->
 		<div class="notilist"></div>
 		<table class="table">
@@ -66,12 +57,13 @@ div .paginator {
 						<td width="8%" nowrap><p>${note.note_idx}</p></td>
 						<td width="10%">${note.id} </td> 
 						<td>
-									<a id="detail" href="./detailNoteList?note_idx=${note.note_idx}">${note.content}</a>
+									<a id="detail" onclick="popup()">${note.content}</a>
 									<small><i>${noti.reg_date}</i></small>
 									<small style="float: right; margin-left: 10px">
 									<a id="del" href="./delMessageList?note_idx=${note.note_idx}">삭제</a></small>
 									<small style="float: right;">읽음</small>
-									</td>
+									<input type="hidden" id="note_idx" value="${note.note_idx}"/>
+						</td>
 						
 					</tr>
 					</c:if>
@@ -86,6 +78,11 @@ div .paginator {
 	</table>
 		
 	
-	
 </body>
+<script>
+	var note_idx = $('#note_idx').val();
+	function popup(){
+		window.open('detailNoteList?note_idx=note_idx','','width=400, height=100');
+	}
+</script>
 </html>

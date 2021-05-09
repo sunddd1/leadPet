@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">		
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style>
 		#topNavi{
 			list-style-type:none;
@@ -216,7 +217,7 @@
 				if(data.success>0){
 					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지</a>');	
 				}else{
-					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px">쪽지</i></a>');
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px"></i>쪽지</a>');
 				}
 			}
 			,error:function(e){

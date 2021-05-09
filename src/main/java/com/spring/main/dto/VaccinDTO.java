@@ -19,7 +19,6 @@ public class VaccinDTO {
 	private int cycle;
 	private int vacc_cnt;
 	private String dog_cat;
-	
 	private String type;
 	
 	///checked

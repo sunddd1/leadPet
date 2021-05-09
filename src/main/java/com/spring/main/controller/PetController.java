@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,24 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.main.dto.PetDTO;
-import com.spring.main.dto.VaccinDTO;
 import com.spring.main.service.PetService;
 
 @Controller
@@ -37,15 +27,16 @@ public class PetController {
 	
 	//반려동물 목록
 	@RequestMapping(value = "/listPet", method = RequestMethod.GET)
-	public String home(Model model,@RequestParam String id) {
+	public ModelAndView home(HttpSession session) {
 		logger.info("반려동물 목록");
-		service.list(model,id);
-		return "Pet/list";
+		String id = (String)session.getAttribute("loginId");
+		return service.list(id);
 	}
 	
 	//반려동물 등록 페이지 요청  
 	@RequestMapping("/newPet")
-	public String newPet(@RequestParam String id) {
+	public String newPet(HttpSession session) {
+		String id = (String)session.getAttribute("loginId");
 		logger.info("반려동물 등록 페이지 요청 ID :"+id);
 		return "Pet/newPet";
 	}
@@ -59,18 +50,17 @@ public class PetController {
 	}
 	
  	//반려동물 등록
+	@ResponseBody
  	@RequestMapping(value = "/petPlus", method = RequestMethod.POST)
-	public ModelAndView write(PetDTO dto, HttpSession session) throws Exception {
- 		
- 		String id = (String) session.getAttribute("loginId");
- 		dto.setId(id);
+	public Map<String, Object> write(PetDTO dto, HttpSession session) throws Exception {
  		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
- 		logger.info("dto 보자 :"+dto.getPet_name());
  		HashMap<String, String> photoList = new HashMap<String,String>();
 		session.setAttribute("photoList", photoList);
-		logger.info("get 해보자 :"+dto.getVaccList().get(0));
-		
- 		return service.write(dto,session);
+ 		service.write(dto,session);
+ 		
+ 		Map<String, Object> respData = new HashMap<>();
+ 		respData.put("ok", true);
+ 		return respData;
  	}
 
 	
@@ -89,18 +79,25 @@ public class PetController {
 		return service.star(pet_idx);
 	}
 	
-	//반려동물 수정 페이지 요청  
-	@RequestMapping("/updatePetPage")
-	public String updatePetPage(@RequestParam int pet_idx) {
-		logger.info("반려동물 수정 페이지 요청 ID :"+pet_idx);
-		return "Pet/update";
+	//반려동물 수정 페이지  
+	@RequestMapping(value="/updatePetPage")
+	public ModelAndView updatePetPage(@RequestParam int pet_idx,HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
+		logger.info("반려동물 수정 페이지 요청 ID :"+id);
+		return service.petInfo(pet_idx,id);
 	}
 	
 	//반려동물 수정 
-	@RequestMapping(value = "/updatePet")
-	public ModelAndView updatePet(@RequestParam int pet_idx,HttpSession session) {
-		String id = (String)session.getAttribute("loginId");
-		return service.updatePet(pet_idx,id);
+	@ResponseBody
+	@RequestMapping(value = "/updatePet", method = RequestMethod.POST)
+	public Map<String, Object> updatePet(PetDTO dto,HttpSession session) throws Exception {
+		dto.setVaccList(new ObjectMapper().readValue(dto.getVaccListJson(), List.class));
+		HashMap<String, String> photoList = new HashMap<String,String>();
+		session.setAttribute("photoList", photoList);
+		service.updatePet(dto,session);
+		Map<String, Object> respData = new HashMap<>();
+ 		respData.put("ok", true);
+ 		return respData;
 	}
 	
 }

@@ -9,20 +9,21 @@ import oracle.jdbc.driver.Message;
 
 public interface MyNotiDAO {
 	
-	ArrayList<Message> MessageList(String loginId);
+	ArrayList<NoteDTO> MessageList(String id);
 
-	void delMessage(int note_idx);
+	void delMessage(int note_idx, String id);
 
-	void noteSend(String content, String loginId);
 	
 	void checked(int note_idx);
 	
 	ArrayList<Message> detailList(String loginId, int note_idx);
 
 	ArrayList<Message> sendList(String loginId);
-	
-	String selectFalseCount(String loginId);
+//	
+//	String selectFalseCount(String loginId);
 
 	int notiCheck(String loginId);
+
+	void noteSend(String id, String content, String receiving_id);
 
 }

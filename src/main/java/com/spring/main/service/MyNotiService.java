@@ -3,14 +3,18 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MyNotiDAO;
+import com.spring.main.dto.NoteDTO;
 
 import oracle.jdbc.driver.Message;
 @Service
@@ -20,24 +24,24 @@ public class MyNotiService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	
-	public String noteList(ArrayList<Message> message,Model model, String id) {
+	public String noteList(ArrayList<NoteDTO> message, String id,Model model) {
+		String page = "redirect:/noteList";
 		logger.info("받은 쪽지 읽기 시작");
         message = dao.MessageList(id);
+        logger.info("받은 쪽지 :"+message.size()+"개");
         model.addAttribute("messageList", message);
-        logger.info("받은 쪽지 읽기 종료");
-        return "Note/MyNoti";
+		return "Note/MyNoti";
 	}
 
-	public String delMessage(int note_idx, boolean notiCheck,String id) {
+	public String delMessage(int note_idx,String id) {
 		logger.info(note_idx+"번 삭제("+id+")");
-		dao.delMessage(note_idx);
+		dao.delMessage(note_idx,id);
 		return "redirect:/noteList";
 	}
 
-	public String noteSend(String content) {
+	public String noteSend(String content, String id, String receiving_id) {
 		logger.info("쪽지 전송중..");
-		String loginId="wwww";
-		dao.noteSend(loginId,content);
+		dao.noteSend(id,content,receiving_id);//리시빙 아이디파람 어디서받지 
 		logger.info("쪽지 전송 완료");
 		return "redirect:/sendList";
 	}
@@ -60,17 +64,7 @@ public class MyNotiService {
 		mav.setViewName("Note/Message");
 		return mav;
 	}
-	
-	//새로운 쪽지 목록 
-	public boolean isNotiCheck(int note_idx) {
-			String loginId = "wwww";
-			String falseCnt = dao.selectFalseCount(loginId);
-			if (falseCnt == null) {
-				return true;
-			}
-			return false;
-		
-	}
+
 
 	public HashMap<String, Object> notiCheck(String id) {
 		int success = 0;
