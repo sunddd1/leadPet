@@ -99,50 +99,6 @@
 					</tr> -->
 				</tbody>
 				
-				<%-- 
-				<tbody>
-				<c:forEach var="vac" items="${vac}">
-				
-				<c:if test="${vac.dog_cat=='dog'}"> 
-					<tr>
-						<td width="8%" nowrap><p>${vac.vacc_name}</p></td>
-						<td width="10%">${vac.vacc_idx} </td>
-					</tr>
-					</c:if>
-				</c:forEach>
-				</tbody>
-				 --%>
-				<%-- <!-- 강아지 선택 -->
-				<tbody id="vac_dog">
-					<c:forEach var = "dog" items="${dog}">
-					<tr>
-						<td><input type="text" name="vacc_name" value="${dog.vacc_name}" readOnly/></td>
-						<td>
-							<select id="option" name="checked" onchange="select()">
-								<option value="Y" selected>접종 완료</option>
-								<option value="N">미접종</option>
-							</select>
-							<input type="text" name="vacc_date" value=""/>
-						</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-				<!-- 고양이 선택 -->
-				<tbody id="vac_cat">
-					<c:forEach var = "cat" items="${cat}">
-					    <tr>
-						<td><input type="text" name="vacc_name" value="${cat.vacc_name}" readOnly/>
-						</td>
-						<td>
-							<select id="option" name="checked" onchange="select()">
-								<option value="Y" selected>접종 완료</option>
-								<option value="N">미접종</option>
-							</select>
-							<input type="text" name="vacc_date" value=""/>
-						</td>
-					</tr>
-					</c:forEach>
-				</tbody> --%>
 				<tr>
 					<td colspan="2"><input id="plus" type="button" value="추가"/></td>
 				</tr>
@@ -205,7 +161,7 @@
 		var id = '${sessionScope.loginId}';
 		console.log(id);
 		var bday = $('#birth1').val()+"-"+$('#birth2').val()+"-"+$('#birth3').val();
-		//사진,이름,무게,품종 
+		//사진,이름,무게,품종,사진,dog_cat  
 		var reqData = new FormData();	
 		
 		if($("#pet_image")[0].files[0]!=null){
@@ -216,7 +172,7 @@
 		reqData.append("bday",bday);
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
-		reqData.append("dog_cat",$('#dog_cat').val());
+		reqData.append("dog_cat",$('input:radio[name=dog_cat]:checked').val());
 		
 		//접종 여부,날짜 
 		var vaccList = [];
@@ -243,6 +199,9 @@
 		    mimeType: "multipart/form-data",
 		    data: reqData,
 		    success: function (data) {
+		    	if(data.ok){
+		    		location.href='./listPet';
+		    	}
 		    },
 		    error: function (err) {
 		        

@@ -46,24 +46,44 @@ public class ScheduleService {
 		//지난 주차의 랭킹에 따라 각 멤버들의 포인트를 올려준다
 		
 		//상식퀴즈 입력
-		 ArrayList<GameDTO> queList = gameDao.quizList(); HashMap<Object, Object>
-		 numMap = new HashMap<Object, Object>();
+		 ArrayList<GameDTO> queList = gameDao.quizList(); 
+		 HashMap<Object, Object> numMap = new HashMap<Object, Object>();
 		  
-		 int asc = 1; boolean stop = true; while(stop) { int idxNum = (int)
-		 Math.round(Math.random()*(queList.size()-1)+1);
-		 if(!numMap.containsValue(idxNum)) { logger.info("숫자 : {}", idxNum);
-		 numMap.put("param"+(asc++), idxNum); } if(numMap.size() == 10) { stop =
-		 false; } } int success = gameDao.makeWeekQuiz(numMap); if(success>0) {
-		 logger.info("성공?"); }
+		 int asc = 1; 
+		 boolean stop = true; 
+		 while(stop) { 
+			 int idxNum = (int)Math.round(Math.random()*(queList.size()-1)+1);
+			 if(!numMap.containsValue(idxNum)) {
+				 logger.info("숫자 : {}", idxNum);
+				 numMap.put("param"+(asc++), idxNum); 
+			} 
+			 if(numMap.size() == 10) {
+				 stop = false; 
+			} 
+		} 
+		 int success = gameDao.makeWeekQuiz(numMap); 
+		 if(success>0) {
+			 logger.info("주간 퀴즈 입력 성공"); 
+		 }
 		 
-		 //네모로직 입력 queList = gameDao.nemoList(); success = 0; stop = true; while(stop)
-		 { int idxNum = (int) Math.round(Math.random()*(queList.size()-1)+1);
-		 logger.info("숫자 : {}", idxNum); GameDTO dto = gameDao.searchExist(idxNum);
-		 if(dto == null) { success = gameDao.makeWeekNemo(idxNum); } if(success>0) {
-		 logger.info("성공?"); stop = false; } }
+		 //네모로직 입력 
+		 queList = gameDao.nemoList(); 
+		 success = 0; 
+		 stop = true; 
+		 while(stop){
+			 int idxNum = (int) Math.round(Math.random()*(queList.size()-1)+1);
+			 logger.info("숫자 : {}", idxNum); GameDTO dto = gameDao.searchExist(idxNum);
+			 if(dto == null) { 
+				 success = gameDao.makeWeekNemo(idxNum); 
+			} 
+			 if(success>0) {
+				 logger.info("주간 네모 입력 성공"); 
+				 stop = false; 
+				 } 
+			 }
 		
 		//상식퀴즈 랭킹에 따른 포인트 부여
-		ArrayList<GameDTO> idList = gameDao.getQuizRanking();
+		ArrayList<GameDTO> idList = gameDao.getQRankiForPoint();
 		for(int i=0; i<10; i++) {
 			int ifUp = gameDao.upPointTen(idList.get(i).getId());
 			logger.info("10위까지 포인트 올리기 : {}",idList.get(i).getId());
@@ -75,10 +95,11 @@ public class ScheduleService {
 					logger.info("1위 포인트 올리기 : {}",idList.get(i).getId());
 				}
 			}
+			logger.info(idList.get(i).getId());
 		}
 		
 		//네모로직 랭킹에 따른 포인트 부여
-		idList = gameDao.getNemoRanking();
+		idList = gameDao.getNRankForPoint();
 		for(int i=0; i<10; i++) {
 			int ifUp = gameDao.upPointTen(idList.get(i).getId());
 			logger.info("10위까지 포인트 올리기 : {}",idList.get(i).getId());

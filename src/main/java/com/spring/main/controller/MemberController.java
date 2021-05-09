@@ -98,8 +98,9 @@ public class MemberController {
 
 		//내가 쓴 글 목록 
 		@RequestMapping(value="/writeList")
-	    public ModelAndView writeList(@RequestParam String id){
+	    public ModelAndView writeList(HttpSession session){
 	        logger.info("내가 쓴 글 목록 요청");
+	        String id = (String)session.getAttribute("loginId");
 			return memberService.writeList(id);
 		}
 		

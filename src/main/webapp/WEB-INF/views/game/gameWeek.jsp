@@ -197,7 +197,7 @@
 					
 					$('#quizId').attr({'checked':true});
 					$('#nemoId').attr({'checked':false});
-					listCall(showPage);
+					listCall(1);
 				} else if($(this).val() == "네모로직"){
 					$('#quiz').css({"display":"none"});
 					$('#quizTitle').css({"display":"none"});
@@ -206,7 +206,7 @@
 					
 					$('#quizId').attr({'checked':false});
 					$('#nemoId').attr({'checked':true});
-					listCall(showPage);
+					listCall(1);
 				}
 			});
 	</script>

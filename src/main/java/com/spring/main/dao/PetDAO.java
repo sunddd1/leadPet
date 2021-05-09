@@ -37,4 +37,15 @@ public interface PetDAO {
 	boolean vacPlus(PetDTO dto);
 
 
+	List<VaccinDTO> vaccInfo(int pet_idx);
+
+	PetDTO petInfo(String id, int pet_idx);
+
+	int updatePet(PetDTO dto);
+
+	int updateFile(int pet_idx, String key, String string);
+
+	List<VaccinDTO> petVaccList(int pet_idx);
+
+
 }

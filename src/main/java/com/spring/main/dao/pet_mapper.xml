@@ -8,7 +8,9 @@
 <mapper namespace="com.spring.main.dao.PetDAO">
 	<!-- 반려동물 목록 -->
 	<select id="list"  resultType="com.spring.main.dto.PetDTO">
-		SELECT kind,bday,pet_name,kg,pet_idx,delegate FROM pet WHERE id=#{param1} ORDER BY pet_idx DESC
+		SELECT p.kind,TO_CHAR(p.bday, 'YYYY-MM-DD') AS bday, p.pet_name, p.kg, p.pet_idx, p.delegate, newfilename
+		FROM pet p JOIN pet_img pi ON p.pet_idx = pi.pet_idx
+		WHERE p.id=#{id} ORDER BY p.delegate DESC ,p.pet_idx DESC
 	</select>
 	
 	<!-- 반려동물 등록 -->
@@ -24,7 +26,7 @@
 	<!-- 사진 저장 -->
 	<insert id="writeFile">
 		INSERT INTO pet_img(photo_idx,newFileName,oriFileName,reg_date,pet_idx)
-			VALUES(pet_img_seq.NEXTVAL,#{param3},#{param2},SYSDATE,#{param1})
+			VALUES(pet_img_seq.NEXTVAL,#{param2},#{param3},SYSDATE,#{param1})
 	</insert>
 	
 	<!-- 파일 리스트 -->
@@ -37,37 +39,17 @@
 		DELETE FROM pet WHERE pet_idx=#{param1} 
 	</delete>
 
-	<!-- 고양이 접종 목록 -->
-	<!-- <select id="vac_cat" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = '고양이'
-	</select>
-	
-	강아지 접종 목록
-	<select id="vac_dog" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = '강아지'
-	</select>
-	
-	<select id="vac" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = '강아지' OR dog_cat='고양이'
-	</select>
-	 -->
-	<!-- 백신 idx -->
-	<!-- <select id="getIdx" resultType="int">
-		SELECT vacc_idx FROM vaccin WHERE vacc_name=#{param1}
-	</select>
-	 -->
 	<!-- 대표 반려동물 설정 -->
 	<update id="star">
-		UPDATE pet SET delegate = 'Y' WHERE pet_idx=#{param1}
+		UPDATE pet SET delegate = 'Y' WHERE pet_idx=#{param1} 
 	</update>
 	
 	<!-- 백신 목록 -->
 	<select id="vaccList" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = #{param1}
+		SELECT*FROM vaccin WHERE dog_cat = #{param1} ORDER BY vacc_idx
 	</select>
 	
 	<!-- 등록시 접종 관련 -->
-
 	<update id="vacPlus" parameterType="java.util.List">
 		INSERT INTO pet_vaccin (vac_idx, vacc_date, checked, vacc_idx, pet_idx)
 		SELECT vac_idx_seq.NEXTVAL, X.* FROM (
@@ -76,4 +58,46 @@
 		</foreach>
 		) X
 	</update>
+	
+	<!-- 등록된 동물 정보(무게,이름 등) -->
+	<select id="petInfo" resultType="pet">
+		SELECT*FROM pet WHERE id=#{param1} AND pet_idx = #{param2}
+	</select>
+	
+	
+	
+	
+	<!-- 등록된 동물의 정보 수정-->
+	<update id="updatePet">
+		UPDATE pet SET kg = #{kg}, kind = #{kind} WHERE pet_idx=#{pet_idx} AND id=#{id}
+	</update>
+	
+	<!-- 등록된 동물 접종 정보 -->
+	<select id="vaccInfo" resultType="vaccin">
+		SELECT pv.vac_idx, v.vacc_name, NVL(pv.checked,'N') AS checked, TO_CHAR(pv.vacc_date, 'YYYY-MM-DD') AS vacc_date, v.vacc_idx
+		FROM vaccin v LEFT JOIN pet_vaccin pv
+		ON v.vacc_idx = pv.vacc_idx
+		AND pv.pet_idx = #{pet_idx} 
+		WHERE v.dog_cat = (SELECT dog_cat FROM pet WHERE pet_idx= #{pet_idx} )
+		ORDER BY vacc_idx
+	</select>
+	<!-- 
+	 photo_idx 가져올때 
+	 pet_idx로 가져와 
+	 근데 아이디도 써야해 
+	 -->
+	<!-- 사진 수정 -->
+	<update id="updateFile">
+		UPDATE pet_img SET newFileName = #{param2},oriFileName = #{param3} WHERE photo_idx = (SELECT photo_idx FROM pet_img WHERE pet_idx = #{param1})
+	</update>
+	
+	<!-- 반려 예방 접종한 것 목록 -->
+	<select id="petVaccList" resultType="vaccin">
+		SELECT v.vacc_name ,TO_CHAR(pv.vacc_date, 'YYYY-MM-DD') AS vacc_date  FROM vaccin v 
+		JOIN pet_vaccin pv ON v.vacc_idx = pv.vacc_idx
+		WHERE pv.pet_idx =  #{pet_idx} AND pv.checked = 'Y'
+
+		
+	</select>
+	
 </mapper>

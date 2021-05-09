@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">		
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style>
 		#topNavi{
 			list-style-type:none;
@@ -150,7 +151,9 @@
 	                <th class="loginbox" onclick="location.href='./registForm'">회원가입</th>
                 </c:if>
                 <c:if test="${sessionScope.loginId ne null}">
-	                <th class="loginbox" onclick="location.href='./noteList'">쪽지함</th>
+	                <th id="message">
+				
+					</th>
                 </c:if>
 			</tr>
 		</table>
@@ -199,5 +202,30 @@
 			}); */
 			
 		});
+		
+		$(document).ready(function(){
+			//안읽은 쪽지 표시
+			$.ajax({
+				type:'get'
+				,url:'notiCheck'
+				,data:{
+					
+				}
+				,dataType:'JSON'
+			,success:function(data){
+				console.log(data.success);
+				if(data.success>0){
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지</a>');	
+				}else{
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px"></i>쪽지</a>');
+				}
+			}
+			,error:function(e){
+				console.log(e);
+			}
+		});	
+			
+		});
+		
 	</script>
 </html>

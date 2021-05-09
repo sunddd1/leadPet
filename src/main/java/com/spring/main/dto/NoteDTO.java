@@ -2,6 +2,8 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+@Alias("note")
 public class NoteDTO {
 //	NOTE_IDX	NUMBER(5,0)
 //	CONTENT	NVARCHAR2(500 CHAR)

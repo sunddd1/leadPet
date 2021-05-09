@@ -48,22 +48,25 @@
 				text-align:right;
 				padding-right: 25%;
 			}
-			#list{
-				width: 60%;
-				margin-top:1%;
-				margin-left: 20%;
-				border: 3px solid blue;
-			}
-			#list td, #list th{
-			}
-			#list table{			
-				border: 3px solid red;
-				width: 100%;
-			}
 			#exBBS{
 				background-color: lightcoral;
 				color: white;
 				font-weight: bold;
+			}
+			#rsTable  {
+				width: 60%;
+				min-width : 1200px;
+				margin-top: 50px;
+				margin-left: 20%;
+			}
+			#rsTable td{
+				padding: 5px 10px;
+			}
+			#rsTable td{
+				max-width:400px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		</style>
 	</head>
@@ -78,7 +81,9 @@
 		<div id = "writebutton_div">
 			<button onclick="location.href='writeForm?id=${sessionScope.loginId}' ">글쓰기</button>
 		</div>
-		<table id="list">
+		<table id="rsTable">
+			<tbody id="list">
+			</tbody>
 		</table>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -147,72 +152,40 @@
 
 	  	var BoardDetail="BoardDetail"
 		
-		function listPrint(list){
-			var content ="";
-			console.log(list);
-			content +="<tr>"			
-			for(var i=0; i<4; i++){
-				content +="<td>"
-				content +="<table>"
-				content +="<tr>"
-				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
-				content +="<tr><td>"+list[i].category_name+"</td>"
-				content +="<td>"+list[i].views+"</td>"
-				content +="<td>"+list[i].reco_count+"</td></tr>"
-				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
-				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
-				//java에서 가끔 날짜가 mileseconds로 나올경우...
-				var date = new Date(list[i].reg_date);
-				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
-				content +="</tr>"
-				content +="</table>"
-				content +="</td>"
-			}
-			content +="</tr>"		
-			content +="<tr>"			
-			for(var i=4; i<8; i++){
-				content +="<td>"
-				content +="<table>"
-				content +="<tr>"
-				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
-				content +="<tr><td>"+list[i].category_name+"</td>"
-				content +="<td>"+list[i].views+"</td>"
-				content +="<td>"+list[i].reco_count+"</td></tr>"
-				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
-				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
-				//java에서 가끔 날짜가 mileseconds로 나올경우...
-				var date = new Date(list[i].reg_date);
-				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
-				content +="</tr>"
-				content +="</table>"
-				content +="</td>"
-			}
-			content +="</tr>"
-			content +="<tr>"			
-			for(var i=8; i<12; i++){
-				content +="<td>"
-				content +="<table>"
-				content +="<tr>"
-				content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
-				content +="<tr><td>"+list[i].category_name+"</td>"
-				content +="<td>"+list[i].views+"</td>"
-				content +="<td>"+list[i].reco_count+"</td></tr>"
-				content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
-				content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
-				//java에서 가끔 날짜가 mileseconds로 나올경우...
-				var date = new Date(list[i].reg_date);
-				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-				/* content +="<td><a href='#' onclick='BoardDel(this)' '>x</a></td>" */
-				content +="</tr>"
-				content +="</table>"
-				content +="</td>"				
-			}
-			content +="</tr>"
-			$("#list").empty();
-			$("#list").append(content);
-		}
 
+		   function listPrint(list){
+		      var content="";
+
+		        content += "<tr>"; 
+		      for(var i=0;i<list.length;i++){
+			        if(i%4==0){
+						content += "<tr>";
+			        }
+				content += "<td>";
+				content += "<table>";
+				content += "<tr>";
+				content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' alt='"+list[i].oriFileName+" ' width='300px' 'height='398px'/></a></td>" 
+				content += "<tr>";
+				content += "<td>"+list[i].category_name+ " &nbsp; &nbsp; &nbsp; &nbsp; 조회수 "+list[i].views+"</td>";
+				content += "<tr>";
+				content += "<td>추천 "+list[i].reco_count+"</td>";	
+				content += "</tr>";
+				content += "</tr>";
+				content +="<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td>"
+				content += "<tr>";		
+				content += "<td><a style='color: blue;' href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>";
+				content += "</tr>";
+		        content += "</tr>";
+				content += "</table>";
+				content += "</td>";
+		        if(i==3){
+					content += "</tr>";
+		        }
+		      }
+
+				content += "</tr>";
+		      $("#list").empty();
+		      $("#list").append(content);
+		   }
 	</script>
 </html>
