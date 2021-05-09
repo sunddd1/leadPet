@@ -38,26 +38,42 @@
 	</delete>
 
 	<!-- 고양이 접종 목록 -->
-	<select id="vac_cat" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = 'cat'
+	<!-- <select id="vac_cat" resultType="vaccin">
+		SELECT*FROM vaccin WHERE dog_cat = '고양이'
 	</select>
 	
-	<!-- 강아지 접종 목록 -->
+	강아지 접종 목록
 	<select id="vac_dog" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = 'dog'
+		SELECT*FROM vaccin WHERE dog_cat = '강아지'
 	</select>
 	
 	<select id="vac" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = 'dog' OR dog_cat='cat'
+		SELECT*FROM vaccin WHERE dog_cat = '강아지' OR dog_cat='고양이'
 	</select>
-	
+	 -->
 	<!-- 백신 idx -->
-	<select id="getIdx" resultType="int">
+	<!-- <select id="getIdx" resultType="int">
 		SELECT vacc_idx FROM vaccin WHERE vacc_name=#{param1}
 	</select>
-	
+	 -->
 	<!-- 대표 반려동물 설정 -->
 	<update id="star">
 		UPDATE pet SET delegate = 'Y' WHERE pet_idx=#{param1}
+	</update>
+	
+	<!-- 백신 목록 -->
+	<select id="vaccList" resultType="vaccin">
+		SELECT*FROM vaccin WHERE dog_cat = #{param1}
+	</select>
+	
+	<!-- 등록시 접종 관련 -->
+
+	<update id="vacPlus" parameterType="java.util.List">
+		INSERT INTO pet_vaccin (vac_idx, vacc_date, checked, vacc_idx, pet_idx)
+		SELECT vac_idx_seq.NEXTVAL, X.* FROM (
+		<foreach collection="vaccList" item="item" separator="UNION ALL">
+			SELECT #{item.vacc_date}, #{item.checked}, #{item.vacc_idx}, #{pet_idx} FROM DUAL
+		</foreach>
+		) X
 	</update>
 </mapper>

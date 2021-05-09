@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8">		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 		#topNavi{
 			list-style-type:none;
@@ -13,7 +14,7 @@
 		}
 		#topNavi li{
 			display: inline;
-			border: 3px solid black;
+			border: 2px solid black;
 			padding: 10px;
 			border-radius: 20px;
 			font-size: 13pt;
@@ -33,10 +34,12 @@
 			border-radius: 10px;
 		}
 		
-		#side_Navi,#side_Navi th{
+		#side_Navi li{
 			border: 1px solid;
       	 	padding: 10px 20px;
-       	 	border-collapse: collapse;
+      	 	border-radius: 20px;
+      	 	list-style-type:none;
+      	 	text-align: center;
 		}
 		
 		#side_Navi{
@@ -73,13 +76,48 @@
 			min-width: 300px;
 			max-width: 300px;
 		}	
+		a{
+			text-decoration: none;			
+			color : black;
+		}
+		a:hover {		
+			color: gray;
+		}
+		#mainIMg{
+			float :right;
+			width : 140px;
+			height : 85px;
+			background: url("./resources/mainImg.jpg")  -8px  -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#mainIMg:hover {		
+			background: url("./resources/mainImg.jpg") -296px -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#topNavi li:hover {
+			cursor: pointer;
+			background:  url("./resources/topNavi.jpg") 0px -25px ;
+			background-size: 300px 100px;
+			color :rgba(0, 0, 0, 0);
+		}
+		#topSearchBtn:hover{
+			cursor: pointer;
+		}
+		.loginbox:hover{
+			cursor: pointer;
+			color: red;
+		}
 		</style>
 	</head>
 	<body>		
 		<table style="margin-top: 10px;">
 			<tr>
 				<td style="width:30%;">
-					<a href="./"><img src="https://i.postimg.cc/kM0WzZwg/image.png" id="mainImg" alt="메인페이지"/></a>
+					<a href="./">
+						<span id="mainIMg"></span>
+					</a>
 				</td>
 				<td>
 		<div id="topBox">
@@ -117,7 +155,7 @@
 			</tr>
 		</table>
 		<ul id="topNavi">
-				<li onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
+				<li id="exBBS" onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
 				<li onclick="location.href='./admin'">갤러리</li>
 				<li onclick="location.href='./admin'">사료,간식,영양제 추천</li>
 				<li onclick="location.href='./admin'">동반입장 식당 소개</li>

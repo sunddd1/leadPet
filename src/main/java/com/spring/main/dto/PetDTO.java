@@ -1,8 +1,9 @@
 package com.spring.main.dto;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("pet")
 public class PetDTO {
@@ -16,7 +17,31 @@ public class PetDTO {
 	private String delegate;
 	private String pet_name;
 	private String nickname;
+	private MultipartFile image;
+	private List<VaccinDTO> vaccList;
+	private String vaccListJson;
 	
+	
+										
+	
+	public String getVaccListJson() {
+		return vaccListJson;
+	}
+	public void setVaccListJson(String vaccListJson) {
+		this.vaccListJson = vaccListJson;
+	}
+	public MultipartFile getImage() {
+		return image;
+	}
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+	public List<VaccinDTO> getVaccList() {
+		return vaccList;
+	}
+	public void setVaccList(List<VaccinDTO> vaccList) {
+		this.vaccList = vaccList;
+	}
 	//pet_img
 	private String newFileName;
 	

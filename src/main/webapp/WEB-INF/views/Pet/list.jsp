@@ -45,11 +45,11 @@
 						<button>대표인애</button>
 					</c:if>
 					<c:if test="${dto.delegate == 'N'}">
-						<button onclick="location.href='./star?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}'">대표로 설정</button>
+						<button onclick="location.href='./star?pet_idx=${dto.pet_idx}'">대표로 설정</button>
 					</c:if>
 				</td>
-				<td><a href="./updatePet?pet_idx=${dto.pet_idx}">수정</a></td>
-				<td><a href="./deletePet?pet_idx=${dto.pet_idx}&id=${sessionScope.loginId}">삭제</a></td>
+				<td><a href="./updatePetPage?pet_idx=${dto.pet_idx}">수정</a></td>
+				<td><a href="./deletePet?pet_idx=${dto.pet_idx}">삭제</a></td>
 			</tr>
 		</c:forEach>		
 		</tbody>

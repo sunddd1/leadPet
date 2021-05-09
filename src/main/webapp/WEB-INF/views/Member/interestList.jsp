@@ -9,12 +9,19 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 		<style>
+		
 			#interestTable {
 				width: 60%;
 				margin-left: 20%;
 			}
 			#interestTable, #interestTable td {
 				border: 1px solid black;
+			}
+			
+			#myinter{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

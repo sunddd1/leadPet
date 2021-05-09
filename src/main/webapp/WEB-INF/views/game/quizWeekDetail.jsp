@@ -2,19 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/main/top_Navi.jsp" %>
-<%@ include file="/WEB-INF/views/main/side_adminNavi.jsp" %>    
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>WeeklyQuizDetail</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 5% 15%;
-				width: 65%;
+				margin-left : 20%;
+				width: 70%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -37,17 +35,6 @@
 			}
 			#quizTable th{
 				padding-top: 3%;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 			span{
 				color: red;

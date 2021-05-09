@@ -1,6 +1,8 @@
 package com.spring.main.dao;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.spring.main.dto.PetDTO;
 import com.spring.main.dto.Pet_imgDTO;
@@ -27,5 +29,12 @@ public interface PetDAO {
 	ArrayList<VaccinDTO> vac();
 
 	void star(int pet_idx);
+
+	List<Map> vaccList(String chk);
+
+	int vaccCheck(int pet_idx, List<VaccinDTO> list);
+
+	boolean vacPlus(PetDTO dto);
+
 
 }

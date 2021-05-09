@@ -53,7 +53,7 @@ public class AdminService {
 		logger.info("회원 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.memberCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -73,7 +73,7 @@ public class AdminService {
 		logger.info("블랙 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.blackCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -93,7 +93,7 @@ public class AdminService {
 		logger.info("탈퇴 리스트 서비스 도착");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		keyword = "%"+keyword+"%";
-		int allCnt = dao.adminCount(search,keyword);
+		int allCnt = dao.withdrawCount(search,keyword);
 		
 		logger.info("allCnt:"+allCnt);
 		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
@@ -109,6 +109,146 @@ public class AdminService {
 		return map;
 	}
 
+	public HashMap<String, Object> reportList(int pagePerCnt, int page, String search, String keyword) {
+		logger.info("신고 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.reportCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.reportList(start,end,search,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> finishList(int pagePerCnt, int page, String keyword) {
+		logger.info("신고처리 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.finishCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.finishList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> pointList(int pagePerCnt, int page, String keyword) {
+		logger.info("포인트 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.pointCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.pointList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> replyList(int pagePerCnt, int page, String keyword) {
+		logger.info("미처리 댓글 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.replyCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.replyList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> finishReplyList(int pagePerCnt, int page, String keyword) {
+		logger.info("처리 댓글 신고 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.finishReplyCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.finishReplyList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> blindNList(int pagePerCnt, int page, String keyword) {
+		logger.info("블라인드N 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.blindNCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.blindNList(start,end,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> blindYList(int pagePerCnt, int page, String keyword) {
+		logger.info("블라인드Y 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.blindYCount(keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.blindYList(start,end,keyword));
+		
+		return map;
+	}
+	
 	public int change(String newPass, String id) {
 		logger.info("비밀번호 수정 서비스 도착");
 		return dao.change(newPass,id);
@@ -137,21 +277,6 @@ public class AdminService {
 	public ArrayList<AdminDTO> search(HashMap<String, String> params) {
 		logger.info("관리자 검색 서비스 도착");
 		return dao.search(params);
-	}
-
-	public ArrayList<AdminDTO> memberSearch(HashMap<String, String> params) {
-		logger.info("회원 검색 서비스 도착");
-		return dao.memberSearch(params);
-	}
-
-	public ArrayList<AdminDTO> blackSearch(HashMap<String, String> params) {
-		logger.info("블랙 회원 검색 서비스 도착");
-		return dao.blackSearch(params);
-	}
-
-	public ArrayList<AdminDTO> withdrawSearch(HashMap<String, String> params) {
-		logger.info("탈퇴 회원 검색 서비스 도착");
-		return dao.withdrawSearch(params);
 	}
 
 	public Object detailMember(String id) {
@@ -189,26 +314,6 @@ public class AdminService {
 		return dao.insertBlack(id);
 	}
 
-	public ArrayList<AdminDTO> reportList() {
-		logger.info("미처리 신고 서비스 요청");
-		return dao.reportList();
-	}
-
-	public ArrayList<AdminDTO> finishList() {
-		logger.info("처리 신고 서비스 요청");
-		return dao.finishList();
-	}
-
-	public ArrayList<AdminDTO> replyList() {
-		logger.info("미처리 댓글 서비스 요청");
-		return dao.replyList();
-	}
-
-	public ArrayList<AdminDTO> finishReplyList() {
-		logger.info("처리 댓글 신고 서비스 요청");
-		return dao.finishReplyList();
-	}
-
 	public ArrayList<AdminDTO> tipReportList() {
 		logger.info("팁 신고 서비스 요청");
 		return dao.tipReportList();
@@ -244,19 +349,9 @@ public class AdminService {
 		return dao.finishListSearch(params);
 	}
 
-	public Object detailReply(int id) {
+	public Object detailReply(int field) {
 		logger.info("신고댓글 상세보기 서비스 도착");
-		return dao.detailReply(id);
-	}
-
-	public ArrayList<AdminDTO> blindNList() {
-		logger.info("블라인드 리스트 서비스 도착");
-		return dao.blindNList();
-	}
-
-	public ArrayList<AdminDTO> blindYList() {
-		logger.info("블라인드 리스트 서비스 도착");
-		return dao.blindYList();
+		return dao.detailReply(field);
 	}
 
 	public int blindY(int field) {
@@ -264,15 +359,38 @@ public class AdminService {
 		return dao.blindY(field);
 	}
 	
+	public int onlyBlindY(int idx) {
+		logger.info("블라인드 Y");
+		return dao.onlyBlindY(idx);
+	}
+	
 	public int procY(int field, String loginId) {
 		logger.info("처리유무 Y처리 서비스 도착");
 		return dao.procY(field,loginId);
+	}
+	
+	public int replyprocY(int field, String loginId) {
+		logger.info("댓글 처리유무 Y처리 서비스 도착");
+		return dao.replyprocY(field,loginId);
+		
+	}
+
+	public int replyblindY(int field) {
+		logger.info("댓글 블라인드 Y처리 서비스 도착");
+		return dao.replyblindY(field);
+		
 	}
 
 	public int blindN(int idx) {
 		logger.info("블라인드 N처리 서비스 도착");
 		return dao.blindN(idx);
 	}
+	
+	public int onlyBlindN(int idx) {
+		logger.info("블라인드 N");
+		return dao.onlyBlindN(idx);
+	}
+
 
 	public ArrayList<AdminDTO> blindNSearch(HashMap<String, String> params) {
 		logger.info("블라인드 N 닉네임 검색 서비스 도착");
@@ -295,10 +413,6 @@ public class AdminService {
 //		return dao.typeReportList(type);
 //	}
 	
-	public ArrayList<MemberDTO> pointList() {
-		logger.info("포인트 내역 서비스 도착");
-		return dao.pointList();
-	}
 	
 	public ArrayList<AdminDTO> pointListSearch(HashMap<String, String> params) {
 		logger.info("포인트 검색 서비스 도착");
@@ -376,6 +490,13 @@ public class AdminService {
 	public int allCount() {
 		return 0;
 	}
+
+	
+	
+
+	
+
+	
 
 	
 

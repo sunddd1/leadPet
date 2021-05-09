@@ -25,6 +25,7 @@ public class VaccinDTO {
 	///checked
 	private int vac_idx;
 	private int pet_idx;
+	private String vacc_date;
 	private String pet_name;
 	private Date expected_date;
 	private String executed;
@@ -33,6 +34,13 @@ public class VaccinDTO {
 	private Date d_day;
 	
 
+	
+	public String getVacc_date() {
+		return vacc_date;
+	}
+	public void setVacc_date(String vacc_date) {
+		this.vacc_date = vacc_date;
+	}
 	public Date getD_day() {
 		return d_day;
 	}
