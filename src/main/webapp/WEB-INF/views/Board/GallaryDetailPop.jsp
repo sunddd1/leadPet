@@ -6,149 +6,100 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
-			
-			#profile,#profile td,#profile th{
-					width: max-content;
-					border: 1px solid black;
-					border-collapse: collapse;
-					padding: 5px 10px;
-					text-align: center;
-					margin-left: 14%;
-					margin-top: 3%;
-			}
-			
-			#reply{
-				width: max-content;
-				margin-left: 14%;
-				margin-top: 3%;
-			}
 		</style>
 	</head>
 	<body>
-	<jsp:include page="../Member/idClickPopup.jsp"/>
-		<table id="profile">
-            <tr>
-                <th>조회수 </th>
-                <td>${dto.views }</td>
-                <th>추천</th>
-                <td>${dto.reco_count }</td>
-                <td id="reco"></td>
-                <th>댓글갯수</th>
-                <td></td>
-                <th>작성일</th>
-                <td>${dto.reg_date }</td>
-                <td onclick='idClickPopup("${sessionScope.loginId}")'>${dto.id }</td>
-                <c:if test="${dto.id eq sessionScope.loginId}">
+		<table>
+			<tr>
+				<td colspan="5" rowspan="10">
+					<img src="/photo/${dto.newFileName}"  width='300px' height='300px'/>
+				</td>
+				<td>${dto.nickname}</td>
+				<td><input type="button" value="관심유저 등록" onclick='InterUser()'/> </td>
+				<td colspan="3" id="reco"></td>
+			</tr>
+			<tr>
+				<td>${dto.bbs_subject}</td>
+				<c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
-	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
-	                	<button onclick="location.href='BoardDel?bbs_idx=${dto.bbs_idx}' ">삭제하기</button>
+	                	<button onclick="location.href='../GalleryUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
+	                	<button onclick= BoardDelete()>삭제하기</button>
 	                </td>
                 </c:if>
-                <c:if test="${dto.id ne sessionScope.loginId}">
-	                <td>
-			            <form action="BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
-							<input type="text" name="id" value="${sessionScope.loginId}">
-							<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
-							<input type="text" name="type" value="${dto.type }">
-						</form>
-	                	<button onclick="BoardreportForm()">신고하기</button>
-	                </td>
-                </c:if>
-                
-            </tr>
-			<tr>
-				<th>제목</th>
-				<td colspan="11">${dto.bbs_subject }</td>
 			</tr>
-            <tr>
-                <th>닉네임</th>
-                <td>${dto.nickname }</td>
-                <c:if test="${dto.pet_name ne null}">
-	                <th>사진</th>
-	                <td>
-	                		<img src='/photo/${dto.pet_newfilename}' width='100px' height='100px'/>
-	                </td>
-	                <th>이름</th>
-	                <td>${dto.pet_name }</td>
-	                <th>품종</th>
-	                <td>${dto.kind }</td>
-	                <th>생년월일</th>
-	                <td>${dto.bday }</td>
-	                <th>무게</th>
-	                <td>${dto.kg }</td>
-                </c:if>
-            </tr>
 			<tr>
-				<th>내용</th>
-				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
+				<td colspan="4">${dto.bbs_content }</td>
 			</tr>
-		</table>
-		
-		<table style="border-collapse: collapse;" id="reply">
 			<tr>
 				<td>
-					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"></textarea>
+					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오"></textarea>
+					<button onclick='replyButton()' >등록</button>
+				</td>	
+			</tr>
+			<tr>
+				<td>
+					${dto.reg_date }
 				</td>
 				<td>
-					<button onclick='replyButton()'>등록</button>
+					<button onclick="BoardreportForm()">신고하기</button>
 				</td>
 			</tr>
-			<tbody id="replyUpdate" style="border: 2px solid black">
-				
-			</tbody>
-			<tbody id="replyList">
-			
-			</tbody>
+			<tr>
+				</td  id="replyUpdate" style="border: 2px solid black">
+				</td>
+				<td>
+					<div id="replyList" style="overflow-y:scroll ; height:100px; width:300px">
+						<table >
+						
+						</table>
+					</div>
+				</td>
+			</tr>
 		</table>
-		<div id="moreReply" style="border: 2px solid black; text-align: center;" onclick="moreReply();" >더보기</div>
-	
+		<form action="../BoardReportForm" method="POST" name="BoardReportForm" target="boardreport" style="display: none">
+			<input type="text" name="id" value="${sessionScope.loginId}">
+			<input type="text" name="bbs_idx" value="${dto.bbs_idx }">
+			<input type="text" name="type" value="${dto.type }">
+		</form>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
-	
-		var endNum = 5;
-		
+		var endNum = 0;
 		$(document).ready(function(){
-			$("#bbs_content a").find("b").remove();
-			$("#editable a").removeAttr('onclick');
-			replyList();
 			recoConfirm();
+			replyList();
 		});
-
-	
-		// 시작하자마자 reco 여부 검사
 		
 		//추천검사
 		function recoConfirm(){
-			$.ajax({
-				type:'GET'
-				,url:'recoConfirm'
-				,data:{
-					id: '${sessionScope.loginId}'
-					,bbs_idx: '${dto.bbs_idx}'
-				}
-				,dataType:'JSON'
-				,success:function(data){
-						var content = "";
-						if(data){
-							content+=" <button style='display: none; font-size:15px;'>♡ </button>"
-							content+=" <button onclick='recoButton(this)' style='display: ; font-size:15px;'>❤️</button>"
-							$("#reco").empty();
-							$("#reco").append(content);	
-						}
-						else{
-							content+=" <button onclick='norecoButton(this)' style='display: ; font-size:15px;'>♡ </button>"
-							content+=" <button style='display:none ; font-size:15px;'>❤️</button>"
-							$("#reco").empty();
-							$("#reco").append(content);
-						}
-				}
-				,error:function(e){
-					console.log(e);
-				}
-			})
+				$.ajax({
+					type:'GET'
+					,url:'../recoConfirm'
+					,data:{
+						id: '${sessionScope.loginId}'
+						,bbs_idx: '${dto.bbs_idx}'
+					}
+					,dataType:'JSON'
+					,success:function(data){
+							var content = "";
+							if(data){
+								content+=" <button style='display: none; font-size:15px;'>♡ </button>"
+								content+=" <button onclick='recoButton(this)' style='display: ; font-size:15px;'>❤️</button>"
+								$("#reco").empty();
+								$("#reco").append(content);	
+							}
+							else{
+								content+=" <button onclick='norecoButton(this)' style='display: ; font-size:15px;'>♡ </button>"
+								content+=" <button style='display:none ; font-size:15px;'>❤️</button>"
+								$("#reco").empty();
+								$("#reco").append(content); 
+							}
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				})
 		}
-		
 		function norecoButton(elem){
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
@@ -157,7 +108,7 @@
 			
 			$.ajax({
 				type:'GET'
-				,url:'recoUp'
+				,url:'../recoUp'
 				,data:recoContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -174,6 +125,7 @@
 			})
 		}
 		
+		
 		function recoButton(elem){
 			var recoContent ={}
 			recoContent.bbs_idx = '${dto.bbs_idx}';
@@ -183,7 +135,7 @@
 			
 			$.ajax({
 				type:'GET'
-				,url:'recoDown'
+				,url:'../recoDown'
 				,data:recoContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -198,7 +150,7 @@
 					console.log(e);
 				}
 			})
-		}
+		}		
 		
 		
 		function recoP(){
@@ -225,7 +177,7 @@
 			console.log(replyContent)
 			$.ajax({
 				type:'POST'
-				,url:'replyList'
+				,url:'../replyList'
 				,data:replyContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -280,10 +232,11 @@
 			$("#replyList").empty();
 			$("#replyList").append(replyDraw);
 		}
+		
 		//댓글 삭제
 		function replyDel (reply_idx){
 			$.ajax({
-				url:'./replyDel/'+reply_idx
+				url:'../replyDel/'+reply_idx
 				,type:'GET'
 				,data:{}
 				,dataType:'JSON'
@@ -303,7 +256,6 @@
 			
 		}
 		
-		
 		//댓글 등록
 		function replyButton(){
 			var replyContent ={}
@@ -315,7 +267,7 @@
 			
 			$.ajax({
 				type:'POST'
-				,url:'replyWrite'
+				,url:'../replyWrite'
 				,data:replyContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -332,6 +284,7 @@
 				}
 			})
 		}
+		
 		//댓글 수정
 		function replyUpdateForm(reply_idx){
 			console.log(reply_idx)
@@ -339,7 +292,7 @@
 			replyContent.reply_idx = reply_idx;
 			$.ajax({
 				type:'GET'
-				,url:'replyUpdateForm'
+				,url:'../replyUpdateForm'
 				,data:replyContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -355,7 +308,7 @@
 		//reply updateform 그리기
 		function replyUpdateFormDraw(map){
 			var replyDraw = "";
-			replyDraw +="<tr>"
+			replyDraw +="<tr id='replycontents''>"
 			replyDraw +="<td><b>"+map.nickname+"</b></td>"
 			var date = new Date(map.reg_date);
 			replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
@@ -379,7 +332,7 @@
 
 			$.ajax({
 				type:'POST'
-				,url:'replyUpdate'
+				,url:'../replyUpdate'
 				,data:replyContent
 				,dataType:'JSON'
 				,success:function(data){
@@ -397,38 +350,7 @@
 				}
 			})
 		}
-		//댓글 더보기
-		function moreReply() {
-			var replyContent ={}
-			endNum = endNum +5;
-			console.log(endNum)
-			replyContent.bbs_idx = '${dto.bbs_idx}';
-			replyContent.endNum = endNum;
-			console.log(replyContent)
-			$.ajax({
-				type:'POST'
-				,url:'replyList'
-				,data:replyContent
-				,dataType:'JSON'
-				,success:function(data){
-						if(data){
-							console.log(data.replyList)
-							console.log(data.replyList.length);
-							var replyDraw = ""
-							replyListDraw(data.replyList);
-							if(data.replyList.length<endNum){
-								$("#moreReply").remove();
-							}
-						
-						}else{
-							console.log("댓글리스트 불러오기 실패")
-						}
-				}
-				,error:function(e){
-					console.log(e);
-				}
-			})
-		}
+		
 	 	//게시판 신고하기 
 		function BoardreportForm(){
 			window.open('about:blank','boardreport','width=600, height=300');
@@ -437,13 +359,17 @@
 		
 		//댓글 신고하기
 		function replyReport(reply_idx){
-			window.open('reply_report/'+reply_idx+'/com','replyReport','width=800, height=300');
+			window.open('../reply_report/'+reply_idx+'/gal','replyReport','width=800, height=300');
 			
 		} 
 		function sendMsg(msg){
 			alert(msg);
 		}
-			
+		function BoardDelete(){
+			alert("게시물이 삭제되었습니다.")
+			self.close();
+			location.href='../BoardDel?bbs_idx=${dto.bbs_idx}';
+		}
 		
 	</script>
 </html>

@@ -28,11 +28,11 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> search(HashMap<String, String> params);
 
-	ArrayList<MemberDTO> memberList();
+	ArrayList<MemberDTO> memberList(int start, int end, String search, String keyword);
 
-	ArrayList<MemberDTO> blackList();
+	ArrayList<MemberDTO> blackList(int start, int end, String search, String keyword);
 
-	ArrayList<MemberDTO> withdrawList();
+	ArrayList<MemberDTO> withdrawList(int start, int end, String search, String keyword);
 
 	ArrayList<AdminDTO> memberSearch(HashMap<String, String> params);
 
@@ -62,8 +62,6 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> finishReplyList();
 	
-	
-
 	ArrayList<AdminDTO> tipReportList();
 
 	ArrayList<AdminDTO> galReportList();

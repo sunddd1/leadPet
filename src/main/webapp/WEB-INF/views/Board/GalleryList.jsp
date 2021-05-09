@@ -14,7 +14,7 @@
 				<table style='float:left; margin-right:5%; margin-top:1%;'>
 					<tr>
 					<td colspan='3'>
-						<a href="./BoardDetail?bbs_idx='${list.bbs_idx }' "><img src="/photo/${list.newFileName}"  width='200px' height='200px'/></a>
+						<a onclick="GalleryDetail(${list.bbs_idx})"><img src="/photo/${list.newFileName}"  width='200px' height='200px'/></a>
 					</td>
 					</tr>
 					<tr>
@@ -30,5 +30,8 @@
 		</div>
 	</body>
 	<script>
+		function GalleryDetail(bbs_idx){
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=600');
+		}
 	</script>
 </html>

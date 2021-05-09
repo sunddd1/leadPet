@@ -48,6 +48,66 @@ public class AdminService {
 		
 		return map;
 	}
+	
+	public HashMap<String, Object> memberList(int pagePerCnt, int page, String search, String keyword) {
+		logger.info("회원 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.adminCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.memberList(start,end,search,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> blackList(int pagePerCnt, int page, String search, String keyword) {
+		logger.info("블랙 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.adminCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.blackList(start,end,search,keyword));
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> withdrawList(int pagePerCnt, int page, String search, String keyword) {
+		logger.info("탈퇴 리스트 서비스 도착");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		keyword = "%"+keyword+"%";
+		int allCnt = dao.adminCount(search,keyword);
+		
+		logger.info("allCnt:"+allCnt);
+		int range = allCnt%pagePerCnt >0?Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		map.put("range", range);
+		logger.info("page:"+page);
+		map.put("currPage", page);
+		page=page>range ? range:page;
+		
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		map.put("list", dao.withdrawList(start,end,search,keyword));
+		
+		return map;
+	}
 
 	public int change(String newPass, String id) {
 		logger.info("비밀번호 수정 서비스 도착");
@@ -77,21 +137,6 @@ public class AdminService {
 	public ArrayList<AdminDTO> search(HashMap<String, String> params) {
 		logger.info("관리자 검색 서비스 도착");
 		return dao.search(params);
-	}
-
-	public ArrayList<MemberDTO> memberList() {
-		logger.info("회원 리스트 서비스 도착");
-		return dao.memberList();
-	}
-
-	public ArrayList<MemberDTO> blackList() {
-		logger.info("블랙 리스트 서비스 도착");
-		return dao.blackList();
-	}
-
-	public ArrayList<MemberDTO> withdrawList() {
-		logger.info("탈퇴 리스트 서비스 도착");
-		return dao.withdrawList();
 	}
 
 	public ArrayList<AdminDTO> memberSearch(HashMap<String, String> params) {

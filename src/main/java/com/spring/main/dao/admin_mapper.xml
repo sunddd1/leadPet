@@ -38,16 +38,16 @@
 		</where>
 	</select>
 	
+	<!-- 멤버 리스트  // int start, int end, String search, String keyword) -->	
 	<select id="memberList" resultType="member">
-		SELECT * FROM member ORDER BY reg_date DESC
-	</select>
-	
-	<select id="blackList" resultType="member">
-		SELECT * FROM member WHERE black='Y' AND withdraw='N' ORDER BY reg_date DESC
-	</select>
-	
-	<select id="withdrawList" resultType="member">
-		SELECT * FROM member WHERE black='N' AND withdraw='Y' ORDER BY reg_date DESC
+		SELECT id, password, name, age, gender, email, reg_date, withdraw, black , change_date, point, nickname, grade, black_cnt, black_date FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, black , change_date, point, nickname, grade, black_cnt, black_date FROM member
+		<where>
+			<if test="param3 == 'id'"> id  LIKE #{param4}</if>
+			<if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
+		</where>
+		)
+		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<select id="memberSearch" parameterType="hashMap" resultType="member">
@@ -58,6 +58,10 @@
 		</where>
 	</select>
 	
+	<!-- 블랙 리스트 -->	
+	<select id="blackList" resultType="member">
+		SELECT * FROM member WHERE black='Y' AND withdraw='N' ORDER BY reg_date DESC
+	</select>
 	<select id="blackSearch" parameterType="hashMap" resultType="member">
 		SELECT * FROM member
 		<where>
@@ -67,6 +71,10 @@
 		 AND black='Y'
 	</select>
 	
+	<!-- 탈퇴 리스트 -->
+	<select id="withdrawList" resultType="member">
+		SELECT * FROM member WHERE black='N' AND withdraw='Y' ORDER BY reg_date DESC
+	</select>
 	<select id="withdrawSearch" parameterType="hashMap" resultType="member">
 		SELECT * FROM member	
 		<where>

@@ -183,66 +183,144 @@ public class AdminController {
 		return success;
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String search(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//	public String search(
+//			Model model, 
+//			HttpSession session,
+//			@RequestParam HashMap<String, String> params
+//			) {
+////		String loginId = (String) session.getAttribute("loginId");
+////		service.adminCheck(loginId);
+////		String page ="admin/adminList";
+////		if(loginId != null) {
+//		logger.info("관리자 검색 요청");
+//		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
+//		ArrayList<AdminDTO> list = service.search(params);
+//		logger.info("검색된 관리자 수"+list.size());
+//		model.addAttribute("adminList", list);
+////			page="admin/adminList";
+////		}
+//		return "admin/adminList";
+//	}
+	
+	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
+	public ModelAndView memberList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
 			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-		logger.info("관리자 검색 요청");
-		logger.info("셀렉트 :"+params.get("search")+"검색 키워드 :"+params.get("keyword"));
-		ArrayList<AdminDTO> list = service.search(params);
-		logger.info("검색된 관리자 수"+list.size());
-		model.addAttribute("adminList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/memberList");
 //			page="admin/adminList";
 //		}
-		return "admin/adminList";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
-	public String memberList(Model model, HttpSession session) {
+	@ResponseBody
+	@RequestMapping(value = "/memberListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> memberListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.memberList();
-			logger.info("일반 회원 수"+list.size());
-			model.addAttribute("memberList", list);
+		logger.info(search+"/"+keyword);
 //			page="admin/adminList";
 //		}
-		return "admin/memberList";
+		return service.memberList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/blackList", method = RequestMethod.GET)
-	public String blackList(Model model, HttpSession session) {
+	public ModelAndView blackList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.blackList();
-			logger.info("블랙 회원 수"+list.size());
-			model.addAttribute("blackList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/blackList");
 //			page="admin/adminList";
 //		}
-		return "admin/blackList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/blackListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> blackListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.blackList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/withdrawList", method = RequestMethod.GET)
-	public String withdrawList(Model model, HttpSession session) {
+	public ModelAndView withdrawList(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String keyword
+			) {
 //		String loginId = (String) session.getAttribute("loginId");
 //		service.adminCheck(loginId);
 //		String page ="admin/adminList";
 //		if(loginId != null) {
-			ArrayList<MemberDTO> list = service.withdrawList();
-			logger.info("탈퇴 회원 수"+list.size());
-			model.addAttribute("withdrawList", list);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search",search);
+		logger.info(search);
+		mav.addObject("keyword",keyword);
+		mav.setViewName("admin/withdrawList");
 //			page="admin/adminList";
 //		}
-		return "admin/withdrawList";
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/withdrawListSearch", method = RequestMethod.GET)
+	public HashMap<String, Object> withdrawListSearch(
+			Model model, 
+			HttpSession session,
+			@RequestParam int pagePerCnt, 
+			@RequestParam int page,
+			@RequestParam String search,
+			@RequestParam String keyword
+			) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		service.adminCheck(loginId);
+//		String page ="admin/adminList";
+//		if(loginId != null) {
+		logger.info(search+"/"+keyword);
+//			page="admin/adminList";
+//		}
+		return service.withdrawList(pagePerCnt,page,search,keyword);
+		
 	}
 	
 	@RequestMapping(value = "/memberSearch", method = RequestMethod.POST)

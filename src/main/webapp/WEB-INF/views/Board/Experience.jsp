@@ -145,14 +145,13 @@
 			for(var i=0; i<list.length; i++){
 					content +="<table style='float:left; margin-right:5%; margin-top:1%;'>"
 					content +="<tr>"
+
 					content += "<td colspan='3'><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' ' width='200px' 'height='200px'/></a></td>" 
 					content +="<tr><td>"+list[i].category_name+"</td>"
 					content +="<td>"+list[i].views+"</td>"
 					content +="<td>"+list[i].reco_count+"</td></tr>"
 					content +="<tr><td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'>"+list[i].bbs_subject+"</a></td></tr>"
-					content +="<td>"+list[i].nickname+"</td>"
-					content +="<td>"+list[i].bbs_idx+"</td>"
-					//content +="<td onclick='idClickPopup("+list[i].id+","+list[i].nickname+")'>"+list[i].nickname+"</td>"
+					content += "<td><a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a></td>"
 					//java에서 가끔 날짜가 mileseconds로 나올경우...
 					var date = new Date(list[i].reg_date);
 					content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"

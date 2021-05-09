@@ -32,7 +32,12 @@
 		keyColumn="bbs_idx"
 		parameterType="board">
 		INSERT INTO bbs(bbs_idx,nickname,bbs_subject,bbs_content,views,type,pet_idx,category_name)
-		VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'tip',#{pet_idx},#{category_name})	
+		<if test="type.equals('tip')">
+			VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'tip',#{pet_idx},#{category_name})	
+		</if>
+		<if test="type.equals('gal')">
+			VALUES(bbs_seq.NEXTVAL, #{nickname},#{bbs_subject},#{bbs_content},0,'gal',#{pet_idx},#{category_name})
+		</if>
 	</insert>
 
 	<insert id="writeFile">
@@ -58,7 +63,8 @@
 	</update>
 	
 	<select id="boardDetail" resultType="board">
-		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.type,b.reco_count,b.nickname,b.category_name,p.pet_idx,p.kind,p.bday,p.pet_name,p.kg,p.id
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.type,b.reco_count,b.nickname,b.category_name,p.pet_idx,p.kind,p.bday,p.pet_name,p.kg,p.id, 
+		(select bi.newfilename from bbs_img bi JOIN bbs b ON bi.bbs_idx = b.bbs_idx WHERE b.bbs_idx=#{param1}) newfilename    
 		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx WHERE p.pet_idx=b.pet_idx) pet_newfilename
 		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{param1}
 	</select>
@@ -111,10 +117,17 @@
 	<update id="pointMinus">
 		UPDATE member SET point = point -1 WHERE id =#{param1}
 	</update>
-	
-	<select id="replyList"  resultType="reply">
-		 SELECT rnum,r.reply_idx,r.bbs_idx,r.id,r.reply_content,r.reg_date,m.nickname FROM (SELECT id,reply_idx,reply_content,reg_date,bbs_idx,ROW_NUMBER()OVER(ORDER BY reply_idx DESC) AS rnum FROM reply WHERE reply_blind='N' AND bbs_idx=#{param2})r JOIN member m ON r.id = m.id
- 		 WHERE rnum BETWEEN 1 AND #{param1} ORDER BY rnum ASC
+
+	<select id="replyList"  resultType="reply" parameterType="map">
+		 SELECT rnum,r.reply_idx,r.bbs_idx,r.id,r.reply_content,r.reg_date,m.nickname FROM (SELECT id,reply_idx,reply_content,reg_date,bbs_idx,ROW_NUMBER()OVER(ORDER BY reply_idx DESC) AS rnum FROM reply WHERE reply_blind='N' AND bbs_idx=#{bbs_idx})r JOIN member m ON r.id = m.id
+ 		 <choose>
+ 		 	<when test="endNum==0">
+ 		 		 ORDER BY rnum ASC
+ 		 	</when>
+ 		 	<otherwise> 		 	
+		 		 WHERE rnum BETWEEN 1 AND #{endNum} ORDER BY rnum ASC
+ 		 	</otherwise>
+ 		 </choose>
 	</select>
 	
 	<insert id="replyWrite" parameterType="reply">
@@ -144,8 +157,9 @@
 	</insert>
 	
 	<select id="BoardUpdateForm" resultType="board">
-		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.reco_count,b.nickname,b.pet_idx,b.category_name,p.kind,p.bday,p.pet_name,p.kg
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.views,b.reco_count,b.nickname,b.pet_idx,b.category_name,b.type,p.kind,p.bday,p.pet_name,p.kg
 		,(select pi.newfilename from pet_img pi JOIN pet p ON p.pet_idx = pi.pet_idx WHERE p.pet_idx=b.pet_idx) pet_newfilename
+		,(select bi.newfilename from bbs_img bi JOIN bbs b ON bi.bbs_idx = b.bbs_idx WHERE b.bbs_idx=#{param1}) newfilename
 		FROM bbs b JOIN pet p ON p.pet_idx(+) = b.pet_idx WHERE b.bbs_idx=#{bbs_idx}
 	</select>
 	
