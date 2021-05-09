@@ -199,7 +199,8 @@
   <!-- 월요일 00시 주차별 문제 만들기 -->
   <insert id="makeWeekQuiz" parameterType="hashMap">
   	INSERT INTO quiz_week(week_quiz_idx,quiz_first,quiz_second,quiz_third,quiz_fourth,quiz_fifth
-  	,quiz_sixth,quiz_seventh,quiz_eighth,quiz_ninth,quiz_tenth)VALUES(seq_quiz_week.NEXTVAL
+  	,quiz_sixth,quiz_seventh,quiz_eighth,quiz_ninth,quiz_tenth)VALUES(
+  	(SELECT  MAX(week_quiz_idx) FROM quiz_week)+1
     ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param1} AND quiz_blind='N')
     ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param2} AND quiz_blind='N')
     ,(SELECT quiz_question FROM quiz WHERE quiz_idx=#{param3} AND quiz_blind='N')
@@ -216,10 +217,24 @@
   	SELECT * FROM nemo_week WHERE nemo_idx = #{param1}
   </select>
   <insert id="makeWeekNemo" parameterType="Integer">
-  	INSERT INTO nemo_week(week_nemo_idx,nemo_idx)VALUES(seq_nemo_week.NEXTVAL,#{param1})
+  	INSERT INTO nemo_week(week_nemo_idx,nemo_idx)VALUES((SELECT  MAX(week_nemo_idx) FROM nemo_week)+1,#{param1})
   </insert>
   
   <!-- 지난주 랭킹에 따른 포인트 적립 -->
+  <select id="getQRankiForPoint" resultType="game">
+		SELECT ROWNUM, quiz_score, quiz_timer, quiz_success_date, id FROM (
+			SELECT * FROM quiz_test WHERE week_quiz_idx = (
+				SELECT MAX(week_quiz_idx) FROM quiz_week
+			)-1 AND if_submit='Y' ORDER BY quiz_score DESC, quiz_timer, quiz_success_date
+		) 
+	</select>
+	<select id="getNRankForPoint" resultType="game">
+		SELECT ROWNUM, nemo_success, nemo_timer, nemo_success_date, id FROM (
+			SELECT * FROM nemo_test WHERE nemo_success='Y' AND week_nemo_idx = (
+				SELECT MAX(week_nemo_idx) FROM nemo_week
+			)-1 AND if_submit='Y' ORDER BY nemo_timer, nemo_success_date
+		) 
+	</select>
   <update id="upPointTen" parameterType="String">
   	UPDATE member SET point = point+10 WHERE id=#{param1}
   </update>

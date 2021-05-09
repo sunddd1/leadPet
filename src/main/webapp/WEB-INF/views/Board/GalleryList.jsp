@@ -10,23 +10,28 @@
 		<jsp:include page="../main/top_Navi.jsp"/>
 		<div id = "writebutton_div">
 			<button onclick="location.href='GalwriteForm?id=${sessionScope.loginId}' ">글쓰기</button>
+				<c:forEach items="${GalleryList}" var="list">
 				<table style='float:left; margin-right:5%; margin-top:1%;'>
 					<tr>
 					<td colspan='3'>
-						<a href='./BoardDetail?bbs_idx='><img src='/photo/'  width='200px' height='200px'/></a>
+						<a onclick="GalleryDetail(${list.bbs_idx})"><img src="/photo/${list.newFileName}"  width='200px' height='200px'/></a>
 					</td>
 					</tr>
 					<tr>
-						<td>name</td>
-						<td>"+list[i].views+"</td>
-						<td>"+list[i].reco_count+"</td>
+						<td>${list.nickname }</td>
+						<td>${list.views }</td>
+						<td>${list.reco_count }</td>
 					</tr>
 					<tr>
-						<td>subject</td>
+						<td>${list.bbs_subject }</td>
 					</tr>
 				</table>
+				</c:forEach>
 		</div>
 	</body>
 	<script>
+		function GalleryDetail(bbs_idx){
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=600');
+		}
 	</script>
 </html>

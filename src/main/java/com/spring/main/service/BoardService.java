@@ -101,6 +101,7 @@ public class BoardService {
 		dto.setNickname(params.get("nickname"));
 		dto.setPet_idx(Integer.parseInt(params.get("pet_idx")));
 		dto.setCategory_name(params.get("category_name"));
+		dto.setType(params.get("type"));
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		if(dao.write(dto)>0) {
@@ -169,12 +170,17 @@ public class BoardService {
 		dao.upViews(bbs_idx);
 		logger.info("조회수 +1");
 		BoardDTO dto = dao.boardDetail(bbs_idx);
-		logger.info("{}",dto);
-		logger.info("{}",dto.getPet_newfilename());
-		logger.info("{}",dto.getKg());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("dto", dto);
-		mav.setViewName("Board/detail");		
+		logger.info("{}",dto.getType());
+		if(dto.getType().equals("gal")) {
+			mav.addObject("dto", dto);
+			mav.setViewName("Board/GallaryDetailPop");
+		}
+		if(dto.getType().equals("tip")) {
+			mav.addObject("dto", dto);
+			logger.info("{}",dto);
+			mav.setViewName("Board/detail");		
+		}
 		return mav;
 	}
 	
@@ -182,8 +188,17 @@ public class BoardService {
 		BoardDTO dto = dao.BoardUpdateForm(bbs_idx);
 		logger.info("{}",dto);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("dto", dto);
-		mav.setViewName("Board/BoardUpdateForm");		
+		logger.info(dto.getType());
+		if(dto.getType().equals("tip")) {	
+			logger.info("팁게시판 수정폼이동");
+			mav.addObject("dto", dto);
+			mav.setViewName("Board/BoardUpdateForm");		
+		}
+		if(dto.getType().equals("gal")) {
+			logger.info("겔러리게시판 수정폼이동");
+			mav.addObject("dto", dto);
+			mav.setViewName("Board/GalleryUpdateForm");	
+		}
 		return mav;
 	}
 	
@@ -198,6 +213,7 @@ public class BoardService {
 		dto.setBbs_content(params.get("bbs_content"));
 		dto.setNickname(params.get("nickname"));
 		dto.setCategory_name(params.get("category_name"));
+		dto.setType(params.get("type"));
 		
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		
@@ -236,6 +252,10 @@ public class BoardService {
 			session.removeAttribute("fileList");
 		}else {
 			msg="수정 할 수 없는 게시글 입니다.";
+		}
+		
+		if(dto.getType().equals("gal")) {
+			page="redirect:/GalleryDetail/"+dto.getBbs_idx();
 		}
 		mav.addObject("msg",msg);
 		mav.setViewName(page);
@@ -292,8 +312,10 @@ public class BoardService {
 	public HashMap<String, Object> replyList(String endNum, String bbs_idx) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("댓글 리스트 요청" + endNum+"/"+bbs_idx);
+		map.put("endNum", endNum);
+		map.put("bbs_idx", bbs_idx);
 		Integer.parseInt(endNum);
-		ArrayList<ReplyDTO> list = dao.replyList(endNum,bbs_idx);
+		ArrayList<ReplyDTO> list = dao.replyList(map);
 		logger.info("리스트 크기 : " + list.size());
 		map.put("replyList", list);
 		map.put("reply_size", list.size());

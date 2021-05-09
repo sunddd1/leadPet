@@ -13,7 +13,7 @@
 				display: inline-block;
 			}
 			#conBody{
-				margin: 4% 12%;
+				margin: 4% 18%;
 				width: 40%;
 			}
 			#nemoTable{
