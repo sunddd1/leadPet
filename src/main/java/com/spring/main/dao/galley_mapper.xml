@@ -14,5 +14,15 @@
 	<select id="GalwriteForm" resultType="pet">
 		SELECT m.id,m.nickname,p.dog_cat,p.kind,p.bday,p.pet_name,p.kg,p.pet_idx FROM member m JOIN pet p ON m.id = p.id(+) WHERE m.id=#{param1} AND delegate='Y'
 	</select>
+	<select id="interestConfirm" resultType="hashmap">
+		SELECT id,add_id FROM interest WHERE id=#{param1} AND add_id=#{param2}
+	</select>
 	
+	<insert id="addInterestButton">
+		INSERT INTO interest(id,add_id) VALUES (#{param1},#{param2})
+	</insert>
+	
+	<delete id="cancleInterestButton">
+		DELETE FROM interest WHERE id=#{param1} AND add_id=#{param2}
+	</delete>
 </mapper>

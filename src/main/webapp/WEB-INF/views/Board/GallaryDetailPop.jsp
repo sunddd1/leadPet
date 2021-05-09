@@ -15,7 +15,9 @@
 					<img src="/photo/${dto.newFileName}"  width='300px' height='300px'/>
 				</td>
 				<td>${dto.nickname}</td>
-				<td><input type="button" value="관심유저 등록" onclick='InterUser()'/> </td>
+				<c:if test="${sessionScope.loginId ne dto.id }">
+					<td id="interest"> </td>
+				</c:if>
 				<td colspan="3" id="reco"></td>
 			</tr>
 			<tr>
@@ -68,6 +70,7 @@
 		$(document).ready(function(){
 			recoConfirm();
 			replyList();
+			interestConfirm();
 		});
 		
 		//추천검사
@@ -365,10 +368,110 @@
 		function sendMsg(msg){
 			alert(msg);
 		}
+		
 		function BoardDelete(){
-			alert("게시물이 삭제되었습니다.")
+			alert("게시물이 삭제되었습니다.");
 			self.close();
-			location.href='../BoardDel?bbs_idx=${dto.bbs_idx}';
+			location.href='../BoardDel?bbs_idx=${dto.bbs_idx}'
+		}
+		
+		function interestConfirm(){
+				$.ajax({
+					type:'GET'
+					,url:'../interestConfirm'
+					,data:{
+						id: '${sessionScope.loginId}'
+						,bbs_id: '${dto.id}'
+					}
+					,dataType:'JSON'
+					,success:function(data){
+							var content = "";
+							if(data){
+								content+=" <button style='display: none; font-size:15px;'>관심유저 등록</button>"
+								content+=" <button onclick='cancleInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록취소</button>"
+								$("#interest").empty();
+								$("#interest").append(content);	
+							}
+							else{
+								content+=" <button onclick='addInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록 </button>"
+								content+=" <button style='display:none ; font-size:15px;'>관심유저 등록취소</button>"
+								$("#interest").empty();
+								$("#interest").append(content); 
+							}
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				})
+		}
+		
+		function addInterestButton(elem){
+			var recoContent ={}
+			recoContent.bbs_id = '${dto.id}';
+			recoContent.id = '${sessionScope.loginId}';
+			console.log(recoContent.bbs_id,recoContent.id);
+			
+			$.ajax({
+				type:'GET'
+				,url:'../addInterestButton'
+				,data:recoContent
+				,dataType:'JSON'
+				,success:function(data){
+						if(data){
+							console.log(data)
+							interP();
+						}else{
+							console.log("추천 실패입니다")
+						}
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			})
+		}
+		
+		
+		function cancleInterestButton(elem){
+			var recoContent ={}
+			recoContent.bbs_id = '${dto.id}';
+			recoContent.id = '${sessionScope.loginId}';
+			console.log(recoContent.bbs_id,recoContent.id);
+			
+			$.ajax({
+				type:'GET'
+				,url:'../cancleInterestButton'
+				,data:recoContent
+				,dataType:'JSON'
+				,success:function(data){
+						if(data){
+							console.log(data)
+							interM();
+						}else{
+							console.log("추천취소 실패입니다")
+						}
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			})
+		}		
+		
+		
+		function interP(){
+			//조회수,좋아요 개수 넣고 기존꺼 지우고 뿌려준다.
+			var content = "";
+			content+=" <button style='display: none; font-size:15px;'>관심유저 등록</button>"
+			content+=" <button onclick='cancleInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록취소</button>"
+			$("#interest").empty();
+			$("#interest").append(content);
+		}
+		
+		function interM(){
+			var content = "";
+			content+=" <button onclick='addInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록 </button>"
+			content+=" <button style='display:none ; font-size:15px;'>관심유저 등록취소</button>"
+			$("#reco").empty();
+			$("#reco").append(content);
 		}
 		
 	</script>

@@ -98,6 +98,42 @@ public class GalleryService {
 	}
 
 
+	public Boolean interestConfirm(String id, String bbs_id) {
+		boolean success = false;
+		logger.info("관심유저 여부 확인 요청");
+		HashMap<String, Object> map = dao.interestConfirm(id,bbs_id);
+		logger.info("추천확인 : " + map);
+		if(map != null) {
+			success = true;
+		}
+		return success;
+	}
+
+
+	public Boolean addInterestButton(String id, String bbs_id) {
+		boolean success = false;
+		logger.info("관심유저 추가 요청");
+		int add = dao.addInterestButton(id,bbs_id);
+		logger.info("관심유저 데이터 추가 : " + add);
+		if(add>0) {
+			success = true;
+		}
+		return success;
+	}
+
+
+	public Boolean cancleInterestButton(String id, String bbs_id) {
+		boolean success = false;
+		logger.info("관심유저 취소 요청");
+		int delete = dao.cancleInterestButton(id,bbs_id);
+		logger.info("관심유저 삭제 삭제 : " + delete);
+		if(delete>0) {
+			success = true;
+		}
+		return success;
+	}
+
+
 
 	
 }

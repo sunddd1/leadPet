@@ -20,6 +20,8 @@
 			<mvc:exclude-mapping path="/login-form"/>
 			<mvc:exclude-mapping path="/login"/>
 			<mvc:exclude-mapping path="/home"/>
+			<mvc:exclude-mapping path="/registForm"/>
+			
 			
 			<mvc:exclude-mapping path="/mainTop"/>
 			<mvc:exclude-mapping path="/topsearch*"/>

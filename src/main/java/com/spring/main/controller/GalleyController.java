@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.BoardService;
@@ -51,13 +52,25 @@ public class GalleyController {
 		logger.info("갤러리 게시판 글작성 : " +params,session);
 		return service.Galwrite(params,session);
 	}
+	@ResponseBody
+	@RequestMapping(value = "interestConfirm", method = RequestMethod.GET)
+	public Boolean interestConfirm(Model model, @RequestParam String id , String bbs_id) {
+		logger.info("관심유저등록 여부 확인 : "+id+bbs_id);
+		return service.interestConfirm(id,bbs_id);
+	}
 	
-	@RequestMapping(value = "/GalleryUpdateForm", method = RequestMethod.GET)
-	public ModelAndView GalleryUpdateForm(Model model, HttpSession session,@RequestParam String bbs_idx) {
-		logger.info("갤러리 수정하기 폼 이동 : ");
-		HashMap<String, String> fileList = new HashMap<String, String>();
-		session.setAttribute("fileList", fileList);
-		return bservice.BoardUpdateForm(bbs_idx);
+	@ResponseBody
+	@RequestMapping(value = "/addInterestButton", method = RequestMethod.GET)
+	public Boolean addInterestButton(Model model, @RequestParam String id , String bbs_id) {
+		logger.info("관심유저 등록: "+id+bbs_id);
+		return service.addInterestButton(id,bbs_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/cancleInterestButton", method = RequestMethod.GET)
+	public Boolean cancleInterestButton(Model model, @RequestParam String id , String bbs_id) {
+		logger.info("관심유저 등록취소: "+id+bbs_id);
+		return service.cancleInterestButton(id,bbs_id);
 	}
 	
 }
