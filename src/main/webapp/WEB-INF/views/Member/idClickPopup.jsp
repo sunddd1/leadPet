@@ -88,7 +88,7 @@
 					
 					$("#written").attr("href", "./writeList?id=" + id);
 					interestTag(id);
-					$("#pet").attr("href", "./listPet?id=" + id);
+					$("#pet").attr("href", "./listPetOther?id=" + id);
 					$("#note").attr("href", "./borderlist");
 					
 				},error:function(e) {
