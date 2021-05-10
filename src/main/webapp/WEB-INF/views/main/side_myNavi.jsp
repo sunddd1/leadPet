@@ -28,7 +28,7 @@
 
 				<li id="recMsg" onclick="location.href='./noteList'">받은 쪽지함</li>
 
-				<li onclick="location.href='./writeList'">작성한 글</li>
+				<li id="wirte" onclick="location.href='./writeList'">작성한 글</li>
 
 				<li id="calendar" onclick="location.href='./calendar'">달력</li>
 				

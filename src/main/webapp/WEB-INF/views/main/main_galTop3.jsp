@@ -53,7 +53,9 @@
 	});
 	
 	function boardDetail(idx) {
-		location.href="./BoardDetail?bbs_idx="+idx;
+
+		window.open('GalleryDetail/'+idx,'GalleryDetailpop','width=800, height=600');
+		location.href="./GalleryList";
 	}
 	function imgMove() {
 			console.log("이미지 움직이기");

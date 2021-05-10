@@ -8,9 +8,6 @@
 		<title>QuizPlayingPage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
 				width: 60%;
 				margin-left: 20%;
@@ -22,10 +19,11 @@
 			}
 			#queList{
 				padding-top: 3%;
-				width: 105%;
+				
 			}
 			#quizTable{
 				border: 3px solid darkgrey;
+				width: 105%;
 				padding-left : 50px;
 				padding-right : 50px;
 			}
