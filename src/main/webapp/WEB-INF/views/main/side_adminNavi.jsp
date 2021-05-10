@@ -28,7 +28,7 @@
 
 				<li id="gameManage" onclick="location.href='./gameQueList'">게임관리</li>
 
-				<li id="pointDoc" onclick="location.href='./#'">포인트내역</li>
+				<li id="pointDoc" onclick="location.href='./pointList'">포인트내역</li>
 
 				
 		</ul>
