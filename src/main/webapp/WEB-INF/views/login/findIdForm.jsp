@@ -80,7 +80,7 @@
 					}
 				}
 				,error:function(e) {
-					console.log(e);
+					console.log("비동기 에러");
 				}
 			});
 		}

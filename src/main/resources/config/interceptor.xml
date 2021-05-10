@@ -27,6 +27,9 @@
 			<mvc:exclude-mapping path="/check-duplicate-nickname"/>
 			<mvc:exclude-mapping path="/find-id"/>
 			<mvc:exclude-mapping path="/change-pw-form"/>
+			<mvc:exclude-mapping path="/exist-id"/>
+			<mvc:exclude-mapping path="/change-pw"/>
+
 
 			<mvc:exclude-mapping path="/mainTop"/>
 			<mvc:exclude-mapping path="/topsearch*"/>
