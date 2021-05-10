@@ -57,7 +57,7 @@
 						<td width="8%" nowrap><p>${note.note_idx}</p></td>
 						<td width="10%">${note.id} </td> 
 						<td>
-									<a id="detail" onclick="popup()">${note.content}</a>
+									<a id="detail" href="./detailNoteList?note_idx=${note.note_idx}">${note.content}</a>
 									<small><i>${noti.reg_date}</i></small>
 									<small style="float: right; margin-left: 10px">
 									<a id="del" href="./delMessageList?note_idx=${note.note_idx}">삭제</a></small>

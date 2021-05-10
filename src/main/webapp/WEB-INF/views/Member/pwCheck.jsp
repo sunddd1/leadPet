@@ -8,13 +8,20 @@
 		<style>
 			#withdrawTable{
 					width: 60%;
-					margin-left: 20%;
+					margin-left: 40%;
+					margin-top : 20%;
 			}
 			
 			#draw{
 				background-color: lightcoral;
 				color: white;				
 				font-weight: bold;
+			}
+			
+			input {
+				width: 300px;
+				margin: 5px;
+				height: 35px;
 			}
 		</style>
 	</head>
@@ -26,9 +33,9 @@
 			<table id="withdrawTable">
 				<tr>
 					<td>
-						<div>
+						<div width="300px">
 							<label>비밀번호</label><br/>
-							<input type="password" id="pw" name="pw" />
+							<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요." />
 						</div>
 					</td>
 				</tr>
