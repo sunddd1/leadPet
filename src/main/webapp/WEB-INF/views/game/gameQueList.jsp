@@ -10,9 +10,9 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 			#conBody{
-				margin-top: 5%;
-				margin-left: 17%;
-				width: 70%;
+				margin-left : 20%;
+				width: 60%;
+				margin-top: 100px;
 			}
 			h2{
 				text-align: center;
@@ -51,6 +51,14 @@
 			}
 			.container{
 				margin-left: 15%;
+			}
+			#gameManage{
+				background-color: lightpink;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

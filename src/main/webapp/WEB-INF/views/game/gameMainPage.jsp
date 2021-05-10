@@ -78,6 +78,11 @@
 				height : 140px;
 				background-repeat: no-repeat;
 			}
+			#minGame{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
