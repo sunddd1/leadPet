@@ -68,7 +68,7 @@
 	</body>
 	<script>
 		function GalleryDetail(bbs_idx){
-			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400');
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400,top=300,left=550');
 		}
 	</script>
 </html>
