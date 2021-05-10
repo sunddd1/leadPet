@@ -18,7 +18,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("인터럽트~~~~~~~~~~");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginId") == null) {

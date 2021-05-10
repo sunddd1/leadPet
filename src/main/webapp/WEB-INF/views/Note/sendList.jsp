@@ -23,6 +23,12 @@
 			padding-top : 10px;
 			text-align : center;
 		}
+		
+		#sendMsg{
+		background-color: lightcoral;
+		color: white;
+		font-weight: bold;
+		}
 		</style>
 	</head>
 	<body>

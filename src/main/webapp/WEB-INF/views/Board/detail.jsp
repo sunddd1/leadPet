@@ -37,7 +37,8 @@
                 <td></td>
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
-                <td onclick='idClickPopup("${sessionScope.loginId}")'>${dto.id }</td>
+
+                <td onclick='idClickPopup("${dto.nickname}")'>${dto.id }</td>
                 <c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
@@ -261,11 +262,11 @@
 				var date = new Date(list[i].reg_date);
 				replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				//로그인 아이디라면
-				if(list[i].nickname== "${sessionScope.loginId}"){
+				if(list[i].id == "${sessionScope.loginId}"){
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
-				if(list[i].nickname != "${sessionScope.loginId}"){
+				if(list[i].id != "${sessionScope.loginId}"){
 				//로그인아이디
 				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
 				}

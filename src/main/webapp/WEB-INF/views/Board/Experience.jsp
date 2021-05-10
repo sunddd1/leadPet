@@ -6,6 +6,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
+				
 			#main{
 				border: 3px solid red;
 				width: 80%;

@@ -18,6 +18,16 @@
 			border : 1px solid black;
 			text-align: center;
 		}
+		#resultTable{
+			width: 30%;
+			margin-left: 20%;
+			margin-top : 200px;
+			border-collapse: collapse;
+		}
+		#resultTable, #resultTable th, #resultTable td {
+			border : 1px solid black;
+			text-align: center;
+		}
 		
 	</style>
 	</head>
@@ -58,7 +68,7 @@
 				</tr>
 			</table>
 			<br/>
-			<table id="changeTable" style="display:none">
+			<table id="resultTable" style="display:none">
 				<tr>
 					<th>
 						<label>비밀번호</label><br/>
@@ -78,7 +88,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button onclick="changePw()">변경 완료</button>
+						<input type="button" value="변경 완료" onclick="changePw()"/>
 					</td>
 				</tr>
 			</table>		
@@ -101,7 +111,7 @@
 				,dataType:"JSON"
 				,success:function(data) {
 					if(data) {
-						$('#changeTable').css("display", "");
+						$('#resultTable').css({"display": ""});
 						
 						id.attr("readonly",true);
 						name.attr("readonly",true);
@@ -128,14 +138,17 @@
 				tag = "<font color=blue>비밀번호 일치</font>";
 				validPw = true;
 			}
-			
+			console.log(validPw);
 			$('#checkPasswordMsg').html(tag);
 		}
 		
 		function changePw() {
 			if(validPw) {
 				$('#changeForm').submit();
+			} else{
+				alert("비밀번호가 일치하지 않습니다.");				
 			}
+			
 		}
 	</script>
 </html>
