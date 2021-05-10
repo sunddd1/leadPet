@@ -45,7 +45,7 @@
 		<tbody>
 			<c:forEach items="${list}" var="dto">
 				<tr>
-					<td><img src="./petPhoto/${dto.newfilename}"
+					<td><img src="./petPhoto/${dto.newFileName}"
 						style="width: 130px;"></td>
 					<td>${dto.kind}</td>
 					<td>${dto.bday}</td>
