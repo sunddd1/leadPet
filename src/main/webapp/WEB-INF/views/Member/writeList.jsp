@@ -35,17 +35,22 @@
                     <th>추천수</th>
                     <th>조회수</th>
                     <th>작성일</th>
-                    <th>삭제</th>
+                    <th></th>
                 </tr>
                 <c:forEach var="write" items="${write}">
                 	<tr>
                 		<td>${write.bbs_idx}</td>
-                		<td><a id="detail" href="../BoardDetail?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
+                		<td><a id="detail" href="./BoardDetail?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
                 		<td>${write.category_name}</td>
                 		<td> ${write.reco_count}</td>
                 		<td>${write.views}</td>
                 		<td>${write.reg_date}</td>
+                		<c:forEach var="nickname" items="${nickNameId}">
+                		<td>${nickname}</td>
+                		<c:if test="${nickname == sessionScope.loginId}">
                 		<td><a href="./BoardDel?bbs_idx=${write.bbs_idx}">삭제</a></td>
+                		</c:if>
+                		</c:forEach>
                 	</tr>
                 </c:forEach>
                 </table>

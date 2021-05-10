@@ -82,6 +82,7 @@ public class MemberService {
 		if(dto.size()>0) {
 			page="Member/writeList";
 			mav.addObject("write", dto);
+			mav.addObject("nickNameId", id);
 		}
 		mav.setViewName(page);
 		return mav;
