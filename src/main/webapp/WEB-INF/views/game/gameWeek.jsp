@@ -9,13 +9,10 @@
 		<title>WeeklyGameList</title>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin-top: 5%;
-				margin-left: 25%;
+				margin-left : 20%;
 				width: 60%;
+				margin-top: 100px;
 			}
 			h2{
 				text-align: center;
@@ -42,17 +39,6 @@
 				border-collapse: collapse;
 				padding: 2%;
 			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
-			}
 			a:link, a:visited, a:active{
 				color:darkslategrey;
 				text-decoration: none;
@@ -61,6 +47,14 @@
 			}
 			.container{
 				margin-left: 15%;
+			}
+			#gameRound{
+				background-color: lightpink;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

@@ -21,7 +21,7 @@
 			}
 			#game{
 				background-color: white;
-				border: 3px solid grey;
+				border: 5px solid grey;
 				width: 90%;
 				height: 65%;
 				padding: 2%;
@@ -49,17 +49,39 @@
 				margin-right : 50px;
 				text-align: center;
 			}
-			img{
-				width: 300px; 
-				height: 300px;
-				margin-bottom: 8%;
-			}
 			button{
 				border: 2px solid #6495ED;
 				border-radius: 8px;
 				background-color: #6495ED;
 				color: white;
 				font-weight: 400;
+			}
+			#quizImg{
+				background: url("./resources/quiz_sea.jpg");
+				background-size: 450px 300px;
+				width: 451px;
+				height: 301px;
+				background-repeat: no-repeat;
+				margin-bottom: 8%;
+			}
+			#nemoImg{
+				background: url("./resources/nemo_cherry.jpg");
+				background-size: 300px 300px;
+				width: 301px;
+				height: 301px;
+				background-repeat: no-repeat;
+				margin: 0% 0% 8% 15%;
+			}
+			#decoImg{
+				display: inline-block;
+				width : 100%;
+				height : 140px;
+				background-repeat: no-repeat;
+			}
+			#minGame{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>
@@ -71,7 +93,7 @@
 				<div class="flexBox">
 					<div id="quiz">
 						<h3>상식퀴즈</h3>
-						<img src="https://t1.daumcdn.net/cfile/tistory/99D3DB4A5D9A71821C">
+						<div id="quizImg"></div>
 						<p>
 							<button onclick="location.href='./quizPlaying'">게임시작</button>
 							&nbsp;<button onclick="location.href='./quizRanking'">랭킹보기</button>
@@ -80,7 +102,7 @@
 					</div>
 					<div id="nemo">
 						<h3>네모로직</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDQom1iYiiJqXX9rTaexFVfG_xV9PkEGpHLyF_sfUAqmqcAln6oQS1m9jEBCP3LZ6vfsA&usqp=CAU">
+						<div id="nemoImg"></div>
 						<p>
 							<button onclick="location.href='./nemoPlaying'">게임시작</button>
 							&nbsp;<button onclick="location.href='./nemoRanking'">랭킹보기</button>
@@ -90,6 +112,8 @@
 				</div>
 			</div>
 		</div>
+		<div id="decoImg" style="background: url('./resources/gameDecoImg.jpg')"></div>
+		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>
 	</body>
 	<script></script>
 </html>

@@ -8,12 +8,9 @@
 		<title>WeeklyNemoDetail</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#toGameWeek{
-				padding: 1%;
-				text-align: center;
-				
-				margin-left : 20%;
-				width: 70%;
+			#conBody{
+				margin-left : 10%;
+				width: 80%;
 				margin-top: 100px;
 			}
 			#nemoTable{
@@ -34,10 +31,15 @@
 			#nemoTable button{
 				margin-right: 15px;
 			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
-			<div id="toGameWeek">
+			<div id="conBody">
 				<table id="nemoTable">
 					<tr>
 						<td colspan="11" style="text-align: right; border-top: 5px double white;border-right: 5px double white;border-left: 5px double white;">

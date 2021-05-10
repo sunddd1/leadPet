@@ -41,6 +41,17 @@
 				font-size: 14px;
 				font-weight: 600;
 			}
+			#decoImg{
+				display: inline-block;
+				width : 100%;
+				height : 140px;
+				background-repeat: no-repeat;
+			}
+			#minGame{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
@@ -144,6 +155,8 @@
 				</table>
 			</div>
 		</div>	
+		<div id="decoImg" style="background: url('./resources/gameDecoImg.jpg')"></div>
+		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>
 	</body>
 	<script></script>
 </html>
