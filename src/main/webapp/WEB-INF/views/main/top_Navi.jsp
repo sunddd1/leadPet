@@ -203,7 +203,7 @@
 			}); */
 			
 		});
-		
+		var audio = new Audio('./resources/dingdong.mp3');
 		$(document).ready(function(){
 			//안읽은 쪽지 표시
 			$.ajax({
@@ -217,6 +217,7 @@
 				console.log(data.success);
 				if(data.success>0){
 					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: lightcoral;"></i>쪽지</a>');	
+					audio.play();
 				}else{
 					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px"></i>쪽지</a>');
 				}

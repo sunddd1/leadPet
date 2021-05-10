@@ -103,16 +103,11 @@
 							&nbsp;<button onclick="location.href='./lastNemoAnswer'">지난 네모로직 정답</button>
 						</p>
 					</div>
-					<button onclick="playSound('./resources/Ding-dong-sound-effect');">Play</button>  	
 				</div>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>
 	</body>
 	<script>
-	function playSound(url) {
-		  const audio = new Audio(url);
-		  audio.play();
-		}
 	</script>
 </html>
