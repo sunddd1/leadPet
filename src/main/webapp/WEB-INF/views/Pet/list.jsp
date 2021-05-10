@@ -12,8 +12,8 @@
 
 			#note{
 			padding-top : 150px ;
-			padding-left : 240px;
-			width: 1000px;
+			padding-left : 400px;
+			width: 800px;
 			}
 			
 			#myPet{
