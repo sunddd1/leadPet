@@ -109,7 +109,7 @@
 		      SELECT id, password, name, age, gender, email, reg_date, withdraw, 
       black , change_date, point, nickname, grade, black_cnt, black_date FROM 
       (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
-      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE AND withdraw='Y' AND
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE  withdraw='Y' AND
       <if test="param3 == 'id'"> id  LIKE #{param4}</if>
       <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
       ) 
@@ -124,7 +124,7 @@
 			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
 		</where>
 		)
-		WHERE black='N' AND withdraw='Y'
+		WHERE  withdraw='Y'
 	</select>
 	
 	<!-- 신고 리스트 -->
