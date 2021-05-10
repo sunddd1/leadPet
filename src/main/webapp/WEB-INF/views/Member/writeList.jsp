@@ -5,9 +5,21 @@
 		<meta charset="UTF-8">
 		<title>작성글</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<style></style>
+		<style>
+			#note{
+				padding-top : 7%;	
+				padding-left : 20%;
+				width : 1200px;
+			}
+		</style>
 	</head>
 	<body>
+	<jsp:include page="../main/top_Navi.jsp"/>
+	<table>
+		<tr>
+			<td><jsp:include page="../main/side_myNavi.jsp"/></td>
+			<td id="note">
+		
 		<h3>[작성글]</h3>
 		 <table>
                 <tr>
@@ -30,6 +42,10 @@
                 		<td><a href="./deleteWriteList?bbs_idx=${write.bbs_idx}">삭제</a></td>
                 	</tr>
                 </c:forEach>
+                </table>
+	</td>
+		</tr>
+		
             </table>
 	</body>
 	<script>

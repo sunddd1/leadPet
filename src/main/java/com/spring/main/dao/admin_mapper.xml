@@ -248,8 +248,6 @@
 	 <select id="detailReply" resultType="reply">
 		SELECT reply_content FROM reply WHERE reply_idx=#{param1}
 	</select>
-	
-	
 	 
 	 <update id="restoreWithdraw">
 	 	UPDATE member SET withdraw='N' WHERE id=#{param1}

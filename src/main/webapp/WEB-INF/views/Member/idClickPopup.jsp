@@ -32,9 +32,11 @@
 				<td><a id="pet" href="#">반려동물 보기</a></td>
 			</tr>
 				<tr id="interestDiv"></tr>
+			<c:forEach var = "note" items="${detailList}">
 			<tr>
-				<td><a id="note" href="#">쪽지 보내기</a></td>
+				<td><a id="note" href="'./borderlist?receiving_id=${note.id}'">쪽지 보내기</a></td>
 			</tr>
+			</c:forEach>
 		</table>
 	</div>
 	</body>
@@ -149,10 +151,10 @@
 				,data:{'interestId' : interestId}
 				,dataType:'JSON'
 				,success:function(result) {
-					var tag = "<a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a>";
+					var tag = "<td><a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a></td>";
 					
 					if(result) {
-						tag = "<a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a>";
+						tag = "<td><a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a></td>";
 					}
 
 					$("#interestDiv").html(tag);

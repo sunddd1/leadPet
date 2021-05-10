@@ -8,13 +8,25 @@
 		<style>
 			#restoreForm{
 				width: 60%;
-				margin-left: 20%;
+				margin-top : 20%;
 			}		
 			
 			#draw{
 				background-color: lightcoral;
 				color: white;
 				font-weight: bold;
+			}
+		
+			input {
+				width: 300px;
+				margin: 5px;
+				height: 35px;
+			}
+			
+			#table{
+				width: 60%;
+				margin-left: 60%;
+				margin-top : 20%;
 			}
 		</style>
 	</head>
@@ -23,12 +35,12 @@
 		<jsp:include page="../main/side_myNavi.jsp"/>
 		
 		<form id="restoreForm" action="restore" method="post">
-			<table>
+			<table id="table">
 				<tr>
 					<td>
 						<div>
 							<label>비밀번호</label><br/>
-							<input type="password" id="pw" name="pw" />
+							<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요." />
 						</div>
 					</td>
 				</tr>

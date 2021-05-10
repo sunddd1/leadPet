@@ -13,6 +13,7 @@
 			#interestTable {
 				width: 60%;
 				margin-left: 20%;
+				margin-top : 200px;
 			}
 			#interestTable, #interestTable td {
 				border: 1px solid black;
@@ -124,7 +125,7 @@
 			}
 			
 			content += "<td id=" + list[i].add_id + ">"
-			content += "<img src='#' alt='petPost'/>"
+			content += "<img src='./resources/loginImg.jpg' style='width: 130px'/>"
 			content += "<a href=\"javascript:void(0)\" onclick=\"idClickPopup(\'" + list[i].nickname + "\')\">" + list[i].nickname + "</a>"
 			content += "<button onclick=\"deleteInterest(\'" + list[i].add_id + "\')\">관심 유저 취소</button>"
 			content += "</td>";

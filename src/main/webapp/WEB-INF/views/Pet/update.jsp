@@ -126,6 +126,7 @@
 		reqData.append("kind",$('#kind').val());
 		reqData.append("kg",$('#kg').val());
 		reqData.append("pet_idx",$('#pet_idx').val());
+		reqData.append("pet_name",$('#pet_name').val());
 		
 		
 		

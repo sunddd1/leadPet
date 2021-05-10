@@ -11,19 +11,13 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
-    #top{
-        text-align: right;
-    }
-    a{
-        text-decoration: none;
-    }
     #search2{
-        text-align: center;
-        margin-top: 7%;
+    	margin-left: 150px;
     }
     input[type=text]{
         width: 500px;
         height: 22px;
+    	margin-bottom: 10px;
     }
     select,input[type=submit]{
         height: 30px;
@@ -50,40 +44,38 @@
         background: #eee;
     }
     #pointTable td {
-        width: 200px;
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
     .table{
-        margin-top: 10px;
+        margin-top: 100px;
         margin-left: 20%;
         width: 60%;
+        white-space: nowrap;
     }
-	#insert{
-		position: relative;
-		left: 80%
-	}
 	#radio{
-		position: relative;
-		left: 70%
+		float: right;
+	}
+	#pointDoc{
+		background-color: lightpink;
 	}
 </style>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
+<!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트</button>
 <button onclick="location.href='reportList'">글 신고 리스트</button>
 <button onclick="location.href='replyList'">댓글 신고 리스트</button>
 <button onclick="location.href='blindNList'">블라인드 리스트</button>
-<button onclick="location.href='pointList'">포인트 내역 리스트</button>
-    <div id="search2">
+<button onclick="location.href='pointList'">포인트 내역 리스트</button> -->
+    <div class="table">
+    <span id="search2">
         <input type="text" id="pointSearch" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
             <button id="searchBtn">검색</button>
-    </div>
-    <div class="table">
+    </span>
         <table id="pointTable">
          <thead>
 			 <tr>
@@ -110,7 +102,7 @@
             </c:forEach> --%>
             
             <tr>
-					<td id="paging" colspan="6">
+					<td id="paging" colspan="4">
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
