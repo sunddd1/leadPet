@@ -244,7 +244,7 @@ public class MemberController {
 		@ResponseBody
 		public String findIdByNickname(@RequestParam String nickname) {
 			logger.info("findIdByNickname 호출");
-			System.out.println(memberService.findIdByNickname(nickname));
+			
 			return memberService.findIdByNickname(nickname);
 		}
 }

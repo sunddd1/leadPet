@@ -33,8 +33,8 @@ public class GalleyController {
 		return service.GalleyList();
 	}
 	
-	@RequestMapping(value = "/GalleryDetail/{bbs_idx}", method = RequestMethod.GET)
-	public ModelAndView GalleryDetail (Model model , @PathVariable String bbs_idx) {
+	@RequestMapping(value = "/GalleryDetail", method = RequestMethod.GET)
+	public ModelAndView GalleryDetail (Model model , @RequestParam String bbs_idx) {
 		logger.info("갤러리 리스트 : " + bbs_idx);
 		return bservice.BoardDetail(bbs_idx);
 	}
