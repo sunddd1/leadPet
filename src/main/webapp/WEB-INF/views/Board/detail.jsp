@@ -8,23 +8,23 @@
 		<style>
 			
 			#profile,#profile td,#profile th{
-					width: max-content;
+					width: 60%;
 					border: 1px solid black;
 					border-collapse: collapse;
 					padding: 5px 10px;
 					text-align: center;
-					margin-left: 14%;
-					margin-top: 3%;
+					margin-left: 20%;
+					margin-top: 100px;
 			}
-			
 			#reply{
 				width: max-content;
-				margin-left: 14%;
+				margin-left: 20%;
 				margin-top: 3%;
 			}
 		</style>
 	</head>
 	<body>
+	<jsp:include page="../main/top_Navi.jsp"/>
 	<jsp:include page="../Member/idClickPopup.jsp"/>
 		<table id="profile">
             <tr>
@@ -84,6 +84,7 @@
 				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
 			</tr>
 		</table>
+		<button style="text-align: center;">리스트로 돌아가기</button>
 		
 		<table style="border-collapse: collapse;" id="reply">
 			<tr>

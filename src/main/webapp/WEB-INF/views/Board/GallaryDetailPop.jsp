@@ -9,6 +9,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<table>
 			<tr>
 				<td colspan="5" rowspan="10">
