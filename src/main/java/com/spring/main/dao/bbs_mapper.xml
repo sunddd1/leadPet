@@ -7,7 +7,7 @@
 <mapper namespace="com.spring.main.dao.BoardDAO">
 
 	<select id="tab" resultType="board" parameterType="map">
-		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.views,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
 		FROM bbs b JOIN bbs_img bi ON bi.bbs_idx(+)=b.bbs_idx
 		<if test="dog_cat.equals('dog')">		
 			WHERE b.bbs_blind='N' AND b.type='tip' AND b.pet_idx in

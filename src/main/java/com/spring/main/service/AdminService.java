@@ -309,9 +309,9 @@ public class AdminService {
 		return dao.memberBlackN(id);
 	}
 
-	public String insertBlack(String id) {
+	public int insertBlack(String id, String loginId) {
 		logger.info("블랙 추가 요청");
-		return dao.insertBlack(id);
+		return dao.insertBlack(id,loginId);
 	}
 
 	public ArrayList<AdminDTO> tipReportList() {

@@ -107,8 +107,7 @@ public class MemberController {
 		//회원이 쓴 글 목록 
 		@RequestMapping(value="/writeOtherList")
 	    public ModelAndView writeOtherList(@RequestParam String id){
-	        logger.info("내가 쓴 글 목록 요청 ID :"+id);
-	  
+	        logger.info("회원이 쓴 글 목록 요청 ID :"+id);
 			return memberService.writeList(id);
 		}
 		
