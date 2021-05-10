@@ -36,7 +36,7 @@
 			<thead>
 				<tr>
 					<th width="10%" nowrap>번호</th>
-					<th></th>
+					<th>보낸 회원</th>
 					<th>내용</th>
 				</tr>
 			</thead>
