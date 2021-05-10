@@ -13,6 +13,10 @@
 		text-align: center;
 	}
 	
+	button{
+			white-space: nowrap;
+	}
+	
 	input[type='text']{
 		width: 100%;
 	}	
@@ -34,16 +38,15 @@
 </style>
 </head>
 <body>
-<jsp:include page="../main/top_Navi.jsp"/>
 <h3>글쓰기</h3>
-<hr/>
+
 <form action="BoardUpdate" method="post">
 	<table>
 		<tr>
 			<th>작성자</th>
 			<input type="text" name="bbs_idx" value="${dto.bbs_idx }" style="display: none"/>
 			<input type="text" name="type" value="gal" style="display: none"/>
-			<td colspan="3"><input type="text" name="nickname" value="${dto.nickname}" readonly/></td>
+			<td colspan="5"><input type="text" name="nickname" value="${dto.nickname}" readonly/></td>
 			<c:if test="${dto.dog_cat ne null}">
 				<td colspan="2">
 					<input type="text" name="dog_cat" value="${dto.dog_cat}" readonly/></td>

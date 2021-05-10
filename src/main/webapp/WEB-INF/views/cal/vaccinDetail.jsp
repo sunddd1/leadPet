@@ -26,7 +26,7 @@
 		</style>
 	</head>
 	<body>
-		<h3>상세보기 폼</h3>
+		<h3>상세보기</h3>
 			<table>
 				<tr>
 					<td colspan="3">${vacc.content }</td>
@@ -54,7 +54,7 @@
 				</c:if>
 			</table>
 			<input type="hidden" id="vac_idx" value="${vacc.vac_idx }"/>
-			<input type="hidden" id="vacc_idx" value="${vacc.vacc_idx }"/>
+			<input type="hidden" id="vacc_idx" value="${vacc_sche_idx }"/>
 		
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -94,7 +94,7 @@
 		});
 	
 		$('#btn').click(function() {
-			console.log("에이작스 시작");
+			console.log("에이작스 시작"+$('#vacc_idx').val()+"//"+$('#vac_idx').val());
 			$.ajax({
 				type:'POST'
 				,url:'regVaccin'

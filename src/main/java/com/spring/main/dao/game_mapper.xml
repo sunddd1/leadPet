@@ -44,13 +44,13 @@
 			SELECT ROW_NUMBER() OVER(ORDER BY week_quiz_idx) AS rnum
 			, WEEK_QUIZ_IDX, QUIZ_FIRST, QUIZ_SECOND, QUIZ_THIRD, QUIZ_FOURTH, QUIZ_FIFTH
 			, QUIZ_SIXTH, QUIZ_SEVENTH, QUIZ_EIGHTH, QUIZ_NINTH, QUIZ_TENTH, QUIZ_UPDATE_DATE 
-			FROM quiz_week) WHERE rnum BETWEEN #{param1} AND #{param2} 
+			FROM quiz_week) WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY week_quiz_idx DESC
 	</select>
 	<select id="weekNemoCut" resultType="game">
 		SELECT * FROM(
 			SELECT ROW_NUMBER() OVER(ORDER BY week_nemo_idx) AS rnum
 			, WEEK_NEMO_IDX, NEMO_IDX, NEMO_UPDATE_DATE FROM nemo_week
-			) WHERE rnum BETWEEN #{param1} AND #{param2} 
+			) WHERE rnum BETWEEN #{param1} AND #{param2}  ORDER BY week_nemo_idx DESC
 	</select>
 	<!-- 조건에 quiz_blind = 'N' 걸지 말지 정하기 : 일단 이후 주차에 넣을 때는 뺴고 넣어야 함-->
 	<select id="quizWeekDetail" parameterType="Integer" resultType="game">
