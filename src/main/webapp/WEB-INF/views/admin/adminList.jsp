@@ -201,7 +201,7 @@ $('#searchBtn').click(function() {
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 			content +="<td>"
 			content += "<button class='adbtn' value='"+list[i].admin_id+"'onclick='changePass(this)'>비밀번호 수정</button>"
-			content +="<button onclick='delAdmin("+list[i].admin_id+")'>삭제</button>";
+			content +="<button onclick=delAdmin('"+list[i].admin_id+"')>삭제</button>";
 			content +="</td>"
 			content +="</tr>"
 		}

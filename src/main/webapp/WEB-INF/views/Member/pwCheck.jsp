@@ -7,8 +7,7 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#withdrawTable{
-					width: 60%;
-
+					width: 60%;  
 					margin-left: 40%;
 					margin-top : 20%;
 			}
@@ -24,6 +23,9 @@
 				margin: 5px;
 				height: 35px;
 			}
+			#h2{
+				margin-left: -50%;
+			}
 		</style>
 	</head>
 	<body>
@@ -34,7 +36,7 @@
 			<table id="withdrawTable">
 				<tr>
 					<th colspan="2">
-						<h2>회원 탈퇴</h2>
+						<h2 id="h2">회원 탈퇴</h2>
 					</th>
 				</tr>
 				<tr>

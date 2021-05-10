@@ -81,9 +81,10 @@ public class PetController {
 	
 	//대표 반려동물 설정
 	@RequestMapping(value="/star")
-    public String star(@RequestParam int pet_idx){
+    public String star(@RequestParam int pet_idx,HttpSession session){
         logger.info("반려동물 대표 설정");
-		return service.star(pet_idx);
+        String id = (String)session.getAttribute("loginId");
+		return service.star(pet_idx,id);
 	}
 	
 	//반려동물 수정 페이지  

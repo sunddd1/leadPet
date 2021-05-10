@@ -30,12 +30,12 @@ public interface PetDAO {
 
 	void star(int pet_idx);
 
+	
 	List<Map> vaccList(String chk);
 
 	int vaccCheck(int pet_idx, List<VaccinDTO> list);
 
 	boolean vacPlus(PetDTO dto);
-
 
 	List<VaccinDTO> vaccInfo(int pet_idx);
 
@@ -46,6 +46,7 @@ public interface PetDAO {
 	int updateFile(int pet_idx, String key, String string);
 
 	List<VaccinDTO> petVaccList(int pet_idx);
+
 
 
 }

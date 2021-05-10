@@ -11,6 +11,12 @@
 				padding-left : 20%;
 				width : 1200px;
 			}
+			
+			#wirte{
+			background-color: lightcoral;
+			color: white;
+			font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
@@ -34,12 +40,12 @@
                 <c:forEach var="write" items="${write}">
                 	<tr>
                 		<td>${write.bbs_idx}</td>
-                		<td><a id="detail" href="./detailWriteList?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
+                		<td><a id="detail" href="../BoardDetail?bbs_idx=${write.bbs_idx}">${write.bbs_subject}</a></td>
                 		<td>${write.category_name}</td>
                 		<td> ${write.reco_count}</td>
                 		<td>${write.views}</td>
                 		<td>${write.reg_date}</td>
-                		<td><a href="./deleteWriteList?bbs_idx=${write.bbs_idx}">삭제</a></td>
+                		<td><a href="./BoardDel?bbs_idx=${write.bbs_idx}">삭제</a></td>
                 	</tr>
                 </c:forEach>
                 </table>
