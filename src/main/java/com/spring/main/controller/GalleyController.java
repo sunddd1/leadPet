@@ -27,9 +27,8 @@ public class GalleyController {
 	@Autowired GalleryService service;
 	@Autowired BoardService bservice;
 	
-
 	@RequestMapping(value = "/GalleryList", method = RequestMethod.GET)
-	public ModelAndView GalleryList(Model model) {
+	public ModelAndView BoardList(Model model) {
 		logger.info("갤러리 리스트 : ");
 		return service.GalleyList();
 	}
@@ -37,7 +36,7 @@ public class GalleyController {
 	
 	@RequestMapping(value = "/GalleryDetail/{bbs_idx}", method = RequestMethod.GET)
 	public ModelAndView GalleryDetail (Model model , @PathVariable String bbs_idx) {
-		logger.info("갤러리 상세보기 : " + bbs_idx);
+		logger.info("갤러리 리스트 : " + bbs_idx);
 		return bservice.BoardDetail(bbs_idx);
 	}
 	

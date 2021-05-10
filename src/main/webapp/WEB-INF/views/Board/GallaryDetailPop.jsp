@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<td>
-					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오" style="resize: none;"></textarea>
+					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오"></textarea>
 					<button onclick='replyButton()' >등록</button>
 				</td>	
 			</tr>

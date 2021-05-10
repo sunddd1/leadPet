@@ -7,18 +7,15 @@
 		<title>Insert title here</title>
 		<style>
 			
-	
-			
-			#profile,#profile td,#profile th{
+			#profile,#profile td{
 					width: 60%;
 					border: 1px solid black;
 					border-collapse: collapse;
-					padding: 10px 20px;
+					padding: 5px 10px;
 					text-align: center;
 					margin-left: 20%;
 					margin-top: 100px;
 			}
-			
 			#reply{
 				width: max-content;
 				margin-left: 20%;
@@ -36,12 +33,14 @@
                 <th>추천</th>
                 <td>${dto.reco_count }</td>
                 <td id="reco"></td>
-                <th colspan="2">작성일</th>
+                <th>댓글갯수</th>
+                <td></td>
+                <th>작성일</th>
                 <td>${dto.reg_date }</td>
 
                 <td onclick='idClickPopup("${dto.nickname}")' style="color: blue;">${dto.id }</td>
                 <c:if test="${dto.id eq sessionScope.loginId}">
-	                <td colspan="3" style="text-align: center;">
+	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
 	                	<button onclick="location.href='BoardDel?bbs_idx=${dto.bbs_idx}' ">삭제하기</button>
 	                </td>
@@ -94,7 +93,7 @@
 		<table style="border-collapse: collapse;" id="reply">
 			<tr>
 				<td>
-					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오" style="resize: none;"></textarea>
+					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"></textarea>
 				</td>
 				<td>
 					<button onclick='replyButton()'>등록</button>

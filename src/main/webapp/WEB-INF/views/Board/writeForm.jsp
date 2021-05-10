@@ -19,7 +19,7 @@
 	
 	#writeForm{
 		width:60%;
-		margin-top: 50px;
+		margin-top: 100px;
 		margin-left: 20%;
 	}
 	
@@ -37,7 +37,7 @@
 </head>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
-<h3 style="margin-top: 80px; margin-left: 20%;">글쓰기</h3>
+<h3>글쓰기</h3>
 <form action="write" method="post">
 	<table id="writeForm">
 		<tr>
