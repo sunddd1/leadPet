@@ -220,7 +220,7 @@
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
-				if(list[i].nickname != "${sessionScope.loginId}"){
+				if(list[i].id != "${sessionScope.loginId}"){
 				//로그인아이디
 				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
 				}
