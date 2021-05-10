@@ -198,6 +198,7 @@ public class MemberController {
 			if(memberService.hasInterestId(myId, interestId)) {
 				return true;
 			}
+			
 			return memberService.deleteInterestId(myId, interestId);
 		}
 		

@@ -35,7 +35,7 @@
 				<th onclick="location.href='./gameQueList'">게임관리</th>
 			</tr>	
 			<tr>
-				<th onclick="location.href='./#'">포인트내역</th>
+				<th onclick="location.href='./pointList'">포인트내역</th>
 			</tr>					
 		</table>
 	</body>
