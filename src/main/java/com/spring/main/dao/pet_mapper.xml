@@ -69,7 +69,7 @@
 	
 	<!-- 등록된 동물의 정보 수정-->
 	<update id="updatePet">
-		UPDATE pet SET kg = #{kg}, kind = #{kind} WHERE pet_idx=#{pet_idx} AND id=#{id}
+		UPDATE pet SET kg = #{kg}, kind = #{kind}, pet_name = #{pet_name} WHERE pet_idx=#{pet_idx} AND id=#{id}
 	</update>
 	
 	<!-- 등록된 동물 접종 정보 -->
