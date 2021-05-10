@@ -184,6 +184,8 @@
 			    vacc.vacc_idx = Number($(this).attr('data-vaccIdx'));
 			    vacc.checked = checked;
 			    vacc.vacc_date = $(this).find('.vaccDate').val();
+			    vacc.expected_date = Number($(this).find('.vaccDate').val().substring(0,4))+1+$(this).find('.vaccDate').val().substring(4,$(this).find('.vaccDate').val().length)
+			    console.log("******" + vacc.expected_date);
 			    vaccList.push(vacc);
 			}
 		});

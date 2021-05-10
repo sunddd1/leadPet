@@ -99,7 +99,7 @@
 				,success : function(data) {
 					console.log(data.suc);
 					if(data.suc>0){
-						opener.location.reload();
+						opener.setData($('input[type="date"]').val());
 						window.close();
 					};
 				}

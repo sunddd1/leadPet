@@ -11,6 +11,7 @@
         #cal ,#cal td {
             border: 2px solid;
             border-collapse: collapse;
+      		vertical-align: top;
         }
         #cal td {
         	table-layout:fixed;
@@ -24,7 +25,6 @@
         	max-width: 100px;
         	min-width: 100px;
         	text-align: justify;
-        vertical-align: top;
         }
         
         #list{
@@ -46,6 +46,7 @@
 			margin: 25px;
 			margin-left : 20%;
 			padding: 50px;     
+      		vertical-align: top;
         }
 		#left{
 			float: left;
@@ -77,6 +78,7 @@
 							</div>							
 						</th>
 						<th>
+							
 							<div id="list">
 								
 							</div>
@@ -102,6 +104,7 @@
     function cal() {
         $('#cal').html('');    
         $('#list').html('');
+        $('#list').append('<h2 style="color:red;">필수 예방접종 리스트</h2>');
         var str = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
         var year = d.getFullYear();
         var month = d.getMonth() + 1;
@@ -169,7 +172,6 @@
     			
     			for (var i = 0; i < data.vaccinList.length; i++) {					
     				console.log(data.vaccinList[i]);
-    				$('#list').append('<h2 style="color:red;">필수 예방접종 리스트</h2>');
     				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].pet_name+"/"+data.vaccinList[i].vacc_name+"</span><br/>");
 				}
 

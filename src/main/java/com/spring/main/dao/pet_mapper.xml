@@ -46,15 +46,15 @@
 	
 	<!-- 백신 목록 -->
 	<select id="vaccList" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = #{param1} AND vacc_name LIKE ('%보강%') ORDER BY vacc_idx
+		SELECT*FROM vaccin WHERE dog_cat = #{param1} ORDER BY vacc_idx
 	</select>
 	
 	<!-- 등록시 접종 관련 -->
 	<update id="vacPlus" parameterType="java.util.List">
-		INSERT INTO pet_vaccin (vac_idx, vacc_date, checked, vacc_idx, pet_idx)
+		INSERT INTO pet_vaccin (vac_idx, vacc_date, checked, vacc_idx, pet_idx,expected_date)
 		SELECT vac_idx_seq.NEXTVAL, X.* FROM (
 		<foreach collection="vaccList" item="item" separator="UNION ALL">
-			SELECT #{item.vacc_date}, #{item.checked}, #{item.vacc_idx}, #{pet_idx} FROM DUAL
+			SELECT #{item.vacc_date}, #{item.checked}, #{item.vacc_idx}, #{pet_idx}, #{item.expected_date} FROM DUAL
 		</foreach>
 		) X
 	</update>

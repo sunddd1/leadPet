@@ -83,6 +83,7 @@
 				,success : function(data) {
 					console.log(data);
 					if(data.suc>0){
+						opener.setData($('input[type="date"]').val());
 						window.close();	
 					};
 				}
