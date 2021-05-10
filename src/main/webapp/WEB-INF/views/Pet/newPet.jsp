@@ -6,11 +6,12 @@
 		<title>반려동물 등록</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			table, td{
-			border: 1px solid black;
+			table{
 			border-collapse: collapse;
-			padding: 5px 10px;
 			text-align:center;
+			}
+			td{
+				padding : 10px 10px;
 			}
 			
 			input[type='text']{
@@ -21,17 +22,18 @@
 			width:100%;
 			}
 			
-			#photo{
-				
-			}
 		</style>
 	</head>
 	<body>
-		
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<table>
+			<tr>
+				<td><jsp:include page="../main/side_myNavi.jsp"/></td>
+				<td id="send">
+			
 		<h3>반려동물 등록</h3>
 		<hr/>
 		<div>
-		<%-- <form action="petPlus?id=${sessionScope.loginId}" method="post"> --%>
 		<table>
 			<thead>
 				<tr >
@@ -87,24 +89,17 @@
 				</tr>
 				</thead>
 				<tbody id="vaccTbody">
-					<!-- <tr class="list">
-						<td class="vaccName">컨넬코프</td>
-						<td>
-							<select id="option" name="checked" onchange="select()">
-								<option value="Y" selected>접종 완료</option>
-								<option value="N">미접종</option>
-							</select>
-							<input type="text" name="vacc_date" value="2020.01.20"/>
-						</td>
-					</tr> -->
+				
 				</tbody>
 				
 				<tr>
 					<td colspan="2"><input id="plus" type="button" value="추가"/></td>
 				</tr>
 			</table>
-			<!-- </form> -->
 			</div>
+			</td>
+		</tr>
+		
 	</body>
 	<script>
 	

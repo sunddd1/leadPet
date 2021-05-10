@@ -104,6 +104,13 @@ public class MemberController {
 			return memberService.writeList(id);
 		}
 		
+		//회원이 쓴 글 목록 
+		@RequestMapping(value="/writeOtherList")
+	    public ModelAndView writeOtherList(@RequestParam String id){
+	        logger.info("내가 쓴 글 목록 요청 ID :"+id);
+	  
+			return memberService.writeList(id);
+		}
 		
 		
 		//글 상세보기 
@@ -179,6 +186,11 @@ public class MemberController {
 				return false;
 			}
 			
+			if(memberService.hasInterestId(myId, interestId)) {
+				logger.info("id 중복");
+				return true;
+			}
+			
 			return memberService.addInterestId(myId, interestId);
 		}
 		
@@ -189,16 +201,14 @@ public class MemberController {
 			String myId = (String)session.getAttribute("loginId");
 			
 			if(interestId.trim().equals("")) {
+				logger.info("interestId is null");
 				return false;
 			}
 			
 			if(myId == null || myId.equals(interestId)) {
+				logger.info("myId error");
 				return false;
-			}
-			
-			if(memberService.hasInterestId(myId, interestId)) {
-				return true;
-			}
+			}	
 			
 			return memberService.deleteInterestId(myId, interestId);
 		}

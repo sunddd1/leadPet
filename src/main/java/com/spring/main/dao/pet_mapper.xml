@@ -8,7 +8,7 @@
 <mapper namespace="com.spring.main.dao.PetDAO">
 	<!-- 반려동물 목록 -->
 	<select id="list"  resultType="com.spring.main.dto.PetDTO">
-		SELECT p.kind,TO_CHAR(p.bday, 'YYYY-MM-DD') AS bday, p.pet_name, p.kg, p.pet_idx, p.delegate, newfilename
+		SELECT p.kind,TO_CHAR(p.bday, 'YYYY-MM-DD') AS bday, p.pet_name, p.kg, p.pet_idx, p.delegate, newFileName
 		FROM pet p JOIN pet_img pi ON p.pet_idx = pi.pet_idx
 		WHERE p.id=#{id} ORDER BY p.delegate DESC ,p.pet_idx DESC
 	</select>
@@ -46,7 +46,7 @@
 	
 	<!-- 백신 목록 -->
 	<select id="vaccList" resultType="vaccin">
-		SELECT*FROM vaccin WHERE dog_cat = #{param1} ORDER BY vacc_idx
+		SELECT*FROM vaccin WHERE dog_cat = #{param1} AND vacc_name LIKE ('%보강%') ORDER BY vacc_idx
 	</select>
 	
 	<!-- 등록시 접종 관련 -->
@@ -69,7 +69,7 @@
 	
 	<!-- 등록된 동물의 정보 수정-->
 	<update id="updatePet">
-		UPDATE pet SET kg = #{kg}, kind = #{kind} WHERE pet_idx=#{pet_idx} AND id=#{id}
+		UPDATE pet SET kg = #{kg}, kind = #{kind}, pet_name = #{pet_name} WHERE pet_idx=#{pet_idx} AND id=#{id}
 	</update>
 	
 	<!-- 등록된 동물 접종 정보 -->

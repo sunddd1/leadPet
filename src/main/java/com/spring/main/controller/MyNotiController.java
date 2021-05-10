@@ -68,14 +68,6 @@ public class MyNotiController {
 	        String id = (String)session.getAttribute("loginId");
 			return service.detailNoteList(message, note_idx,id);
 		}
-		
-		//쪽지/로그인 정보 
-		@RequestMapping("/header")
-		public ModelAndView header() {
-			logger.info("알림/로그인 정보 요청");
-			return new ModelAndView("Member/header");
-		}
-		
 
 		//받은 쪽지 삭제 요청 
 		@RequestMapping(value="/delMessageList")

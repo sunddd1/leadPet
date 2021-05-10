@@ -86,10 +86,11 @@
 				,success:function(result) {
 					var id = result;
 					
-					$("#written").attr("href", "./writeList?id=" + id);
+					$("#written").attr("href", "./writeOtherList?id=" + id);
 					interestTag(id);
-					$("#pet").attr("href", "./listPet?id=" + id);
-					$("#note").attr("href", "./borderlist");
+					$("#pet").attr("href", "./listPetOther?id=" + id);
+					$("#note").attr("href", "./borderlist?receiving_id="+id);
+
 					
 				},error:function(e) {
 					console.log("비동기 에러");
@@ -149,10 +150,10 @@
 				,data:{'interestId' : interestId}
 				,dataType:'JSON'
 				,success:function(result) {
-					var tag = "<a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a>";
+					var tag = "<td><a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a></td>";
 					
 					if(result) {
-						tag = "<a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a>";
+						tag = "<td><a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a></td>";
 					}
 
 					$("#interestDiv").html(tag);

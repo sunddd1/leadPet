@@ -66,7 +66,7 @@
                 <c:if test="${dto.pet_name ne null}">
 	                <th>사진</th>
 	                <td>
-	                		<img src='/photo/${dto.pet_newfilename}' width='100px' height='100px'/>
+	                		<img src='./petPhoto/${dto.pet_newfilename}' width='100px' height='100px'/>
 	                </td>
 	                <th>이름</th>
 	                <td>${dto.pet_name }</td>

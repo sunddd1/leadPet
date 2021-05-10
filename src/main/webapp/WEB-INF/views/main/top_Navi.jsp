@@ -41,6 +41,10 @@
       	 	border-radius: 20px;
       	 	list-style-type:none;
       	 	text-align: center;
+      	 	margin-bottom: 5px;
+		}
+		#side_Navi li:hover{
+			cursor: pointer;
 		}
 		
 		#side_Navi{
@@ -159,17 +163,14 @@
 		</table>
 		<ul id="topNavi">
 				<li id="exBBS" onclick="location.href='./BoardList'">댕냥노하우/경험기</li>
-				<li onclick="location.href='./admin'">갤러리</li>
-				<li onclick="location.href='./admin'">사료,간식,영양제 추천</li>
-				<li onclick="location.href='./admin'">동반입장 식당 소개</li>
-				<li onclick="location.href='./admin'">목줄 프리 공원</li>			
+				<li id="gallBBS"onclick="location.href='./GalleryList'">갤러리</li>
 				<c:if test="${sessionScope.isMaganer eq null}">
 					<li id="myNavi" onclick="location.href='./member-detail?id=${sessionScope.loginId}'">마이페이지</li>
 				</c:if>
 				<c:if test="${sessionScope.isMaganer ne null}">
 					<li id="adNavi" onclick="location.href='./admin'">관리자페이지</li>	
 				</c:if>			
-				<li onclick="location.href='./gameMain'">미니게임</li>
+				<li id="minGame" onclick="location.href='./gameMain'">미니게임</li>
 		</ul>
 		</div>
 				</td>
