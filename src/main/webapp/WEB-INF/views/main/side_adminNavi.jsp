@@ -5,7 +5,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
 		<style>
 			#adNavi{
 				background-color: lightcoral;
@@ -15,29 +14,25 @@
 		</style>
 	</head>
 	<body>
-		<table id="side_Navi">
-			<tr>
-				<th id="vaccinManage" onclick="location.href='./vaccList'">백신리스트</th>
-			</tr>
-			<tr>
-				<th onclick="location.href='./admin'">관리자관리</th>
-			</tr>		
-			<tr>
-				<th onclick="location.href='./memberList'">회원리스트</th>
-			</tr>		
-			<tr>
-				<th onclick="location.href='./reportList'">신고관리</th>
-			</tr>		
-			<tr>
-				<th onclick="location.href='./gameWeek'">게임회차</th>
-			</tr>		
-			<tr>
-				<th onclick="location.href='./gameQueList'">게임관리</th>
-			</tr>	
-			<tr>
-				<th onclick="location.href='./pointList'">포인트내역</th>
-			</tr>					
-		</table>
+			<ul id="side_Navi">
+			
+				<li  id="vaccinManage" onclick="location.href='./vaccList'">백신리스트</li>
+
+				<li id="adManage" onclick="location.href='./admin'">관리자관리</li>
+
+				<li id="memberManage" onclick="location.href='./memberList'">회원리스트</li>
+
+				<li id="repManage" onclick="location.href='./reportList'">신고관리</li>
+
+				<li id="gameRound" onclick="location.href='./gameWeek'">게임회차</li>
+
+				<li id="gameManage" onclick="location.href='./gameQueList'">게임관리</li>
+
+				<li id="pointDoc" onclick="location.href='./#'">포인트내역</li>
+
+				
+		</ul>
+
 	</body>
 	<script>
 	</script>

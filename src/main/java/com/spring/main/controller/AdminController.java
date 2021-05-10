@@ -685,22 +685,6 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = "/blindYSearch", method = RequestMethod.POST)
-	public String blindYSearch(
-			Model model, 
-			HttpSession session,
-			@RequestParam HashMap<String, String> params
-			) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		service.adminCheck(loginId);
-//		String page ="admin/adminList";
-//		if(loginId != null) {
-		ArrayList<AdminDTO> list = service.blindYSearch(params);
-		model.addAttribute("blindYList", list);
-//			page="admin/adminList";
-//		}
-		return "admin/blindYList";
-	}
 	
 	@RequestMapping(value = "/blindYList", method = RequestMethod.GET)
 	public ModelAndView blindYList(
@@ -732,10 +716,6 @@ public class AdminController {
 //		String page ="admin/adminList";
 //		if(loginId != null) {
 		logger.info("keyword:"+keyword);
-		if(keyword.equals("")) {
-			keyword =".";
-			logger.info("들어온값:"+keyword);
-		}
 //			page="admin/adminList";
 //		}
 		return service.blindYList(pagePerCnt,page,keyword);
