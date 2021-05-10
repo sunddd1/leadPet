@@ -35,10 +35,8 @@
         line-height: 1.5;
         border-top: 1px solid #ccc;
         border-left: 1px solid #ccc;
-        margin : auto;
     }
     #withdrawTable th {
-        width: 120px;
         padding: 10px;
         font-weight: bold;
         vertical-align: top;
@@ -48,15 +46,23 @@
         border-left: 1px solid #fff;
         background: #eee;
     }
-    #withdrawTable td {
-        width: 200px;
+    #withdrawTable tBody td {
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
-    .table{
-        margin-top: 10px;
+    #btns{
+	    padding: 10px;
+    	text-align: left;
+    	border: none;
+        border-bottom: 1px solid white;
+    }
+    .conBody{
+    	width: 60%;
+    	margin-left:20%;
+        margin-top: 100px;
+        white-space: nowrap;   
     }
 	#insert{
 		position: relative;
@@ -66,72 +72,79 @@
 		position: relative;
 		left: 70%
 	}
+	#memberManage{
+		background-color: lightpink;
+	}
 </style>
 <body>
-<jsp:include page="../main/top_Navi.jsp"/>
-<jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
-<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
-    <div id="search2">
-        <select id="withSearch" name="search">
-                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
-                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
-            </select>
-            <input type="text" id="withdrawSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
-            <button id="searchBtn">검색</button>
-    </div>
-    <div id="radio">
-        <input type="radio" id="r1" name="radio" value="normal" OnClick="window.location.href='memberList'"/>전체 회원
-        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
-        <input type="radio" id="r3" name="radio" value="withdraw" checked="checked" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
-    </div>
-    <div class="table">
-        <table id="withdrawTable">
-            <thead>
-				<tr>
-					<th>아이디</th>
-	                <th>닉네임</th>
-	                <th>성별</th>
-	                <th>회원가입일</th>
-	                <th></th>
-				</tr>
-			</thead>
-			<tbody id="list">
-				<!-- 불러온 데이터 뿌리는 영역 -->
-			</tbody>
-			
-			
-            <%-- <c:forEach items="${withdrawList}" var="member">
-	            <tr>
-	                <td>
-		                <a href="detailMember?id=${member.id}" 
-		                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
-		               	 	${member.id}
-		                </a>
-		                <input type="hidden" id="id" value="${member.id}">
-	                </td>
-	                <td>${member.nickname}</td>
-	                <td>${member.gender}</td>
-	                <td>${member.reg_date}</td> 
-	                <td>
-	                	<button id="withdraw">회원 복구</button>
-	                </td>
-                </tr>
-            </c:forEach> --%>
-            
-            <tr>
-					<td id="paging" colspan="6">
-						<div class="container">
-							<nav aria-label="page navigation" style="text-align:center">
-								<ul class="pagination" id="pagination"></ul>
-							</nav>
-						</div>
-					</td>
-				</tr>
+	<jsp:include page="../main/top_Navi.jsp"/>
+	<jsp:include page="../main/side_adminNavi.jsp"/>
+		<div class="conBody">
+		    <div id="search2">
+		        <select id="withSearch" name="search">
+		                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
+		                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
+		            </select>
+		            <input type="text" id="withdrawSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+		            <button id="searchBtn">검색</button>
+		    </div>
+		    <div id="radio">
+		        <input type="radio" id="r1" name="radio" value="normal" OnClick="window.location.href='memberList'"/>전체 회원
+		        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
+		        <input type="radio" id="r3" name="radio" value="withdraw" checked="checked" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
+		    </div>
+	        <table id="withdrawTable">
+	        	 <thead>
+		        	<tr>
+		        		<td id="btns" colspan="5">
+				        	<button onclick="location.href='admin'">관리자관리 리스트</button>
+							<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
+							<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
+						</td>	
+					</tr>
+					<tr>
+						<th>아이디</th>
+		                <th>닉네임</th>
+		                <th>성별</th>
+		                <th>회원가입일</th>
+		                <th></th>
+					</tr>
+				</thead>
+				<tbody id="list">
+					<!-- 불러온 데이터 뿌리는 영역 -->
+				</tbody>
 				
-        </table>
-    </div>
+				
+	            <%-- <c:forEach items="${withdrawList}" var="member">
+		            <tr>
+		                <td>
+			                <a href="detailMember?id=${member.id}" 
+			                onclick="window.open(this.href, 'detailMember', 'width=800, height=600, top=100, left=400'); return false;">
+			               	 	${member.id}
+			                </a>
+			                <input type="hidden" id="id" value="${member.id}">
+		                </td>
+		                <td>${member.nickname}</td>
+		                <td>${member.gender}</td>
+		                <td>${member.reg_date}</td> 
+		                <td>
+		                	<button id="withdraw">회원 복구</button>
+		                </td>
+	                </tr>
+	            </c:forEach> --%>
+	            
+	            <tr>
+						<td id="paging" colspan="6">
+							<div class="container">
+								<nav aria-label="page navigation" style="text-align:center">
+									<ul class="pagination" id="pagination"></ul>
+								</nav>
+							</div>
+						</td>
+					</tr>
+					
+	        </table>
+	    </div> 
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
     <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </body>
