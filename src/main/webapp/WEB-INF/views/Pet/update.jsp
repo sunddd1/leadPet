@@ -7,9 +7,10 @@
 		<title>반려동물 수정</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			table, td{
-			border: 1px solid black;
-			border-collapse: collapse;
+			#table{
+			margin-left : 20%;
+			width : 60%;
+			margin-top : 100px;
 			padding: 5px 10px;
 			text-align:center;
 			}
@@ -18,20 +19,23 @@
 			width:40%;
 			}
 			
-			table{
-			width:100%;
-			}
 			
-			#photo{
-				
+			
+			#myPet{
+			background-color: lightcoral;
+			color: white;
+			font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>
+		<jsp:include page="../main/top_Navi.jsp"/>
+		<jsp:include page="../main/side_myNavi.jsp"/>
+		
 		<h3>반려동물 수정</h3>
 		<hr/>
 		<div>
-		<table>
+		<table id="table">
 			<thead>
 				<tr>
 					<td colspan="2">
