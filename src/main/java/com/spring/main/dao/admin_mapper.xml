@@ -155,8 +155,8 @@
 
 SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
 (SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
-WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
+FROM report WHERE id LIKE LOWER(#{param3})  or id LIKE UPPER(#{param3})) 
+WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
 
 	 </select>
 	 
@@ -197,8 +197,8 @@ WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
 	 <select id="finishReplyList" resultType="report">
 SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
 (SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
-WHERE type = 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
+FROM report WHERE id LIKE LOWER(#{param3})  or id LIKE UPPER(#{param3})) 
+WHERE type = 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="finishReplyCount" resultType="Integer">
