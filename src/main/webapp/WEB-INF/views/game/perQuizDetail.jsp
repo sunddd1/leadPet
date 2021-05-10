@@ -42,6 +42,9 @@
 				font-size: 14px;
 				font-weight: 600;
 			}
+			#gameManage{
+				background-color: lightpink;
+			}
 			#adNavi{
 				background-color: lightcoral;
 				color: white;

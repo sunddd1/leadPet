@@ -26,7 +26,11 @@
 			#gal_img{
 				padding-left: 45px;
 			}
-			
+			#gallBBS{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 
 			
 		
