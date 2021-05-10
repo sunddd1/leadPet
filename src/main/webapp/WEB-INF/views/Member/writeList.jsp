@@ -30,13 +30,17 @@
 			tbody{
 			}
 			#tr1 {
-			  border-right: 1px solid;
-			  border-left: 1px solid;
+			  border-right: 10px solid #ccc;
+  			border-left: 4px solid #ccc;
 			  background: lightcoral;
 			  padding: 10px;
 			  font-weight: bold;
 			  vertical-align: top;
 			  color: #fff;
+			}
+			
+			#tr1 > th {
+				
 			}
 			
 			#del{
@@ -83,6 +87,10 @@
 	
 	</body>
 	<script>
-		
+	var msg = "${msg}";
+	if(msg!=""){
+		alert(msg);
+		msg = "";
+	}
 	</script>
 </html>

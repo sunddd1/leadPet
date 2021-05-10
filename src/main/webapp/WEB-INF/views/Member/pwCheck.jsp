@@ -24,7 +24,7 @@
 				height: 35px;
 			}
 			#h2{
-				margin-left: -50%;
+				margin-left: 10%;
 			}
 		</style>
 	</head>
@@ -36,12 +36,12 @@
 			<table id="withdrawTable">
 				<tr>
 					<th colspan="2">
-						<h2 id="h2">회원 탈퇴</h2>
+						<h2 id="h2" style="float: left;">회원 탈퇴</h2>
 					</th>
 				</tr>
 				<tr>
 					<td>
-						<div width="300px">
+						<div>
 							<label>비밀번호</label><br/>
 							<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요." />
 						</div>
