@@ -30,13 +30,13 @@
         #list{
 			border: 1px solid black;
         	width: 200px;
-        	height: 300px;
+        	height: 700px;
         	font-size: 8pt;
         	box-shadow: 5px 5px red;
         	padding: 10px;
         }
         .schedule{
-        	font-size: 6pt;
+        	font-size: 10pt;
         }
         #calendar{
         	background-color: lightcoral;
@@ -78,6 +78,7 @@
 						</th>
 						<th>
 							<div id="list">
+								
 							</div>
 						</th>
 					</tr>
@@ -168,6 +169,7 @@
     			
     			for (var i = 0; i < data.vaccinList.length; i++) {					
     				console.log(data.vaccinList[i]);
+    				$('#list').append('<h2 style="color:red;">필수 예방접종 리스트</h2>');
     				$('#list').append("<span onclick='vaccDetail("+data.vaccinList[i].vac_idx+")'>"+data.vaccinList[i].pet_name+"/"+data.vaccinList[i].vacc_name+"</span><br/>");
 				}
 
@@ -236,13 +238,13 @@
    function fa(e){
        console.log(d.getFullYear()+"/"+(d.getMonth() +1)+"/"+(e));
        var link =d.getFullYear()+"/"+(d.getMonth() +1)+"/"+(e)
-        window.open("./calendarList?date="+link,"","width=400,height=400,left=300,top=300");   
+        window.open("./calendarList?date="+link,"","width=400,height=500,left=300,top=300");   
    }
    
    function vaccDetail(a) {
 		console.log(a);
 		//href='./vaccinDetail?idx=  vacc_sche_idx=${list.vacc_sche_idx}&vac_idx=
-		window.open("./vaccinDetail?vacc_sche_idx=0&vac_idx="+a,"","width=600,height=400,left=800,top=300");   
+		window.open("./vaccinDetail?vacc_sche_idx=0&vac_idx="+a,"","width=600,height=200,left=800,top=300");   
 	}
    
    function setData(data) {
