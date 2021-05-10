@@ -40,8 +40,7 @@
 			}
 			
 			#star{
-				border: 1px solid yellow;
-				border-radius: 10%;
+				
 			}
 		</style>
 	</head>
@@ -59,12 +58,17 @@
 					<c:forEach items="${list}" var="dto">
 						<table id="table" style="width: 40%;" >
 						<tr>
-							<td rowspan="20">
+							<td rowspan="20" >
 							<img src="./petPhoto/${dto.newFileName}" style="width: 80px;">
 							</td>
 						<c:if test="${dto.delegate != 'N'}">
-							<td id="star">내가 대표다!</td>
+							<td id="star">
+								<img src="https://img.icons8.com/office/30/000000/filled-like--v1.png"/>
+								대표 반려동물
+								<img src="https://img.icons8.com/office/30/000000/filled-like--v1.png"/>
+							</td>
 						</c:if> 
+						
 						</tr>
 						<tr id="name">
 							
@@ -81,19 +85,15 @@
 							<td>${dto.kg}</td>
 						</tr>
 						<tr>
-							<td>
-								<c:if test="${dto.delegate == 'N'}">
-									<button onclick="location.href='./star?pet_idx=${dto.pet_idx}'">대표로 설정</button>
-								</c:if>
-							</td>
-						</tr>
-						<tr>
 							<td><c:forEach items="${dto.vaccList}" var="vacc">
 								${vacc.vacc_name} : ${vacc.vacc_date}<br>
 								</c:forEach></td>
 						</tr>
 						<tr>
 							<td id="button">
+							<c:if test="${dto.delegate == 'N'}">
+									<button onclick="location.href='./star?pet_idx=${dto.pet_idx}'">대표로 설정</button>
+							</c:if>
 							<button onclick="location.href='./updatePetPage?pet_idx=${dto.pet_idx}'">수정</button>
 							<button onclick="location.href='./deletePet?pet_idx=${dto.pet_idx}'">삭제</button>
 							</td>
