@@ -24,6 +24,7 @@
 			
 			#table{
 				 float:left;
+				 width : 4000px;
 			}
 			
 			#button{
@@ -32,6 +33,7 @@
 			
 			td{
 				align-content: left; 
+			
 			}
 			
 			img{
@@ -56,7 +58,7 @@
 				등록</button>
 			<hr/>
 					<c:forEach items="${list}" var="dto">
-						<table id="table" style="width: 40%;" >
+						<table id="table" style="width: 50%;" >
 						<tr>
 							<td rowspan="20" >
 							<img src="./petPhoto/${dto.newFileName}" style="width: 80px;">
