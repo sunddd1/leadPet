@@ -198,7 +198,8 @@
 	// 등록 버튼
 	function update() {
 		if(isAllValid()) {
-			$('#updateTable').submit();
+			console.log("보내기!!");
+			$('#updateForm').submit();
 		}
 	}
 	

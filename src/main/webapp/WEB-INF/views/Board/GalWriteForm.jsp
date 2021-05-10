@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	table,td, th{
+	#galwrite_content,#galwrite_content td, #galwrite_content th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px 10px;
@@ -17,8 +17,11 @@
 		width: 100%;
 	}	
 	
-	table{
+	#galwrite_content{
 		width:100%;
+		margin-left: 20%;
+		width:60%;
+		margin-top: 100px
 	}
 	
 	#editable{
@@ -35,10 +38,8 @@
 </head>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
-<h3>글쓰기</h3>
-<hr/>
 <form action="Galwrite" method="post">
-	<table>
+	<table id="galwrite_content">
 		<tr>
 			<th>작성자</th>
 			<td colspan="3"><input type="text" name="nickname" value="${dto.nickname}" readonly/></td>
@@ -80,7 +81,7 @@
 		</tr>
 		<tr>
 			<th>사진</th>
-			<td style="border-right: 0px;"><div id="editable" contenteditable="false"></div></td>
+			<td colspan="5"><div id="editable" contenteditable="false" style="width: 98%"></div></td>
 		</tr>
 		<tr>
 			<th >파일첨부</th>
