@@ -244,7 +244,7 @@
    function vaccDetail(a) {
 		console.log(a);
 		//href='./vaccinDetail?idx=  vacc_sche_idx=${list.vacc_sche_idx}&vac_idx=
-		window.open("./vaccinDetail?vacc_sche_idx=0&vac_idx="+a,"","width=600,height=200,left=800,top=300");   
+		window.open("./vaccinDetail?vacc_sche_idx=0&vac_idx="+a,"","width=600,height=400,left=800,top=300");   
 	}
    
    function setData(data) {

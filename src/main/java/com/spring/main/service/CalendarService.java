@@ -109,6 +109,7 @@ public class CalendarService {
 		logger.info("chgeck : "+check);
 		mav.addObject("check", check);
 		mav.addObject("vacc", vacc);
+		mav.addObject("vacc_sche_idx", vacc_sche_idx);
 		mav.setViewName("./cal/vaccinDetail");
 		return mav;
 	}
