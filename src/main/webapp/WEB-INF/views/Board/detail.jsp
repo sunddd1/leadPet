@@ -7,7 +7,7 @@
 		<title>Insert title here</title>
 		<style>
 			
-			#profile,#profile td,#profile th{
+			#profile,#profile td{
 					width: 60%;
 					border: 1px solid black;
 					border-collapse: collapse;
@@ -84,7 +84,7 @@
 				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
 			</tr>
 			<tr>
-				<td colspan="11">
+				<td colspan="12">
 					<button style="text-align: center;"  onclick="location.href='BoardList'">리스트로 돌아가기</button>				
 				</td>
 			</tr>

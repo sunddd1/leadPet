@@ -6,6 +6,11 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
+		
+			button{
+				white-space: nowrap;
+			}
+		
 		</style>
 	</head>
 	<body>
@@ -20,6 +25,7 @@
 					<td id="interest"> </td>
 				</c:if>
 				<td colspan="3" id="reco"></td>
+				
 			</tr>
 			<tr>
 				<td>${dto.bbs_subject}</td>
@@ -35,6 +41,11 @@
 			</tr>
 			<tr>
 				<td>
+					<button onclick="BoardreportForm()">신고하기</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오"></textarea>
 					<button onclick='replyButton()' >등록</button>
 				</td>	
@@ -42,9 +53,6 @@
 			<tr>
 				<td>
 					${dto.reg_date }
-				</td>
-				<td>
-					<button onclick="BoardreportForm()">신고하기</button>
 				</td>
 			</tr>
 			<tr>

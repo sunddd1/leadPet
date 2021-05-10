@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	table,td, th{
+	#writeForm,#writeForm td,#writeForm th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px 10px;
@@ -17,8 +17,10 @@
 		width: 100%;
 	}	
 	
-	table{
-		width:100%;
+	#writeForm{
+		width:60%;
+		margin-top: 100px;
+		margin-left: 20%;
 	}
 	
 	#editable{
@@ -36,9 +38,8 @@
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <h3>글쓰기</h3>
-<hr/>
 <form action="write" method="post">
-	<table>
+	<table id="writeForm">
 		<tr>
 			<th>작성자</th>
 			<td colspan="3"><input type="text" name="nickname" value="${dto.nickname}" readonly/></td>
