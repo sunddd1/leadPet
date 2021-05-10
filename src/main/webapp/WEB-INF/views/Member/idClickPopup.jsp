@@ -86,7 +86,7 @@
 				,success:function(result) {
 					var id = result;
 					
-					$("#written").attr("href", "./writeList?id=" + id);
+					$("#written").attr("href", "./writeOtherList?id=" + id);
 					interestTag(id);
 					$("#pet").attr("href", "./listPetOther?id=" + id);
 					$("#note").attr("href", "./borderlist");
