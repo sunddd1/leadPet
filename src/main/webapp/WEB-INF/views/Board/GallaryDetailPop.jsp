@@ -25,7 +25,7 @@
 				<c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='../GalleryUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
-	                	<button onclick= BoardDelete()>삭제하기</button>
+	                	<button onclick= "BoardDelete()">삭제하기</button>
 	                </td>
                 </c:if>
 			</tr>
@@ -47,13 +47,14 @@
 				</td>
 			</tr>
 			<tr>
-				</td  id="replyUpdate" style="border: 2px solid black">
-				</td>
 				<td>
 					<div id="replyList" style="overflow-y:scroll ; height:100px; width:300px">
 						<table >
 						
 						</table>
+					</div>
+					<div id="replyUpdate">
+				
 					</div>
 				</td>
 			</tr>
