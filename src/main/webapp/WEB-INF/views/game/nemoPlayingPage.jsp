@@ -9,7 +9,7 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
 			#conBody{
-				margin-left : 25%;
+				margin-left : 20%;
 				width: 60%;
 				margin-top: 100px;
 				margin-bottom: 100px;
@@ -62,6 +62,11 @@
 			#nemo_subject{
 				width: 50%;
 				height: 35px;
+			}
+			#minGame{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

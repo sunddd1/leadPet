@@ -216,11 +216,11 @@
 				var date = new Date(list[i].reg_date);
 				replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				//로그인 아이디라면
-				if(list[i].nickname== "${sessionScope.loginId}"){
+				if(list[i].id== "${sessionScope.loginId}"){
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
-				if(list[i].nickname != "${sessionScope.loginId}"){
+				if(list[i].id != "${sessionScope.loginId}"){
 				//로그인아이디
 				replyDraw +="<td><a href='#' onclick='replyReport("+list[i].reply_idx+")'>신고</a></td>"
 				}
@@ -470,8 +470,8 @@
 			var content = "";
 			content+=" <button onclick='addInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록 </button>"
 			content+=" <button style='display:none ; font-size:15px;'>관심유저 등록취소</button>"
-			$("#reco").empty();
-			$("#reco").append(content);
+			$("#interest").empty();
+			$("#interest").append(content);
 		}
 		
 	</script>

@@ -108,10 +108,6 @@ public class BoardService {
 			logger.info("idx : "+dto.getBbs_idx());
 			logger.info("fileList.size : " + fileList.size());
 			if(fileList.size()>0) {
-				/*
-				 * for(String key : fileList.keySet()) {
-				 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
-				 */
 				ArrayList<String> keyArr = new ArrayList<String>();
 				for(String key : fileList.keySet()) {
 					keyArr.add(key);
@@ -223,10 +219,6 @@ public class BoardService {
 			if(dao.BoardUpdate(dto)>0) {
 				logger.info("idx : "+dto.getBbs_idx());
 				if(fileList.size()>0) {
-					/*
-					 * for(String key : fileList.keySet()) {
-					 * dao.writeFile(key,fileList.get(key),dto.getBbs_idx()); }
-					 */
 					ArrayList<String> keyArr = new ArrayList<String>();
 					for(String key : fileList.keySet()) {
 						keyArr.add(key);

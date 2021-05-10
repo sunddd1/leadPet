@@ -96,10 +96,13 @@ public class LoginController {
 	}
 	
 	@PostMapping("/change-pw")
-	public String changePw(@RequestParam String id, @RequestParam String password) {
+	public ModelAndView changePw(@RequestParam String id, @RequestParam String password) {
 		logger.info("changePw 요청");
 
-		return registService.changePw(id, password) ? "login/loginForm" : "login/changePwForm";
+		if(registService.changePw(id, password)) {
+			return new ModelAndView("login/loginForm", "msg", "비민번호 변경에 성공했습니다.");
+		}
+		return new ModelAndView("login/changePwForm", "msg", "비민번호 변경에 실패했습니다.");
 	}
 	
 	@PostMapping("/regist")

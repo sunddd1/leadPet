@@ -9,23 +9,15 @@
 		<title>NemoDetail</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 5% 22%;
-				width: 50%;
-			}
-			#btn{
-				float: right;
-				padding: 1%;
-			}
-			#nemoDiv{
-				padding-top: 6%;
+				margin-left : 10%;
+				width: 80%;
+				margin-top: 100px;
 			}
 			#nemoTable{
 				border: 5px double grey;
 				border-collapse: collapse;
+				margin-left: 20%;
 			}
 			#nemoTable th, #nemoTable td{
 				border: 1px solid black;
@@ -34,30 +26,28 @@
 				height: 70px;
 				font-size: 12px;
 			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
-			}
 			#subjectSpace{
-				padding-top: 2%;
+				padding-top: 3%;
+			}
+			#nemoTable button{
+				margin-right: 15px;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="conBody">
-			<div id="btn">
-				<button onclick="location.href='./nemoUpdateForm?idx=${nemoDetail.nemo_idx}'">수정하기</button>
-				<button onclick="location.href='./gameQueList'">목록으로</button>
-			</div>
-			<div id="nemoDiv">
 				<table id="nemoTable">
+					<tr>
+						<td colspan="11" style="text-align: right; border-top: 5px double white;border-right: 5px double white;border-left: 5px double white;">
+							<button onclick="location.href='./nemoUpdateForm?idx=${nemoDetail.nemo_idx}'">수정하기</button>
+							<button onclick="location.href='./gameQueList'">목록으로</button>
+						</td>
+					</tr>
 					<tr>
 						<th colspan="11" id="subjectSpace">
 							<h2>네모 제목 : ${nemoDetail.nemo_subject}</h2>

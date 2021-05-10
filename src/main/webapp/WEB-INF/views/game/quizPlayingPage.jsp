@@ -13,8 +13,6 @@
 			}
 			#conBody{
 				width: 60%;
-				min-width: 1000px;
-				max-width : 1200px;
 				margin-left: 20%;
 				margin-top: 100px;
 				margin-bottom: 100px;
@@ -24,11 +22,12 @@
 			}
 			#queList{
 				padding-top: 3%;
+				width: 105%;
 			}
 			#quizTable{
 				border: 3px solid darkgrey;
-				padding-left : 100px;
-				width: 115%;
+				padding-left : 50px;
+				padding-right : 50px;
 			}
 			#timeWatch{
 				float: right;
@@ -54,6 +53,11 @@
 			}
 			#quizTable th{
 				padding-top: 3%;
+			}
+			#minGame{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

@@ -9,12 +9,10 @@
 		<title>PerQuizDetail</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
-		
 			#conBody{
 				margin-left : 20%;
-				width: 70%;
+				width: 60%;
 				margin-top: 100px;
-				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -43,6 +41,11 @@
 				color: red;
 				font-size: 14px;
 				font-weight: 600;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>
