@@ -179,6 +179,11 @@ public class MemberController {
 				return false;
 			}
 			
+			if(memberService.hasInterestId(myId, interestId)) {
+				logger.info("id 중복");
+				return true;
+			}
+			
 			return memberService.addInterestId(myId, interestId);
 		}
 		
@@ -189,16 +194,14 @@ public class MemberController {
 			String myId = (String)session.getAttribute("loginId");
 			
 			if(interestId.trim().equals("")) {
+				logger.info("interestId is null");
 				return false;
 			}
 			
 			if(myId == null || myId.equals(interestId)) {
+				logger.info("myId error");
 				return false;
-			}
-			
-			if(memberService.hasInterestId(myId, interestId)) {
-				return true;
-			}
+			}	
 			
 			return memberService.deleteInterestId(myId, interestId);
 		}

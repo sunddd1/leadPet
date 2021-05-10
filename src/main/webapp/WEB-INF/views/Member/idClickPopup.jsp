@@ -149,10 +149,10 @@
 				,data:{'interestId' : interestId}
 				,dataType:'JSON'
 				,success:function(result) {
-					var tag = "<a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a>";
+					var tag = "<td><a href=\"javascript:deleteFriend(\'" + interestId + "\');\">관심유저 취소</a></td>";
 					
 					if(result) {
-						tag = "<a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a>";
+						tag = "<td><a href=\"javascript:addFriend(\'" + interestId + "\');\">관심유저 등록</a></td>";
 					}
 
 					$("#interestDiv").html(tag);

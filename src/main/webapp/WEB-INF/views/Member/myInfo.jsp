@@ -12,6 +12,8 @@
 		#myInfoTable{
 			width: 60%;
 			margin-left: 20%;
+			margin-top : 200px;
+			border-collapse: collapse;
 		}
 		#myInfoTable, #myInfoTable td, #myInfoTable th {
 			border : 1px solid black
