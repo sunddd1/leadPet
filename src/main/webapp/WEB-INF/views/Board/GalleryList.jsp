@@ -51,7 +51,7 @@
 					</td>
 					</tr>
 					<tr>
-						<td colspan="4" style="color: blue; text-align: center;" onclick='idClickPopup("${list.nickname}")'>${list.nickname }</td>
+						<td colspan="4" style="color: blue; text-align: center;" onclick='idClickPopup("${dto.nickname}")'>${list.nickname }</td>
 					</tr>
 					<tr>
 						<th>조회수</th>
@@ -68,7 +68,7 @@
 	</body>
 	<script>
 		function GalleryDetail(bbs_idx){
-			window.open('GalleryDetail?bbs_idx='+bbs_idx,'GalleryDetailpop','width=800, height=400,top=300,left=550');
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400,top=300,left=550');
 		}
 	</script>
 </html>
