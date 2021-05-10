@@ -470,8 +470,8 @@
 			var content = "";
 			content+=" <button onclick='addInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록 </button>"
 			content+=" <button style='display:none ; font-size:15px;'>관심유저 등록취소</button>"
-			$("#reco").empty();
-			$("#reco").append(content);
+			$("#interest").empty();
+			$("#interest").append(content);
 		}
 		
 	</script>
