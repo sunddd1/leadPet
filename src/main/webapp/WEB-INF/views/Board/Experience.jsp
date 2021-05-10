@@ -165,7 +165,7 @@
 				content += "<td>";
 				content += "<table>";
 				content += "<tr>";
-				content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' alt='"+list[i].oriFileName+" ' width='300px' 'height='398px'/></a></td>" 
+				content += "<td><a href='./BoardDetail?bbs_idx="+list[i].bbs_idx+"'><img src='/photo/"+list[i].newFileName+"' alt='"+list[i].oriFileName+" ' width='300' height='398'/></a></td>" 
 				content += "<tr>";
 				content += "<td>"+list[i].category_name+ " &nbsp; &nbsp; &nbsp; &nbsp; 조회수 "+list[i].views+"</td>";
 				content += "<tr>";
