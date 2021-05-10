@@ -11,14 +11,14 @@
 		FROM bbs b JOIN bbs_img bi ON bi.bbs_idx(+)=b.bbs_idx
 		<if test="dog_cat.equals('dog')">		
 			WHERE b.bbs_blind='N' AND b.type='tip' AND b.pet_idx in
-			(SELECT p.pet_idx FROM pet p WHERE p.dog_cat='dog')ORDER BY b.bbs_idx ASC
+			(SELECT p.pet_idx FROM pet p WHERE p.dog_cat='dog')ORDER BY b.bbs_idx DESC
 		</if>
 		<if test="dog_cat.equals('cat')">
 			WHERE b.bbs_blind='N' AND b.type='tip' AND b.pet_idx in
-			(SELECT p.pet_idx FROM pet p WHERE p.dog_cat='cat')ORDER BY b.bbs_idx ASC
+			(SELECT p.pet_idx FROM pet p WHERE p.dog_cat='cat')ORDER BY b.bbs_idx DESC
 		</if>
 		<if test="dog_cat.equals('all')">
-			WHERE bbs_blind='N' AND b.type='tip' ORDER BY bbs_idx ASC
+			WHERE bbs_blind='N' AND b.type='tip' ORDER BY bbs_idx DESC
 		</if>	 
 	</select>
 	
