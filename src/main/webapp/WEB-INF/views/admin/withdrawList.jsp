@@ -52,12 +52,6 @@
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
-    #btns{
-	    padding: 10px;
-    	text-align: left;
-    	border: none;
-        border-bottom: 1px solid white;
-    }
     .conBody{
     	width: 60%;
     	margin-left:20%;
@@ -95,13 +89,6 @@
 		    </div>
 	        <table id="withdrawTable">
 	        	 <thead>
-		        	<tr>
-		        		<td id="btns" colspan="5">
-				        	<button onclick="location.href='admin'">관리자관리 리스트</button>
-							<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-							<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
-						</td>	
-					</tr>
 					<tr>
 						<th>아이디</th>
 		                <th>닉네임</th>
