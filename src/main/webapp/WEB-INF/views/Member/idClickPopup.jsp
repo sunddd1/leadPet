@@ -33,7 +33,7 @@
 			</tr>
 				<tr id="interestDiv"></tr>
 			<tr>
-				<td><a id="note" href="#">쪽지 보내기</a></td>
+				<td id="noteDiv"></td>
 			</tr>
 		</table>
 	</div>
@@ -85,13 +85,16 @@
 				,data:{'nickname' : nickname}
 				,success:function(result) {
 					var id = result;
-					
+		
 					$("#written").attr("href", "./writeOtherList?id=" + id);
 					interestTag(id);
 					$("#pet").attr("href", "./listPetOther?id=" + id);
-					$("#note").attr("href", "./borderlist?receiving_id="+id);
-
 					
+					if(id != "") {
+						var noteHtml = "<a id=\"note\" href=\"./borderlist?receiving_id=" + id + "\">쪽지 보내기</a>";
+						$("#noteDiv").html(noteHtml);
+					}
+
 				},error:function(e) {
 					console.log("비동기 에러");
 				}
