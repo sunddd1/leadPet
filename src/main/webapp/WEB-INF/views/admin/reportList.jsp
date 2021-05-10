@@ -70,12 +70,9 @@
     <div class="table">
     <span id="search2">
         <select id="repSearch" name="search">
-	    	<option value="">타입</option>
-	    	<option value="tip">팁</option>
+	    	<option value="">전체</option>
+	    	<option value="tip">댕냥 노하우</option>
 	    	<option value="gal">갤러리</option>
-	    	<option value="fed">사료</option>
-	    	<option value="run">산책</option>
-	    	<option value="res">식당</option>
 	    </select>
             <input type="text" id="reportSearch" value="${keyword}" name="keyword" placeholder="아이디로 검색">
             <button id="searchBtn">검색</button>

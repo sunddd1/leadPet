@@ -11,7 +11,8 @@
 	</head>
 <style>
     #search2{
-    	margin-left: 150px;
+    	text-align: center;
+        margin-top: 7%;
     }
     input[type=text]{
         width: 500px;
@@ -29,10 +30,8 @@
         line-height: 1.5;
         border-top: 1px solid #ccc;
         border-left: 1px solid #ccc;
-        margin : auto;
     }
     #memberTable th {
-        width: 120px;
         padding: 10px;
         font-weight: bold;
         vertical-align: top;
@@ -43,14 +42,13 @@
         background: #eee;
     }
     #memberTable td {
-        width: 200px;
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
-    .table{
-    	width : 60%;
+    .conBody{
+    	width: 60%;
     	margin-left:20%;
         margin-top: 100px;
         white-space: nowrap;   
@@ -68,20 +66,20 @@
 <!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
 <button onclick="location.href='reportList'">신고 리스트 DEMO</button> -->
-    <div class="table">
-    <span id="search2">
-        <select id="memSearch" name="search">
-                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
-                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
-            </select>
-            <input type="text" id="memberSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
-            <button id="searchBtn">검색</button>
-    </span>
-    <span id="radio">
-        <input type="radio" id="r1" name="radio" value="normal" checked="checked" OnClick="window.location.href='memberList'"/>전체 회원
-        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
-        <input type="radio" id="r3" name="radio" value="withdraw" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
-    </span>
+    <div class="conBody">
+	    <span id="search2">
+	        <select id="memSearch" name="search">
+	                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
+	                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
+	            </select>
+	            <input type="text" id="memberSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+	            <button id="searchBtn">검색</button>
+	    </span>
+	    <span id="radio">
+	        <input type="radio" id="r1" name="radio" value="normal" checked="checked" OnClick="window.location.href='memberList'"/>전체 회원
+	        <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
+	        <input type="radio" id="r3" name="radio" value="withdraw" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
+	    </span>
         <table id="memberTable">
        	 	<thead>
 				<tr>
