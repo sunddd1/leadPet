@@ -173,6 +173,10 @@ public class MemberService {
 		logger.info("getInterestUsers 호출");
 		
 		int allCnt = dao.getInterestUserCount(myId);
+		if(allCnt == 0) {
+			allCnt = 1;
+		}
+		
 		int range = allCnt % cntPerPage > 0 ? Math.round(allCnt/cntPerPage)+1 : Math.round(allCnt/cntPerPage);
 		
 		page = page>range ? range : page;

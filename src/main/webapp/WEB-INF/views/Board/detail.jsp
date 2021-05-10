@@ -37,7 +37,7 @@
                 <td></td>
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
-                <td onclick='idClickPopup("${sessionScope.loginId}")'>${dto.id }</td>
+                <td onclick='idClickPopup("${dto.nickname}")'>${dto.id }</td>
                 <c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
