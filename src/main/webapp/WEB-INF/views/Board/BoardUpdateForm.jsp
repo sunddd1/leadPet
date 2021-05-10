@@ -20,7 +20,7 @@
 	
 	#writeForm{
 		width:60%;
-		margin-top: 100px;
+		margin-top: 50px;
 		margin-left: 20%;
 	}
 	
@@ -38,12 +38,12 @@
 </head>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
-<h3>글 수정하기</h3>
+<h3 style="margin-top: 80px; margin-left: 20%;">글 수정하기</h3>
 <form action="BoardUpdate" method="post">
 	<table id="writeForm">
 		<tr>
-			<th>작성자</th>
-			<td colspan="3">
+			<th cols>작성자</th>
+			<td colspan="5">
 				<input type="text" name="type" value="${dto.type }" style="display: none"/>
 				<input type="text" name="bbs_idx" value="${dto.bbs_idx }" style="display: none"/>
 				<input type="text" name="nickname" value="${dto.nickname}" readonly/>
