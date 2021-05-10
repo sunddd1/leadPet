@@ -89,7 +89,8 @@
 					$("#written").attr("href", "./writeOtherList?id=" + id);
 					interestTag(id);
 					$("#pet").attr("href", "./listPetOther?id=" + id);
-					$("#note").attr("href", "./borderlist");
+					$("#note").attr("href", "./borderlist?receiving_id="+id);
+
 					
 				},error:function(e) {
 					console.log("비동기 에러");
