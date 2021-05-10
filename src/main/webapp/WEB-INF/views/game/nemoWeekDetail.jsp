@@ -12,6 +12,7 @@
 				margin-left : 10%;
 				width: 80%;
 				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			#nemoTable{
 				border: 5px double grey;
@@ -203,6 +204,7 @@
 					</tr>
 				</table>
 			</div>
+			<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>	
 	</body>
 	<script>
 		var aArray = [];
