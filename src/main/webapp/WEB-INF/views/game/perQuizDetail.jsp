@@ -9,12 +9,12 @@
 		<title>PerQuizDetail</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
+		
 			#conBody{
-				margin: 5% 18%;
-				width: 60%;
+				margin-left : 20%;
+				width: 70%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -38,17 +38,6 @@
 			#quizTable td{
 				text-align: left;
 				padding-top: 5%;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 			p{
 				color: red;

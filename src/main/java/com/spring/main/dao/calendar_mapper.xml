@@ -119,7 +119,7 @@
         WHERE vs.id=#{param3} AND vs.vac_idx=pv.vac_idx AND pv.vacc_idx=v.vacc_idx AND pv.pet_idx= p.pet_idx
          AND <![CDATA[vs.d_day >= #{param1}]]>
          AND <![CDATA[vs.d_day < #{param2}]]>
-	     AND vs.id = #{param3}         
+	     AND vs.id = #{param3}  AND vs.executed='N'
 	</select>
 	
 	

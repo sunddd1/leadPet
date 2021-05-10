@@ -10,55 +10,85 @@
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
 		#loginTable{
-				width: 60%;
-				margin-left: 20%;
+			margin-top : 200px;
+			width: 30%;
+			max-width : 500px;
+			min-width : 450px;
+			margin-left: 35%;
+			border: 3px solid gray;
+			white-space: nowrap;
+			box-shadow: 5px 5px 15px 5px;
+		}
+		#loginTable td{
+			text-align: right;
+			width: 60%;
+			min-width : 250px;
+			padding: 10px;
+		}
+		#loginTable th,h3{			
+			padding: 10px;
+		}
+		#loginTable {
+			/* background: url("./resources/loginImg.jpg") -35px 0px; */
+			background: url("./resources/loginImg.jpg") 0px -10px;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		label{
+		}
+		#loginTable a:hover {
+			font-weight: bold;
+			color: blue;
+		}
+		#loginTable div:hover {
+			cursor: pointer;			
+			font-weight: bold;
+			color:red;
 		}
 	</style>
 	</head>
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
-		<jsp:include page="../main/side_myNavi.jsp"/>
 		<jsp:include page="../Member/idClickPopup.jsp"/>
 		
+	<form id="loginForm" action="login" method="post">
 		<table id="loginTable">
 			<tr>
-				<td>
+				<th colspan="3">
 					<h3>leadPet</h3>
-				</td>
+				</th>
 			</tr>
 			<tr>
 				<td>
-					<form id="loginForm" action="login" method="post">
-						<div>
-							<label>아이디 
-							<!-- 임시 테스트용 -->
-							<a href="javascript:void(0)" onclick="idClickPopup('withdrawal', 'withdrawal')">test123</a>
-							</label
-							><br/>
-							<input type="text" id="id" name="id" value="${id}" />
-						</div>
-						<div>
-							<label>비밀번호 pass</label>
-							<br/>
-							<input type="password" id="password" name="password" />
-						</div>
-					</form>
+					<label>아이디 </label>
 				</td>
+				<th style="text-align: left;">
+					<input type="text" id="id" name="id" value="${id}" />
+				</th>
+				<th>
+					<div id="login">로그인</div>
+				</th>
+			</tr>			
 			<tr>
-				<td colspan="3" style="color: lightgray">
+				<td>
+					<label>비밀번호</label>							
+				</td>
+				<th style="text-align: left;">
+					<input type="password" id="password" name="password" />
+				</th>
+				<th colspan="2">
+					<div onclick="location.href='registForm'">회원가입</div>
+				</th>
+			</tr>
+			<tr>
+				<td colspan="2" style="color: grey">
 					<a href="find-id-form">아이디 찾기</a>
 					/
-					<a href="change-pw-form">비밀번호 변경 </a> -->
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<input type="button" value="로그인" id="login" onclick="login()"/>
-					<br/>
-					<input type="button" value="회원가입" onclick="location.href='registForm'"/>
+					<a href="change-pw-form">비밀번호 변경 </a> 
 				</td>
 			</tr>
 		</table>
+	</form>
 
 	</body>
 	<script>
@@ -67,10 +97,9 @@
 			alert(msg);
 			msg = '';
 		}
-
-		function login() {		
-			$("#loginForm").submit();
-		}
+		$('#login').click(function() {
+			$('form').submit();
+		});
 		
 	</script>
 </html>

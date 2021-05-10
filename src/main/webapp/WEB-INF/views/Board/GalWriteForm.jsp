@@ -22,8 +22,8 @@
 	}
 	
 	#editable{
-		width: 99%;
-		height: 500px;
+		width: 100%;
+		height: 200px;
 		border: 1px solid gray;
 		text-align: left;
 		overflow: auto;
@@ -37,7 +37,7 @@
 <jsp:include page="../main/top_Navi.jsp"/>
 <h3>글쓰기</h3>
 <hr/>
-<form action="write" method="post">
+<form action="Galwrite" method="post">
 	<table>
 		<tr>
 			<th>작성자</th>
@@ -46,7 +46,7 @@
 				<td colspan="2">
 					<input type="text" name="dog_cat" value="${dto.dog_cat}" readonly/></td>
 					<input type="text" name="pet_idx" value="${dto.pet_idx}" style="display: none"/>
-					<input type="text" name="type" value="tip" style="display: none"/>
+					<input type="text" name="type" value="gal" style="display: none"/>
 				</td>
 			</c:if>
 		</tr>
@@ -74,38 +74,56 @@
 		<tr>
 			<th>내용</th>
 			<td  colspan="5">
-				<div id="editable" contenteditable="true"></div>
-				<input id="bbs_content" type="hidden" name="bbs_content" value=""/>
+				<textarea  id="bbs_content" name="bbs_content" rows="10" cols="100" style="resize: none; width: 100%">
+				</textarea>
 			</td>
 		</tr>
 		<tr>
+			<th>사진</th>
+			<td style="border-right: 0px;"><div id="editable" contenteditable="false"></div></td>
+		</tr>
+		<tr>
 			<th >파일첨부</th>
-			<td colspan="5">
+			<td colspan="5">	
 				<input type="button" value="사진 업로드" onclick="fileUp()"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="6">
 				<input id="save" type="button" value="글작성"/>
-				<input id="cancle" type="button" value="취소" onclick="location.href='BoardList'" style="margin-left: 50px"/>
+				<input id="cancle" type="button" value="취소" onclick="location.href='GalleryList'" style="margin-left: 50px"/>
 			</td>
 		</tr>	
 	</table>
 </form>
+<a></a>
 </body>
 <script>
 
+console.log("${sessionScope.fileList}")
 $("#save").click(function(){
 	//editable 에 있는 내용을 content  의  value 에 넣기
 	/* $("#editable a").find("b").remove(); */
 	/* $("#editable a").removeAttr('onclick'); */
-	$("#bbs_content").val($("#editable").html());
+ 	var editable = $('#editable');
+	console.log(editable.html())
+	if(editable.html()==""){
+		alert("사진은 한개이상 있어야합니다");
+	}else{		
 	$("form").submit();
+	} 
 });
 
 
 function fileUp(){
-	window.open('uploadForm','file upload','width=400, height=100');
+	console.log()
+	if($('#editable').html()==""){	
+		var session ="${sessionScope.loginId}";
+		console.log(session);
+		window.open('uploadForm','file upload','width=400, height=100');
+	}else{
+		alert("사진이 한개 존재합니다.")
+	}
 }
 
 function del(elem){

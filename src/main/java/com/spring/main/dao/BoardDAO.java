@@ -42,7 +42,7 @@ public interface BoardDAO {
 
 	int recoMinus(String bbs_idx);
 
-	ArrayList<ReplyDTO> replyList(String endNum, String bbs_idx);
+	ArrayList<ReplyDTO> replyList(HashMap<String, Object> map);
 
 	int replyWrite(ReplyDTO reply);
 

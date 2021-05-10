@@ -73,6 +73,10 @@ public interface GameDAO {
 	int makeWeekNemo(int idxNum);
 
 	GameDTO searchExist(int idxNum);
+	
+	ArrayList<GameDTO> getQRankiForPoint();
+
+	ArrayList<GameDTO> getNRankForPoint();
 
 	int upPointTen(String id);
 

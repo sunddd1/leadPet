@@ -6,38 +6,37 @@
 
 <!-- 누가 이 XML 을 사용할까? 누구와 연결? -->
 <mapper namespace="com.spring.main.dao.MyNotiDAO">
+	<!-- 쪽지 보내기 -->
 	<insert id="noteSend">
-		insert into note(note_idx,id,receiving_id,content) values(note_seq.nextval,'test1122',#{param1},#{param2})
+		insert into note(note_idx,id,receiving_id,content) values(note_seq.nextval,#{param1},#{param3},#{param2})
 	</insert>
 	
-	<!-- <insert id="noteSend">
-		insert into note(note_idx,id,content) values(note_seq.nextval,#{id},#{content})
-	</insert> -->
-	
-	<select id="MessageList" resultType="com.spring.main.dto.NoteDTO">
+	<!-- 받은 쪽지 목록 -->
+	<select id="MessageList" resultType="note">
 		select note_idx,id,content,reg_date,checked from note where receiving_id = #{param1} and del='N' order by note_idx desc
 	</select>
 	
-	<select id="sendList" resultType="com.spring.main.dto.NoteDTO">
-		select note_idx,receiving_id,content,reg_date from note where id = #{param1}  order by note_idx desc
+	<!-- 보낸 쪽지 목록 -->
+	<select id="sendList" resultType="note">
+		select note_idx,receiving_id,content,reg_date from note where id = #{id}  order by note_idx desc
 	</select>
 	
+	<!-- 쪽지 삭제 -->
 	<update id="delMessage">
-		UPDATE note SET del = 'Y' WHERE note_idx=#{note_idx}
+		UPDATE note SET del = 'Y' WHERE note_idx=#{param1} AND receiving_id = #{param2}
 	</update>
 	
-	<select id="detailList" resultType="com.spring.main.dto.NoteDTO">
+	<!-- 쪽지 상세보기 -->
+	<select id="detailList" resultType="note">
 		select content,id from note where  receiving_id = #{param1} and note_idx = #{param2} 
 	</select>
 	
-	<!-- <select id="detailNoteList" resultType="com.spring.main.dto.NoteDTO">
-		select id,content from note where receiving_id = #{param1} and note_idx = #{param2} 
-	</select> -->
-	
+	<!-- 메세지 읽음 표시 -->
 	<update id="checked">
-		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx} 
+		UPDATE note SET checked = 'Y' WHERE note_idx=#{note_idx}
 	</update>
 	
+	<!-- 안읽은 쪽지 -->
 	<select id="notiCheck" resultType="int">
 		select count(*) from note where receiving_id = #{param1} and del='N' and checked='N'
 	</select>

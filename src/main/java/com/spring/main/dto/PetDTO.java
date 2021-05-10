@@ -1,8 +1,9 @@
 package com.spring.main.dto;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("pet")
 public class PetDTO {
@@ -16,19 +17,10 @@ public class PetDTO {
 	private String delegate;
 	private String pet_name;
 	private String nickname;
-	
-	//pet_img
-	private String newFileName;
-	
-	public String getNewFileName() {
-		return newFileName;
-	}
-	public void setNewFileName(String newFileName) {
-		this.newFileName = newFileName;
-	}
-	
-	
-	
+	private String newfilename;
+	private MultipartFile image;
+	private List<VaccinDTO> vaccList;
+	private String vaccListJson;
 	public int getPet_idx() {
 		return pet_idx;
 	}
@@ -50,8 +42,8 @@ public class PetDTO {
 	public String getBday() {
 		return bday;
 	}
-	public void setBday(String string) {
-		this.bday = string;
+	public void setBday(String bday) {
+		this.bday = bday;
 	}
 	public String getKg() {
 		return kg;
@@ -83,7 +75,30 @@ public class PetDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+	public String getNewfilename() {
+		return newfilename;
+	}
+	public void setNewfilename(String newfilename) {
+		this.newfilename = newfilename;
+	}
+	public MultipartFile getImage() {
+		return image;
+	}
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+	public List<VaccinDTO> getVaccList() {
+		return vaccList;
+	}
+	public void setVaccList(List<VaccinDTO> vaccList) {
+		this.vaccList = vaccList;
+	}
+	public String getVaccListJson() {
+		return vaccListJson;
+	}
+	public void setVaccListJson(String vaccListJson) {
+		this.vaccListJson = vaccListJson;
+	}
 	
 	
 }

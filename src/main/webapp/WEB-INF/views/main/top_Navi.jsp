@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8">		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style>
 		#topNavi{
 			list-style-type:none;
@@ -82,13 +84,41 @@
 		a:hover {		
 			color: gray;
 		}
+		#mainIMg{
+			float :right;
+			width : 140px;
+			height : 85px;
+			background: url("./resources/mainImg.jpg")  -8px  -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#mainIMg:hover {		
+			background: url("./resources/mainImg.jpg") -296px -5px ;
+			background-size: 450px 120px;
+			background-repeat: no-repeat;
+		}
+		#topNavi li:hover {
+			cursor: pointer;
+			background:  url("./resources/topNavi.jpg") 0px -25px ;
+			background-size: 300px 100px;
+			color :rgba(0, 0, 0, 0);
+		}
+		#topSearchBtn:hover{
+			cursor: pointer;
+		}
+		.loginbox:hover{
+			cursor: pointer;
+			color: red;
+		}
 		</style>
 	</head>
 	<body>		
 		<table style="margin-top: 10px;">
 			<tr>
 				<td style="width:30%;">
-					<a href="./"><img src="https://i.postimg.cc/kM0WzZwg/image.png" id="mainImg" alt="메인페이지"/></a>
+					<a href="./">
+						<span id="mainIMg"></span>
+					</a>
 				</td>
 				<td>
 		<div id="topBox">
@@ -121,7 +151,9 @@
 	                <th class="loginbox" onclick="location.href='./registForm'">회원가입</th>
                 </c:if>
                 <c:if test="${sessionScope.loginId ne null}">
-	                <th class="loginbox" onclick="location.href='./noteList'">쪽지함</th>
+	                <th id="message">
+				
+					</th>
                 </c:if>
 			</tr>
 		</table>
@@ -170,5 +202,30 @@
 			}); */
 			
 		});
+		
+		$(document).ready(function(){
+			//안읽은 쪽지 표시
+			$.ajax({
+				type:'get'
+				,url:'notiCheck'
+				,data:{
+					
+				}
+				,dataType:'JSON'
+			,success:function(data){
+				console.log(data.success);
+				if(data.success>0){
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지</a>');	
+				}else{
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px"></i>쪽지</a>');
+				}
+			}
+			,error:function(e){
+				console.log(e);
+			}
+		});	
+			
+		});
+		
 	</script>
 </html>

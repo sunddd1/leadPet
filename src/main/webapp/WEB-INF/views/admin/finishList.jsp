@@ -85,11 +85,11 @@
         <table id="finishTable">
          <thead>
 			 <tr>
-	               <th>신고자</th>
-	                <th>신고 당한 글</th>
-	                <th>유형</th>
-	                <th>처리자</th>
-	                <th>처리일</th>
+	              <th>신고자</th>
+        		<th>신고 당한 글 번호</th>
+        		<th>사유</th>
+        		<th>등록일</th>
+        		<th>처리유무</th>
             </tr>
 			</thead>
 			<tbody id="list">
@@ -194,6 +194,7 @@
 			$("#list").empty();//리스트를 비우고 그 위에 리스트 추가
 			$("#list").append(content);
 		}
+		
 		
 			function detail(id){
 			window.open('detailMember?id='+id, 'detailMember', 'width=800, height=600, top=100, left=400');
