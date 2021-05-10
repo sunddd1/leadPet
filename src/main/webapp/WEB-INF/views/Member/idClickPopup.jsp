@@ -32,11 +32,9 @@
 				<td><a id="pet" href="#">반려동물 보기</a></td>
 			</tr>
 				<tr id="interestDiv"></tr>
-			<c:forEach var = "note" items="${detailList}">
 			<tr>
-				<td><a id="note" href="'./borderlist?receiving_id=${note.id}'">쪽지 보내기</a></td>
+				<td><a id="note" href="#">쪽지 보내기</a></td>
 			</tr>
-			</c:forEach>
 		</table>
 	</div>
 	</body>
@@ -88,10 +86,11 @@
 				,success:function(result) {
 					var id = result;
 					
-					$("#written").attr("href", "./writeList?id=" + id);
+					$("#written").attr("href", "./writeOtherList?id=" + id);
 					interestTag(id);
-					$("#pet").attr("href", "./listPet?id=" + id);
-					$("#note").attr("href", "./borderlist");
+					$("#pet").attr("href", "./listPetOther?id=" + id);
+					$("#note").attr("href", "./borderlist?receiving_id="+id);
+
 					
 				},error:function(e) {
 					console.log("비동기 에러");
