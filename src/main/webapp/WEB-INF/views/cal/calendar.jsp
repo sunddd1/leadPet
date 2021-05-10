@@ -24,6 +24,7 @@
         	max-width: 100px;
         	min-width: 100px;
         	text-align: justify;
+        vertical-align: top;
         }
         
         #list{

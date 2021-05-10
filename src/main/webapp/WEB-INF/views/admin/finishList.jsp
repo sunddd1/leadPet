@@ -10,19 +10,13 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
-    #top{
-        text-align: right;
-    }
-    a{
-        text-decoration: none;
-    }
     #search2{
-        text-align: center;
-        margin-top: 7%;
+    	margin-left: 150px;
     }
     input[type=text]{
         width: 500px;
         height: 22px;
+    	margin-bottom: 10px;
     }
     select,input[type=submit]{
         height: 30px;
@@ -49,39 +43,40 @@
         background: #eee;
     }
     #finishTable td {
-        width: 200px;
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
     .table{
-        margin-top: 10px;
+        margin-top: 100px;
+        margin-left: 20%;
+        width: 60%;
+        white-space: nowrap;
     }
-	#insert{
-		position: relative;
-		left: 80%
-	}
 	#radio{
-		position: relative;
-		left: 70%
+		float: right;
+	}
+	#repManage{
+		background-color: lightpink;
 	}
 </style>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
-<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
-    <div id="search2">
+<!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
+<button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>-->
+    <div class="table">
+    <span id="search2">
             <input type="text" id="finSearch" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
             <button id="searchBtn">검색</button>
-    </div>
-    <div id="radio">
+    </span>
+    <span id="radio">
         <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='reportList'"/>미처리
         <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishList'"/>처리
-    </div>
-    <div class="table">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button onclick="location.href='replyList'">댓글 신고 리스트</button>
+    </span>
         <table id="finishTable">
          <thead>
 			 <tr>
@@ -112,7 +107,7 @@
             </c:forEach> --%>
             
             <tr>
-					<td id="paging" colspan="6">
+					<td id="paging" colspan="5">
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
@@ -185,7 +180,7 @@
 				content += '<tr>';
 				content += '<td onclick=detail("'+list[i].id+'")>';
 				content += list[i].id+'</td>';
-				content += '<td><a href="#">'+list[i].field+'</a></td>';
+				content += '<td><a href="./BoardDetail?bbs_idx='+list[i].field+'">'+list[i].field+'</a></td>';
 				content += '<td>'+list[i].reason+'</td>';
 				content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
 				content += '<td>'+list[i].proc_ex+'</td>';

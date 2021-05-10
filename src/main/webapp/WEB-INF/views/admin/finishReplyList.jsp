@@ -10,28 +10,19 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
-    #top{
-        text-align: right;
-    }
-    #top{
-        text-align: right;
-    }
-    a{
-        text-decoration: none;
-    }
     #search2{
-        text-align: center;
-        margin-top: 7%;
+    	margin-left: 150px;
     }
     input[type=text]{
         width: 500px;
         height: 22px;
+    	margin-bottom: 10px;
     }
     select,input[type=submit]{
         height: 30px;
         width: 70px;
     }
-    #finishReplyTable table {
+    #finishReplyTable {
         border-collapse: separate;
         border-spacing: 0;
         text-align: center;
@@ -52,46 +43,41 @@
         background: #eee;
     }
     #finishReplyTable td {
-        width: 150px;
         padding: 10px;
         vertical-align: top;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
     .table{
-        margin-top: 10px;
+        margin-top: 100px;
         margin-left: 20%;
         width: 60%;
+        white-space: nowrap;
     }
-	h4{
-		position: relative;
-		left: 20%;
-		float: left;
-		z-index: 5;
-		color: white;
-		font-size: 25px;
-		margin-top: 5px;
-	}
 	#radio{
-		position: relative;
-		left: 70%;
+		float: right;
+	}
+	#repManage{
+		background-color: lightpink;
 	}
 </style>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
+<!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button>
-    <div id="search2">
-        <input type="text" id="finishrepSearch" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
-            <button id="searchBtn">검색</button>
-    </div>
-    <div id="radio">
-        <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='replyList'"/>미처리
-        <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishReplyList'"/>처리
-    </div>
+<button onclick="location.href='reportList'">글 신고 리스트 DEMO</button> -->
     <div class="table">
+	    <span id="search2">
+	        <input type="text" id="finishrepSearch" value="${keyword}" name="keyword" placeholder="아이디를 입력하세요">
+	            <button id="searchBtn">검색</button>
+	    </span>
+	    <span id="radio">
+	        <input type="radio" id="r1" name="radio" value="notFinish" OnClick="window.location.href='replyList'"/>미처리
+	        <input type="radio" id="r2" name="radio" value="finish" checked="checked" OnClick="window.location.href='finishReplyList'"/>처리
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button onclick="location.href='reportList'">게시판 신고 리스트</button>
+	    </span>
         <table id="finishReplyTable">
         <thead>
 	            <tr>
@@ -122,7 +108,7 @@
             </c:forEach> --%>
             
             <tr>
-					<td id="paging" colspan="6">
+					<td id="paging" colspan="4">
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
@@ -209,7 +195,7 @@
 			window.open('detailMember?id='+id, 'detailMember', 'width=800, height=600, top=100, left=400');
 		}
 			function detailReply(field){
-				window.open('detailReply?field='+field, 'detailReply', 'width=800, height=600, top=100, left=400');
+				window.open('detailReply?field='+field, 'detailReply', 'width=400, height=300, top=100, left=400');
 			}
 </script>
 </html>
