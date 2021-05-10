@@ -9,9 +9,6 @@
 		<title>GameQuestionList</title>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
 				margin-top: 5%;
 				margin-left: 17%;
@@ -45,17 +42,6 @@
 			}
 			#quizTable th, #nemoTable th{
 				border-bottom: 3px double darkgrey;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 			a:link, a:visited, a:active{
 				color:darkslategrey;
