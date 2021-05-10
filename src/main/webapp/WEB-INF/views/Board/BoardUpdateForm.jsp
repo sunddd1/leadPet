@@ -42,6 +42,7 @@
 		<tr>
 			<th>작성자</th>
 			<td colspan="3">
+				<input type="text" name="type" value="${dto.type }" style="display: none"/>
 				<input type="text" name="bbs_idx" value="${dto.bbs_idx }" style="display: none"/>
 				<input type="text" name="nickname" value="${dto.nickname}" readonly/>
 			</td>

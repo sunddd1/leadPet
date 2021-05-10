@@ -73,4 +73,12 @@ public class GalleyController {
 		return service.cancleInterestButton(id,bbs_id);
 	}
 	
+    @RequestMapping(value = "/GalleryUpdateForm", method = RequestMethod.GET)
+    public ModelAndView GalleryUpdateForm(Model model, HttpSession session,@RequestParam String bbs_idx) {
+        logger.info("갤러리 수정하기 폼 이동 : ");
+        HashMap<String, String> fileList = new HashMap<String, String>();
+        session.setAttribute("fileList", fileList);
+        return bservice.BoardUpdateForm(bbs_idx);
+    }
 }
+   
