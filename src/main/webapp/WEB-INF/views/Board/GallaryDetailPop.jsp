@@ -15,7 +15,7 @@
 				<td colspan="5" rowspan="10">
 					<img src="/photo/${dto.newFileName}"  width='300px' height='300px'/>
 				</td>
-				<td>${dto.nickname}</td>
+				<td style="color: blue;"><p onclick='idClickPopup("${dto.nickname}")' >${dto.nickname}</p></td>
 				<c:if test="${sessionScope.loginId ne dto.id }">
 					<td id="interest"> </td>
 				</c:if>

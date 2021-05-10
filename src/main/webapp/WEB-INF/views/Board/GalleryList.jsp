@@ -37,6 +37,7 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<jsp:include page="../main/top_Navi.jsp"/>
 		<div id = "galllery_content">
 			<div id="write_button">
@@ -50,7 +51,7 @@
 					</td>
 					</tr>
 					<tr>
-						<th colspan="4">${list.nickname }</th>
+						<td colspan="4" style="color: blue; text-align: center;" onclick='idClickPopup("${dto.nickname}")'>${list.nickname }</td>
 					</tr>
 					<tr>
 						<th>조회수</th>
@@ -59,7 +60,7 @@
 						<td>${list.reco_count }</td>
 					</tr>
 					<tr>
-						<td colspan="4" style="text-align: center;">${list.bbs_subject }</td>
+						<th colspan="4" style="text-align: center;">${list.bbs_subject }</th>
 					</tr>
 				</table>
 				</c:forEach>
@@ -67,7 +68,7 @@
 	</body>
 	<script>
 		function GalleryDetail(bbs_idx){
-			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400');
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400,top=300,left=550');
 		}
 	</script>
 </html>

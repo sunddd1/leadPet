@@ -29,7 +29,7 @@
 		<table id="profile">
             <tr>
                 <th>조회수 </th>
-                <td>${dto.views }</td>
+                <td>${dto.views}</td>
                 <th>추천</th>
                 <td>${dto.reco_count }</td>
                 <td id="reco"></td>
@@ -38,7 +38,7 @@
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
 
-                <td onclick='idClickPopup("${dto.nickname}")'>${dto.id }</td>
+                <td onclick='idClickPopup("${dto.nickname}")' style="color: blue;">${dto.id }</td>
                 <c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
@@ -83,8 +83,12 @@
 				<th>내용</th>
 				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
 			</tr>
+			<tr>
+				<td colspan="11">
+					<button style="text-align: center;"  onclick="location.href='BoardList'">리스트로 돌아가기</button>				
+				</td>
+			</tr>
 		</table>
-		<button style="text-align: center;">리스트로 돌아가기</button>
 		
 		<table style="border-collapse: collapse;" id="reply">
 			<tr>

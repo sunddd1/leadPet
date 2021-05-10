@@ -109,7 +109,7 @@
 		      SELECT id, password, name, age, gender, email, reg_date, withdraw, 
       black , change_date, point, nickname, grade, black_cnt, black_date FROM 
       (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
-      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE black='N' AND withdraw='Y' AND
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE AND withdraw='Y' AND
       <if test="param3 == 'id'"> id  LIKE #{param4}</if>
       <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
       ) 
@@ -129,28 +129,42 @@
 	
 	<!-- 신고 리스트 -->
 	<select id="reportList" resultType="report">
-	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
-      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE type != 'com' AND type=#{param3} AND id LIKE LOWER(#{param4}) or id LIKE UPPER(#{param4})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='N' ORDER BY reg_date DESC
+		SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+		FROM 
+		(SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM report WHERE id LIKE LOWER(#{param4}) or id LIKE
+		UPPER(#{param4})) WHERE type != 'com'
+		<if test="!param3.equals('')">
+		 AND type=#{param3}
+		</if>
+		AND proc_ex='N')
+		WHERE rnum BETWEEN #{param1} AND #{param2}
 	 </select>
 	 
 	 <select id="reportCount" resultType="Integer">
-		SELECT COUNT(id) FROM report WHERE proc_ex='N' AND type != 'com' 
-       AND type=#{param1}AND id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2})
+       	SELECT COUNT(id) FROM 
+        (SELECT id,type,proc_ex FROM report WHERE id LIKE LOWER(#{param2}) or id LIKE UPPER(#{param2}))
+        WHERE proc_ex='N'
+        <if test="!param1.equals('')">
+         	AND type = #{param1}
+        </if>
 	</select>
 	
 	<!-- 처리완료 리스트 -->
 	<select id="finishList" resultType="report">
-	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
-      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE type != 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY proc_date DESC
+
+SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
+(SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
+WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
+
 	 </select>
 	 
 	 <select id="finishCount" resultType="Integer">
-		SELECT COUNT(id) FROM report WHERE proc_ex='Y' AND type != 'com' 
-       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+       	SELECT COUNT(id) FROM 
+        (SELECT id,type,proc_ex FROM report WHERE id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1}))
+        WHERE proc_ex='Y' AND type != 'com'
+       
 	</select>
 	
 	<!-- 포인트 리스트 -->
@@ -169,26 +183,29 @@
 	 <select id="replyList" resultType="report">
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='N' ORDER BY reg_date DESC
+      FROM report WHERE id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2}  AND type = 'com' AND proc_ex='Y' ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="replyCount" resultType="Integer">
-		SELECT COUNT(id) FROM report WHERE proc_ex='N' AND type = 'com' 
-       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+       	SELECT COUNT(id) FROM 
+        (SELECT id,type,proc_ex FROM report WHERE id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1}))
+        WHERE proc_ex='N' AND type = 'com'
 	</select>
 	 
 	 <!-- 신고댓글 처리 리스트 -->
 	 <select id="finishReplyList" resultType="report">
-	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
-      (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY reg_date DESC
+SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
+(SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
+FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
+WHERE type = 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
 	 </select>
 	 
 	 <select id="finishReplyCount" resultType="Integer">
-		SELECT COUNT(id) FROM report WHERE proc_ex='Y' AND type = 'com' 
-       AND id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1})
+       	SELECT COUNT(id) FROM 
+        (SELECT id,type,proc_ex FROM report WHERE id LIKE LOWER(#{param1}) or id LIKE UPPER(#{param1}))
+        WHERE proc_ex='Y' AND type = 'com'
+       
 	</select>
 	
 	<!-- 블라인드N 리스트 -->
@@ -265,13 +282,15 @@
 	 	UPDATE member SET black='Y', black_cnt=black_cnt+1, black_date=#{param2} WHERE id=#{param1}
 	 </update>
 	 
+	 <!-- 반환하는게 int -->
+	 <insert id="insertBlack">
+	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
+	 </insert>
+	 
 	 <update id="memberBlackN">
 	 	UPDATE member SET black='N', black_cnt=black_cnt-1  WHERE id=#{param1}
 	 </update>
 	 
-	 <insert id="insertBlack">
-	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
-	 </insert> 
 	 
 	 <select id="loop_free" resultType="String">
 	 	SELECT id FROM member WHERE <![CDATA[black_date < #{param1}]]> AND black='Y' AND <![CDATA[black_cnt<3]]>

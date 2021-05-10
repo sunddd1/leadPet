@@ -456,7 +456,7 @@ public class AdminController {
 				java.sql.Date black_date = new java.sql.Date(date.getTime()+cnt);
 				logger.info("black_date"+black_date+"/"+date+"/"+cnt);
 				service.memberBlackY(id,black_date);
-				service.insertBlack(id);
+				service.insertBlack(id,loginId);
 				return "Y";
 			}else {
 				service.memberBlackN(id);
