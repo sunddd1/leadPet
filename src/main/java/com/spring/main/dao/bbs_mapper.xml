@@ -7,7 +7,7 @@
 <mapper namespace="com.spring.main.dao.BoardDAO">
 
 	<select id="tab" resultType="board" parameterType="map">
-		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
+		SELECT b.bbs_idx,b.bbs_subject,b.bbs_content,b.reg_date,b.bbs_blind,b.reco_count,b.views,b.type,b.nickname,b.category_name,b.pet_idx,bi.orifilename ,bi.newfilename
 		FROM bbs b JOIN bbs_img bi ON bi.bbs_idx(+)=b.bbs_idx
 		<if test="dog_cat.equals('dog')">		
 			WHERE b.bbs_blind='N' AND b.type='tip' AND b.pet_idx in
@@ -187,7 +187,7 @@
 	<select id="searchBbs" resultType="board">
 		SELECT b.bbs_idx, b.bbs_subject, b.bbs_content, b.reco_count, b.views, b.category_name,bi.newfilename, bi.oriFileName  ,b.nickname,b.reg_date FROM 
 		(SELECT ROW_NUMBER()OVER(ORDER BY b.bbs_idx DESC) AS rnum,b.bbs_idx, b.bbs_subject, b.bbs_content, b.reco_count, b.views, b.category_name ,b.nickname,reg_date
-		FROM bbs b WHERE b.bbs_subject LIKE #{param2} OR b.bbs_content LIKE #{param2} )  b, bbs_img bi
+		FROM bbs b WHERE b.bbs_subject LIKE #{param2} OR b.bbs_content LIKE #{param2} AND b.type !='gal' )  b, bbs_img bi
 		WHERE rnum BETWEEN #{param3} AND #{param4} AND b.bbs_idx=bi.bbs_idx(+)
 		<if test="!param1.equals('ALL')">
 			AND CATEGORY_NAME= #{param1}

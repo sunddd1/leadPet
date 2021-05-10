@@ -119,9 +119,10 @@ public class PetService {
 		return "redirect:/listPet";
 	}
 
-	public String star(int pet_idx) {
+	public String star(int pet_idx,String id) {
 		logger.info("대표 반려동물 선택 idx :"+pet_idx);
-		dao.star(pet_idx);
+		dao.star(pet_idx);//해당 반려동물 대표 설정 
+		
 		return "redirect:/listPet";
 	}
 

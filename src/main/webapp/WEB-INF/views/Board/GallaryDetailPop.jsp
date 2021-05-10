@@ -9,12 +9,13 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<table>
 			<tr>
 				<td colspan="5" rowspan="10">
 					<img src="/photo/${dto.newFileName}"  width='300px' height='300px'/>
 				</td>
-				<td>${dto.nickname}</td>
+				<td style="color: blue;"><p onclick='idClickPopup("${dto.nickname}")' >${dto.nickname}</p></td>
 				<c:if test="${sessionScope.loginId ne dto.id }">
 					<td id="interest"> </td>
 				</c:if>
@@ -25,7 +26,7 @@
 				<c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='../GalleryUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
-	                	<button onclick= BoardDelete()>삭제하기</button>
+	                	<button onclick= "BoardDelete()">삭제하기</button>
 	                </td>
                 </c:if>
 			</tr>
@@ -47,13 +48,14 @@
 				</td>
 			</tr>
 			<tr>
-				</td  id="replyUpdate" style="border: 2px solid black">
-				</td>
 				<td>
 					<div id="replyList" style="overflow-y:scroll ; height:100px; width:300px">
 						<table >
 						
 						</table>
+					</div>
+					<div id="replyUpdate">
+				
 					</div>
 				</td>
 			</tr>
@@ -470,8 +472,8 @@
 			var content = "";
 			content+=" <button onclick='addInterestButton(this)' style='display: ; font-size:15px;'>관심유저 등록 </button>"
 			content+=" <button style='display:none ; font-size:15px;'>관심유저 등록취소</button>"
-			$("#reco").empty();
-			$("#reco").append(content);
+			$("#interest").empty();
+			$("#interest").append(content);
 		}
 		
 	</script>

@@ -58,19 +58,19 @@
 			}
 			#quizImg{
 				background: url("./resources/quiz_sea.jpg");
-				background-size: 450px 300px;
-				width: 451px;
+				background-size: 440px 300px;
+				width: 441px;
 				height: 301px;
 				background-repeat: no-repeat;
 				margin-bottom: 8%;
 			}
 			#nemoImg{
 				background: url("./resources/nemo_cherry.jpg");
-				background-size: 300px 300px;
-				width: 301px;
+				background-size: 330px 300px;
+				width: 331px;
 				height: 301px;
 				background-repeat: no-repeat;
-				margin: 0% 0% 8% 15%;
+				margin: 0% 0% 8% 2%;
 			}
 			#decoImg{
 				display: inline-block;

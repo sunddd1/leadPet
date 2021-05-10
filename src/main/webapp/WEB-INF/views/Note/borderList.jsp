@@ -9,7 +9,8 @@
 			#send{
 			padding-top : 150px ;
 			padding-left : 240px;
-		}
+			}
+			
 		</style>
 	</head>
 	<body>
