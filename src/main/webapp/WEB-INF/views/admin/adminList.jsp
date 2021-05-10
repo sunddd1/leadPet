@@ -10,19 +10,13 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
-    #top{
-        text-align: right;
-    }
-    a{
-        text-decoration: none;
-    }
     #search2{
-        text-align: center;
-        margin-top: 7%;
+    	margin-left: 150px;
     }
     input[type=text]{
         width: 500px;
         height: 22px;
+    	margin-bottom: 10px;
     }
     select,input[type=submit]{
         height: 30px;
@@ -56,34 +50,42 @@
         border-bottom: 1px solid #ccc;
     }
     .table{
-        margin-top: 10px;
+    	width : 60%;
+    	margin-left:20%;
+        margin-top: 100px;
+        white-space: nowrap;       
     }
 	#insert{
-		position: relative;
-		left: 80%
+		float: right;
+	}
+	.adbtn{
+		margin-right : 10px;
+	}
+	#adManage{
+		background-color: lightpink;
 	}
 </style>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
+<!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트</button>
 <button onclick="location.href='reportList'">글 신고 리스트</button>
 <button onclick="location.href='replyList'">댓글 신고 리스트</button>
 <button onclick="location.href='blindNList'">블라인드 리스트</button>
-<button onclick="location.href='pointList'">포인트 내역 리스트</button>
-    <div id="search2">
-            <select id="adSearch" name="search">
-                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
-                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
-            </select>
-            <input type="text" id="adminSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
-            <button id="searchBtn">검색</button>
-    </div>
-    <div id="insert">
-    	<button onclick="adminInsert()">관리자 등록</button>
-    </div>
+<button onclick="location.href='pointList'">포인트 내역 리스트</button> -->
     <div class="table">
+	    <span id="search2">
+	            <select id="adSearch" name="search">
+	                <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
+	                <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
+	            </select>
+	            <input type="text" id="adminSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+	            <button id="searchBtn">검색</button>
+	    </span>
+	    <span id="insert">
+	    	<button onclick="adminInsert()">관리자 등록</button>
+	    </span>
         <table id="adminTable">
             <thead>
 				<tr>
@@ -114,7 +116,7 @@
             
             
             	<tr>
-					<td id="paging" colspan="6">
+					<td id="paging" colspan="5">
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
@@ -198,7 +200,7 @@ $('#searchBtn').click(function() {
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 			content +="<td>"
-			content += "<button value='"+list[i].admin_id+"'onclick='changePass(this)'>비밀번호 수정</button>"
+			content += "<button class='adbtn' value='"+list[i].admin_id+"'onclick='changePass(this)'>비밀번호 수정</button>"
 			content +="<button onclick='delAdmin("+list[i].admin_id+")'>삭제</button>";
 			content +="</td>"
 			content +="</tr>"

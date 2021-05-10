@@ -10,19 +10,13 @@
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <style>
-     #top{
-        text-align: right;
-    }
-    a{
-        text-decoration: none;
-    }
     #search2{
-        text-align: center;
-        margin-top: 7%;
+    	margin-left: 150px;
     }
     input[type=text]{
         width: 500px;
-        height: 22px;
+        height: 22px;;
+    	margin-bottom: 10px;
     }
     select,input[type=submit]{
         height: 30px;
@@ -56,37 +50,38 @@
         border-bottom: 1px solid #ccc;
     }
     .table{
-        margin-top: 10px;
+    	width : 60%;
+    	margin-left:20%;
+        margin-top: 100px;
+        white-space: nowrap;   
     }
-	#insert{
-		position: relative;
-		left: 80%
-	}
 	#radio{
-		position: relative;
-		left: 70%
+		float: right;
+	}
+	#memberManage{
+		background-color: lightpink;
 	}
 </style>
 <body>
 <jsp:include page="../main/top_Navi.jsp"/>
 <jsp:include page="../main/side_adminNavi.jsp"/>
-<button onclick="location.href='admin'">관리자관리 리스트</button>
+<!-- <button onclick="location.href='admin'">관리자관리 리스트</button>
 <button onclick="location.href='memberList'">회원관리 리스트 DEMO</button>
-<button onclick="location.href='reportList'">신고 리스트 DEMO</button>
-    <div id="search2">
+<button onclick="location.href='reportList'">신고 리스트 DEMO</button> -->
+    <div class="table">
+    <span id="search2">
         <select id="memSearch" name="search">
                 <option <c:if test="${search eq 'id'}"> selected </c:if> value="id">아이디</option>
                 <option <c:if test="${search eq 'nickname'}"> selected </c:if> value="nickname">닉네임</option>
             </select>
             <input type="text" id="memberSearch" value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <button id="searchBtn">검색</button>
-    </div>
-    <div id="radio">
+    </span>
+    <span id="radio">
         <input type="radio" id="r1" name="radio" value="normal" checked="checked" OnClick="window.location.href='memberList'"/>전체 회원
         <input type="radio" id="r2" name="radio" value="black" OnClick="window.location.href='blackList'"/>블랙 회원
         <input type="radio" id="r3" name="radio" value="withdraw" OnClick="window.location.href='withdrawList'"/>탈퇴 회원
-    </div>
-    <div class="table">
+    </span>
         <table id="memberTable">
        	 	<thead>
 				<tr>
@@ -114,7 +109,7 @@
             </c:forEach> --%>
             
             <tr>
-					<td id="paging" colspan="6">
+					<td id="paging" colspan="4">
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
