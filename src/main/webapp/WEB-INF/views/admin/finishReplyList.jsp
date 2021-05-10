@@ -83,7 +83,7 @@
 	            <tr>
 	               <th>신고자</th>
                 <th>신고 당한 글 번호</th>
-                <th>신고일</th>
+                <th>처리일</th>
                 <th>처리유무</th>
             </tr>
 	        </thead>
@@ -182,7 +182,7 @@
 				content += list[i].id+'</td>';
 				content += '<td onclick=detailReply("'+list[i].field+'")>';
 				content += list[i].field+'</td>';
-				var date = new Date(list[i].reg_date);
+				var date = new Date(list[i].proc_date);
 				content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				content += '<td>'+list[i].proc_ex+'</td>';
 				content += '</tr>';

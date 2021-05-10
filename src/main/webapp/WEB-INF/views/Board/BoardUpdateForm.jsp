@@ -56,12 +56,12 @@
 			<th>카테고리</th>
 			<td>
 				<select name="category_name" value="${dto.category_name }">
-				    <option value="food">사료,간식,영양제</option>
-				    <option value="park">공원</option>
-				    <option value="restaurant">식당</option>
-				    <option value="living">생활</option>
-				    <option value="play">놀이</option>
-				    <option value="medical">의료</option>
+				    <option value="food">food</option>
+				    <option value="park">park</option>
+				    <option value="restaurant">restaurant</option>
+				    <option value="living">living</option>
+				    <option value="play">play</option>
+				    <option value="medical">medical</option>
 				</select>
 			</td>
 			<td>${dto.pet_name}</td>
