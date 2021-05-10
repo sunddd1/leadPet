@@ -44,7 +44,7 @@
 				color: white;
 				font-weight: 600;
 				padding: 1%;
-				margin: 3% 0% 0% 85%;
+				margin: 3% 0% 0% 55%;
 			}
 			.block{
 				background-color: white;
