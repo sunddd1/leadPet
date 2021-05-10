@@ -216,7 +216,7 @@
 			,success:function(data){
 				console.log(data.success);
 				if(data.success>0){
-					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: grey;"></i>쪽지</a>');	
+					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell" style="font-size:14px; color: lightcoral;"></i>쪽지</a>');	
 				}else{
 					$('#message').append('<a class="menu" href="./noteList"><i class="fa fa-bell-o" style="font-size:14px"></i>쪽지</a>');
 				}
