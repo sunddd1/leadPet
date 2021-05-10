@@ -32,11 +32,9 @@
 				<td><a id="pet" href="#">반려동물 보기</a></td>
 			</tr>
 				<tr id="interestDiv"></tr>
-			<c:forEach var = "note" items="${detailList}">
 			<tr>
-				<td><a id="note" href="'./borderlist?receiving_id=${note.id}'">쪽지 보내기</a></td>
+				<td><a id="note" href="#">쪽지 보내기</a></td>
 			</tr>
-			</c:forEach>
 		</table>
 	</div>
 	</body>

@@ -33,6 +33,13 @@ public class PetController {
 		return service.list(id);
 	}
 	
+	//반려동물 목록
+	@RequestMapping(value = "/listPetOther", method = RequestMethod.GET)
+	public ModelAndView otherList(@RequestParam String id) {
+		logger.info("반려동물 목록");
+		return service.list(id);
+	}
+	
 	//반려동물 등록 페이지 요청  
 	@RequestMapping("/newPet")
 	public String newPet(HttpSession session) {
