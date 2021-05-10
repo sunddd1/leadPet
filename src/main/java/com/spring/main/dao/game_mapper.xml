@@ -186,7 +186,7 @@
       <select id="quizRank" resultType="game">
       SELECT quiz_score, quiz_timer,quiz_success_date, id , week_quiz_idx, if_submit FROM (SELECT ROW_NUMBER() OVER(ORDER BY quiz_score DESC ,quiz_timer ASC) AS rnum,
       quiz_score, quiz_timer,quiz_success_date, id , week_quiz_idx, if_submit
-      FROM quiz_test  WHERE if_submit='Y') WHERE rnum BETWEEN 1 AND 10 AND week_quiz_idx=(SELECT MAX(week_quiz_idx) FROM quiz_week) ORDER BY quiz_score DESC ,quiz_timer ASC
+      FROM quiz_test  WHERE if_submit='Y' AND week_quiz_idx=(SELECT MAX(week_quiz_idx) FROM quiz_week) ) WHERE rnum BETWEEN 1 AND 10 ORDER BY quiz_score DESC ,quiz_timer ASC
    </select>
    
    <select id="nemoRank" resultType="game">

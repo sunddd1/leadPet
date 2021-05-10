@@ -26,7 +26,11 @@
 			#gal_img{
 				padding-left: 45px;
 			}
-			
+			#gallBBS{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
+			}
 
 			
 		
@@ -63,7 +67,7 @@
 	</body>
 	<script>
 		function GalleryDetail(bbs_idx){
-			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=600');
+			window.open('GalleryDetail/'+bbs_idx,'GalleryDetailpop','width=800, height=400');
 		}
 	</script>
 </html>
