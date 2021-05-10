@@ -9,12 +9,11 @@
 		<title>NemoUpdatePage</title>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 4% 12%;
-				width: 40%;
+				margin-left : 20%;
+				width: 60%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			#nemoDiv{
 				padding-top: 6%;
@@ -29,17 +28,6 @@
 				min-width: 90px;
 				height: 70px;
 				font-size: 12px;
-			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
 			}
 			.block{
 				background-color: white;
@@ -61,6 +49,14 @@
 			#btn{
 				padding: 1%;
 				margin: 3% 0% 0% 80%;
+			}
+			#gameManage{
+				background-color: lightpink;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

@@ -8,12 +8,11 @@
 		<title>QuizUpdatePage</title>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<style>
-			#side_Navi,#conBody{
-				display: inline-block;
-			}
 			#conBody{
-				margin: 5% 18%;
+				margin-left : 20%;
 				width: 60%;
+				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -35,17 +34,6 @@
 				text-align: left;
 				padding-top: 3%;
 			}
-			#side_Navi th{
-				border: 1px solid;
-	      	 	padding: 5px 10px;
-	       	 	border-collapse: collapse;
-			}
-			#side_Navi{
-				white-space: nowrap;
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 0;
-			}
 			span{
 				color: red;
 				font-size: 14px;
@@ -62,6 +50,14 @@
 			}
 			#inputEx1,#inputEx2,#inputEx3,#inputEx4{
 				width: 20%;
+			}
+			#gameManage{
+				background-color: lightpink;
+			}
+			#adNavi{
+				background-color: lightcoral;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>

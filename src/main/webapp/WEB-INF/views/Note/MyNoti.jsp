@@ -15,6 +15,11 @@
 	table{
 		width : 90%;
 	}
+	#recMsg{
+		background-color: lightcoral;
+		color: white;
+		font-weight: bold;
+		}
 </style>
 <body>
 		<jsp:include page="../main/top_Navi.jsp"/>

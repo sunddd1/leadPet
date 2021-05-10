@@ -32,6 +32,9 @@
 			#nemoTable button{
 				margin-right: 15px;
 			}
+			#gameManage{
+				background-color: lightpink;
+			}
 			#adNavi{
 				background-color: lightcoral;
 				color: white;
