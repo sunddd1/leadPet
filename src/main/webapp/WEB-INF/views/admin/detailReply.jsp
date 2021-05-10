@@ -8,6 +8,7 @@
 </head>
 <body>
 <table>
+<h3>댓글 내용</h3>
 	<tr>
 		<td>
 			${dto.reply_content}
