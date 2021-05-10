@@ -35,7 +35,7 @@ public class GalleyController {
 
 	@RequestMapping(value = "/GalleryDetail", method = RequestMethod.GET)
 	public ModelAndView GalleryDetail (Model model , @RequestParam String bbs_idx) {
-		logger.info("갤러리 리스트 : " + bbs_idx);
+		logger.info("갤러리 상세보기 : " + bbs_idx);
 		return bservice.BoardDetail(bbs_idx);
 	}
 	
