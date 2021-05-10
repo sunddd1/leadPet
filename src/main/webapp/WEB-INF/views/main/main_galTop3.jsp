@@ -54,7 +54,7 @@
 	
 	function boardDetail(idx) {
 
-		window.open('GalleryDetail/'+idx,'GalleryDetailpop','width=800, height=600,top=300,left=550');
+		window.open('GalleryDetail/'+idx,'GalleryDetailpop','width=800, height=600,top=250,left=550');
 		location.href="./GalleryList";
 	}
 	function imgMove() {
