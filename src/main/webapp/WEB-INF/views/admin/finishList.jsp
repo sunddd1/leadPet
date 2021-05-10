@@ -182,7 +182,7 @@
 				content += list[i].id+'</td>';
 				content += '<td><a href="./BoardDetail?bbs_idx='+list[i].field+'">'+list[i].field+'</a></td>';
 				content += '<td>'+list[i].reason+'</td>';
-				content += '<td>'+list[i].reg_date.substring(0,10)+'</td>';
+				content += '<td>'+list[i].proc_date.substring(0,10)+'</td>';
 				content += '<td>'+list[i].proc_ex+'</td>';
 				content += '</tr>';
 			}

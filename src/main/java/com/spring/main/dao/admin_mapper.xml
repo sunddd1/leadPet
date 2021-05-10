@@ -109,7 +109,7 @@
 		      SELECT id, password, name, age, gender, email, reg_date, withdraw, 
       black , change_date, point, nickname, grade, black_cnt, black_date FROM 
       (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
-      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE AND withdraw='Y' AND
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE  withdraw='Y' AND
       <if test="param3 == 'id'"> id  LIKE #{param4}</if>
       <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
       ) 
@@ -124,7 +124,7 @@
 			<if test="param1 == 'nickname'"> nickname LIKE LOWER(#{param2}) or nickname LIKE UPPER(#{param2})</if>
 		</where>
 		)
-		WHERE black='N' AND withdraw='Y'
+		WHERE  withdraw='Y'
 	</select>
 	
 	<!-- 신고 리스트 -->
@@ -155,8 +155,8 @@
 
 SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
 (SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
-WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
+FROM report WHERE id LIKE LOWER(#{param3})  or id LIKE UPPER(#{param3})) 
+WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
 
 	 </select>
 	 
@@ -184,7 +184,7 @@ WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
       FROM report WHERE id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2}  AND type = 'com' AND proc_ex='Y' ORDER BY proc_date DESC
+      WHERE rnum BETWEEN #{param1} AND #{param2}  AND type = 'com' AND proc_ex='N' ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="replyCount" resultType="Integer">
@@ -197,8 +197,8 @@ WHERE type != 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
 	 <select id="finishReplyList" resultType="report">
 SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM 
 (SELECT  rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-FROM report WHERE id LIKE LOWER(#{param3}))  or id LIKE UPPER(#{param3})) 
-WHERE type = 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2}
+FROM report WHERE id LIKE LOWER(#{param3})  or id LIKE UPPER(#{param3})) 
+WHERE type = 'com' AND proc_ex='Y') WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="finishReplyCount" resultType="Integer">

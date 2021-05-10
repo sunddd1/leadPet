@@ -241,7 +241,8 @@
 				</form>
 				<button type="button" id="testStopBtn">STOP</button>
 			</div>	
-		</div>	
+		</div>
+		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>		
 	</body>
 	<script>
 		//페이지 띄우자 마자 stop watch 시작

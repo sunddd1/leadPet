@@ -7,7 +7,7 @@
 		<title>Insert title here</title>
 		<style>
 			
-			#profile,#profile td{
+			#profile,#profile td,#profile th{
 					width: 60%;
 					border: 1px solid black;
 					border-collapse: collapse;
@@ -17,7 +17,6 @@
 					margin-top: 100px;
 			}
 			#reply{
-				width: max-content;
 				margin-left: 20%;
 				margin-top: 3%;
 			}
@@ -93,7 +92,7 @@
 		<table style="border-collapse: collapse;" id="reply">
 			<tr>
 				<td>
-					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"></textarea>
+					<textarea id="reply_content" rows="4" cols="100" placeholder="댓글을 입력하시오"  style="resize: none;"></textarea>
 				</td>
 				<td>
 					<button onclick='replyButton()'>등록</button>

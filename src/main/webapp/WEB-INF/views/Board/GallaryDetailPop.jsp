@@ -14,13 +14,12 @@
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../Member/idClickPopup.jsp"/>
 		<table>
 			<tr>
 				<td colspan="5" rowspan="10">
 					<img src="/photo/${dto.newFileName}"  width='300px' height='300px'/>
 				</td>
-				<td style="color: blue;"><p onclick='idClickPopup("${dto.nickname}")' >${dto.nickname}</p></td>
+				<td>${dto.nickname}</td>
 				<c:if test="${sessionScope.loginId ne dto.id }">
 					<td id="interest"> </td>
 				</c:if>
@@ -46,7 +45,7 @@
 			</tr>
 			<tr>
 				<td>
-					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오"></textarea>
+					<textarea id="reply_content" rows="2" cols="30" placeholder="댓글을 입력하시오" style="resize: none;"></textarea>
 					<button onclick='replyButton()' >등록</button>
 				</td>	
 			</tr>
