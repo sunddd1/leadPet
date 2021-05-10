@@ -52,7 +52,7 @@ public interface AdminDAO {
 
 	int memberBlackN(String id);
 
-	String insertBlack(String id);
+	int insertBlack(String id, String loginId);
 
 	ArrayList<AdminDTO> reportList(int start, int end, String search, String keyword);
 
