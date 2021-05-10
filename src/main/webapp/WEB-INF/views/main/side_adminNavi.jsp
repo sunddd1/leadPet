@@ -16,7 +16,6 @@
 	<body>
 			<ul id="side_Navi">
 			
-				<li  id="vaccinManage" onclick="location.href='./vaccList'">백신리스트</li>
 
 				<li id="adManage" onclick="location.href='./admin'">관리자관리</li>
 
@@ -30,6 +29,7 @@
 
 				<li id="pointDoc" onclick="location.href='./pointList'">포인트내역</li>
 
+				<li  id="vaccinManage" onclick="location.href='./vaccList'">백신리스트</li>
 				
 		</ul>
 
