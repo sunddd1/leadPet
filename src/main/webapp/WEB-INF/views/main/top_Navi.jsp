@@ -130,13 +130,13 @@
 			<tr>
 				<td class="firstBar" id="right">
 					<select>
-						<option value="ALL"<c:if test="${category eq 'ALL' }"> selected</c:if>>전체</option>
-						<option value="living"<c:if test="${category eq 'living' }"> selected</c:if>>리빙</option>
-						<option value="play"<c:if test="${category eq 'play' }"> selected</c:if>>놀이</option>
-						<option value="food"<c:if test="${category eq 'food' }"> selected</c:if>>사료간식영양제</option>
-						<option value="park"<c:if test="${category eq 'park' }"> selected</c:if>>공원</option>
-						<option value="restaurant"<c:if test="${category eq 'restaurant' }"> selected</c:if>>식당</option>
-						<option value="medical"<c:if test="${category eq 'medical' }"> selected</c:if>>의료</option>
+						<option value="ALL"<c:if test="${category eq 'ALL' }"> selected</c:if>>ALL</option>
+						<option value="living"<c:if test="${category eq 'living' }"> selected</c:if>>living</option>
+						<option value="play"<c:if test="${category eq 'play' }"> selected</c:if>>play</option>
+						<option value="food"<c:if test="${category eq 'food' }"> selected</c:if>>food</option>
+						<option value="park"<c:if test="${category eq 'park' }"> selected</c:if>>park</option>
+						<option value="restaurant"<c:if test="${category eq 'restaurant' }"> selected</c:if>>restaurant</option>
+						<option value="medical"<c:if test="${category eq 'medical' }"> selected</c:if>>medical</option>
 					</select>
 				</td>
 				<th class="searchBar" colspan="2">
