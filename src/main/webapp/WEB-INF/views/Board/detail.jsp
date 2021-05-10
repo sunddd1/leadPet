@@ -8,28 +8,28 @@
 		<style>
 			
 			#profile,#profile td,#profile th{
-					width: max-content;
+					width: 60%;
 					border: 1px solid black;
 					border-collapse: collapse;
 					padding: 5px 10px;
 					text-align: center;
-					margin-left: 14%;
-					margin-top: 3%;
+					margin-left: 20%;
+					margin-top: 100px;
 			}
-			
 			#reply{
 				width: max-content;
-				margin-left: 14%;
+				margin-left: 20%;
 				margin-top: 3%;
 			}
 		</style>
 	</head>
 	<body>
+	<jsp:include page="../main/top_Navi.jsp"/>
 	<jsp:include page="../Member/idClickPopup.jsp"/>
 		<table id="profile">
             <tr>
                 <th>조회수 </th>
-                <td>${dto.views }</td>
+                <td>${dto.views}</td>
                 <th>추천</th>
                 <td>${dto.reco_count }</td>
                 <td id="reco"></td>
@@ -38,7 +38,7 @@
                 <th>작성일</th>
                 <td>${dto.reg_date }</td>
 
-                <td onclick='idClickPopup("${dto.nickname}")'>${dto.id }</td>
+                <td onclick='idClickPopup("${dto.nickname}")' style="color: blue;">${dto.id }</td>
                 <c:if test="${dto.id eq sessionScope.loginId}">
 	                <td colspan="3" style="text-align: left;">
 	                	<button onclick="location.href='BoardUpdateForm?bbs_idx=${dto.bbs_idx}' ">수정하기</button>
@@ -82,6 +82,11 @@
 			<tr>
 				<th>내용</th>
 				<td id="bbs_content" colspan="12">${dto.bbs_content }</td>
+			</tr>
+			<tr>
+				<td colspan="11">
+					<button style="text-align: center;"  onclick="location.href='BoardList'">리스트로 돌아가기</button>				
+				</td>
 			</tr>
 		</table>
 		
