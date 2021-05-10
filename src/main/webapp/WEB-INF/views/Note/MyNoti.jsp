@@ -14,6 +14,10 @@
 	}
 	table{
 		width : 90%;
+		padding-top : 1000px ;
+		padding-left : 240px;
+	}
+	.table{
 	}
 	#recMsg{
 		background-color: lightcoral;

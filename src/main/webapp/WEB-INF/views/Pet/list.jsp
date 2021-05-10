@@ -12,8 +12,8 @@
 
 			#note{
 			padding-top : 150px ;
-			padding-left : 400px;
-			width: 800px;
+			padding-left : 300px;
+			padding-right: 100px;
 			}
 			
 			#myPet{
@@ -24,7 +24,7 @@
 			
 			#table{
 				 float:left;
-				 width : 4000px;
+				 width : 80%;
 			}
 			
 			#button{
@@ -41,6 +41,7 @@
 				top: -10px;
 			}
 			
+			
 		</style>
 	</head>
 	<body>
@@ -49,9 +50,9 @@
 		<tr>
 			<td><jsp:include page="../main/side_myNavi.jsp"/></td>
 			<td id="note">
-			<b style="background-color: lightcoral">반려동물 목록</b>
+			<b style="">반려동물 목록</b>
 			
-			<button style="align : right;" onclick="location.href='./newPet'">반려동물
+			<button style="float: right;" onclick="location.href='./newPet'">반려동물
 				등록</button>
 			<hr/>
 					<c:forEach items="${list}" var="dto">

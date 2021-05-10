@@ -84,6 +84,10 @@ public class MemberService {
 			mav.addObject("write", dto);
 			mav.addObject("nickNameId", id);
 		}
+		if(dto.size()==0) {//작성한 글이 없을 때 
+			String msg = "작성된 글이 없습니다.";
+			return new ModelAndView(page, "msg", msg);
+		}
 		mav.setViewName(page);
 		return mav;
 	}
