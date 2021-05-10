@@ -216,7 +216,7 @@
 				var date = new Date(list[i].reg_date);
 				replyDraw +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				//로그인 아이디라면
-				if(list[i].nickname== "${sessionScope.loginId}"){
+				if(list[i].id== "${sessionScope.loginId}"){
 				replyDraw +="<td><a href='#' onclick='replyUpdateForm("+list[i].reply_idx+")'>수정</a></td>"
 				replyDraw +="<td><a href='#' onclick='replyDel("+list[i].reply_idx+")'>삭제</a></td>"
 				}
