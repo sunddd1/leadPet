@@ -125,6 +125,16 @@
                 </tr>
             </c:forEach> --%>
             
+            <tr>
+					<td id="paging" colspan="6">
+						<div class="container">
+							<nav aria-label="page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination"></ul>
+							</nav>
+						</div>
+					</td>
+				</tr>
+				
         </table>
     </div>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
