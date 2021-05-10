@@ -41,9 +41,6 @@
 				top: -10px;
 			}
 			
-			#star{
-				
-			}
 		</style>
 	</head>
 	<body>
@@ -52,8 +49,8 @@
 		<tr>
 			<td><jsp:include page="../main/side_myNavi.jsp"/></td>
 			<td id="note">
-		
-			<b>반려동물 목록</b>
+			<b style="background-color: lightcoral">반려동물 목록</b>
+			
 			<button style="align : right;" onclick="location.href='./newPet'">반려동물
 				등록</button>
 			<hr/>

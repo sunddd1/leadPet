@@ -12,6 +12,7 @@
 				margin-left : 20%;
 				width: 60%;
 				margin-top: 100px;
+				margin-bottom: 100px;
 			}
 			h2{
 				text-align: center;
@@ -99,6 +100,7 @@
 				</table>
 			</div>
 		</div>	
+		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>	
 	</body>
 	<script></script>
 </html>

@@ -72,12 +72,6 @@
 				background-repeat: no-repeat;
 				margin: 0% 0% 8% 2%;
 			}
-			#decoImg{
-				display: inline-block;
-				width : 100%;
-				height : 140px;
-				background-repeat: no-repeat;
-			}
 			#minGame{
 				background-color: lightcoral;
 				color: white;
@@ -108,12 +102,17 @@
 							&nbsp;<button onclick="location.href='./nemoRanking'">랭킹보기</button>
 							&nbsp;<button onclick="location.href='./lastNemoAnswer'">지난 네모로직 정답</button>
 						</p>
-					</div>	
+					</div>
+					<button onclick="playSound('./resources/Ding-dong-sound-effect');">Play</button>  	
 				</div>
 			</div>
 		</div>
-		<div id="decoImg" style="background: url('./resources/gameDecoImg.jpg')"></div>
 		<jsp:include page="/WEB-INF/views/main/footerjsp.jsp"/>
 	</body>
-	<script></script>
+	<script>
+	function playSound(url) {
+		  const audio = new Audio(url);
+		  audio.play();
+		}
+	</script>
 </html>

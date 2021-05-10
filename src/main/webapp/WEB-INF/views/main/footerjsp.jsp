@@ -6,6 +6,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<style>
+			#decoImg{
+				display: inline-block;
+				width : 100%;
+				height : 140px;
+				background-repeat: no-repeat;
+			}
 			#footer{
 				background-color: black;	
 				padding: 20px;			
@@ -18,6 +24,7 @@
 		</style>
 	</head>
 	<body>
+		<div id="decoImg" style="background: url('./resources/gameDecoImg.jpg')"></div>
 		<div id="footer">
 			<p>4 조 반려동물 서비스</p>
 			<p>강다정 김성남 곽현수 김예은 양동준 정원석</p>

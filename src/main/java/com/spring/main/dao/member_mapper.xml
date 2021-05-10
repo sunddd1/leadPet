@@ -62,7 +62,7 @@
 
 	<!-- 작성글 목록 -->
 	<select id="writeList" resultType="board">
-		select * from bbs where nickname = (select nickname from member where id=#{param1}) and mod_del='N'
+		select * from bbs where nickname = (select nickname from member where id=#{param1}) and mod_del='N' and bbs_blind='N' 
 		
 	</select>
 	
