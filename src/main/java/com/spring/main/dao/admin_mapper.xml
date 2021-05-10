@@ -131,8 +131,8 @@
 	<select id="reportList" resultType="report">
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE proc_ex='N' AND type != 'com' AND type=#{param3} AND id LIKE LOWER(#{param4}) or id LIKE UPPER(#{param4})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+      FROM report WHERE type != 'com' AND type=#{param3} AND id LIKE LOWER(#{param4}) or id LIKE UPPER(#{param4})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='N' ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="reportCount" resultType="Integer">
@@ -144,8 +144,8 @@
 	<select id="finishList" resultType="report">
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE proc_ex='Y' AND type != 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY proc_date DESC
+      FROM report WHERE type != 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="finishCount" resultType="Integer">
@@ -169,8 +169,8 @@
 	 <select id="replyList" resultType="report">
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE proc_ex='N' AND type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+      FROM report WHERE type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='N' ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="replyCount" resultType="Integer">
@@ -182,8 +182,8 @@
 	 <select id="finishReplyList" resultType="report">
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
-      FROM report WHERE proc_ex='Y' AND type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+      FROM report WHERE type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="finishReplyCount" resultType="Integer">
@@ -215,24 +215,16 @@
 	
 	<!-- 블라인드Y 리스트 -->
 	<select id="blindYList" resultType="board">
-	 	SELECT bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name FROM
+	 SELECT bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) 
       AS rnum,bbs_idx, bbs_subject, bbs_content, reg_date,mod_del,bbs_blind,reco_count,views, type, nickname, pet_idx, category_name
-      FROM bbs
-      <where>
-			<if test="param3 == '.'" >bbs_blind='Y' </if>
-			<if test="param3 != '.'">bbs_blind='Y'  AND nickname LIKE LOWER(#{param3}) or nickname LIKE UPPER(#{param3})</if>
-		</where>
-		)
-      WHERE rnum BETWEEN #{param1} AND #{param2} ORDER BY reg_date DESC
+      FROM bbs WHERE nickname LIKE LOWER(#{param3}) or nickname LIKE UPPER(#{param3})) 
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND bbs_blind='Y'  ORDER BY reg_date DESC
 	 </select>
 	 
 	 <select id="blindYCount" resultType="Integer">
-		SELECT COUNT(nickname) FROM bbs WHERE 
-		<where>
-			<if test="param3 == '.'" >bbs_blind='Y' </if>
-			<if test="param3 != '.'">bbs_blind='Y'  AND nickname LIKE LOWER(#{param1}) or nickname LIKE UPPER(#{param1})</if>
-		</where>
+		SELECT COUNT(nickname) FROM bbs WHERE bbs_blind='Y' 
+       AND nickname LIKE LOWER(#{param1}) or nickname LIKE UPPER(#{param1})
 	</select>
 	
 	<update id="blindN">

@@ -112,7 +112,8 @@ public class LoginController {
 		
 		if(registService.regist(member)) {
 			viewName = "/login/loginForm";
-			msg = "회원가입에 성공했습니다.";
+			msg = "회원가입에 성공했습니다. "
+					+"로그인 후 마이페이지에서 반려동물을 등록해주세요.";
 		}
 		
 		mav.setViewName(viewName);

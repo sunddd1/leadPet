@@ -21,8 +21,12 @@
 			<mvc:exclude-mapping path="/login"/>
 			<mvc:exclude-mapping path="/home"/>
 			<mvc:exclude-mapping path="/registForm"/>
-			
-			
+			<mvc:exclude-mapping path="/regist"/>
+			<mvc:exclude-mapping path="/find-id-form"/>
+			<mvc:exclude-mapping path="/check-duplicate-id"/>
+			<mvc:exclude-mapping path="/check-duplicate-nickname"/>
+			<mvc:exclude-mapping path="/find-id"/>
+
 			<mvc:exclude-mapping path="/mainTop"/>
 			<mvc:exclude-mapping path="/topsearch*"/>
 			<mvc:exclude-mapping path="/searchBbs*"/>
