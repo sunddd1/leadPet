@@ -109,7 +109,7 @@
 		      SELECT id, password, name, age, gender, email, reg_date, withdraw, 
       black , change_date, point, nickname, grade, black_cnt, black_date FROM 
       (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, password, name, age, gender, email, reg_date, withdraw, 
-      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE black='N' AND withdraw='Y' AND
+      black , change_date, point, nickname, grade, black_cnt, black_date FROM member WHERE AND withdraw='Y' AND
       <if test="param3 == 'id'"> id  LIKE #{param4}</if>
       <if test="param3 == 'nickname'"> nickname  LIKE #{param4}</if>
       ) 
@@ -183,7 +183,7 @@
 	 	SELECT rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date FROM
       (SELECT  ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, rep_idx, field, reason, proc_ex,reg_date,id,type,admin_id,proc_date 
       FROM report WHERE type = 'com' AND id LIKE LOWER(#{param3}) or id LIKE UPPER(#{param3})) 
-      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY reg_date DESC
+      WHERE rnum BETWEEN #{param1} AND #{param2} AND proc_ex='Y' ORDER BY proc_date DESC
 	 </select>
 	 
 	 <select id="finishReplyCount" resultType="Integer">
@@ -265,13 +265,15 @@
 	 	UPDATE member SET black='Y', black_cnt=black_cnt+1, black_date=#{param2} WHERE id=#{param1}
 	 </update>
 	 
+	 <!-- 반환하는게 int -->
+	 <insert id="insertBlack">
+	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
+	 </insert>
+	 
 	 <update id="memberBlackN">
 	 	UPDATE member SET black='N', black_cnt=black_cnt-1  WHERE id=#{param1}
 	 </update>
 	 
-	 <insert id="insertBlack">
-	 	INSERT INTO blackList(black_idx, id, admin_id) VALUES(seq_blackList.NEXTVAL, #{param1}, #{param2})
-	 </insert> 
 	 
 	 <select id="loop_free" resultType="String">
 	 	SELECT id FROM member WHERE <![CDATA[black_date < #{param1}]]> AND black='Y' AND <![CDATA[black_cnt<3]]>
