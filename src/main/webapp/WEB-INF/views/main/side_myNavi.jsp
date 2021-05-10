@@ -16,7 +16,7 @@
 	<body>
 		<ul id="side_Navi">
 			
-				<li id="myinfo" onclick="location.href='./member-detail'">회원정보</li>
+				<li id="myinfo" onclick="location.href='./member-detail?id=${sessionScope.loginId}'">회원정보</li>
 
 				<li id="draw" onclick="location.href='./withdrawal'">회원탈퇴</li>
 

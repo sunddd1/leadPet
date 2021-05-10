@@ -12,6 +12,7 @@
 		#registTable{
 				width: 60%;
 				margin-left: 20%;
+				top: 100px;
 		}	
 		#registTable, #registTable td, #registTable th {
 			border : 1px solid black;

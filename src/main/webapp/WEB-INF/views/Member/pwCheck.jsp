@@ -8,6 +8,7 @@
 		<style>
 			#withdrawTable{
 					width: 60%;
+
 					margin-left: 40%;
 					margin-top : 20%;
 			}
@@ -31,6 +32,11 @@
 		
 		<form id="withdrawForm" action="withdraw" method="post">
 			<table id="withdrawTable">
+				<tr>
+					<th colspan="2">
+						<h2>회원 탈퇴</h2>
+					</th>
+				</tr>
 				<tr>
 					<td>
 						<div width="300px">

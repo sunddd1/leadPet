@@ -9,19 +9,22 @@
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<style>
 		#changeTable{
-			width: 60%;
+			width: 30%;
 			margin-left: 20%;
+			margin-top : 200px;
+			border-collapse: collapse;
 		}
 		#changeTable, #changeTable th, #changeTable td {
 			border : 1px solid black;
+			text-align: center;
 		}
 		
 	</style>
 	</head>
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
-		<jsp:include page="../main/side_myNavi.jsp"/>
 		
+		<h2>아이디 찾기</h2>
 		<form id="changeForm" action="change-pw" method="post">
 			<table id="changeTable">
 				<tr>

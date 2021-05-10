@@ -32,7 +32,7 @@
 		<c:forEach items="${petList}" var="pet">
 				<tr>
 					<td rowspan="4">
-						${pet.newFileName}
+						<img src=" ${pet.newFileName}"/>
 					</td>
 					<td>${pet.pet_name}</td>
 				</tr>

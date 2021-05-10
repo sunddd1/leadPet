@@ -25,7 +25,7 @@
 			min-width : 250px;
 			padding: 10px;
 		}
-		#loginTable th,h3{			
+		#loginTable th,h3{
 			padding: 10px;
 		}
 		#loginTable {
