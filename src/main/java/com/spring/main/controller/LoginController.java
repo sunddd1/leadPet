@@ -49,16 +49,26 @@ public class LoginController {
 			session.setAttribute("loginId", id);
 		}
 		
+		msg = "로그인에 성공했습니다.";
+		
 		switch (loginType) {
 		case ADMIN:
 			session.setAttribute("isMaganer", true);
 			break;
 			
 		case USER:
+				
 			break;
 			
-		case WITHDRAW:
-			return new ModelAndView("/Member/restore");
+		case BLACK:
+			session.invalidate();
+			msg = "이용이 제한된 회원입니다.";
+			break;
+			
+		case WITHDRAW:	
+			session.invalidate();
+			msg = "탈퇴된 회원입니다. 서비스를 이용하려면 복구 후 이용해 주세요.";
+			return new ModelAndView("/Member/restore", "msg", msg);
 			
 		default:
 			logger.info("로그인 실패");
@@ -66,8 +76,6 @@ public class LoginController {
 			return new ModelAndView("/login/loginForm", "msg", msg);
 		}
 
-		msg = "로그인에 성공했습니다.";
-		
 		mav.setViewName("home");
 		mav.addObject("msg", msg);
 		

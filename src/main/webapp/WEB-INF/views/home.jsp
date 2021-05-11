@@ -41,5 +41,10 @@
 		<jsp:include page="./main/footerjsp.jsp"/>
 	</body>
 	<script>
+	var msg = "${msg}";
+	if(msg!=""){
+		alert(msg);
+		msg = "";
+	}
 	</script>
 </html>
