@@ -47,6 +47,8 @@ public interface PetDAO {
 
 	List<VaccinDTO> petVaccList(int pet_idx);
 
+	void stardel(String id);
+
 
 
 }

@@ -43,6 +43,9 @@
 	<update id="star">
 		UPDATE pet SET delegate = 'Y' WHERE pet_idx=#{param1} 
 	</update>
+	<update id="stardel">
+		UPDATE pet SET delegate = 'N' WHERE id = #{id}
+	</update>
 	
 	<!-- 백신 목록 -->
 	<select id="vaccList" resultType="vaccin">
