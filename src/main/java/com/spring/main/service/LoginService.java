@@ -16,7 +16,7 @@ import com.spring.main.dto.MemberDTO;
 public class LoginService {
 	
 	public enum Type{
-		USER, ADMIN, WITHDRAW, NONE
+		USER, ADMIN, WITHDRAW, BLACK, NONE
 	}
 	
 	class Info {
@@ -72,6 +72,12 @@ public class LoginService {
 			}
 			break;
 
+		case BLACK:
+			if(!equalEncodingPw(userPw, dbPw)) {
+				loginInfo.type = Type.NONE;
+			}
+			break;
+			
 		default:
 			logger.info("비밀번호 확인 오류");
 			loginInfo.type = Type.NONE;
@@ -114,6 +120,11 @@ public class LoginService {
 			// 탈퇴했을 경우
 			if(memberDto.getWithdraw().equals("Y")) {
 				loginInfo.type = Type.WITHDRAW;
+			}
+			
+			// 블랙일 경우
+			if(memberDto.getBlack().equals("Y")) {
+				loginInfo.type = Type.BLACK;
 			}
 			
 			return loginInfo;
