@@ -109,7 +109,6 @@ public class CalendarService {
 		logger.info("chgeck : "+check);
 		mav.addObject("check", check);
 		mav.addObject("vacc", vacc);
-		mav.addObject("vacc_sche_idx", vacc_sche_idx);
 		mav.setViewName("./cal/vaccinDetail");
 		return mav;
 	}
@@ -194,6 +193,7 @@ public class CalendarService {
 				// 일정이 완료되면 예상 추가 + 일정추가여부 수정				
 				logger.info("등록 함 : "+vac_idx +"/"+date); 
 				Date conDate=java.sql.Date.valueOf(date); 
+				System.out.println(dao.cycle(vacc_idx)+"시간 .....");
 				Date ZZinDate = new Date(dao.cycle(vacc_idx)*7*24*60*60*1000+conDate.getTime()); 
 				logger.info("conDate 목 : {} ",ZZinDate);
 				logger.info("캘린더 목록 요청 시작 : {} ",date+"/주기 : "+dao.cycle(vacc_idx)*7*24*60*60*1000);

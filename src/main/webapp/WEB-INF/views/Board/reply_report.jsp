@@ -17,7 +17,7 @@
 	<body>
 	
 		<h3>신고</h3>
-		<form action="http://localhost:8080/main/replyReport" method="POST">
+		<form action="http://192.168.0.24:8080/main/replyReport" method="POST">
 		<table>
 			<tr>
 				<th>신고자</th>

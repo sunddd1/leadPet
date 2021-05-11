@@ -44,7 +44,6 @@ public interface CalendarDAO {
 
 	Vaccin_schedulerDTO vacc_scheSearch(String vac_idx, String id);
 
-	int executed(int vac_idx);
 
 	int executed(String vac_idx, String id);
 
