@@ -64,7 +64,6 @@ public class PetController {
  		HashMap<String, String> photoList = new HashMap<String,String>();
 		session.setAttribute("photoList", photoList);
  		service.write(dto,session);
- 		
  		Map<String, Object> respData = new HashMap<>();
  		respData.put("ok", true);
  		return respData;
