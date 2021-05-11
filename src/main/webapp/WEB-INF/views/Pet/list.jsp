@@ -14,6 +14,7 @@
 			padding-top : 150px ;
 			padding-left : 300px;
 			padding-right: 100px;
+			width : 100%;
 			}
 			
 			#myPet{
