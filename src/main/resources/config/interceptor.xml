@@ -29,6 +29,7 @@
 			<mvc:exclude-mapping path="/change-pw-form"/>
 			<mvc:exclude-mapping path="/exist-id"/>
 			<mvc:exclude-mapping path="/change-pw"/>
+			<mvc:exclude-mapping path="/restore"/>
 
 
 			<mvc:exclude-mapping path="/mainTop"/>

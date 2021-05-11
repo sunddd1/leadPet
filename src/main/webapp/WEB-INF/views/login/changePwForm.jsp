@@ -10,33 +10,37 @@
 	<style>
 		#changeTable{
 			width: 30%;
-			margin-left: 20%;
+			margin-left: 30%;
 			margin-top : 200px;
 			border-collapse: collapse;
 		}
 		#changeTable, #changeTable th, #changeTable td {
 			border : 1px solid black;
 			text-align: center;
+			padding: 10px;
 		}
 		#resultTable{
 			width: 30%;
-			margin-left: 20%;
-			margin-top : 200px;
+			margin-left: 30%;
 			border-collapse: collapse;
 		}
 		#resultTable, #resultTable th, #resultTable td {
 			border : 1px solid black;
 			text-align: center;
+			padding: 10px;
 		}
 		
 	</style>
 	</head>
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
-		
-		<h2>아이디 찾기</h2>
 		<form id="changeForm" action="change-pw" method="post">
 			<table id="changeTable">
+				<tr>
+					<th colspan="2">
+						<h2>아이디 찾기</h2>
+					</th>
+				</tr>
 				<tr>
 					<th>
 						<label>아이디</label>

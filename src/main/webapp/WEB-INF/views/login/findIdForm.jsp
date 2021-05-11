@@ -10,21 +10,25 @@
 	<style>
 		#findIdForm{
 			width: 30%;
-			margin-left: 20%;
+			margin-left: 30%;
 			margin-top : 200px;
 			border-collapse: collapse;
 		}
 		#findIdForm, #findIdForm th, #findIdForm td {
 			border : 1px solid black;
 			text-align: center;
+			padding: 10px;
 		}
 	</style>
 	</head>
 	<body>
 		<jsp:include page="../main/top_Navi.jsp"/>
-	
-		<h2>아이디 찾기</h2>
 		<table id="findIdForm">
+			<tr>
+				<th colspan="2">
+					<h2>아이디 찾기</h2>
+				</th>
+			</tr>
 			<tr>
 				<th>
 					<label>이름</label>
@@ -47,9 +51,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<th>
 					<label>아이디</label>
-				</td>
+				</th>
 				<td>
 					<input type="text" id="result" readonly/>
 				</td>

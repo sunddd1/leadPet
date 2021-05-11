@@ -8,7 +8,7 @@
 	
 	<select id="userLogin" resultType="member">
 		SELECT 
-			id, password, change_date ,withdraw
+			id, password, change_date ,withdraw,black
 		FROM
 			member 
 		WHERE
