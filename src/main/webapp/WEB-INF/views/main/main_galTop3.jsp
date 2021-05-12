@@ -35,7 +35,7 @@
 					content+="<tr><td><h2>베스트 포토 탑 3</h2></td></tr>";
 					content+="<tr onclick='console.log("+list[i].bbs_idx+")'>";
 					
-					content+="<td id='photo"+i+"' onclick='boardDetail("+list[i].bbs_idx+")'>";
+					content+="<td id='photo"+i+"' onclick='galDetail("+list[i].bbs_idx+")'>";
 					content+="<img src=/photo/"+list[i].newFileName+" alt="+list[i].oriFileName+" width='300px' 'height='398px'/>";
 					content+="</td>";
 					
@@ -52,7 +52,7 @@
 		imgMove();
 	});
 	
-	function boardDetail(idx) {
+	function galDetail(idx) {
 
 		window.open('GalleryDetail/'+idx,'GalleryDetailpop','width=800, height=600,top=250,left=550');
 		location.href="./GalleryList";
@@ -65,7 +65,7 @@
 				$('#galTop3').html('');
 				$('#galTop3').append(imgContain[i]);
 				i++;
-				if(i==2){
+				if(i==3){
 					i=0;
 				}
 			}, 5000);

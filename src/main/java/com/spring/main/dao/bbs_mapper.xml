@@ -174,13 +174,13 @@
 
 	<select id="bbsTop5" resultType="board">
 		SELECT bbs_idx, bbs_subject, bbs_content, nickName,reco_count FROM 
-		(SELECT ROW_NUMBER() OVER(ORDER BY reco_count DESC) AS rnum,bbs_idx, bbs_subject, bbs_content, nickName,reco_count FROM bbs WHERE type !='gal')
+		(SELECT ROW_NUMBER() OVER(ORDER BY reco_count DESC) AS rnum,bbs_idx, bbs_subject, bbs_content, nickName,reco_count FROM bbs WHERE type !='gal' AND bbs_blind='N')
 		 WHERE rnum between 1 and 5 
 	</select>
 
 	<select id="galTop3" resultType="board">
 		SELECT bbs_idx, newFileName, oriFileName FROM
-		(SELECT ROW_NUMBER() over(ORDER BY b.reco_count DESC) AS rnum, bi.bbs_idx, bi.newFileName, bi.oriFileName FROM bbs_img bi, bbs b WHERE b.bbs_idx = bi.bbs_idx AND b.type= 'gal') 
+		(SELECT ROW_NUMBER() over(ORDER BY b.reco_count DESC) AS rnum, bi.bbs_idx, bi.newFileName, bi.oriFileName FROM bbs_img bi, bbs b WHERE b.bbs_idx = bi.bbs_idx AND b.type= 'gal' AND bbs_blind='N') 
 		WHERE rnum BETWEEN 1 AND 3
 	</select>
 	

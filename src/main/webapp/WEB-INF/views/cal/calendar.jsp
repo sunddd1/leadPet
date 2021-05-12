@@ -209,7 +209,7 @@
 	    			for (var i = 1; i < dda; i++) {
 						console.log(i+"번 째 "+$('#'+i).find('div').length);
 						if($('#'+i).find('div').length>6){
-							for (var a = 3; a < $('#'+i).find('div').length; a++) {
+							for (var a = 4; a < $('#'+i).find('div').length; a++) {
 								console.log("지운다 : "+i +"/"+ a);
 								console.log($('#'+i).find('div').eq(a).html(''));
 							}
