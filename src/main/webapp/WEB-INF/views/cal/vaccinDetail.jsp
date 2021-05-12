@@ -26,7 +26,7 @@
 		</style>
 	</head>
 	<body>
-		<h3>상세보기 ${vacc.vacc_idx }// ${vacc.vac_idx }//${vacc_sche_idx }//2</h3>
+		<h3>상세보기</h3>
 			<table>
 				<tr>
 					<td colspan="3">${vacc.content }</td>

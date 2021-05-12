@@ -49,7 +49,7 @@
  	    	<c:forEach items="${vacc }" var="list">
  	    		<tr>
  	    			<td>
-			    		<span onclick='window.open("./vaccinDetail?vacc_sche_idx=${list.vacc_sche_idx}&vac_idx=${list.vac_idx}","","width=600,height=400,left=800,top=300")'>${list.pet_name}${list.vacc_sche_idx} / ${list.vacc_name}</span>
+			    		<span onclick='window.open("./vaccinDetail?vacc_sche_idx=${list.vacc_sche_idx}&vac_idx=${list.vac_idx}","","width=600,height=400,left=800,top=300")'>${list.pet_name} / ${list.vacc_name}</span>
  	    			</td>
  	    			<th>
 			    		<a onclick="del(1,${list.vacc_sche_idx},${list.vac_idx})" >삭제</a>
