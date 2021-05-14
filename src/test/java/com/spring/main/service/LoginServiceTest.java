@@ -1,7 +1,7 @@
 package com.spring.main.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ public class LoginServiceTest {
 		LoginService.Type result = loginService.login(id, password);
 		 
 		// then
-		assertThat(result, is(LoginService.Type.NONE));
+		assertThat(result).isEqualTo(LoginService.Type.NONE);
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class LoginServiceTest {
 		LoginService.Type result = loginService.login(id, password);
 		
 		// then
-		assertThat(result, is(LoginService.Type.NONE));
+		assertThat(result).isEqualTo(LoginService.Type.NONE);
 	}
 	
 	@Test
@@ -57,7 +57,7 @@ public class LoginServiceTest {
 		LoginService.Type result = loginService.login(id, password);
 		
 		// then
-		assertThat(result, is(LoginService.Type.NONE));
+		assertThat(result).isEqualTo(LoginService.Type.NONE);
 	}
 
 	@Test
@@ -70,6 +70,6 @@ public class LoginServiceTest {
 		LoginService.Type result = loginService.login(id, password);
 		
 		// then
-		assertThat(result, is(LoginService.Type.NONE));
+		assertThat(result).isEqualTo(LoginService.Type.NONE);
 	}
 }
