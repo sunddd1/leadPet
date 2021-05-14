@@ -124,7 +124,7 @@ public class MemberService {
 	}
 	
 	@Transactional
-	public void updateGrade(String id) {
+	public String updateGrade(String id) {
 		logger.info("등급 업데이트");
 		
 		MemberDTO member = dao.getMember(id);
@@ -146,6 +146,8 @@ public class MemberService {
 		
 		member.setGrade(grade);
 		dao.update(member);
+		
+		return grade;
 	}
 	
 	public boolean addInterestId(String myId, String friendId) {
